@@ -1,0 +1,13 @@
+.text-editor-component-container {
+  border: 3px solid darkcyan;
+  min-width: 100px;
+}
+
+.text-editor-component-container:hover {
+  border: 3px solid cyan;
+}
+
+.text-editor-component {
+  font-size: 1rem;
+  pointer-events: none;
+}

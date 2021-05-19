@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,134 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+/* global css */
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+:root {
+  --navbar-height: 50px;
+  --sidebar-width: 275px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+nav,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.button {
+  font-family: "Quicksand", sans-serif;
+}
+
+.navbar-margin {
+  padding-top: 50px;
+}
+
+.form-input {
+  align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-input label {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.form-input label > span {
+  background-color: white;
+  font-size: 0.8rem;
+  left: 0.8rem;
+  position: absolute;
+  text-transform: capitalize;
+  transition: all 0.15s linear;
+}
+
+.form-input input {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  flex: 1 1 auto;
+  margin: 1.2rem 0;
+  min-width: 0;
+  outline: none;
+  padding: 0.7rem;
+}
+
+.form-input select {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1 1 auto;
+  outline: none;
+  padding: 0.7rem 0;
+}
+
+.form-input select + label span {
+  font-size: 0.65rem;
+  transform: translate(-8px, -21px);
+}
+
+.form-input input:focus:not(.form-input-error) {
+  border-color: dodgerblue;
+}
+
+.form-input input:focus:not(.form-input-error) + label > span {
+  color: dodgerblue;
+}
+
+.form-input input:focus + label > span,
+.form-input input.not-empty + label > span {
+  font-size: 0.65rem;
+  transform: translate(-8px, -21px);
+}
+
+.form-input input.form-input-error,
+.form-input input.form-input-error:focus {
+  border-color: red;
+}
+
+.form-input-error:focus + label > span,
+.form-input-error.not-empty + label > span {
+  color: red;
+}
+
+.form-input span.error-message {
+  bottom: 0.2rem;
+  color: red;
+  font-size: 0.7rem;
+  left: 0;
+  position: absolute;
+  text-transform: capitalize;
 }

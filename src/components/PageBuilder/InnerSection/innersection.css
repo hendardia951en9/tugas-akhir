@@ -1,0 +1,44 @@
+.inner-section-component {
+  align-items: center;
+  background-color: blanchedalmond;
+  border: 3px solid transparent;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.inner-section-component:hover {
+  border: 3px solid royalblue;
+}
+
+.inner-section-component-layout {
+  background-color: brown;
+  border: 3px solid transparent;
+  cursor: pointer;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 1rem;
+  position: relative;
+}
+
+.inner-section-component-layout:hover {
+  border: 3px solid dodgerblue;
+}
+
+.inner-section-component-layout-canDrop {
+  background-color: dimgray;
+}
+
+.inner-section-component-layout-isOver::before {
+  border: 3px dashed violet;
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -1,0 +1,9 @@
+.image-component {
+  cursor: pointer;
+  display: block;
+  position: relative;
+}
+
+.image-component img {
+  display: block;
+}

@@ -1,0 +1,141 @@
+section {
+  font-size: 4rem;
+  position: relative;
+}
+
+section p {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+}
+
+section span {
+  display: block;
+}
+
+section button {
+  font-size: 1.05rem;
+}
+
+.swiper-slide {
+  min-height: 100vh;
+}
+
+/* fade */
+section.fade h1,
+section.fade p {
+  text-align: center;
+}
+
+.swiper-container-fade img {
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.swiper-description-fade {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  min-height: 100vh;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.swiper-description-fade button {
+  pointer-events: auto;
+}
+
+/* coverflow */
+section.coverflow h5 {
+  text-align: center;
+}
+
+.swiper-container-coverflow img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.swiper-description-coverflow {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  left: 0;
+  min-height: 100vh;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.swiper-description-coverflow button {
+  margin: 0 auto;
+  pointer-events: auto;
+}
+
+/* grid */
+section.grid {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section.grid h5 {
+  text-align: center;
+}
+
+section.grid p {
+  text-align: center;
+}
+
+.grid-container {
+  background-image: url("../../../public/assets/images/home/swiper_fade_1.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 2rem;
+  padding: 3rem 2rem;
+  position: relative;
+  width: 100%;
+}
+
+.grid-container::before {
+  background-color: rgba(0, 0, 0, 0.7);
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+}
+
+.grid-item {
+  background-color: black;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.grid-item img {
+  height: 100%;
+  width: 100%;
+}

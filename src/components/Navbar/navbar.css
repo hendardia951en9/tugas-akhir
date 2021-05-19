@@ -1,0 +1,96 @@
+nav,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  font-size: 0.85rem;
+  position: fixed;
+  top: 0;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  z-index: 99;
+}
+
+nav.scrolled {
+  background-color: black;
+}
+
+nav > .nav-items {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav > .nav-items > ul {
+  align-items: center;
+  display: flex;
+}
+
+nav > .nav-items > ul > li {
+  display: inline-block;
+  position: relative;
+}
+
+nav > .nav-items > ul > li.logo img {
+  display: block;
+  height: 50px;
+  width: 50px;
+}
+
+nav > .nav-items > ul > li:not(.logo) > a {
+  margin: 0 0.5rem;
+  padding: 0.5em 1em;
+}
+
+nav > .nav-items > ul > li > a {
+  color: white;
+  display: block;
+  letter-spacing: 0.12rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+}
+
+nav > .nav-items > ul > li > a::before {
+  background-color: white;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 10%;
+  position: absolute;
+  right: 10%;
+  transform: translateY(5px);
+  transition: transform 0.3s ease-in-out;
+}
+
+nav > .nav-items > ul > li:not(.logo) > a.navbar-active::before {
+  transform: translateY(0);
+}
+
+nav > .nav-items > ul > li > ul {
+  display: none;
+  list-style: none;
+}
+
+nav > .nav-items > ul > li:hover > ul {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+}
+
+nav > .nav-items > ul > li > ul > li {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+nav > .nav-items > ul > li > ul > li > a {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+}

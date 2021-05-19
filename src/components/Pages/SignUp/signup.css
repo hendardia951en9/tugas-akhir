@@ -1,0 +1,24 @@
+.sign-up-box {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  padding: 1.2rem;
+  text-align: center;
+  width: 400px;
+}
+
+.sign-up-box form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.sign-up-box form button {
+  margin: 1rem 0;
+}
+
+p.asterisk {
+  font-size: 0.8rem;
+}
