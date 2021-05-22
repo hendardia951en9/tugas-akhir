@@ -18,7 +18,7 @@ input#innerSectionLayout::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.add-inner-section-layout {
+.form-input button.button {
   align-items: center;
   background-color: mediumblue;
   border: 1px solid lightgray;

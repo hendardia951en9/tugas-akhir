@@ -4,5 +4,7 @@ export const ItemTypes = {
   IMAGE: "Image",
   INNERSECTION: "Inner Section",
   INNERSECTION_LAYOUT: "Inner Section Layout",
+  MAP_COMPONENT: "Map Component",
   TEXT_EDITOR: "Text Editor",
+  VIDEO: "Video",
 };

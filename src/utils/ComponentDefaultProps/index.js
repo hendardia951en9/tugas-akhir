@@ -108,6 +108,20 @@ export const ComponentDefaultProps = {
     },
     text: "this is inner section layout",
   },
+  MAP_COMPONENT: {
+    location: {
+      latitude: 37.7577,
+      longitude: -122.4376,
+    },
+    style: {
+      minHeight: {
+        value: "300",
+        unit: "px",
+      },
+    },
+    text: "this is map",
+    zoom: 8,
+  },
   TEXT_EDITOR: {
     style: {
       backgroundColor: { r: 255, g: 255, b: 255, a: 1 },
@@ -123,6 +137,24 @@ export const ComponentDefaultProps = {
     },
     text: "this is text editor",
     textEditorValue: null,
-    textEditorValueHTML: "",
+  },
+  VIDEO: {
+    controls: "true",
+    loop: "false",
+    muted: "false",
+    playing: "false",
+    source: "https://www.youtube.com/watch?v=E4K0XbLtwHc",
+    style: {
+      marginBottom: { value: "0", unit: "px" },
+      marginLeft: { value: "0", unit: "px" },
+      marginRight: { value: "0", unit: "px" },
+      marginTop: { value: "0", unit: "px" },
+      paddingBottom: { value: "0", unit: "px" },
+      paddingLeft: { value: "0", unit: "px" },
+      paddingRight: { value: "0", unit: "px" },
+      paddingTop: { value: "0", unit: "px" },
+      zIndex: "auto",
+    },
+    text: "this is video",
   },
 };

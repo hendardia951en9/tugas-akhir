@@ -97,6 +97,10 @@ export const ComponentEditableProps = {
     paddingTop: PropsUnitOptions.paddingTop,
     zIndex: true,
   },
+  MAP_COMPONENT: {
+    saveLocation: true,
+    minHeight: PropsUnitOptions.minHeight,
+  },
   TEXT_EDITOR: {
     backgroundColor: true,
     marginBottom: PropsUnitOptions.marginBottom,
@@ -108,6 +112,22 @@ export const ComponentEditableProps = {
     paddingRight: PropsUnitOptions.paddingRight,
     paddingTop: PropsUnitOptions.paddingTop,
     textEditorValue: true,
+    zIndex: true,
+  },
+  VIDEO: {
+    controls: PropsUnitOptions.controls,
+    loop: PropsUnitOptions.loop,
+    marginBottom: PropsUnitOptions.marginBottom,
+    marginLeft: PropsUnitOptions.marginLeft,
+    marginRight: PropsUnitOptions.marginRight,
+    marginTop: PropsUnitOptions.marginTop,
+    muted: PropsUnitOptions.muted,
+    paddingBottom: PropsUnitOptions.paddingBottom,
+    paddingLeft: PropsUnitOptions.paddingLeft,
+    paddingRight: PropsUnitOptions.paddingRight,
+    paddingTop: PropsUnitOptions.paddingTop,
+    playing: PropsUnitOptions.playing,
+    source: true,
     zIndex: true,
   },
 };

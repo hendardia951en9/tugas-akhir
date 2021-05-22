@@ -9,6 +9,8 @@ import { PropsTypes } from "../../../utils/PropsTypes";
 //import page builder components
 import Board from "../../PageBuilder/Board";
 import EditComponent from "../../PageBuilder/EditComponent";
+import MapComponent from "../../PageBuilder/MapComponent";
+import MapComponentWidget from "../../PageBuilder/MapComponent/widget";
 import Heading from "../../PageBuilder/Heading";
 import HeadingWidget from "../../PageBuilder/Heading/widget";
 import Image from "../../PageBuilder/Image";
@@ -17,6 +19,8 @@ import InnerSection from "../../PageBuilder/InnerSection";
 import InnerSectionWidget from "../../PageBuilder/InnerSection/widget";
 import TextEditor from "../../PageBuilder/TextEditor";
 import TextEditorWidget from "../../PageBuilder/TextEditor/widget";
+import Video from "../../PageBuilder/Video";
+import VideoWidget from "../../PageBuilder/Video/widget";
 
 //css
 import "./pricing.css";
@@ -36,6 +40,10 @@ const Pricing = () => {
     selectedComponentItemTypes: null,
   });
   const [isRenderBoard, setIsRenderBoard] = useState(false);
+  const [mapState, setMapState] = useState({
+    latitude: ComponentDefaultProps.MAP_COMPONENT.latitude,
+    longitude: ComponentDefaultProps.MAP_COMPONENT.longitude,
+  });
 
   const addComponentToBoard = (itemTypes) => {
     boardState.boardComponentsKey += 1;
@@ -146,17 +154,52 @@ const Pricing = () => {
           text: ComponentDefaultProps.INNERSECTION_LAYOUT.text,
         },
       });
+    } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
+      arr.push({
+        itemTypes: ItemTypes.MAP_COMPONENT,
+        key: key,
+        props: {
+          location: ComponentDefaultProps.MAP_COMPONENT.location,
+          onClick: (e) => {
+            if (e.target === e.currentTarget) {
+              handleClick(ItemTypes.MAP_COMPONENT, key);
+            }
+          },
+          style: ComponentDefaultProps.MAP_COMPONENT.style,
+          text: ComponentDefaultProps.MAP_COMPONENT.text,
+          zoom: ComponentDefaultProps.MAP_COMPONENT.zoom,
+        },
+      });
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
       arr.push({
         itemTypes: ItemTypes.TEXT_EDITOR,
         key: key,
         props: {
-          onClick: (e) => {
+          onClick: () => {
             handleClick(ItemTypes.TEXT_EDITOR, key);
           },
           style: ComponentDefaultProps.TEXT_EDITOR.style,
           text: ComponentDefaultProps.TEXT_EDITOR.text,
           textEditorValue: ComponentDefaultProps.TEXT_EDITOR.textEditorValue,
+        },
+      });
+    } else if (itemTypes === ItemTypes.VIDEO) {
+      arr.push({
+        itemTypes: ItemTypes.VIDEO,
+        key: key,
+        props: {
+          controls: ComponentDefaultProps.VIDEO.controls,
+          loop: ComponentDefaultProps.VIDEO.loop,
+          muted: ComponentDefaultProps.VIDEO.muted,
+          onClick: (e) => {
+            if (e.target === e.currentTarget) {
+              handleClick(ItemTypes.VIDEO, key);
+            }
+          },
+          playing: ComponentDefaultProps.VIDEO.playing,
+          source: ComponentDefaultProps.VIDEO.source,
+          style: ComponentDefaultProps.VIDEO.style,
+          text: ComponentDefaultProps.VIDEO.text,
         },
       });
     }
@@ -445,6 +488,14 @@ const Pricing = () => {
           },
         },
       };
+    } else if (propsTypes === PropsTypes.CONTROLS) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          controls: value,
+        },
+      };
     } else if (propsTypes === PropsTypes.FONT_SIZE) {
       component = {
         ...component,
@@ -573,6 +624,26 @@ const Pricing = () => {
           linkTo: value,
         },
       };
+    } else if (propsTypes === PropsTypes.LOCATION) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          location: {
+            ...component.props.location,
+            latitude: mapState.latitude,
+            longitude: mapState.longitude,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.LOOP) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          loop: value,
+        },
+      };
     } else if (propsTypes === PropsTypes.MARGIN_BOTTOM) {
       component = {
         ...component,
@@ -657,6 +728,14 @@ const Pricing = () => {
           },
         },
       };
+    } else if (propsTypes === PropsTypes.MUTED) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          muted: value,
+        },
+      };
     } else if (propsTypes === PropsTypes.OPACITY) {
       component = {
         ...component,
@@ -733,6 +812,22 @@ const Pricing = () => {
               [target]: value,
             },
           },
+        },
+      };
+    } else if (propsTypes === PropsTypes.PLAYING) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          playing: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.SOURCE) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          source: value,
         },
       };
     } else if (propsTypes === PropsTypes.TEXT) {
@@ -812,6 +907,10 @@ const Pricing = () => {
     }
 
     return component;
+  };
+
+  const changeMapState = (newLatitude, newLongitude) => {
+    setMapState({ latitude: newLatitude, longitude: newLongitude });
   };
 
   const editComponentProps = (propsTypes, target, value) => {
@@ -972,7 +1071,21 @@ const Pricing = () => {
         isEdit: true,
         selectedComponentItemTypes: itemTypes,
       });
+    } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.VIDEO) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
@@ -993,6 +1106,10 @@ const Pricing = () => {
       return <Image key={component.key} props={component.props} />;
     } else if (component.itemTypes === ItemTypes.TEXT_EDITOR) {
       return <TextEditor key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
+      return <MapComponent key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.VIDEO) {
+      return <Video key={component.key} props={component.props} />;
     }
   };
 
@@ -1039,11 +1156,29 @@ const Pricing = () => {
           }}
         />
       );
+    } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.MAP_COMPONENT,
+            componentProps: component.props,
+          }}
+        />
+      );
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
       return (
         <EditComponent
           props={{
             componentEditableProps: ComponentEditableProps.TEXT_EDITOR,
+            componentProps: component.props,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.VIDEO) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.VIDEO,
             componentProps: component.props,
           }}
         />
@@ -1071,6 +1206,7 @@ const Pricing = () => {
           boardState,
           addComponentToBoard,
           addComponentToInnerSectionLayout,
+          changeMapState,
           editComponentProps,
           renderComponent,
         }}
@@ -1097,10 +1233,12 @@ const Pricing = () => {
                 ) : (
                   <>
                     <div className="widgets">
+                      <MapComponentWidget />
                       <HeadingWidget />
                       <InnerSectionWidget />
                       <ImageWidget />
                       <TextEditorWidget />
+                      <VideoWidget />
                     </div>
                   </>
                 )}

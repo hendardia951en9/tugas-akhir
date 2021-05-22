@@ -4,7 +4,7 @@ import { convertFromRaw, EditorState } from "draft-js";
 import { generateStyle } from "../../../utils/generateStyle";
 
 //css
-import "./textEditor.css";
+import "./texteditor.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const TextEditor = ({ props }) => {

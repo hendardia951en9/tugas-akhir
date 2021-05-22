@@ -12,10 +12,12 @@ const Board = () => {
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
       accept: [
+        ItemTypes.MAP_COMPONENT,
         ItemTypes.HEADING,
         ItemTypes.IMAGE,
         ItemTypes.INNERSECTION,
         ItemTypes.TEXT_EDITOR,
+        ItemTypes.VIDEO,
       ],
       drop: (item, monitor) => {
         if (monitor.getClientOffset() != null) {

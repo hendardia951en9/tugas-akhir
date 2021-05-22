@@ -12,7 +12,13 @@ const Layout = ({ id, props }) => {
 
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
-      accept: [ItemTypes.HEADING, ItemTypes.IMAGE, ItemTypes.TEXT_EDITOR],
+      accept: [
+        ItemTypes.MAP_COMPONENT,
+        ItemTypes.HEADING,
+        ItemTypes.IMAGE,
+        ItemTypes.TEXT_EDITOR,
+        ItemTypes.VIDEO,
+      ],
       drop: (item, monitor) => {
         console.log("add to inner");
         if (monitor.getClientOffset() != null) {

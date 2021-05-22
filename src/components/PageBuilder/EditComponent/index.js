@@ -64,12 +64,8 @@ const EditComponent = ({ props }) => {
   const [boxShadowXUnit, setBoxShadowXUnit] = useState("px");
   const [boxShadowYValue, setBoxShadowYValue] = useState(0);
   const [boxShadowYUnit, setBoxShadowYUnit] = useState("px");
-  const [color, setColor] = useState({
-    r: 0,
-    g: 0,
-    b: 0,
-    a: 1,
-  });
+  const [color, setColor] = useState({ r: 0, g: 0, b: 0, a: 1 });
+  const [controls, setControls] = useState(false);
   const [fontSizeValue, setFontSizeValue] = useState(0);
   const [fontSizeUnit, setFontSizeUnit] = useState("px");
   const [fontWeight, setFontWeight] = useState("normal");
@@ -85,6 +81,7 @@ const EditComponent = ({ props }) => {
   const [lineHeightValue, setLineHeightValue] = useState(0);
   const [lineHeightUnit, setLineHeightUnit] = useState("normal");
   const [linkTo, setLinkTo] = useState("");
+  const [loop, setLoop] = useState(false);
   const [marginBottomValue, setMarginBottomValue] = useState(0);
   const [marginBottomUnit, setMarginBottomUnit] = useState("px");
   const [marginLeftValue, setMarginLeftValue] = useState(0);
@@ -97,6 +94,7 @@ const EditComponent = ({ props }) => {
   const [maxWidthUnit, setMaxWidthUnit] = useState("auto");
   const [minHeightValue, setMinHeightValue] = useState(0);
   const [minHeightUnit, setMinHeightUnit] = useState("auto");
+  const [muted, setMuted] = useState(false);
   const [opacity, setOpacity] = useState(1);
   const [overflow, setOverflow] = useState("visible");
   const [paddingBottomValue, setPaddingBottomValue] = useState(0);
@@ -107,6 +105,8 @@ const EditComponent = ({ props }) => {
   const [paddingRightUnit, setPaddingRightUnit] = useState("px");
   const [paddingTopValue, setPaddingTopValue] = useState(0);
   const [paddingTopUnit, setPaddingTopUnit] = useState("px");
+  const [playing, setPlaying] = useState(false);
+  const [source, setSource] = useState(false);
   const [text, setText] = useState("");
   const [textAlign, setTextAlign] = useState("left");
   const [textDecoration, setTextDecoration] = useState("none");
@@ -142,6 +142,7 @@ const EditComponent = ({ props }) => {
     if (pageBuilderContext.boardState.getComponentData) {
       setIsColorPickerBackgroundColorOpen(false);
       pageBuilderContext.boardState.getComponentData = false;
+
       if (props.componentEditableProps.alignItems) {
         setAlignItems(props.componentProps.style.alignItems);
       }
@@ -266,6 +267,9 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.color) {
         setColor(props.componentProps.style.color);
       }
+      if (props.componentEditableProps.controls) {
+        setControls(props.componentProps.controls);
+      }
       if (props.componentEditableProps.fontSize) {
         setFontSizeValue(props.componentProps.style.fontSize.value);
         setFontSizeUnit(props.componentProps.style.fontSize.unit);
@@ -302,6 +306,9 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.linkTo) {
         setLinkTo(props.componentProps.linkTo);
       }
+      if (props.componentEditableProps.loop) {
+        setLoop(props.componentProps.loop);
+      }
       if (props.componentEditableProps.marginBottom) {
         setMarginBottomValue(props.componentProps.style.marginBottom.value);
         setMarginBottomUnit(props.componentProps.style.marginBottom.unit);
@@ -326,6 +333,9 @@ const EditComponent = ({ props }) => {
         setMinHeightValue(props.componentProps.style.minHeight.value);
         setMinHeightUnit(props.componentProps.style.minHeight.unit);
       }
+      if (props.componentEditableProps.muted) {
+        setMuted(props.componentProps.muted);
+      }
       if (props.componentEditableProps.opacity) {
         setOpacity(props.componentProps.style.opacity);
       }
@@ -347,6 +357,12 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.paddingTop) {
         setPaddingTopValue(props.componentProps.style.paddingTop.value);
         setPaddingTopUnit(props.componentProps.style.paddingTop.unit);
+      }
+      if (props.componentEditableProps.playing) {
+        setPlaying(props.componentProps.playing);
+      }
+      if (props.componentEditableProps.source) {
+        setSource(props.componentProps.source);
       }
       if (props.componentEditableProps.text) {
         setText(props.componentProps.text);
@@ -474,7 +490,7 @@ const EditComponent = ({ props }) => {
         <div className="form-input">
           <input
             id="backgroundImage"
-            name="text"
+            name="backgroundImage"
             onChange={(e) => {
               setBackgroundImage(e.target.value);
               pageBuilderContext.editComponentProps(
@@ -1180,6 +1196,35 @@ const EditComponent = ({ props }) => {
           </select>
         </div>
       )}
+      {/* controls */}
+      {props.componentEditableProps.controls && (
+        <div className="form-input">
+          <select
+            id="controls"
+            name="controls"
+            onChange={(e) => {
+              setControls(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.CONTROLS,
+                "",
+                e.target.value
+              );
+            }}
+            value={controls}
+          >
+            {props.componentEditableProps.controls.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="controls">
+            <span>{PropsTypes.CONTROLS}</span>
+          </label>
+        </div>
+      )}
       {/* color */}
       {props.componentEditableProps.color && (
         <div className="color-picker-input">
@@ -1420,10 +1465,7 @@ const EditComponent = ({ props }) => {
           <label htmlFor="innerSectionLayout">
             <span>{PropsTypes.INNER_SECTION_LAYOUT}</span>
           </label>
-          <button
-            className="add-inner-section-layout"
-            onClick={handleClickInnerSectionLayout}
-          >
+          <button className="button" onClick={handleClickInnerSectionLayout}>
             add
             <FontAwesomeIcon icon={faColumns} />
           </button>
@@ -1565,6 +1607,35 @@ const EditComponent = ({ props }) => {
           />
           <label htmlFor="linkTo">
             <span>{PropsTypes.LINK_TO}</span>
+          </label>
+        </div>
+      )}
+      {/* loop */}
+      {props.componentEditableProps.loop && (
+        <div className="form-input">
+          <select
+            id="loop"
+            name="loop"
+            onChange={(e) => {
+              setLoop(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.LOOP,
+                "",
+                e.target.value
+              );
+            }}
+            value={loop}
+          >
+            {props.componentEditableProps.loop.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="loop">
+            <span>{PropsTypes.LOOP}</span>
           </label>
         </div>
       )}
@@ -1832,6 +1903,35 @@ const EditComponent = ({ props }) => {
           </select>
         </div>
       )}
+      {/* muted */}
+      {props.componentEditableProps.muted && (
+        <div className="form-input">
+          <select
+            id="muted"
+            name="muted"
+            onChange={(e) => {
+              setMuted(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.MUTED,
+                "",
+                e.target.value
+              );
+            }}
+            value={muted}
+          >
+            {props.componentEditableProps.muted.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="muted">
+            <span>{PropsTypes.MUTED}</span>
+          </label>
+        </div>
+      )}
       {/* opacity */}
       {props.componentEditableProps.opacity && (
         <div className="form-input">
@@ -2060,6 +2160,74 @@ const EditComponent = ({ props }) => {
               );
             })}
           </select>
+        </div>
+      )}
+      {/* playing */}
+      {props.componentEditableProps.playing && (
+        <div className="form-input">
+          <select
+            id="playing"
+            name="playing"
+            onChange={(e) => {
+              setPlaying(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.PLAYING,
+                "",
+                e.target.value
+              );
+            }}
+            value={playing}
+          >
+            {props.componentEditableProps.playing.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="playing">
+            <span>{PropsTypes.PLAYING}</span>
+          </label>
+        </div>
+      )}
+      {/* save location */}
+      {props.componentEditableProps.saveLocation && (
+        <div className="form-input">
+          <button
+            className="button"
+            onClick={() => {
+              pageBuilderContext.editComponentProps(
+                PropsTypes.LOCATION,
+                "",
+                null
+              );
+            }}
+          >
+            save location
+          </button>
+        </div>
+      )}
+      {/* source */}
+      {props.componentEditableProps.source && (
+        <div className="form-input">
+          <input
+            id="source"
+            name="source"
+            onChange={(e) => {
+              setSource(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SOURCE,
+                "value",
+                e.target.value || ""
+              );
+            }}
+            type="text"
+            value={source}
+          />
+          <label htmlFor="source">
+            <span>{PropsTypes.SOURCE}</span>
+          </label>
         </div>
       )}
       {/* text */}
