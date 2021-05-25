@@ -1,0 +1,8 @@
+.spacer-component {
+  border: 3px solid transparent;
+  width: 100%;
+}
+
+.spacer-component:hover {
+  border: 3px solid darkslateblue;
+}

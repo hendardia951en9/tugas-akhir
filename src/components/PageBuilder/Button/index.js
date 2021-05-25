@@ -2,11 +2,11 @@ import React from "react";
 import { generateStyle } from "../../../utils/generateStyle";
 
 //css
-import "./image.css";
+import "./button.css";
 
-const Image = ({ props }) => {
-  const editStyle = (style, imageAlignment) => {
-    if (imageAlignment === "center") {
+const Button = ({ props }) => {
+  const editStyle = (style, buttonAlignment) => {
+    if (buttonAlignment === "center") {
       style = {
         ...style,
         marginLeft: {
@@ -21,7 +21,7 @@ const Image = ({ props }) => {
           unit: "auto",
         },
       };
-    } else if (imageAlignment === "left") {
+    } else if (buttonAlignment === "left") {
       style = {
         ...style,
         marginRight: {
@@ -29,7 +29,7 @@ const Image = ({ props }) => {
           unit: "auto",
         },
       };
-    } else if (imageAlignment === "right") {
+    } else if (buttonAlignment === "right") {
       style = {
         ...style,
         marginLeft: {
@@ -42,23 +42,15 @@ const Image = ({ props }) => {
     return style;
   };
 
-  const getBackgroundImageUrl = (url) => {
-    return url.substring(5, url.lastIndexOf("'"));
-  };
-
   return (
-    <div
-      className="image-component"
+    <button
+      className="button-component"
       onClick={props.onClick}
-      style={generateStyle(editStyle(props.style, props.imageAlignment))}
+      style={generateStyle(editStyle(props.style, props.buttonAlignment))}
     >
-      <img
-        src={getBackgroundImageUrl(props.style.backgroundImage)}
-        style={{ visibility: "hidden" }}
-        alt=""
-      />
-    </div>
+      {props.text}
+    </button>
   );
 };
 
-export default Image;
+export default Button;

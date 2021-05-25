@@ -1,0 +1,5 @@
+.button-component {
+  cursor: pointer;
+  display: block;
+  position: relative;
+}

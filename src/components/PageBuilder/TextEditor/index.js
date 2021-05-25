@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
 import { convertFromRaw, EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
 import { generateStyle } from "../../../utils/generateStyle";
 
 //css
@@ -20,7 +20,6 @@ const TextEditor = ({ props }) => {
         EditorState.createWithContent(convertFromRaw(props.textEditorValue))
       );
     }
-    console.log("useeffect");
   }, [props.textEditorValue]);
 
   return (
@@ -29,13 +28,17 @@ const TextEditor = ({ props }) => {
       onClick={props.onClick}
       style={generateStyle(props.style)}
     >
-      <Editor
-        editorState={textEditorValue}
-        toolbarClassName="text-editor-component-toolbar"
-        wrapperClassName="text-editor-component-wrapper"
-        editorClassName="text-editor-component"
-        toolbarHidden
-      />
+      {textEditorValue ? (
+        <Editor
+          editorState={textEditorValue}
+          toolbarClassName="text-editor-component-toolbar"
+          wrapperClassName="text-editor-component-wrapper"
+          editorClassName="text-editor-component"
+          toolbarHidden
+        />
+      ) : (
+        props.text
+      )}
     </section>
   );
 };

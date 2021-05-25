@@ -9,14 +9,22 @@ import { PropsTypes } from "../../../utils/PropsTypes";
 //import page builder components
 import Board from "../../PageBuilder/Board";
 import EditComponent from "../../PageBuilder/EditComponent";
-import MapComponent from "../../PageBuilder/MapComponent";
-import MapComponentWidget from "../../PageBuilder/MapComponent/widget";
+import Button from "../../PageBuilder/Button";
+import ButtonWidget from "../../PageBuilder/Button/widget";
+import Divider from "../../PageBuilder/Divider";
+import DividerWidget from "../../PageBuilder/Divider/widget";
 import Heading from "../../PageBuilder/Heading";
 import HeadingWidget from "../../PageBuilder/Heading/widget";
 import Image from "../../PageBuilder/Image";
 import ImageWidget from "../../PageBuilder/Image/widget";
 import InnerSection from "../../PageBuilder/InnerSection";
 import InnerSectionWidget from "../../PageBuilder/InnerSection/widget";
+import MapComponent from "../../PageBuilder/MapComponent";
+import MapComponentWidget from "../../PageBuilder/MapComponent/widget";
+import Spacer from "../../PageBuilder/Spacer";
+import SpacerWidget from "../../PageBuilder/Spacer/widget";
+import StarRating from "../../PageBuilder/StarRating";
+import StarRatingWidget from "../../PageBuilder/StarRating/widget";
 import TextEditor from "../../PageBuilder/TextEditor";
 import TextEditorWidget from "../../PageBuilder/TextEditor/widget";
 import Video from "../../PageBuilder/Video";
@@ -65,7 +73,41 @@ const Pricing = () => {
   };
 
   const addItems = (arr, itemTypes, key) => {
-    if (itemTypes === ItemTypes.HEADING) {
+    if (itemTypes === ItemTypes.BUTTON) {
+      arr.push({
+        itemTypes: ItemTypes.BUTTON,
+        key: key,
+        props: {
+          onClick: (e) => {
+            if (e.target === e.currentTarget) {
+              handleClick(ItemTypes.BUTTON, key);
+            }
+          },
+          buttonAlignment: ComponentDefaultProps.BUTTON.buttonAlignment,
+          linkTo: ComponentDefaultProps.BUTTON.linkTo,
+          style: ComponentDefaultProps.BUTTON.style,
+          text: ComponentDefaultProps.BUTTON.text,
+        },
+      });
+    } else if (itemTypes === ItemTypes.DIVIDER) {
+      arr.push({
+        itemTypes: ItemTypes.DIVIDER,
+        key: key,
+        props: {
+          onClick: (e) => {
+            if (e.target === e.currentTarget) {
+              handleClick(ItemTypes.DIVIDER, key);
+            }
+          },
+          dividerStyle: ComponentDefaultProps.DIVIDER.dividerStyle,
+          dividerText: ComponentDefaultProps.DIVIDER.dividerText,
+          dividerTextContainerStyle:
+            ComponentDefaultProps.DIVIDER.dividerTextContainerStyle,
+          dividerTextStyle: ComponentDefaultProps.DIVIDER.dividerTextStyle,
+          text: ComponentDefaultProps.DIVIDER.text,
+        },
+      });
+    } else if (itemTypes === ItemTypes.HEADING) {
       arr.push({
         itemTypes: ItemTypes.HEADING,
         key: key,
@@ -159,15 +201,45 @@ const Pricing = () => {
         itemTypes: ItemTypes.MAP_COMPONENT,
         key: key,
         props: {
-          location: ComponentDefaultProps.MAP_COMPONENT.location,
           onClick: (e) => {
             if (e.target === e.currentTarget) {
               handleClick(ItemTypes.MAP_COMPONENT, key);
             }
           },
+          location: ComponentDefaultProps.MAP_COMPONENT.location,
           style: ComponentDefaultProps.MAP_COMPONENT.style,
           text: ComponentDefaultProps.MAP_COMPONENT.text,
           zoom: ComponentDefaultProps.MAP_COMPONENT.zoom,
+        },
+      });
+    } else if (itemTypes === ItemTypes.SPACER) {
+      arr.push({
+        itemTypes: ItemTypes.SPACER,
+        key: key,
+        props: {
+          onClick: (e) => {
+            if (e.target === e.currentTarget) {
+              handleClick(ItemTypes.SPACER, key);
+            }
+          },
+          style: ComponentDefaultProps.SPACER.style,
+          text: ComponentDefaultProps.SPACER.text,
+        },
+      });
+    } else if (itemTypes === ItemTypes.STAR_RATING) {
+      arr.push({
+        itemTypes: ItemTypes.STAR_RATING,
+        key: key,
+        props: {
+          onClick: (e) => {
+            if (e.target === e.currentTarget) {
+              handleClick(ItemTypes.STAR_RATING, key);
+            }
+          },
+          starRatingCap: ComponentDefaultProps.STAR_RATING.starRatingCap,
+          starRatingValue: ComponentDefaultProps.STAR_RATING.starRatingValue,
+          style: ComponentDefaultProps.STAR_RATING.style,
+          text: ComponentDefaultProps.STAR_RATING.text,
         },
       });
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
@@ -188,14 +260,14 @@ const Pricing = () => {
         itemTypes: ItemTypes.VIDEO,
         key: key,
         props: {
-          controls: ComponentDefaultProps.VIDEO.controls,
-          loop: ComponentDefaultProps.VIDEO.loop,
-          muted: ComponentDefaultProps.VIDEO.muted,
           onClick: (e) => {
             if (e.target === e.currentTarget) {
               handleClick(ItemTypes.VIDEO, key);
             }
           },
+          controls: ComponentDefaultProps.VIDEO.controls,
+          loop: ComponentDefaultProps.VIDEO.loop,
+          muted: ComponentDefaultProps.VIDEO.muted,
           playing: ComponentDefaultProps.VIDEO.playing,
           source: ComponentDefaultProps.VIDEO.source,
           style: ComponentDefaultProps.VIDEO.style,
@@ -207,27 +279,53 @@ const Pricing = () => {
 
   const changeComponentProps = (component, propsTypes, target, value) => {
     if (propsTypes === PropsTypes.ALIGN_ITEMS) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            alignItems: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextContainerStyle: {
+              ...component.props.dividerTextContainerStyle,
+              alignItems: value,
+            },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              alignItems: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.BACKGROUND_COLOR) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            backgroundColor: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextStyle: {
+              ...component.props.dividerTextStyle,
+              backgroundColor: value,
+            },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              backgroundColor: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.BACKGROUND_IMAGE) {
       component = {
         ...component,
@@ -314,6 +412,33 @@ const Pricing = () => {
           },
         },
       };
+    } else if (propsTypes === PropsTypes.BORDER_COLOR) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              borderProps: {
+                ...component.props.dividerStyle.borderProps,
+                borderColor: value,
+              },
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              borderColor: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.BORDER_LEFT_WIDTH) {
       component = {
         ...component,
@@ -343,16 +468,32 @@ const Pricing = () => {
         },
       };
     } else if (propsTypes === PropsTypes.BORDER_STYLE) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            borderStyle: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              borderProps: {
+                ...component.props.dividerStyle.borderProps,
+                borderStyle: value,
+              },
+            },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              borderStyle: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.BORDER_TOP_LEFT_RADIUS) {
       component = {
         ...component,
@@ -395,6 +536,23 @@ const Pricing = () => {
           },
         },
       };
+    } else if (propsTypes === PropsTypes.BORDER_WEIGHT) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          dividerStyle: {
+            ...component.props.dividerStyle,
+            borderProps: {
+              ...component.props.dividerStyle.borderProps,
+              borderWeight: {
+                ...component.props.dividerStyle.borderProps.borderWeight,
+                [target]: value,
+              },
+            },
+          },
+        },
+      };
     } else if (propsTypes === PropsTypes.BOX_SHADOW_BLUR) {
       component = {
         ...component,
@@ -408,6 +566,20 @@ const Pricing = () => {
                 ...component.props.style.boxShadowProps.boxShadowBlur,
                 [target]: value,
               },
+            },
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.BOX_SHADOW_COLOR) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          style: {
+            ...component.props.style,
+            boxShadowProps: {
+              ...component.props.style.boxShadowProps,
+              boxShadowColor: value,
             },
           },
         },
@@ -477,17 +649,38 @@ const Pricing = () => {
           },
         },
       };
-    } else if (propsTypes === PropsTypes.COLOR) {
+    } else if (propsTypes === PropsTypes.BUTTON_ALIGNMENT) {
       component = {
         ...component,
         props: {
           ...component.props,
-          style: {
-            ...component.props.style,
-            color: value,
-          },
+          buttonAlignment: value,
         },
       };
+    } else if (propsTypes === PropsTypes.COLOR) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextContainerStyle: {
+              ...component.props.dividerTextContainerStyle,
+              color: value,
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              color: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.CONTROLS) {
       component = {
         ...component,
@@ -496,20 +689,44 @@ const Pricing = () => {
           controls: value,
         },
       };
-    } else if (propsTypes === PropsTypes.FONT_SIZE) {
+    } else if (propsTypes === PropsTypes.DIVIDER_TEXT) {
       component = {
         ...component,
         props: {
           ...component.props,
-          style: {
-            ...component.props.style,
-            fontSize: {
-              ...component.props.style.fontSize,
-              [target]: value,
-            },
-          },
+          dividerText: value,
         },
       };
+    } else if (propsTypes === PropsTypes.FONT_SIZE) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextContainerStyle: {
+              ...component.props.dividerTextContainerStyle,
+              fontSize: {
+                ...component.props.dividerTextContainerStyle.fontSize,
+                [target]: value,
+              },
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              fontSize: {
+                ...component.props.style.fontSize,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.FONT_WEIGHT) {
       component = {
         ...component,
@@ -578,16 +795,29 @@ const Pricing = () => {
         });
       }
     } else if (propsTypes === PropsTypes.JUSTIFY_CONTENT) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            justifyContent: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextContainerStyle: {
+              ...component.props.dividerTextContainerStyle,
+              justifyContent: value,
+            },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              justifyContent: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.LETTER_SPACING) {
       component = {
         ...component,
@@ -645,61 +875,125 @@ const Pricing = () => {
         },
       };
     } else if (propsTypes === PropsTypes.MARGIN_BOTTOM) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            marginBottom: {
-              ...component.props.style.marginBottom,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              marginBottom: {
+                ...component.props.dividerStyle.marginBottom,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              marginBottom: {
+                ...component.props.style.marginBottom,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.MARGIN_LEFT) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            marginLeft: {
-              ...component.props.style.marginLeft,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              marginLeft: {
+                ...component.props.dividerStyle.marginLeft,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              marginLeft: {
+                ...component.props.style.marginLeft,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.MARGIN_RIGHT) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            marginRight: {
-              ...component.props.style.marginRight,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              marginRight: {
+                ...component.props.dividerStyle.marginRight,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              marginRight: {
+                ...component.props.style.marginRight,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.MARGIN_TOP) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            marginTop: {
-              ...component.props.style.marginTop,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              marginTop: {
+                ...component.props.dividerStyle.marginTop,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              marginTop: {
+                ...component.props.style.marginTop,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.MAX_WIDTH) {
       component = {
         ...component,
@@ -759,61 +1053,125 @@ const Pricing = () => {
         },
       };
     } else if (propsTypes === PropsTypes.PADDING_BOTTOM) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            paddingBottom: {
-              ...component.props.style.paddingBottom,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              paddingBottom: {
+                ...component.props.dividerStyle.paddingBottom,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              paddingBottom: {
+                ...component.props.style.paddingBottom,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.PADDING_LEFT) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            paddingLeft: {
-              ...component.props.style.paddingLeft,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              paddingLeft: {
+                ...component.props.dividerStyle.paddingLeft,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              paddingLeft: {
+                ...component.props.style.paddingLeft,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.PADDING_RIGHT) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            paddingRight: {
-              ...component.props.style.paddingRight,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              paddingRight: {
+                ...component.props.dividerStyle.paddingRight,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              paddingRight: {
+                ...component.props.style.paddingRight,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.PADDING_TOP) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            paddingTop: {
-              ...component.props.style.paddingTop,
-              [target]: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              paddingTop: {
+                ...component.props.dividerStyle.paddingTop,
+                [target]: value,
+              },
             },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              paddingTop: {
+                ...component.props.style.paddingTop,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.PLAYING) {
       component = {
         ...component,
@@ -828,6 +1186,22 @@ const Pricing = () => {
         props: {
           ...component.props,
           source: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.STAR_RATING_CAP) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          starRatingCap: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.STAR_RATING_VALUE) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          starRatingValue: value,
         },
       };
     } else if (propsTypes === PropsTypes.TEXT) {
@@ -1039,9 +1413,23 @@ const Pricing = () => {
   };
 
   const handleClick = (itemTypes, key) => {
-    if (itemTypes === ItemTypes.COMPONENT_LIST_BUTTON) {
+    if (itemTypes === ItemTypes.BUTTON) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.COMPONENT_LIST_BUTTON) {
       setEditComponent({
         isEdit: false,
+      });
+    } else if (itemTypes === ItemTypes.DIVIDER) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.HEADING) {
       boardState.selectedComponentKey = key;
@@ -1078,6 +1466,20 @@ const Pricing = () => {
         isEdit: true,
         selectedComponentItemTypes: itemTypes,
       });
+    } else if (itemTypes === ItemTypes.SPACER) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.STAR_RATING) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
@@ -1098,16 +1500,24 @@ const Pricing = () => {
   const handlePublish = () => {};
 
   const renderComponent = (component) => {
-    if (component.itemTypes === ItemTypes.HEADING) {
+    if (component.itemTypes === ItemTypes.BUTTON) {
+      return <Button key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.DIVIDER) {
+      return <Divider key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.HEADING) {
       return <Heading key={component.key} props={component.props} />;
     } else if (component.itemTypes === ItemTypes.INNERSECTION) {
       return <InnerSection key={component.key} props={component.props} />;
     } else if (component.itemTypes === ItemTypes.IMAGE) {
       return <Image key={component.key} props={component.props} />;
-    } else if (component.itemTypes === ItemTypes.TEXT_EDITOR) {
-      return <TextEditor key={component.key} props={component.props} />;
     } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
       return <MapComponent key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.SPACER) {
+      return <Spacer key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.STAR_RATING) {
+      return <StarRating key={component.key} props={component.props} />;
+    } else if (component.itemTypes === ItemTypes.TEXT_EDITOR) {
+      return <TextEditor key={component.key} props={component.props} />;
     } else if (component.itemTypes === ItemTypes.VIDEO) {
       return <Video key={component.key} props={component.props} />;
     }
@@ -1120,12 +1530,32 @@ const Pricing = () => {
     );
     const itemTypes = component.itemTypes;
 
-    if (itemTypes === ItemTypes.HEADING) {
+    if (itemTypes === ItemTypes.BUTTON) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.BUTTON,
+            componentProps: component.props,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.DIVIDER) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.DIVIDER,
+            componentProps: component.props,
+            itemTypes: itemTypes,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.HEADING) {
       return (
         <EditComponent
           props={{
             componentEditableProps: ComponentEditableProps.HEADING,
             componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1135,6 +1565,7 @@ const Pricing = () => {
           props={{
             componentEditableProps: ComponentEditableProps.IMAGE,
             componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1144,6 +1575,7 @@ const Pricing = () => {
           props={{
             componentEditableProps: ComponentEditableProps.INNERSECTION,
             componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1153,6 +1585,7 @@ const Pricing = () => {
           props={{
             componentEditableProps: ComponentEditableProps.INNERSECTION_LAYOUT,
             componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1162,6 +1595,27 @@ const Pricing = () => {
           props={{
             componentEditableProps: ComponentEditableProps.MAP_COMPONENT,
             componentProps: component.props,
+            itemTypes: itemTypes,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.SPACER) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.SPACER,
+            componentProps: component.props,
+            itemTypes: itemTypes,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.STAR_RATING) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.STAR_RATING,
+            componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1171,6 +1625,7 @@ const Pricing = () => {
           props={{
             componentEditableProps: ComponentEditableProps.TEXT_EDITOR,
             componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1180,6 +1635,7 @@ const Pricing = () => {
           props={{
             componentEditableProps: ComponentEditableProps.VIDEO,
             componentProps: component.props,
+            itemTypes: itemTypes,
           }}
         />
       );
@@ -1233,10 +1689,14 @@ const Pricing = () => {
                 ) : (
                   <>
                     <div className="widgets">
-                      <MapComponentWidget />
+                      <ButtonWidget />
+                      <DividerWidget />
                       <HeadingWidget />
                       <InnerSectionWidget />
                       <ImageWidget />
+                      <MapComponentWidget />
+                      <SpacerWidget />
+                      <StarRatingWidget />
                       <TextEditorWidget />
                       <VideoWidget />
                     </div>

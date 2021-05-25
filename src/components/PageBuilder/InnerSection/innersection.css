@@ -30,7 +30,7 @@
 }
 
 .inner-section-component-layout-canDrop {
-  background-color: dimgray;
+  background-color: dimgray !important;
 }
 
 .inner-section-component-layout-isOver::before {

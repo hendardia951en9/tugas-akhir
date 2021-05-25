@@ -13,6 +13,26 @@ export const generateStyle = (style) => {
             ...result,
             backgroundColor: `rgba(${style[index].r}, ${style[index].g}, ${style[index].b}, ${style[index].a})`,
           };
+        } else if (index === "borderColor") {
+          result = {
+            ...result,
+            borderColor: `rgba(${style[index].r}, ${style[index].g}, ${style[index].b}, ${style[index].a})`,
+          };
+        } else if (index === "borderProps") {
+          let border = "";
+
+          border +=
+            style[index].borderWeight.value +
+            style[index].borderWeight.unit +
+            " " +
+            style[index].borderStyle +
+            " " +
+            `rgba(${style[index].borderColor.r}, ${style[index].borderColor.g}, ${style[index].borderColor.b}, ${style[index].borderColor.a})`;
+
+          result = {
+            ...result,
+            border: border,
+          };
         } else if (index === "color") {
           result = {
             ...result,
@@ -33,7 +53,9 @@ export const generateStyle = (style) => {
             " " +
             style[index].boxShadowSpread.value +
             style[index].boxShadowSpread.unit;
-          boxShadow += " " + style[index].boxShadowColor;
+          boxShadow +=
+            " " +
+            `rgba(${style[index].boxShadowColor.r}, ${style[index].boxShadowColor.g}, ${style[index].boxShadowColor.b}, ${style[index].boxShadowColor.a})`;
           boxShadow += " " + style[index].boxShadowInset;
 
           result = { ...result, boxShadow: boxShadow };

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 import { PageBuilderContext } from "../../Pages/Pricing";
 import { Editor } from "react-draft-wysiwyg";
@@ -20,6 +21,10 @@ const EditComponent = ({ props }) => {
     isColorPickerBackgroundColorOpen,
     setIsColorPickerBackgroundColorOpen,
   ] = useState(false);
+  const [isColorPickerBorderColorOpen, setIsColorPickerBorderColorOpen] =
+    useState(false);
+  const [isColorPickerBoxShadowColorOpen, setIsColorPickerBoxShadowColorOpen] =
+    useState(false);
   const [isColorPickerColorOpen, setIsColorPickerColorOpen] = useState(false);
 
   const [alignItems, setAlignItems] = useState("stretch");
@@ -43,6 +48,7 @@ const EditComponent = ({ props }) => {
     useState("px");
   const [borderBottomWidthValue, setBorderBottomWidthValue] = useState(0);
   const [borderBottomWidthUnit, setBorderBottomWidthUnit] = useState("px");
+  const [borderColor, setBorderColor] = useState({ r: 0, g: 0, b: 0, a: 1 });
   const [borderLeftWidthValue, setBorderLeftWidthValue] = useState(0);
   const [borderLeftWidthUnit, setBorderLeftWidthUnit] = useState("px");
   const [borderRightWidthValue, setBorderRightWidthValue] = useState(0);
@@ -55,8 +61,16 @@ const EditComponent = ({ props }) => {
     useState("px");
   const [borderTopWidthValue, setBorderTopWidthValue] = useState(0);
   const [borderTopWidthUnit, setBorderTopWidthUnit] = useState("px");
+  const [borderWeightValue, setBorderWeightValue] = useState(0);
+  const [borderWeightUnit, setBorderWeightUnit] = useState("px");
   const [boxShadowBlurValue, setBoxShadowBlurValue] = useState(0);
   const [boxShadowBlurUnit, setBoxShadowBlurUnit] = useState("px");
+  const [boxShadowColor, setBoxShadowColor] = useState({
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
   const [boxShadowInset, setBoxShadowInset] = useState("default");
   const [boxShadowSpreadValue, setBoxShadowSpreadValue] = useState(0);
   const [boxShadowSpreadUnit, setBoxShadowSpreadUnit] = useState("px");
@@ -64,8 +78,10 @@ const EditComponent = ({ props }) => {
   const [boxShadowXUnit, setBoxShadowXUnit] = useState("px");
   const [boxShadowYValue, setBoxShadowYValue] = useState(0);
   const [boxShadowYUnit, setBoxShadowYUnit] = useState("px");
+  const [buttonAlignment, setButtonAlignment] = useState("left");
   const [color, setColor] = useState({ r: 0, g: 0, b: 0, a: 1 });
   const [controls, setControls] = useState(false);
+  const [dividerText, setDividerText] = useState("");
   const [fontSizeValue, setFontSizeValue] = useState(0);
   const [fontSizeUnit, setFontSizeUnit] = useState("px");
   const [fontWeight, setFontWeight] = useState("normal");
@@ -107,6 +123,8 @@ const EditComponent = ({ props }) => {
   const [paddingTopUnit, setPaddingTopUnit] = useState("px");
   const [playing, setPlaying] = useState(false);
   const [source, setSource] = useState(false);
+  const [starRatingCap, setStarRatingCap] = useState(0);
+  const [starRatingValue, setStarRatingValue] = useState(0);
   const [text, setText] = useState("");
   const [textAlign, setTextAlign] = useState("left");
   const [textDecoration, setTextDecoration] = useState("none");
@@ -118,14 +136,32 @@ const EditComponent = ({ props }) => {
   const [widthUnit, setWidthUnit] = useState("auto");
   const [zIndex, setZIndex] = useState("auto");
 
-  const handleClickColorPickerBackgroundColor = (e) => {
+  const handleClickColorPickerBackgroundColor = () => {
     setIsColorPickerBackgroundColorOpen(!isColorPickerBackgroundColorOpen);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
     setIsColorPickerColorOpen(false);
   };
 
-  const handleClickColorPickerColor = (e) => {
-    setIsColorPickerColorOpen(!isColorPickerColorOpen);
+  const handleClickColorPickerBorderColor = () => {
     setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerBorderColorOpen(!isColorPickerBorderColorOpen);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+  };
+
+  const handleClickColorPickerBoxShadowColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(!isColorPickerBoxShadowColorOpen);
+    setIsColorPickerColorOpen(false);
+  };
+
+  const handleClickColorPickerColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(!isColorPickerColorOpen);
   };
 
   const handleClickInnerSectionLayout = () => {
@@ -140,14 +176,29 @@ const EditComponent = ({ props }) => {
 
   useEffect(() => {
     if (pageBuilderContext.boardState.getComponentData) {
-      setIsColorPickerBackgroundColorOpen(false);
       pageBuilderContext.boardState.getComponentData = false;
+      setIsColorPickerBackgroundColorOpen(false);
+      setIsColorPickerBorderColorOpen(false);
+      setIsColorPickerBoxShadowColorOpen(false);
+      setIsColorPickerColorOpen(false);
 
       if (props.componentEditableProps.alignItems) {
-        setAlignItems(props.componentProps.style.alignItems);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setAlignItems(
+            props.componentProps.dividerTextContainerStyle.alignItems
+          );
+        } else {
+          setAlignItems(props.componentProps.style.alignItems);
+        }
       }
       if (props.componentEditableProps.backgroundColor) {
-        setBackgroundColor(props.componentProps.style.backgroundColor);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setBackgroundColor(
+            props.componentProps.dividerTextStyle.backgroundColor
+          );
+        } else {
+          setBackgroundColor(props.componentProps.style.backgroundColor);
+        }
       }
       if (props.componentEditableProps.backgroundImage) {
         setBackgroundImage(
@@ -190,6 +241,15 @@ const EditComponent = ({ props }) => {
           props.componentProps.style.borderBottomWidth.unit
         );
       }
+      if (props.componentEditableProps.borderColor) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setBorderColor(
+            props.componentProps.dividerStyle.borderProps.borderColor
+          );
+        } else {
+          setBorderColor(props.componentProps.style.borderColor);
+        }
+      }
       if (props.componentEditableProps.borderLeftWidth) {
         setBorderLeftWidthValue(
           props.componentProps.style.borderLeftWidth.value
@@ -205,7 +265,13 @@ const EditComponent = ({ props }) => {
         );
       }
       if (props.componentEditableProps.borderStyle) {
-        setBorderStyle(props.componentProps.style.borderStyle);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setBorderStyle(
+            props.componentProps.dividerStyle.borderProps.borderStyle
+          );
+        } else {
+          setBorderStyle(props.componentProps.style.borderStyle);
+        }
       }
       if (props.componentEditableProps.borderTopLeftRadius) {
         setBorderTopLeftRadiusValue(
@@ -227,12 +293,25 @@ const EditComponent = ({ props }) => {
         setBorderTopWidthValue(props.componentProps.style.borderTopWidth.value);
         setBorderTopWidthUnit(props.componentProps.style.borderTopWidth.unit);
       }
+      if (props.componentEditableProps.borderWeight) {
+        setBorderWeightValue(
+          props.componentProps.dividerStyle.borderProps.borderWeight.value
+        );
+        setBorderWeightUnit(
+          props.componentProps.dividerStyle.borderProps.borderWeight.unit
+        );
+      }
       if (props.componentEditableProps.boxShadowBlur) {
         setBoxShadowBlurValue(
           props.componentProps.style.boxShadowProps.boxShadowBlur.value
         );
         setBoxShadowBlurUnit(
           props.componentProps.style.boxShadowProps.boxShadowBlur.unit
+        );
+      }
+      if (props.componentEditableProps.boxShadowColor) {
+        setBoxShadowColor(
+          props.componentProps.style.boxShadowProps.boxShadowColor
         );
       }
       if (props.componentEditableProps.boxShadowInset) {
@@ -264,15 +343,34 @@ const EditComponent = ({ props }) => {
           props.componentProps.style.boxShadowProps.boxShadowY.unit
         );
       }
+      if (props.componentEditableProps.buttonAlignment) {
+        setButtonAlignment(props.componentProps.buttonAlignment);
+      }
       if (props.componentEditableProps.color) {
-        setColor(props.componentProps.style.color);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setColor(props.componentProps.dividerTextContainerStyle.color);
+        } else {
+          setColor(props.componentProps.style.color);
+        }
       }
       if (props.componentEditableProps.controls) {
         setControls(props.componentProps.controls);
       }
+      if (props.componentEditableProps.dividerText) {
+        setDividerText(props.componentProps.dividerText);
+      }
       if (props.componentEditableProps.fontSize) {
-        setFontSizeValue(props.componentProps.style.fontSize.value);
-        setFontSizeUnit(props.componentProps.style.fontSize.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setFontSizeValue(
+            props.componentProps.dividerTextContainerStyle.fontSize.value
+          );
+          setFontSizeUnit(
+            props.componentProps.dividerTextContainerStyle.fontSize.unit
+          );
+        } else {
+          setFontSizeValue(props.componentProps.style.fontSize.value);
+          setFontSizeUnit(props.componentProps.style.fontSize.unit);
+        }
       }
       if (props.componentEditableProps.fontWeight) {
         setFontWeight(props.componentProps.style.fontWeight);
@@ -293,7 +391,13 @@ const EditComponent = ({ props }) => {
           props.componentProps.children.length;
       }
       if (props.componentEditableProps.justifyContent) {
-        setJustifyContent(props.componentProps.style.justifyContent);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setJustifyContent(
+            props.componentProps.dividerTextContainerStyle.justifyContent
+          );
+        } else {
+          setJustifyContent(props.componentProps.style.justifyContent);
+        }
       }
       if (props.componentEditableProps.letterSpacing) {
         setLineHeightValue(props.componentProps.style.letterSpacing.value);
@@ -310,20 +414,50 @@ const EditComponent = ({ props }) => {
         setLoop(props.componentProps.loop);
       }
       if (props.componentEditableProps.marginBottom) {
-        setMarginBottomValue(props.componentProps.style.marginBottom.value);
-        setMarginBottomUnit(props.componentProps.style.marginBottom.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setMarginBottomValue(
+            props.componentProps.dividerStyle.marginBottom.value
+          );
+          setMarginBottomUnit(
+            props.componentProps.dividerStyle.marginBottom.unit
+          );
+        } else {
+          setMarginBottomValue(props.componentProps.style.marginBottom.value);
+          setMarginBottomUnit(props.componentProps.style.marginBottom.unit);
+        }
       }
       if (props.componentEditableProps.marginLeft) {
-        setMarginLeftValue(props.componentProps.style.marginLeft.value);
-        setMarginLeftUnit(props.componentProps.style.marginLeft.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setMarginLeftValue(
+            props.componentProps.dividerStyle.marginLeft.value
+          );
+          setMarginLeftUnit(props.componentProps.dividerStyle.marginLeft.unit);
+        } else {
+          setMarginLeftValue(props.componentProps.style.marginLeft.value);
+          setMarginLeftUnit(props.componentProps.style.marginLeft.unit);
+        }
       }
       if (props.componentEditableProps.marginRight) {
-        setMarginRightValue(props.componentProps.style.marginRight.value);
-        setMarginRightUnit(props.componentProps.style.marginRight.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setMarginRightValue(
+            props.componentProps.dividerStyle.marginRight.value
+          );
+          setMarginRightUnit(
+            props.componentProps.dividerStyle.marginRight.unit
+          );
+        } else {
+          setMarginRightValue(props.componentProps.style.marginRight.value);
+          setMarginRightUnit(props.componentProps.style.marginRight.unit);
+        }
       }
       if (props.componentEditableProps.marginTop) {
-        setMarginTopValue(props.componentProps.style.marginTop.value);
-        setMarginTopUnit(props.componentProps.style.marginTop.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setMarginTopValue(props.componentProps.dividerStyle.marginTop.value);
+          setMarginTopUnit(props.componentProps.dividerStyle.marginTop.unit);
+        } else {
+          setMarginTopValue(props.componentProps.style.marginTop.value);
+          setMarginTopUnit(props.componentProps.style.marginTop.unit);
+        }
       }
       if (props.componentEditableProps.maxWidth) {
         setMaxWidthValue(props.componentProps.style.maxWidth.value);
@@ -343,26 +477,66 @@ const EditComponent = ({ props }) => {
         setOverflow(props.componentProps.style.overflow);
       }
       if (props.componentEditableProps.paddingBottom) {
-        setPaddingBottomValue(props.componentProps.style.paddingBottom.value);
-        setPaddingBottomUnit(props.componentProps.style.paddingBottom.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setPaddingBottomValue(
+            props.componentProps.dividerStyle.paddingBottom.value
+          );
+          setPaddingBottomUnit(
+            props.componentProps.dividerStyle.paddingBottom.unit
+          );
+        } else {
+          setPaddingBottomValue(props.componentProps.style.paddingBottom.value);
+          setPaddingBottomUnit(props.componentProps.style.paddingBottom.unit);
+        }
       }
       if (props.componentEditableProps.paddingLeft) {
-        setPaddingLeftValue(props.componentProps.style.paddingLeft.value);
-        setPaddingLeftUnit(props.componentProps.style.paddingLeft.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setPaddingLeftValue(
+            props.componentProps.dividerStyle.paddingLeft.value
+          );
+          setPaddingLeftUnit(
+            props.componentProps.dividerStyle.paddingLeft.unit
+          );
+        } else {
+          setPaddingLeftValue(props.componentProps.style.paddingLeft.value);
+          setPaddingLeftUnit(props.componentProps.style.paddingLeft.unit);
+        }
       }
       if (props.componentEditableProps.paddingRight) {
-        setPaddingRightValue(props.componentProps.style.paddingRight.value);
-        setPaddingRightUnit(props.componentProps.style.paddingRight.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setPaddingRightValue(
+            props.componentProps.dividerStyle.paddingRight.value
+          );
+          setPaddingRightUnit(
+            props.componentProps.dividerStyle.paddingRight.unit
+          );
+        } else {
+          setPaddingRightValue(props.componentProps.style.paddingRight.value);
+          setPaddingRightUnit(props.componentProps.style.paddingRight.unit);
+        }
       }
       if (props.componentEditableProps.paddingTop) {
-        setPaddingTopValue(props.componentProps.style.paddingTop.value);
-        setPaddingTopUnit(props.componentProps.style.paddingTop.unit);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setPaddingTopValue(
+            props.componentProps.dividerStyle.paddingTop.value
+          );
+          setPaddingTopUnit(props.componentProps.dividerStyle.paddingTop.unit);
+        } else {
+          setPaddingTopValue(props.componentProps.style.paddingTop.value);
+          setPaddingTopUnit(props.componentProps.style.paddingTop.unit);
+        }
       }
       if (props.componentEditableProps.playing) {
         setPlaying(props.componentProps.playing);
       }
       if (props.componentEditableProps.source) {
         setSource(props.componentProps.source);
+      }
+      if (props.componentEditableProps.starRatingCap) {
+        setStarRatingCap(props.componentProps.starRatingCap);
+      }
+      if (props.componentEditableProps.starRatingValue) {
+        setStarRatingValue(props.componentProps.starRatingValue);
       }
       if (props.componentEditableProps.text) {
         setText(props.componentProps.text);
@@ -464,7 +638,7 @@ const EditComponent = ({ props }) => {
             <FontAwesomeIcon
               className="color-picker-icon"
               icon={faPalette}
-              onClick={(e) => handleClickColorPickerBackgroundColor(e)}
+              onClick={handleClickColorPickerBackgroundColor}
             />
             {isColorPickerBackgroundColorOpen && (
               <div className="color-picker-container">
@@ -736,6 +910,43 @@ const EditComponent = ({ props }) => {
           </select>
         </div>
       )}
+      {/* border color */}
+      {props.componentEditableProps.borderColor && (
+        <div className="color-picker-input">
+          <label htmlFor="">
+            <span>{PropsTypes.BORDER_COLOR}</span>
+          </label>
+          <div className="color-picker-button-wrapper">
+            <button
+              className="color-picker-button"
+              style={{
+                backgroundColor: `rgba(${borderColor.r}, ${borderColor.g}, ${borderColor.b}, ${borderColor.a})`,
+              }}
+            ></button>
+            <FontAwesomeIcon
+              className="color-picker-icon"
+              icon={faPalette}
+              onClick={handleClickColorPickerBorderColor}
+            />
+            {isColorPickerBorderColorOpen && (
+              <div className="color-picker-container">
+                <SketchPicker
+                  style={{ zIndex: "99" }}
+                  color={borderColor}
+                  onChange={(color) => {
+                    setBorderColor(color.rgb);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.BORDER_COLOR,
+                      "",
+                      color.rgb
+                    );
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       {/* border left width */}
       {props.componentEditableProps.borderLeftWidth && (
         <div className="form-input">
@@ -991,6 +1202,50 @@ const EditComponent = ({ props }) => {
           </select>
         </div>
       )}
+      {/* border top width */}
+      {props.componentEditableProps.borderWeight && (
+        <div className="form-input">
+          <input
+            id="borderWeightValue"
+            min="0"
+            name="borderWeightValue"
+            onChange={(e) => {
+              setBorderWeightValue(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.BORDER_WEIGHT,
+                "value",
+                e.target.value || 0
+              );
+            }}
+            type="number"
+            value={borderWeightValue}
+          />
+          <label htmlFor="borderWeightValue">
+            <span>{PropsTypes.BORDER_WEIGHT}</span>
+          </label>
+          <select
+            id="borderWeightUnit"
+            name="borderWeightUnit"
+            onChange={(e) => {
+              setBorderWeightUnit(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.BORDER_WEIGHT,
+                "unit",
+                e.target.value
+              );
+            }}
+            value={borderWeightUnit}
+          >
+            {props.componentEditableProps.borderWeight.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      )}
       {/* box shadow blur */}
       {props.componentEditableProps.boxShadowBlur && (
         <div className="form-input">
@@ -1033,6 +1288,43 @@ const EditComponent = ({ props }) => {
               );
             })}
           </select>
+        </div>
+      )}
+      {/* box shadow color */}
+      {props.componentEditableProps.boxShadowColor && (
+        <div className="color-picker-input">
+          <label htmlFor="">
+            <span>{PropsTypes.BOX_SHADOW_COLOR}</span>
+          </label>
+          <div className="color-picker-button-wrapper">
+            <button
+              className="color-picker-button"
+              style={{
+                backgroundColor: `rgba(${boxShadowColor.r}, ${boxShadowColor.g}, ${boxShadowColor.b}, ${boxShadowColor.a})`,
+              }}
+            ></button>
+            <FontAwesomeIcon
+              className="color-picker-icon"
+              icon={faPalette}
+              onClick={handleClickColorPickerBoxShadowColor}
+            />
+            {isColorPickerBoxShadowColorOpen && (
+              <div className="color-picker-container">
+                <SketchPicker
+                  style={{ zIndex: "99" }}
+                  color={boxShadowColor}
+                  onChange={(color) => {
+                    setBoxShadowColor(color.rgb);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.BOX_SHADOW_COLOR,
+                      "",
+                      color.rgb
+                    );
+                  }}
+                />
+              </div>
+            )}
+          </div>
         </div>
       )}
       {/* box shadow inset */}
@@ -1196,6 +1488,35 @@ const EditComponent = ({ props }) => {
           </select>
         </div>
       )}
+      {/* button alignment */}
+      {props.componentEditableProps.buttonAlignment && (
+        <div className="form-input">
+          <select
+            id="buttonAlignment"
+            name="buttonAlignment"
+            onChange={(e) => {
+              setButtonAlignment(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.BUTTON_ALIGNMENT,
+                "",
+                e.target.value
+              );
+            }}
+            value={buttonAlignment}
+          >
+            {props.componentEditableProps.buttonAlignment.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="buttonAlignment">
+            <span>{PropsTypes.BUTTON_ALIGNMENT}</span>
+          </label>
+        </div>
+      )}
       {/* controls */}
       {props.componentEditableProps.controls && (
         <div className="form-input">
@@ -1241,7 +1562,7 @@ const EditComponent = ({ props }) => {
             <FontAwesomeIcon
               className="color-picker-icon"
               icon={faPalette}
-              onClick={(e) => handleClickColorPickerColor(e)}
+              onClick={handleClickColorPickerColor}
             />
             {isColorPickerColorOpen && (
               <div className="color-picker-container">
@@ -1259,6 +1580,28 @@ const EditComponent = ({ props }) => {
               </div>
             )}
           </div>
+        </div>
+      )}
+      {/* divider text */}
+      {props.componentEditableProps.dividerText && (
+        <div className="form-input">
+          <input
+            id="dividerText"
+            name="dividerText"
+            onChange={(e) => {
+              setDividerText(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.DIVIDER_TEXT,
+                "",
+                e.target.value
+              );
+            }}
+            type="text"
+            value={dividerText}
+          />
+          <label htmlFor="text">
+            <span>{PropsTypes.DIVIDER_TEXT}</span>
+          </label>
         </div>
       )}
       {/* font size */}
@@ -1426,8 +1769,8 @@ const EditComponent = ({ props }) => {
       {props.componentEditableProps.imageAlignment && (
         <div className="form-input">
           <select
-            id="imageALignment"
-            name="imageALignment"
+            id="imageAlignment"
+            name="imageAlignment"
             onChange={(e) => {
               setImageAlignment(e.target.value);
               pageBuilderContext.editComponentProps(
@@ -1446,7 +1789,7 @@ const EditComponent = ({ props }) => {
               );
             })}
           </select>
-          <label htmlFor="imageALignment">
+          <label htmlFor="imageAlignment">
             <span>{PropsTypes.IMAGE_ALIGNMENT}</span>
           </label>
         </div>
@@ -2057,7 +2400,7 @@ const EditComponent = ({ props }) => {
             onChange={(e) => {
               setPaddingLeftUnit(e.target.value);
               pageBuilderContext.editComponentProps(
-                PropsTypes.PADDING,
+                PropsTypes.PADDING_LEFT,
                 "unit",
                 e.target.value
               );
@@ -2230,6 +2573,55 @@ const EditComponent = ({ props }) => {
           </label>
         </div>
       )}
+      {/* star rating cap */}
+      {props.componentEditableProps.starRatingCap && (
+        <div className="form-input">
+          <input
+            id="starRatingCap"
+            max="10"
+            min={Math.round(starRatingValue)}
+            name="starRatingCap"
+            onChange={(e) => {
+              setStarRatingCap(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.STAR_RATING_CAP,
+                "",
+                e.target.value || 0
+              );
+            }}
+            type="number"
+            value={starRatingCap}
+          />
+          <label htmlFor="starRatingCap">
+            <span>{PropsTypes.STAR_RATING_CAP}</span>
+          </label>
+        </div>
+      )}
+      {/* star rating value */}
+      {props.componentEditableProps.starRatingValue && (
+        <div className="form-input">
+          <input
+            id="starRatingValue"
+            max={starRatingCap}
+            min="0"
+            name="starRatingValue"
+            onChange={(e) => {
+              setStarRatingValue(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.STAR_RATING_VALUE,
+                "",
+                e.target.value || 0
+              );
+            }}
+            step="0.5"
+            type="number"
+            value={starRatingValue}
+          />
+          <label htmlFor="starRatingValue">
+            <span>{PropsTypes.STAR_RATING_VALUE}</span>
+          </label>
+        </div>
+      )}
       {/* text */}
       {props.componentEditableProps.text && (
         <div className="form-input">
@@ -2240,7 +2632,7 @@ const EditComponent = ({ props }) => {
               setText(e.target.value);
               pageBuilderContext.editComponentProps(
                 PropsTypes.TEXT,
-                "value",
+                "",
                 e.target.value || "Type Something"
               );
             }}

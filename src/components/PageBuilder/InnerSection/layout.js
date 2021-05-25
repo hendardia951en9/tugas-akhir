@@ -13,9 +13,13 @@ const Layout = ({ id, props }) => {
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
       accept: [
-        ItemTypes.MAP_COMPONENT,
+        ItemTypes.BUTTON,
+        ItemTypes.DIVIDER,
         ItemTypes.HEADING,
         ItemTypes.IMAGE,
+        ItemTypes.MAP_COMPONENT,
+        ItemTypes.SPACER,
+        ItemTypes.STAR_RATING,
         ItemTypes.TEXT_EDITOR,
         ItemTypes.VIDEO,
       ],

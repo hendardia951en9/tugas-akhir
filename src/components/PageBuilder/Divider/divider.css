@@ -1,0 +1,22 @@
+.divider-component {
+  border: 3px solid transparent;
+  position: relative;
+  width: 100%;
+}
+
+.divider-component:hover {
+  border: 3px solid darkblue;
+}
+
+.divider-component * {
+  pointer-events: none;
+}
+
+.divider-component-text-container {
+  bottom: 0;
+  display: flex;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
