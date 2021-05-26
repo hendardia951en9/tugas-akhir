@@ -8,6 +8,10 @@
   border: 3px solid darkslateblue;
 }
 
+.text-editor-component-container * {
+  pointer-events: none;
+}
+
 .text-editor-component-container .public-DraftStyleDefault-block {
   margin: 0;
 }

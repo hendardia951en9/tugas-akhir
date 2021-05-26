@@ -15,6 +15,7 @@ const Board = () => {
         ItemTypes.BUTTON,
         ItemTypes.DIVIDER,
         ItemTypes.HEADING,
+        ItemTypes.ICON,
         ItemTypes.IMAGE,
         ItemTypes.INNERSECTION,
         ItemTypes.MAP_COMPONENT,

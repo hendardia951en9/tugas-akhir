@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
 import "./texteditor.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const TextEditor = ({ props }) => {
+const TextEditor = ({ componentKey, itemTypes, props }) => {
+  const pageBuilderContext = useContext(PageBuilderContext);
+
   const [textEditorValue, setTextEditorValue] = useState(
     EditorState.createEmpty()
   );
@@ -25,7 +28,11 @@ const TextEditor = ({ props }) => {
   return (
     <section
       className="text-editor-component-container"
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClick(itemTypes, componentKey);
+        }
+      }}
       style={generateStyle(props.style)}
     >
       {textEditorValue ? (

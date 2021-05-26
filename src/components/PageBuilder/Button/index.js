@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
 import "./button.css";
 
-const Button = ({ props }) => {
+const Button = ({ componentKey, itemTypes, props }) => {
+  const pageBuilderContext = useContext(PageBuilderContext);
+
   const editStyle = (style, buttonAlignment) => {
     if (buttonAlignment === "center") {
       style = {
@@ -45,7 +48,11 @@ const Button = ({ props }) => {
   return (
     <button
       className="button-component"
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClick(itemTypes, componentKey);
+        }
+      }}
       style={generateStyle(editStyle(props.style, props.buttonAlignment))}
     >
       {props.text}

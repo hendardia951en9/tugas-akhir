@@ -15,6 +15,8 @@ import Divider from "../../PageBuilder/Divider";
 import DividerWidget from "../../PageBuilder/Divider/widget";
 import Heading from "../../PageBuilder/Heading";
 import HeadingWidget from "../../PageBuilder/Heading/widget";
+import Icon from "../../PageBuilder/Icon";
+import IconWidget from "../../PageBuilder/Icon/widget";
 import Image from "../../PageBuilder/Image";
 import ImageWidget from "../../PageBuilder/Image/widget";
 import InnerSection from "../../PageBuilder/InnerSection";
@@ -78,11 +80,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.BUTTON,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.BUTTON, key);
-            }
-          },
           buttonAlignment: ComponentDefaultProps.BUTTON.buttonAlignment,
           linkTo: ComponentDefaultProps.BUTTON.linkTo,
           style: ComponentDefaultProps.BUTTON.style,
@@ -94,11 +91,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.DIVIDER,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.DIVIDER, key);
-            }
-          },
           dividerStyle: ComponentDefaultProps.DIVIDER.dividerStyle,
           dividerText: ComponentDefaultProps.DIVIDER.dividerText,
           dividerTextContainerStyle:
@@ -112,13 +104,19 @@ const Pricing = () => {
         itemTypes: ItemTypes.HEADING,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.HEADING, key);
-            }
-          },
           style: ComponentDefaultProps.HEADING.style,
           text: ComponentDefaultProps.HEADING.text,
+        },
+      });
+    } else if (itemTypes === ItemTypes.ICON) {
+      arr.push({
+        itemTypes: ItemTypes.ICON,
+        key: key,
+        props: {
+          icon: ComponentDefaultProps.ICON.icon,
+          linkTo: ComponentDefaultProps.ICON.linkTo,
+          style: ComponentDefaultProps.ICON.style,
+          text: ComponentDefaultProps.ICON.text,
         },
       });
     } else if (itemTypes === ItemTypes.IMAGE) {
@@ -126,11 +124,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.IMAGE,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.IMAGE, key);
-            }
-          },
           imageAlignment: ComponentDefaultProps.IMAGE.imageAlignment,
           linkTo: ComponentDefaultProps.IMAGE.linkTo,
           style: ComponentDefaultProps.IMAGE.style,
@@ -148,11 +141,6 @@ const Pricing = () => {
               key: key + 1,
               props: {
                 children: [],
-                onClick: (e) => {
-                  if (e.target === e.currentTarget) {
-                    handleClick(ItemTypes.INNERSECTION_LAYOUT, key + 1);
-                  }
-                },
                 style: ComponentDefaultProps.INNERSECTION_LAYOUT.style,
                 text: ComponentDefaultProps.INNERSECTION_LAYOUT.text,
               },
@@ -162,21 +150,11 @@ const Pricing = () => {
               key: key + 2,
               props: {
                 children: [],
-                onClick: (e) => {
-                  if (e.target === e.currentTarget) {
-                    handleClick(ItemTypes.INNERSECTION_LAYOUT, key + 2);
-                  }
-                },
                 style: ComponentDefaultProps.INNERSECTION_LAYOUT.style,
                 text: ComponentDefaultProps.INNERSECTION_LAYOUT.text,
               },
             },
           ],
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.INNERSECTION, key);
-            }
-          },
           style: ComponentDefaultProps.INNERSECTION.style,
           text: ComponentDefaultProps.INNERSECTION.text,
         },
@@ -187,11 +165,6 @@ const Pricing = () => {
         key: key,
         props: {
           children: [],
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.INNERSECTION_LAYOUT, key);
-            }
-          },
           style: ComponentDefaultProps.INNERSECTION_LAYOUT.style,
           text: ComponentDefaultProps.INNERSECTION_LAYOUT.text,
         },
@@ -201,11 +174,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.MAP_COMPONENT,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.MAP_COMPONENT, key);
-            }
-          },
           location: ComponentDefaultProps.MAP_COMPONENT.location,
           style: ComponentDefaultProps.MAP_COMPONENT.style,
           text: ComponentDefaultProps.MAP_COMPONENT.text,
@@ -217,11 +185,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.SPACER,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.SPACER, key);
-            }
-          },
           style: ComponentDefaultProps.SPACER.style,
           text: ComponentDefaultProps.SPACER.text,
         },
@@ -231,11 +194,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.STAR_RATING,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.STAR_RATING, key);
-            }
-          },
           starRatingCap: ComponentDefaultProps.STAR_RATING.starRatingCap,
           starRatingValue: ComponentDefaultProps.STAR_RATING.starRatingValue,
           style: ComponentDefaultProps.STAR_RATING.style,
@@ -247,9 +205,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.TEXT_EDITOR,
         key: key,
         props: {
-          onClick: () => {
-            handleClick(ItemTypes.TEXT_EDITOR, key);
-          },
           style: ComponentDefaultProps.TEXT_EDITOR.style,
           text: ComponentDefaultProps.TEXT_EDITOR.text,
           textEditorValue: ComponentDefaultProps.TEXT_EDITOR.textEditorValue,
@@ -260,11 +215,6 @@ const Pricing = () => {
         itemTypes: ItemTypes.VIDEO,
         key: key,
         props: {
-          onClick: (e) => {
-            if (e.target === e.currentTarget) {
-              handleClick(ItemTypes.VIDEO, key);
-            }
-          },
           controls: ComponentDefaultProps.VIDEO.controls,
           loop: ComponentDefaultProps.VIDEO.loop,
           muted: ComponentDefaultProps.VIDEO.muted,
@@ -764,6 +714,14 @@ const Pricing = () => {
               [target]: value,
             },
           },
+        },
+      };
+    } else if (propsTypes === PropsTypes.ICON) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          icon: value,
         },
       };
     } else if (propsTypes === PropsTypes.IMAGE_ALIGNMENT) {
@@ -1438,6 +1396,13 @@ const Pricing = () => {
         isEdit: true,
         selectedComponentItemTypes: itemTypes,
       });
+    } else if (itemTypes === ItemTypes.ICON) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
     } else if (itemTypes === ItemTypes.IMAGE) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
@@ -1501,25 +1466,104 @@ const Pricing = () => {
 
   const renderComponent = (component) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
-      return <Button key={component.key} props={component.props} />;
+      return (
+        <Button
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.DIVIDER) {
-      return <Divider key={component.key} props={component.props} />;
+      return (
+        <Divider
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.HEADING) {
-      return <Heading key={component.key} props={component.props} />;
+      return (
+        <Heading
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
+    } else if (component.itemTypes === ItemTypes.ICON) {
+      return (
+        <Icon
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.INNERSECTION) {
-      return <InnerSection key={component.key} props={component.props} />;
+      return (
+        <InnerSection
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.IMAGE) {
-      return <Image key={component.key} props={component.props} />;
+      return (
+        <Image
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
-      return <MapComponent key={component.key} props={component.props} />;
+      return (
+        <MapComponent
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.SPACER) {
-      return <Spacer key={component.key} props={component.props} />;
+      return (
+        <Spacer
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.STAR_RATING) {
-      return <StarRating key={component.key} props={component.props} />;
+      return (
+        <StarRating
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.TEXT_EDITOR) {
-      return <TextEditor key={component.key} props={component.props} />;
+      return (
+        <TextEditor
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.VIDEO) {
-      return <Video key={component.key} props={component.props} />;
+      return (
+        <Video
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     }
   };
 
@@ -1554,6 +1598,16 @@ const Pricing = () => {
         <EditComponent
           props={{
             componentEditableProps: ComponentEditableProps.HEADING,
+            componentProps: component.props,
+            itemTypes: itemTypes,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.ICON) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.ICON,
             componentProps: component.props,
             itemTypes: itemTypes,
           }}
@@ -1646,10 +1700,10 @@ const Pricing = () => {
     document.title = "Pricing";
 
     return () => {
-      boardState.boardComponents = [];
-      boardState.boardComponentsKey = -1;
-      boardState.getComponentData = false;
-      boardState.selectedComponentKey = null;
+      // boardState.boardComponents = [];
+      // boardState.boardComponentsKey = -1;
+      // boardState.getComponentData = false;
+      // boardState.selectedComponentKey = null;
     };
   }, []);
 
@@ -1664,6 +1718,7 @@ const Pricing = () => {
           addComponentToInnerSectionLayout,
           changeMapState,
           editComponentProps,
+          handleClick,
           renderComponent,
         }}
       >
@@ -1692,8 +1747,9 @@ const Pricing = () => {
                       <ButtonWidget />
                       <DividerWidget />
                       <HeadingWidget />
-                      <InnerSectionWidget />
+                      <IconWidget />
                       <ImageWidget />
+                      <InnerSectionWidget />
                       <MapComponentWidget />
                       <SpacerWidget />
                       <StarRatingWidget />

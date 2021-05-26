@@ -3,6 +3,7 @@ export const ItemTypes = {
   COMPONENT_LIST_BUTTON: "Component List Button",
   DIVIDER: "Divider",
   HEADING: "Heading",
+  ICON: "Icon",
   IMAGE: "Image",
   INNERSECTION: "Inner Section",
   INNERSECTION_LAYOUT: "Inner Section Layout",

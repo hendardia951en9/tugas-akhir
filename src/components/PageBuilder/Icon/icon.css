@@ -1,0 +1,11 @@
+.icon-component {
+  border: 3px solid transparent;
+}
+
+.icon-component:hover {
+  border: 3px solid darkblue;
+}
+
+.icon-component * {
+  pointer-events: none;
+}

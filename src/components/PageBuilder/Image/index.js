@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
 import "./image.css";
 
-const Image = ({ props }) => {
+const Image = ({ componentKey, itemTypes, props }) => {
+  const pageBuilderContext = useContext(PageBuilderContext);
+
   const editStyle = (style, imageAlignment) => {
     if (imageAlignment === "center") {
       style = {
@@ -49,7 +52,11 @@ const Image = ({ props }) => {
   return (
     <div
       className="image-component"
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClick(itemTypes, componentKey);
+        }
+      }}
       style={generateStyle(editStyle(props.style, props.imageAlignment))}
     >
       <img

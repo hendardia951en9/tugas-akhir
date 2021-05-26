@@ -1,17 +1,17 @@
-import React, { useRef, useState, useCallback, useContext } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateStyle } from "../../../utils/generateStyle";
 import Geocoder from "react-map-gl-geocoder";
+import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
 import "./mapcomponent.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import { PageBuilderContext } from "../../Pages/Pricing";
 
-const MapComponent = ({ props }) => {
+const MapComponent = ({ componentKey, itemTypes, props }) => {
   const MAPBOX_API =
     "pk.eyJ1IjoiaGVuZHkwNiIsImEiOiJja293dTFsdjAwODg4MndyMXFmYWEzdzY1In0.jYPrMAP3Gvp14GEpt5eAbA";
   const [viewport, setViewport] = useState({
@@ -58,7 +58,11 @@ const MapComponent = ({ props }) => {
       <div
         style={{ width: "100%", height: "100%" }}
         className="map-component-click-container"
-        onClick={props.onClick}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            pageBuilderContext.handleClick(itemTypes, componentKey);
+          }
+        }}
       ></div>
       <Marker
         className="map-component-marker"

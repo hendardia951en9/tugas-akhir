@@ -1,24 +1,32 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
+import { IconPickerItem } from "react-fa-icon-picker";
 import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
-import "./spacer.css";
+import "./icon.css";
 
-const Spacer = ({ componentKey, itemTypes, props }) => {
+const Icon = ({ componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
     <div
-      className="spacer-component"
+      className="icon-component"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           pageBuilderContext.handleClick(itemTypes, componentKey);
         }
       }}
-      style={generateStyle(props.style)}
-    ></div>
+    >
+      <IconPickerItem
+        containerStyles={Object.assign(generateStyle(props.style), {
+          alignItems: "center",
+          display: "flex",
+        })}
+        icon={props.icon}
+      />
+    </div>
   );
 };
 
-export default Spacer;
+export default Icon;

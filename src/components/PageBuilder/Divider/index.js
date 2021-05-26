@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
 import "./divider.css";
 
-const Divider = ({ props }) => {
+const Divider = ({ componentKey, itemTypes, props }) => {
+  const pageBuilderContext = useContext(PageBuilderContext);
+
   return (
-    <div className="divider-component" onClick={props.onClick}>
+    <div
+      className="divider-component"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClick(itemTypes, componentKey);
+        }
+      }}
+    >
       <div
         className="divider-component-text-container"
         style={generateStyle(props.dividerTextContainerStyle)}

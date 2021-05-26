@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
 import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/Pricing";
 
 //css
 import "./starrating.css";
 
-const StarRating = ({ props }) => {
+const StarRating = ({ componentKey, itemTypes, props }) => {
+  const pageBuilderContext = useContext(PageBuilderContext);
+
   const generateStarRating = (starRatingCap, starRatingValue) => {
     let element = [];
 
@@ -34,7 +37,11 @@ const StarRating = ({ props }) => {
   return (
     <div
       className="star-rating-container"
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClick(itemTypes, componentKey);
+        }
+      }}
       style={generateStyle(props.style)}
     >
       {generateStarRating(props.starRatingCap, props.starRatingValue)}

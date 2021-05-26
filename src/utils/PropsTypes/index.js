@@ -30,6 +30,7 @@ export const PropsTypes = {
   FONT_WEIGHT: "Font Weight",
   GAP: "Gap",
   HEIGHT: "Height",
+  ICON: "Icon",
   IMAGE_ALIGNMENT: "Image Alignment",
   INNER_SECTION_LAYOUT: "Inner Section Layout",
   JUSTIFY_CONTENT: "Justify Content",

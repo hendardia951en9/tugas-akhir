@@ -7,7 +7,7 @@ import { useDrop } from "react-dnd";
 //css
 import "./innersection.css";
 
-const Layout = ({ id, props }) => {
+const Layout = ({ id, componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const [{ isOver, canDrop }, drop] = useDrop(
@@ -16,6 +16,7 @@ const Layout = ({ id, props }) => {
         ItemTypes.BUTTON,
         ItemTypes.DIVIDER,
         ItemTypes.HEADING,
+        ItemTypes.ICON,
         ItemTypes.IMAGE,
         ItemTypes.MAP_COMPONENT,
         ItemTypes.SPACER,
@@ -45,7 +46,11 @@ const Layout = ({ id, props }) => {
       className={`inner-section-component-layout ${
         isOver && "inner-section-component-layout-isOver"
       } ${canDrop && "inner-section-component-layout-canDrop"}`}
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClick(itemTypes, componentKey);
+        }
+      }}
       ref={drop}
       style={generateStyle(props.style)}
     >

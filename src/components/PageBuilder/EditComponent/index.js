@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconPicker } from "react-fa-icon-picker";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 import { PageBuilderContext } from "../../Pages/Pricing";
@@ -17,6 +18,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const EditComponent = ({ props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
+
   const [
     isColorPickerBackgroundColorOpen,
     setIsColorPickerBackgroundColorOpen,
@@ -89,6 +91,7 @@ const EditComponent = ({ props }) => {
   const [gapUnit, setGapUnit] = useState("px");
   const [heightValue, setHeightValue] = useState(0);
   const [heightUnit, setHeightUnit] = useState("auto");
+  const [icon, setIcon] = useState("");
   const [imageAlignment, setImageAlignment] = useState("left");
   const innerSectionLayoutRef = useRef(null);
   const [justifyContent, setJustifyContent] = useState("flex-start");
@@ -382,6 +385,9 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.height) {
         setHeightValue(props.componentProps.style.height.value);
         setHeightUnit(props.componentProps.style.height.unit);
+      }
+      if (props.componentEditableProps.icon) {
+        setIcon(props.componentProps.icon);
       }
       if (props.componentEditableProps.imageAlignment) {
         setImageAlignment(props.componentProps.imageAlignment);
@@ -1763,6 +1769,31 @@ const EditComponent = ({ props }) => {
               );
             })}
           </select>
+        </div>
+      )}
+      {/* icon */}
+      {props.componentEditableProps.icon && (
+        <div className="icon-picker-input">
+          <label htmlFor="">
+            <span>{PropsTypes.ICON}</span>
+          </label>
+          <IconPicker
+            buttonStyles={{
+              height: "40px",
+              minHeight: "0",
+              minwidth: "0",
+              width: "40px",
+            }}
+            buttonIconStyles={{
+              display: "flex",
+            }}
+            containerStyles={{ top: "110%", right: "0" }}
+            onChange={(e) => {
+              setIcon(e);
+              pageBuilderContext.editComponentProps(PropsTypes.ICON, "", e);
+            }}
+            value={icon}
+          />
         </div>
       )}
       {/* image alignment */}
