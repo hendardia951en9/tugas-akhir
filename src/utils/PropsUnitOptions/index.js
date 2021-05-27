@@ -43,6 +43,7 @@ export const PropsUnitOptions = {
   gap: ["%", "em", "px", "rem"],
   height: ["auto", "%", "em", "px", "rem", "vh"],
   imageAlignment: ["center", "left", "right"],
+  infinite: [false, true],
   justifyContent: [
     "center",
     "flex-end",
@@ -69,6 +70,11 @@ export const PropsUnitOptions = {
   paddingRight: ["auto", "%", "em", "px", "rem"],
   paddingTop: ["auto", "%", "em", "px", "rem"],
   playing: [false, true],
+  showBullets: [false, true],
+  showFullscreenButton: [false, true],
+  showNav: [false, true],
+  showPlayButton: [false, true],
+  showThumbnails: [false, true],
   starRatingCap: ["5", "10"],
   textAlign: ["center", "justify", "left", "right"],
   textDecoration: [
@@ -79,5 +85,6 @@ export const PropsUnitOptions = {
     "underline overline",
   ],
   textTransform: ["capitalize", "lowercase", "none", "uppercase"],
+  thumbnailPosition: ["bottom", "left", "right", "top"],
   width: ["auto", "%", "em", "px", "rem", "vw"],
 };

@@ -129,6 +129,17 @@ export const ComponentEditableProps = {
     width: PropsUnitOptions.width,
     zIndex: true,
   },
+  IMAGE_GALLERY: {
+    infinite: PropsUnitOptions.infinite,
+    showBullets: PropsUnitOptions.showBullets,
+    showFullscreenButton: PropsUnitOptions.showFullscreenButton,
+    showNav: PropsUnitOptions.showNav,
+    showPlayButton: PropsUnitOptions.showPlayButton,
+    showThumbnails: PropsUnitOptions.showThumbnails,
+    slideInterval: true,
+    thumbnailPosition: PropsUnitOptions.thumbnailPosition,
+    width: PropsUnitOptions.width,
+  },
   INNERSECTION: {
     alignItems: PropsUnitOptions.alignItems,
     backgroundColor: true,
@@ -216,6 +227,7 @@ export const ComponentEditableProps = {
   },
   VIDEO: {
     controls: PropsUnitOptions.controls,
+    height: PropsUnitOptions.height,
     loop: PropsUnitOptions.loop,
     marginBottom: PropsUnitOptions.marginBottom,
     marginLeft: PropsUnitOptions.marginLeft,
@@ -228,6 +240,7 @@ export const ComponentEditableProps = {
     paddingTop: PropsUnitOptions.paddingTop,
     playing: PropsUnitOptions.playing,
     source: true,
+    width: PropsUnitOptions.width,
     zIndex: true,
   },
 };

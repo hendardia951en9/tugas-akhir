@@ -19,6 +19,8 @@ import Icon from "../../PageBuilder/Icon";
 import IconWidget from "../../PageBuilder/Icon/widget";
 import Image from "../../PageBuilder/Image";
 import ImageWidget from "../../PageBuilder/Image/widget";
+import ImageGallery from "../../PageBuilder/ImageGallery";
+import ImageGalleryWidget from "../../PageBuilder/ImageGallery/widget";
 import InnerSection from "../../PageBuilder/InnerSection";
 import InnerSectionWidget from "../../PageBuilder/InnerSection/widget";
 import MapComponent from "../../PageBuilder/MapComponent";
@@ -127,6 +129,27 @@ const Pricing = () => {
           imageAlignment: ComponentDefaultProps.IMAGE.imageAlignment,
           linkTo: ComponentDefaultProps.IMAGE.linkTo,
           style: ComponentDefaultProps.IMAGE.style,
+          text: ComponentDefaultProps.IMAGE.text,
+        },
+      });
+    } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
+      arr.push({
+        itemTypes: ItemTypes.IMAGE_GALLERY,
+        key: key,
+        props: {
+          infinite: ComponentDefaultProps.IMAGE_GALLERY.infinite,
+          images: ComponentDefaultProps.IMAGE_GALLERY.images,
+          showBullets: ComponentDefaultProps.IMAGE_GALLERY.showBullets,
+          showFullscreenButton:
+            ComponentDefaultProps.IMAGE_GALLERY.showFullscreenButton,
+          showNav: ComponentDefaultProps.IMAGE_GALLERY.showNav,
+          showPlayButton: ComponentDefaultProps.IMAGE_GALLERY.showPlayButton,
+          showThumbnails: ComponentDefaultProps.IMAGE_GALLERY.showThumbnails,
+          slideInterval: ComponentDefaultProps.IMAGE_GALLERY.slideInterval,
+          style: ComponentDefaultProps.IMAGE_GALLERY.style,
+          text: ComponentDefaultProps.IMAGE_GALLERY.text,
+          thumbnailPosition:
+            ComponentDefaultProps.IMAGE_GALLERY.thumbnailPosition,
         },
       });
     } else if (itemTypes === ItemTypes.INNERSECTION) {
@@ -732,6 +755,14 @@ const Pricing = () => {
           imageAlignment: value,
         },
       };
+    } else if (propsTypes === PropsTypes.INFINITE) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          infinite: value,
+        },
+      };
     } else if (propsTypes === PropsTypes.INNER_SECTION_LAYOUT) {
       if (value > component.props.children.length) {
         boardState.boardComponentsKey += 1;
@@ -1138,6 +1169,54 @@ const Pricing = () => {
           playing: value,
         },
       };
+    } else if (propsTypes === PropsTypes.SHOW_BULLETS) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          showBullets: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.SHOW_FULLSCREEN_BUTTON) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          showFullscreenButton: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.SHOW_NAV) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          showNav: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.SHOW_PLAY_BUTTON) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          showPlayButton: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.SHOW_THUMBNAILS) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          showThumbnails: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.SLIDE_INTERVAL) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          slideInterval: value,
+        },
+      };
     } else if (propsTypes === PropsTypes.SOURCE) {
       component = {
         ...component,
@@ -1209,6 +1288,14 @@ const Pricing = () => {
             ...component.props.style,
             textTransform: value,
           },
+        },
+      };
+    } else if (propsTypes === PropsTypes.THUMBNAIL_POSITION) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          thumbnailPosition: value,
         },
       };
     } else if (propsTypes === PropsTypes.WIDTH) {
@@ -1410,6 +1497,13 @@ const Pricing = () => {
         isEdit: true,
         selectedComponentItemTypes: itemTypes,
       });
+    } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isEdit: true,
+        selectedComponentItemTypes: itemTypes,
+      });
     } else if (itemTypes === ItemTypes.INNERSECTION) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
@@ -1519,6 +1613,15 @@ const Pricing = () => {
           props={component.props}
         />
       );
+    } else if (component.itemTypes === ItemTypes.IMAGE_GALLERY) {
+      return (
+        <ImageGallery
+          key={component.key}
+          componentKey={component.key}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
+      );
     } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
       return (
         <MapComponent
@@ -1618,6 +1721,16 @@ const Pricing = () => {
         <EditComponent
           props={{
             componentEditableProps: ComponentEditableProps.IMAGE,
+            componentProps: component.props,
+            itemTypes: itemTypes,
+          }}
+        />
+      );
+    } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
+      return (
+        <EditComponent
+          props={{
+            componentEditableProps: ComponentEditableProps.IMAGE_GALLERY,
             componentProps: component.props,
             itemTypes: itemTypes,
           }}
@@ -1749,6 +1862,7 @@ const Pricing = () => {
                       <HeadingWidget />
                       <IconWidget />
                       <ImageWidget />
+                      <ImageGalleryWidget />
                       <InnerSectionWidget />
                       <MapComponentWidget />
                       <SpacerWidget />

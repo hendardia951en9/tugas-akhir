@@ -1,0 +1,7 @@
+.image-gallery-component-wrapper {
+  border: 3px solid transparent;
+}
+
+.image-gallery-component-wrapper:hover {
+  border: 3px solid darkblue;
+}

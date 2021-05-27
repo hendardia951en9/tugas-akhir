@@ -17,6 +17,7 @@ const Board = () => {
         ItemTypes.HEADING,
         ItemTypes.ICON,
         ItemTypes.IMAGE,
+        ItemTypes.IMAGE_GALLERY,
         ItemTypes.INNERSECTION,
         ItemTypes.MAP_COMPONENT,
         ItemTypes.SPACER,

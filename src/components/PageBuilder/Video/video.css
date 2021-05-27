@@ -1,0 +1,7 @@
+.video-component {
+  border: 3px solid transparent;
+}
+
+.video-component:hover {
+  border: 3px solid darkblue;
+}

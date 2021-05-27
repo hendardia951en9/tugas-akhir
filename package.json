@@ -23,6 +23,7 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-fa-icon-picker": "^1.0.3",
     "react-hook-form": "^7.0.0",
+    "react-image-gallery": "^1.0.9",
     "react-map-gl": "^6.1.15",
     "react-map-gl-geocoder": "^2.1.6",
     "react-player": "^2.9.0",

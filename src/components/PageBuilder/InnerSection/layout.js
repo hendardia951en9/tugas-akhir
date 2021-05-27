@@ -18,6 +18,7 @@ const Layout = ({ id, componentKey, itemTypes, props }) => {
         ItemTypes.HEADING,
         ItemTypes.ICON,
         ItemTypes.IMAGE,
+        ItemTypes.IMAGE_GALLERY,
         ItemTypes.MAP_COMPONENT,
         ItemTypes.SPACER,
         ItemTypes.STAR_RATING,

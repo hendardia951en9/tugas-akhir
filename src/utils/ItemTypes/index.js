@@ -5,6 +5,7 @@ export const ItemTypes = {
   HEADING: "Heading",
   ICON: "Icon",
   IMAGE: "Image",
+  IMAGE_GALLERY: "Image Gallery",
   INNERSECTION: "Inner Section",
   INNERSECTION_LAYOUT: "Inner Section Layout",
   MAP_COMPONENT: "Map Component",

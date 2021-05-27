@@ -93,6 +93,7 @@ const EditComponent = ({ props }) => {
   const [heightUnit, setHeightUnit] = useState("auto");
   const [icon, setIcon] = useState("");
   const [imageAlignment, setImageAlignment] = useState("left");
+  const [infinite, setInfinite] = useState(true);
   const innerSectionLayoutRef = useRef(null);
   const [justifyContent, setJustifyContent] = useState("flex-start");
   const [letterSpacingValue, setLetterSpacingValue] = useState(0);
@@ -125,6 +126,12 @@ const EditComponent = ({ props }) => {
   const [paddingTopValue, setPaddingTopValue] = useState(0);
   const [paddingTopUnit, setPaddingTopUnit] = useState("px");
   const [playing, setPlaying] = useState(false);
+  const [showBullets, setShowBullets] = useState(true);
+  const [showFullscreenButton, setShowFullscreenButton] = useState(true);
+  const [showNav, setShowNav] = useState(true);
+  const [showPlayButton, setShowPlayButton] = useState(true);
+  const [showThumbnails, setShowThumbnails] = useState(true);
+  const [slideInterval, setSlideInterval] = useState(3000);
   const [source, setSource] = useState(false);
   const [starRatingCap, setStarRatingCap] = useState(0);
   const [starRatingValue, setStarRatingValue] = useState(0);
@@ -135,6 +142,7 @@ const EditComponent = ({ props }) => {
     EditorState.createEmpty()
   );
   const [textTransform, setTextTransform] = useState("none");
+  const [thumbnailPosition, setThumbnailPosition] = useState("bottom");
   const [widthValue, setWidthValue] = useState(0);
   const [widthUnit, setWidthUnit] = useState("auto");
   const [zIndex, setZIndex] = useState("auto");
@@ -392,6 +400,9 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.imageAlignment) {
         setImageAlignment(props.componentProps.imageAlignment);
       }
+      if (props.componentEditableProps.infinite) {
+        setInfinite(props.componentProps.infinite);
+      }
       if (props.componentEditableProps.innerSectionLayout) {
         innerSectionLayoutRef.current.value =
           props.componentProps.children.length;
@@ -535,6 +546,24 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.playing) {
         setPlaying(props.componentProps.playing);
       }
+      if (props.componentEditableProps.showBullets) {
+        setShowBullets(props.componentProps.showBullets);
+      }
+      if (props.componentEditableProps.showFullscreenButton) {
+        setShowFullscreenButton(props.componentProps.showFullscreenButton);
+      }
+      if (props.componentEditableProps.showNav) {
+        setShowNav(props.componentProps.showNav);
+      }
+      if (props.componentEditableProps.showPlayButton) {
+        setShowPlayButton(props.componentProps.showPlayButton);
+      }
+      if (props.componentEditableProps.showThumbnails) {
+        setShowThumbnails(props.componentProps.showThumbnails);
+      }
+      if (props.componentEditableProps.slideInterval) {
+        setSlideInterval(props.componentProps.slideInterval);
+      }
       if (props.componentEditableProps.source) {
         setSource(props.componentProps.source);
       }
@@ -566,6 +595,9 @@ const EditComponent = ({ props }) => {
       }
       if (props.componentEditableProps.textTransform) {
         setTextTransform(props.componentProps.style.textTransform);
+      }
+      if (props.componentEditableProps.thumbnailPosition) {
+        setThumbnailPosition(props.componentProps.thumbnailPosition);
       }
       if (props.componentEditableProps.width) {
         setWidthValue(props.componentProps.style.width.value);
@@ -1825,6 +1857,35 @@ const EditComponent = ({ props }) => {
           </label>
         </div>
       )}
+      {/* infinite */}
+      {props.componentEditableProps.infinite && (
+        <div className="form-input">
+          <select
+            id="infinite"
+            name="infinite"
+            onChange={(e) => {
+              setInfinite(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.INFINITE,
+                "",
+                e.target.value
+              );
+            }}
+            value={infinite}
+          >
+            {props.componentEditableProps.infinite.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="infinite">
+            <span>{PropsTypes.INFINITE}</span>
+          </label>
+        </div>
+      )}
       {/* inner section layout */}
       {props.componentEditableProps.innerSectionLayout && (
         <div className="form-input">
@@ -2582,6 +2643,177 @@ const EditComponent = ({ props }) => {
           </button>
         </div>
       )}
+      {/* show bullets */}
+      {props.componentEditableProps.showBullets && (
+        <div className="form-input">
+          <select
+            id="showBullets"
+            name="showBullets"
+            onChange={(e) => {
+              setShowBullets(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SHOW_BULLETS,
+                "",
+                e.target.value
+              );
+            }}
+            value={showBullets}
+          >
+            {props.componentEditableProps.showBullets.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="showBullets">
+            <span>{PropsTypes.SHOW_BULLETS}</span>
+          </label>
+        </div>
+      )}
+      {/* show fullscreen button */}
+      {props.componentEditableProps.showFullscreenButton && (
+        <div className="form-input">
+          <select
+            id="showFullscreenButton"
+            name="showFullscreenButton"
+            onChange={(e) => {
+              setShowFullscreenButton(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SHOW_FULLSCREEN_BUTTON,
+                "",
+                e.target.value
+              );
+            }}
+            value={showFullscreenButton}
+          >
+            {props.componentEditableProps.showFullscreenButton.map(
+              (unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit ? "Enable" : "Disable"}
+                  </option>
+                );
+              }
+            )}
+          </select>
+          <label htmlFor="showFullscreenButton">
+            <span>{PropsTypes.SHOW_FULLSCREEN_BUTTON}</span>
+          </label>
+        </div>
+      )}
+      {/* show nav */}
+      {props.componentEditableProps.showNav && (
+        <div className="form-input">
+          <select
+            id="showNav"
+            name="showNav"
+            onChange={(e) => {
+              setShowNav(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SHOW_NAV,
+                "",
+                e.target.value
+              );
+            }}
+            value={showNav}
+          >
+            {props.componentEditableProps.showNav.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="showNav">
+            <span>{PropsTypes.SHOW_NAV}</span>
+          </label>
+        </div>
+      )}
+      {/* show play button */}
+      {props.componentEditableProps.showPlayButton && (
+        <div className="form-input">
+          <select
+            id="showPlayButton"
+            name="showPlayButton"
+            onChange={(e) => {
+              setShowPlayButton(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SHOW_PLAY_BUTTON,
+                "",
+                e.target.value
+              );
+            }}
+            value={showPlayButton}
+          >
+            {props.componentEditableProps.showPlayButton.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="showPlayButton">
+            <span>{PropsTypes.SHOW_PLAY_BUTTON}</span>
+          </label>
+        </div>
+      )}
+      {/* show thumbnails */}
+      {props.componentEditableProps.showThumbnails && (
+        <div className="form-input">
+          <select
+            id="showThumbnails"
+            name="showThumbnails"
+            onChange={(e) => {
+              setShowThumbnails(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SHOW_THUMBNAILS,
+                "",
+                e.target.value
+              );
+            }}
+            value={showThumbnails}
+          >
+            {props.componentEditableProps.showThumbnails.map((unit, index) => {
+              return (
+                <option key={index} value={unit}>
+                  {unit ? "Enable" : "Disable"}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="showThumbnails">
+            <span>{PropsTypes.SHOW_THUMBNAILS}</span>
+          </label>
+        </div>
+      )}
+      {/* slide interval */}
+      {props.componentEditableProps.slideInterval && (
+        <div className="form-input">
+          <input
+            id="slideInterval"
+            min="0"
+            name="slideInterval"
+            onChange={(e) => {
+              setSlideInterval(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.SLIDE_INTERVAL,
+                "",
+                e.target.value || 0
+              );
+            }}
+            step="500"
+            type="number"
+            value={slideInterval}
+          />
+          <label htmlFor="slideInterval">
+            <span>{PropsTypes.SLIDE_INTERVAL} (ms)</span>
+          </label>
+        </div>
+      )}
       {/* source */}
       {props.componentEditableProps.source && (
         <div className="form-input">
@@ -2776,6 +3008,37 @@ const EditComponent = ({ props }) => {
           </select>
           <label htmlFor="textTransform">
             <span>{PropsTypes.TEXT_TRANSFORM}</span>
+          </label>
+        </div>
+      )}
+      {/* thumbnail position */}
+      {props.componentEditableProps.thumbnailPosition && (
+        <div className="form-input">
+          <select
+            id="thumbnailPosition"
+            name="thumbnailPosition"
+            onChange={(e) => {
+              setThumbnailPosition(e.target.value);
+              pageBuilderContext.editComponentProps(
+                PropsTypes.THUMBNAIL_POSITION,
+                "",
+                e.target.value
+              );
+            }}
+            value={thumbnailPosition}
+          >
+            {props.componentEditableProps.thumbnailPosition.map(
+              (unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              }
+            )}
+          </select>
+          <label htmlFor="thumbnailPosition">
+            <span>{PropsTypes.THUMBNAIL_POSITION}</span>
           </label>
         </div>
       )}

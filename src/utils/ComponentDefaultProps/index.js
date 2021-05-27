@@ -149,6 +149,34 @@ export const ComponentDefaultProps = {
     },
     text: "this is image",
   },
+  IMAGE_GALLERY: {
+    infinite: true,
+    images: [
+      {
+        original: "https://picsum.photos/id/1018/1000/600/",
+        thumbnail: "https://picsum.photos/id/1018/250/150/",
+      },
+      {
+        original: "https://picsum.photos/id/1015/1000/600/",
+        thumbnail: "https://picsum.photos/id/1015/250/150/",
+      },
+      {
+        original: "https://picsum.photos/id/1019/1000/600/",
+        thumbnail: "https://picsum.photos/id/1019/250/150/",
+      },
+    ],
+    showBullets: "true",
+    showFullscreenButton: "true",
+    showNav: "true",
+    showPlayButton: "true",
+    showThumbnails: "true",
+    slideInterval: "3000",
+    style: {
+      width: { value: "0", unit: "auto" },
+    },
+    text: "this is image",
+    thumbnailPosition: "bottom",
+  },
   INNERSECTION: {
     style: {
       alignItems: "stretch",
@@ -266,6 +294,7 @@ export const ComponentDefaultProps = {
     playing: "false",
     source: "https://www.youtube.com/watch?v=E4K0XbLtwHc",
     style: {
+      height: { value: "300", unit: "px" },
       marginBottom: { value: "0", unit: "px" },
       marginLeft: { value: "0", unit: "px" },
       marginRight: { value: "0", unit: "px" },
@@ -274,6 +303,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
+      width: { value: "100", unit: "%" },
       zIndex: "auto",
     },
     text: "this is video",
