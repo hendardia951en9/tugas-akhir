@@ -150,7 +150,7 @@ export const ComponentDefaultProps = {
     text: "this is image",
   },
   IMAGE_GALLERY: {
-    infinite: true,
+    infinite: "true",
     images: [
       {
         original: "https://picsum.photos/id/1018/1000/600/",
