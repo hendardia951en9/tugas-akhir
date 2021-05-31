@@ -1,5 +1,5 @@
 .text-editor-component-container {
-  border: 3px solid white;
+  border: 3px solid transparent;
   font-size: 1rem;
   min-width: 100px;
 }

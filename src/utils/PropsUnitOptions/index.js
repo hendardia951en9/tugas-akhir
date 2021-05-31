@@ -41,7 +41,7 @@ export const PropsUnitOptions = {
   fontSize: ["%", "em", "px", "rem"],
   fontWeight: ["bold", "normal"],
   gap: ["%", "em", "px", "rem"],
-  height: ["auto", "%", "em", "px", "rem", "vh"],
+  height: ["auto", "em", "px", "rem", "vh"],
   imageAlignment: ["center", "left", "right"],
   infinite: [false, true],
   justifyContent: [

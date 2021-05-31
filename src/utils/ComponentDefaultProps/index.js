@@ -65,7 +65,7 @@ export const ComponentDefaultProps = {
   },
   HEADING: {
     style: {
-      backgroundColor: { r: 255, g: 255, b: 255, a: 1 },
+      backgroundColor: { r: 255, g: 255, b: 255, a: 0 },
       color: { r: 0, g: 0, b: 0, a: 1 },
       fontSize: { value: "32", unit: "px" },
       fontWeight: "bold",
@@ -90,7 +90,7 @@ export const ComponentDefaultProps = {
     icon: "FaReact",
     linkTo: "",
     style: {
-      backgroundColor: { r: 255, g: 255, b: 255, a: 1 },
+      backgroundColor: { r: 255, g: 255, b: 255, a: 0 },
       color: { r: 0, g: 0, b: 0, a: 1 },
       fontSize: { value: "32", unit: "px" },
       justifyContent: "flex-start",
@@ -202,6 +202,7 @@ export const ComponentDefaultProps = {
     text: "this is inner section",
   },
   INNERSECTION_LAYOUT: {
+    children: [],
     style: {
       alignItems: "center",
       backgroundColor: { r: 255, g: 255, b: 255, a: 1 },

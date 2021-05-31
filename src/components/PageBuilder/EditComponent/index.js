@@ -2849,7 +2849,7 @@ const EditComponent = ({ props }) => {
               pageBuilderContext.editComponentProps(
                 PropsTypes.STAR_RATING_CAP,
                 "",
-                e.target.value || 0
+                e.target.value || "0"
               );
             }}
             type="number"
@@ -2873,7 +2873,7 @@ const EditComponent = ({ props }) => {
               pageBuilderContext.editComponentProps(
                 PropsTypes.STAR_RATING_VALUE,
                 "",
-                e.target.value || 0
+                e.target.value || "0"
               );
             }}
             step="0.5"

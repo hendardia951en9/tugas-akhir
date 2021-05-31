@@ -81,76 +81,37 @@ const Pricing = () => {
       arr.push({
         itemTypes: ItemTypes.BUTTON,
         key: key,
-        props: {
-          buttonAlignment: ComponentDefaultProps.BUTTON.buttonAlignment,
-          linkTo: ComponentDefaultProps.BUTTON.linkTo,
-          style: ComponentDefaultProps.BUTTON.style,
-          text: ComponentDefaultProps.BUTTON.text,
-        },
+        props: ComponentDefaultProps.BUTTON,
       });
     } else if (itemTypes === ItemTypes.DIVIDER) {
       arr.push({
         itemTypes: ItemTypes.DIVIDER,
         key: key,
-        props: {
-          dividerStyle: ComponentDefaultProps.DIVIDER.dividerStyle,
-          dividerText: ComponentDefaultProps.DIVIDER.dividerText,
-          dividerTextContainerStyle:
-            ComponentDefaultProps.DIVIDER.dividerTextContainerStyle,
-          dividerTextStyle: ComponentDefaultProps.DIVIDER.dividerTextStyle,
-          text: ComponentDefaultProps.DIVIDER.text,
-        },
+        props: ComponentDefaultProps.DIVIDER,
       });
     } else if (itemTypes === ItemTypes.HEADING) {
       arr.push({
         itemTypes: ItemTypes.HEADING,
         key: key,
-        props: {
-          style: ComponentDefaultProps.HEADING.style,
-          text: ComponentDefaultProps.HEADING.text,
-        },
+        props: ComponentDefaultProps.HEADING,
       });
     } else if (itemTypes === ItemTypes.ICON) {
       arr.push({
         itemTypes: ItemTypes.ICON,
         key: key,
-        props: {
-          icon: ComponentDefaultProps.ICON.icon,
-          linkTo: ComponentDefaultProps.ICON.linkTo,
-          style: ComponentDefaultProps.ICON.style,
-          text: ComponentDefaultProps.ICON.text,
-        },
+        props: ComponentDefaultProps.ICON,
       });
     } else if (itemTypes === ItemTypes.IMAGE) {
       arr.push({
         itemTypes: ItemTypes.IMAGE,
         key: key,
-        props: {
-          imageAlignment: ComponentDefaultProps.IMAGE.imageAlignment,
-          linkTo: ComponentDefaultProps.IMAGE.linkTo,
-          style: ComponentDefaultProps.IMAGE.style,
-          text: ComponentDefaultProps.IMAGE.text,
-        },
+        props: ComponentDefaultProps.IMAGE,
       });
     } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
       arr.push({
         itemTypes: ItemTypes.IMAGE_GALLERY,
         key: key,
-        props: {
-          infinite: ComponentDefaultProps.IMAGE_GALLERY.infinite,
-          images: ComponentDefaultProps.IMAGE_GALLERY.images,
-          showBullets: ComponentDefaultProps.IMAGE_GALLERY.showBullets,
-          showFullscreenButton:
-            ComponentDefaultProps.IMAGE_GALLERY.showFullscreenButton,
-          showNav: ComponentDefaultProps.IMAGE_GALLERY.showNav,
-          showPlayButton: ComponentDefaultProps.IMAGE_GALLERY.showPlayButton,
-          showThumbnails: ComponentDefaultProps.IMAGE_GALLERY.showThumbnails,
-          slideInterval: ComponentDefaultProps.IMAGE_GALLERY.slideInterval,
-          style: ComponentDefaultProps.IMAGE_GALLERY.style,
-          text: ComponentDefaultProps.IMAGE_GALLERY.text,
-          thumbnailPosition:
-            ComponentDefaultProps.IMAGE_GALLERY.thumbnailPosition,
-        },
+        props: ComponentDefaultProps.IMAGE_GALLERY,
       });
     } else if (itemTypes === ItemTypes.INNERSECTION) {
       boardState.boardComponentsKey += 2;
@@ -186,66 +147,37 @@ const Pricing = () => {
       arr.push({
         itemTypes: ItemTypes.INNERSECTION_LAYOUT,
         key: key,
-        props: {
-          children: [],
-          style: ComponentDefaultProps.INNERSECTION_LAYOUT.style,
-          text: ComponentDefaultProps.INNERSECTION_LAYOUT.text,
-        },
+        props: ComponentDefaultProps.INNERSECTION_LAYOUT,
       });
     } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
       arr.push({
         itemTypes: ItemTypes.MAP_COMPONENT,
         key: key,
-        props: {
-          location: ComponentDefaultProps.MAP_COMPONENT.location,
-          style: ComponentDefaultProps.MAP_COMPONENT.style,
-          text: ComponentDefaultProps.MAP_COMPONENT.text,
-          zoom: ComponentDefaultProps.MAP_COMPONENT.zoom,
-        },
+        props: ComponentDefaultProps.MAP_COMPONENT,
       });
     } else if (itemTypes === ItemTypes.SPACER) {
       arr.push({
         itemTypes: ItemTypes.SPACER,
         key: key,
-        props: {
-          style: ComponentDefaultProps.SPACER.style,
-          text: ComponentDefaultProps.SPACER.text,
-        },
+        props: ComponentDefaultProps.SPACER,
       });
     } else if (itemTypes === ItemTypes.STAR_RATING) {
       arr.push({
         itemTypes: ItemTypes.STAR_RATING,
         key: key,
-        props: {
-          starRatingCap: ComponentDefaultProps.STAR_RATING.starRatingCap,
-          starRatingValue: ComponentDefaultProps.STAR_RATING.starRatingValue,
-          style: ComponentDefaultProps.STAR_RATING.style,
-          text: ComponentDefaultProps.STAR_RATING.text,
-        },
+        props: ComponentDefaultProps.STAR_RATING,
       });
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
       arr.push({
         itemTypes: ItemTypes.TEXT_EDITOR,
         key: key,
-        props: {
-          style: ComponentDefaultProps.TEXT_EDITOR.style,
-          text: ComponentDefaultProps.TEXT_EDITOR.text,
-          textEditorValue: ComponentDefaultProps.TEXT_EDITOR.textEditorValue,
-        },
+        props: ComponentDefaultProps.TEXT_EDITOR,
       });
     } else if (itemTypes === ItemTypes.VIDEO) {
       arr.push({
         itemTypes: ItemTypes.VIDEO,
         key: key,
-        props: {
-          controls: ComponentDefaultProps.VIDEO.controls,
-          loop: ComponentDefaultProps.VIDEO.loop,
-          muted: ComponentDefaultProps.VIDEO.muted,
-          playing: ComponentDefaultProps.VIDEO.playing,
-          source: ComponentDefaultProps.VIDEO.source,
-          style: ComponentDefaultProps.VIDEO.style,
-          text: ComponentDefaultProps.VIDEO.text,
-        },
+        props: ComponentDefaultProps.VIDEO,
       });
     }
   };
