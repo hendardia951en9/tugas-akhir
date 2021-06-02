@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useReducer, useState } from "react";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { generateFormData } from "../../../utils/generateFormData";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
@@ -48,35 +49,19 @@ const SignIn = ({ login }) => {
   });
   const history = useHistory();
 
-  useEffect(() => {
-    document.title = "Sign In";
-    emailRef.current.focus();
-    console.log("useeffect signin");
-  }, []);
-
-  useEffect(() => {
-    $("input").each(function () {
-      if ($(this).val().length > 0) {
-        $(this).addClass("not-empty");
-      } else {
-        $(this).removeClass("not-empty");
-      }
-
-      $(this).on("change", function () {
-        if ($(this).val().length > 0) {
-          $(this).addClass("not-empty");
-        } else {
-          $(this).removeClass("not-empty");
-        }
-      });
-    });
-  });
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
 
+    const formData = generateFormData(data);
+
     axios
-      .post(`http://localhost:8080/login`, data)
+      .post(`http://localhost/tugasakhir/index.php/api/loginuser`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
       .then((res) => {
         //success
         console.log(res.data);
@@ -112,11 +97,25 @@ const SignIn = ({ login }) => {
       });
   };
 
-  const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
-  };
+  useEffect(() => {
+    document.title = "Sign In";
+    $("input").each(function () {
+      if ($(this).val().length > 0) {
+        $(this).addClass("not-empty");
+      } else {
+        $(this).removeClass("not-empty");
+      }
 
-  console.log("render signin");
+      $(this).on("change", function () {
+        if ($(this).val().length > 0) {
+          $(this).addClass("not-empty");
+        } else {
+          $(this).removeClass("not-empty");
+        }
+      });
+    });
+    emailRef.current.focus();
+  }, []);
 
   return (
     <>
@@ -140,8 +139,9 @@ const SignIn = ({ login }) => {
                 {...register("email", {
                   required: "this field is required",
                   pattern: {
-                    // eslint-disable-next-line
-                    value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    value:
+                      // eslint-disable-next-line
+                      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: "invalid format",
                   },
                 })}

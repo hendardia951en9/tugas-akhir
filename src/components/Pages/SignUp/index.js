@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useReducer, useState } from "react";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { generateFormData } from "../../../utils/generateFormData";
 import { useForm } from "react-hook-form";
 
 import axios from "axios";
@@ -47,35 +48,23 @@ const SignUp = () => {
     messageModalStatusCode: 200,
   });
 
-  useEffect(() => {
-    document.title = "Sign Up";
-    nameRef.current.focus();
-    console.log("useeffect signup");
-  }, []);
-
-  useEffect(() => {
-    $("input").each(function () {
-      if ($(this).val().length > 0) {
-        $(this).addClass("not-empty");
-      } else {
-        $(this).removeClass("not-empty");
-      }
-
-      $(this).on("change", function () {
-        if ($(this).val().length > 0) {
-          $(this).addClass("not-empty");
-        } else {
-          $(this).removeClass("not-empty");
-        }
-      });
-    });
-  });
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
 
+    const formData = generateFormData(data);
+
     axios
-      .post(`http://localhost:8080/register`, data)
+      .post(
+        `http://localhost/tugasakhir/index.php/api/registeruser`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
       .then((res) => {
         //success
         console.log(res.data);
@@ -99,11 +88,25 @@ const SignUp = () => {
       });
   };
 
-  const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
-  };
+  useEffect(() => {
+    document.title = "Sign Up";
+    $("input").each(function () {
+      if ($(this).val().length > 0) {
+        $(this).addClass("not-empty");
+      } else {
+        $(this).removeClass("not-empty");
+      }
 
-  console.log("render signup");
+      $(this).on("change", function () {
+        if ($(this).val().length > 0) {
+          $(this).addClass("not-empty");
+        } else {
+          $(this).removeClass("not-empty");
+        }
+      });
+    });
+    nameRef.current.focus();
+  }, []);
 
   return (
     <>
@@ -155,8 +158,9 @@ const SignUp = () => {
                 {...register("email", {
                   required: "this field is required",
                   pattern: {
-                    // eslint-disable-next-line
-                    value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    value:
+                      // eslint-disable-next-line
+                      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: "invalid format",
                   },
                 })}
