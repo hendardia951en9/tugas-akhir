@@ -34,20 +34,20 @@ const reducer = (state, action) => {
 };
 
 const SignIn = ({ login }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const emailRef = useRef(null);
   const { ref } = register("email");
+  const emailRef = useRef(null);
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
   const [state, dispatch] = useReducer(reducer, {
     isShowMessageModal: false,
     messageModalContent: "hello world",
     messageModalStatusCode: 200,
   });
-  const history = useHistory();
 
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
@@ -67,13 +67,7 @@ const SignIn = ({ login }) => {
         console.log(res.data);
         setIsLoading(false);
         if (res.data.status === 200) {
-          localStorage.setItem(
-            "userLoggedIn",
-            JSON.stringify({
-              token: res.data.token,
-              user: res.data.user,
-            })
-          );
+          localStorage.setItem("userLoggedIn", JSON.stringify(res.data.user));
           login();
           history.push("/");
         } else {

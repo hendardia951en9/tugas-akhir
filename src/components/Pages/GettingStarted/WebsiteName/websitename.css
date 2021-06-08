@@ -1,0 +1,31 @@
+.website-name {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height) - 86px);
+}
+
+.website-name h1 {
+  font-size: 2rem;
+  margin-top: 3rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.website-name form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.website-name .form-input {
+  margin: 1rem 0;
+}
+
+@media screen and (max-width: 800px) {
+  .website-name form {
+    width: 70%;
+  }
+}

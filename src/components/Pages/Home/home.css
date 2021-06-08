@@ -1,32 +1,33 @@
-section {
+.home section {
   font-size: 4rem;
   position: relative;
 }
 
-section p {
+.home section p {
   font-size: 1.2rem;
   line-height: 1.5em;
+  margin: 1.5em 0;
 }
 
-section span {
+.home section span {
   display: block;
 }
 
-section button {
+.home section button {
   font-size: 1.05rem;
 }
 
-.swiper-slide {
+.home .swiper-slide {
   min-height: 100vh;
 }
 
 /* fade */
-section.fade h1,
-section.fade p {
+.home section.fade h1,
+.home section.fade p {
   text-align: center;
 }
 
-.swiper-container-fade img {
+.home .swiper-container-fade img {
   height: 100%;
   left: 0;
   object-fit: cover;
@@ -35,7 +36,7 @@ section.fade p {
   width: 100%;
 }
 
-.swiper-description-fade {
+.home .swiper-description-fade {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
@@ -44,6 +45,7 @@ section.fade p {
   justify-content: center;
   left: 0;
   min-height: 100vh;
+  padding: 0.5rem;
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -51,16 +53,16 @@ section.fade p {
   z-index: 2;
 }
 
-.swiper-description-fade button {
+.home .swiper-description-fade button {
   pointer-events: auto;
 }
 
 /* coverflow */
-section.coverflow h5 {
+.home section.coverflow h5 {
   text-align: center;
 }
 
-.swiper-container-coverflow img {
+.home .swiper-container-coverflow img {
   display: block;
   height: 100%;
   object-fit: cover;
@@ -68,12 +70,11 @@ section.coverflow h5 {
   width: 100%;
 }
 
-.swiper-description-coverflow {
+.home .swiper-description-coverflow-wrapper {
   align-items: center;
   background-color: rgba(255, 255, 255, 0.85);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   left: 0;
   min-height: 100vh;
   pointer-events: none;
@@ -83,28 +84,37 @@ section.coverflow h5 {
   z-index: 2;
 }
 
-.swiper-description-coverflow button {
+.home .swiper-description-coverflow {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.home .swiper-description-coverflow button {
   margin: 0 auto;
   pointer-events: auto;
 }
 
 /* grid */
-section.grid {
+.home section.grid {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-section.grid h5 {
+.home section.grid h5 {
   text-align: center;
 }
 
-section.grid p {
+.home section.grid p {
   text-align: center;
 }
 
-.grid-container {
+.home div.grid-container {
   background-image: url("../../../public/assets/images/home/swiper_fade_1.jpg");
   background-position: center;
   background-attachment: fixed;
@@ -117,7 +127,7 @@ section.grid p {
   width: 100%;
 }
 
-.grid-container::before {
+.home div.grid-container::before {
   background-color: rgba(0, 0, 0, 0.7);
   bottom: 0;
   content: "";
@@ -128,14 +138,32 @@ section.grid p {
   z-index: 0;
 }
 
-.grid-item {
+.home div.grid-item {
   background-color: black;
   cursor: pointer;
   position: relative;
   z-index: 1;
 }
 
-.grid-item img {
+.home div.grid-item img {
   height: 100%;
   width: 100%;
+}
+
+@media screen and (max-width: 1100px), screen and (max-height: 450px) {
+  .home section {
+    font-size: 2.5rem;
+  }
+
+  .home section p {
+    font-size: 1rem;
+  }
+
+  .home section button {
+    font-size: 0.85rem;
+  }
+
+  .swiper-description-coverflow-content {
+    text-align: center;
+  }
 }

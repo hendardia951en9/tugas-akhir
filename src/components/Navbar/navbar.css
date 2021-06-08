@@ -70,12 +70,18 @@ nav > .nav-items > ul > li:not(.logo) > a.navbar-active::before {
   transform: translateY(0);
 }
 
-nav > .nav-items > ul > li > ul {
-  display: none;
-  list-style: none;
+.navbar-user-control {
+  margin-right: 1.5rem;
 }
 
-nav > .nav-items > ul > li:hover > ul {
+.navbar-user-control > li {
+  color: white;
+  cursor: pointer;
+  letter-spacing: 0.12rem;
+  min-width: 150px;
+}
+
+.navbar-user-control > li:hover > ul {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -83,14 +89,52 @@ nav > .nav-items > ul > li:hover > ul {
   width: 100%;
 }
 
-nav > .nav-items > ul > li > ul > li {
-  display: block;
+.navbar-user-control > li > ul {
+  display: none;
+  list-style: none;
+  padding-top: calc(var(--navbar-height) - 35px);
+  position: relative;
+}
+
+.navbar-user-control > li > ul::after {
+  background-color: white;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  content: "";
+  height: 10px;
+  left: 0;
+  position: absolute;
+  top: calc(var(--navbar-height) - 35px);
+  transform: translateY(-100%);
+  width: 20px;
+}
+
+.navbar-user-control > li > ul::before {
+  background-color: white;
+  bottom: 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 1);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: calc(var(--navbar-height) - 35px);
+}
+
+.navbar-user-control > li > ul > li {
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0.5rem;
   position: relative;
   width: 100%;
 }
 
+.navbar-user-control > li > ul > li:hover {
+  background-color: lightgray;
+}
+
 nav > .nav-items > ul > li > ul > li > a {
+  color: black;
   display: block;
   text-decoration: none;
+  text-transform: capitalize;
   width: 100%;
 }

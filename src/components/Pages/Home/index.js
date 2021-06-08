@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFade, EffectCoverflow, Autoplay } from "swiper";
+import { useHistory } from "react-router-dom";
+import { UserLoggedInContext } from "../../../App";
 
 import ButtonRipple from "../../ButtonRipple";
 
@@ -13,14 +15,23 @@ import "swiper/swiper-bundle.min.css";
 SwiperCore.use([EffectFade, EffectCoverflow, Autoplay]);
 
 const Home = () => {
-  console.log("render home");
+  const history = useHistory();
+  const userLoggedIn = useContext(UserLoggedInContext);
+
+  const handleGettingStarted = () => {
+    if (userLoggedIn) {
+      history.push("/gettingstarted");
+    } else {
+      history.push("/signin");
+    }
+  };
 
   useEffect(() => {
     document.title = "Home";
   }, []);
 
   return (
-    <>
+    <div className="home">
       <section className="fade">
         <Swiper
           effect="fade"
@@ -31,19 +42,19 @@ const Home = () => {
           autoplay={{ delay: 3000 }}
           allowTouchMove={false}
         >
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_2.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_3.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_4.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_5.jpg" alt="" />
           </SwiperSlide>
         </Swiper>
@@ -58,9 +69,10 @@ const Home = () => {
             </span>
           </p>
           <ButtonRipple
-            text="getting started"
             fa={<FontAwesomeIcon icon={faArrowRight} />}
-            left={false}
+            iconIsLeft={false}
+            onClick={handleGettingStarted}
+            text="getting started"
           />
         </div>
       </section>
@@ -76,52 +88,55 @@ const Home = () => {
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
-            depth: 100,
+            depth: 0,
             modifier: 1,
             slideShadows: true,
           }}
           breakpoints={{
             800: { slidesPerView: 1 },
             1200: { slidesPerView: 2 },
-            2400: { slidesPerView: 2 },
           }}
         >
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_2.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_3.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_4.jpg" alt="" />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="swiper-slide">
             <img src="/assets/images/home/swiper_fade_5.jpg" alt="" />
           </SwiperSlide>
         </Swiper>
-        <div className="swiper-description-coverflow">
-          <h5>
-            The Freedom to Create
-            <div>the Websites You Want</div>
-          </h5>
-          <div>
-            <p>
-              Design and build your own high-quality websites.
-              <span>Whether you’re promoting your business, showcasing</span>
-              <span>your work, opening your store or starting a blog—you</span>
-              <span>can do it all with our website builder.</span>
-            </p>
-            <ButtonRipple text="start now" />
+        <div className="swiper-description-coverflow-wrapper">
+          <div className="swiper-description-coverflow">
+            <h5>
+              The Freedom to Create
+              <div>the Websites You Want</div>
+            </h5>
+            <div className="swiper-description-coverflow-content">
+              <p>
+                Design and build your own high-quality websites.
+                <span>Whether you’re promoting your business, showcasing</span>
+                <span>
+                  your work, opening your store or starting a blog—you
+                </span>
+                <span>can do it all with our website builder.</span>
+              </p>
+              <ButtonRipple onClick={handleGettingStarted} text="start now" />
+            </div>
           </div>
         </div>
       </section>
 
       <section className="grid">
         <h5>
-          Professionally Designed <div>Website Templates</div>
+          Professionally Designed <span>Website Templates</span>
         </h5>
         <p>
           Choose from 500+ customizable website templates
@@ -146,7 +161,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

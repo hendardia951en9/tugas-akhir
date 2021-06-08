@@ -1752,8 +1752,6 @@ const Pricing = () => {
     };
   }, []);
 
-  console.log("render pricing");
-
   return (
     <>
       <PageBuilderContext.Provider

@@ -32,12 +32,14 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 //components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
 //pages
+import Dashboard from "./components/Pages/Dashboard";
+import GettingStarted from "./components/Pages/GettingStarted";
 import Home from "./components/Pages/Home";
 import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
-import Dashboard from "./components/Pages/Dashboard";
 
 //css
 import "./App.css";
@@ -58,8 +60,6 @@ const App = () => {
     setUserLoggedIn(localStorage.getItem("userLoggedIn"));
   };
 
-  console.log("render app");
-
   return (
     <>
       <Router>
@@ -76,6 +76,10 @@ const App = () => {
           </Route>
           <Route exact path="/dashboard">
             <Dashboard />
+            <Footer />
+          </Route>
+          <Route exact path="/gettingstarted">
+            <GettingStarted />
             <Footer />
           </Route>
           <Route exact path="/signin">

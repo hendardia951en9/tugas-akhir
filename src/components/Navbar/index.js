@@ -23,8 +23,6 @@ const Navbar = ({ logout }) => {
   };
 
   useEffect(() => {
-    console.log("useeffect navbar location");
-
     if (location.pathname === "/") {
       window.addEventListener("scroll", handleScroll);
       handleScroll();
@@ -36,8 +34,6 @@ const Navbar = ({ logout }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [location]);
-
-  console.log("render navbar");
 
   return (
     <nav>
@@ -65,45 +61,53 @@ const Navbar = ({ logout }) => {
           </li>
         </ul>
         <ul className="navbar-item-middle"></ul>
-        <ul className="navbar-item-right">
-          {userLoggedIn ? (
-            <>
-              <li>
-                Hello, {JSON.parse(userLoggedIn).user.user_name}
-                <ul>
-                  <li>
-                    <NavLink
-                      exact
-                      to="/logout"
-                      activeClassName="navbar-active"
-                      onClick={() => logout()}
-                    >
-                      Logout
-                    </NavLink>
-                  </li>
-                </ul>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <NavLink exact to="/signin" activeClassName="navbar-active">
-                  Sign In
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  exact
-                  to="/signup"
-                  activeClassName="navbar-active"
-                  className="navbar-button"
-                >
-                  Sign Up
-                </NavLink>
-              </li>
-            </>
-          )}
-        </ul>
+        {userLoggedIn ? (
+          <ul className="navbar-user-control">
+            <li>
+              Hello, {JSON.parse(userLoggedIn).user_name}
+              <ul>
+                <li>
+                  <NavLink
+                    exact
+                    to="/logout"
+                    activeClassName="navbar-active"
+                    onClick={() => logout()}
+                  >
+                    subscribtion
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    exact
+                    to="/logout"
+                    activeClassName="navbar-active"
+                    onClick={() => logout()}
+                  >
+                    logout
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        ) : (
+          <ul className="navbar-item-right">
+            <li>
+              <NavLink exact to="/signin" activeClassName="navbar-active">
+                Sign In
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                exact
+                to="/signup"
+                activeClassName="navbar-active"
+                className="navbar-button"
+              >
+                Sign Up
+              </NavLink>
+            </li>
+          </ul>
+        )}
       </div>
       <div className="navbar-slider"></div>
     </nav>

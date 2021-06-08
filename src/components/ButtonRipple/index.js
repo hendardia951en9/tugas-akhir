@@ -1,7 +1,15 @@
 import React, { useRef } from "react";
 import "./buttonripple.css";
 
-const ButtonRipple = ({ type, name, text, fa, left }) => {
+const ButtonRipple = ({
+  className,
+  fa,
+  iconIsLeft,
+  name,
+  onClick,
+  text,
+  type,
+}) => {
   const buttonRef = useRef(null);
 
   const handleClick = (e) => {
@@ -20,17 +28,16 @@ const ButtonRipple = ({ type, name, text, fa, left }) => {
     }, 300);
   };
 
-  console.log("render button");
-
   return (
     <button
-      className="button"
+      className={"button " + className}
       name={name}
-      onClick={handleClick}
+      onClick={onClick}
+      onMouseDown={handleClick}
       ref={buttonRef}
       type={type}
     >
-      {left ? (
+      {iconIsLeft ? (
         <>
           {fa && <span style={{ display: "inline" }}>{fa}&nbsp;</span>}
           {text}

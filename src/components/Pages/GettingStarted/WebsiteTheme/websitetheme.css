@@ -1,0 +1,46 @@
+.website-theme {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height) - 86px);
+}
+
+.website-theme h1,
+.website-theme h3 {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.website-theme h1 {
+  font-size: 2rem;
+}
+
+.website-theme h3 {
+  margin-top: 3rem;
+}
+
+.website-theme section {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 5rem;
+  text-transform: capitalize;
+}
+
+.website-theme section div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 900px) {
+  .website-theme section {
+    flex-direction: column;
+  }
+}
