@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
 import { ComponentEditableProps } from "../../../utils/ComponentEditableProps";
 import { faThList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
@@ -1488,7 +1490,57 @@ const Pricing = () => {
     }
   };
 
-  const handlePublish = () => {};
+  const handlePublish = () => {
+    console.log(JSON.stringify(boardState.boardComponents));
+    const formData = generateFormData({
+      websiteJSON: JSON.stringify(boardState.boardComponents),
+    });
+
+    axios
+      .post(`http://localhost/tugasakhir/index.php/api/test`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        console.log(res.data);
+        // setIsLoading(false);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        // setIsLoading(false);
+      });
+  };
+
+  const load = () => {
+    axios
+      .get(`http://localhost/tugasakhir/index.php/api/loadtest`)
+      .then((res) => {
+        //success
+        console.log(res.data);
+        boardState.boardComponents = [];
+        boardState.boardComponents.push(JSON.parse(res.data.result.json)[0]);
+        console.log(boardState.boardComponents);
+        // setIsLoading(false);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        // setIsLoading(false);
+      });
+  };
 
   const renderComponent = (component) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
@@ -1805,6 +1857,7 @@ const Pricing = () => {
               </div>
               <div className="sidebar-footer">
                 <button onClick={handlePublish}>Publish</button>
+                <button onClick={load}>Load</button>
               </div>
             </div>
             <div className="board-container">

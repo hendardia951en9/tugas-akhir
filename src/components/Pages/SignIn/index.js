@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useReducer, useState } from "react";
+import $ from "jquery";
+import axios from "axios";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
-import axios from "axios";
-import $ from "jquery";
-
+//components
 import ButtonRipple from "../../ButtonRipple";
 import LoadingScreen from "../../LoadingScreen";
 import MessageModal from "../../MessageModal";
