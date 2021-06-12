@@ -26,13 +26,13 @@ input#innerSectionLayout::-webkit-inner-spin-button {
   color: white;
   cursor: pointer;
   display: flex;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
   gap: 5px;
   justify-content: center;
   margin-left: 0.5rem;
   outline: none;
-  padding: 0.6rem;
+  padding: 0.75rem;
   text-transform: capitalize;
 }
 

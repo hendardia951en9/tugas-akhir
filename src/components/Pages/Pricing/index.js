@@ -11,6 +11,7 @@ import { PropsTypes } from "../../../utils/PropsTypes";
 
 //components
 import LoadingScreen from "../../LoadingScreen";
+import UploadImage from "../../PageBuilder/UploadImage";
 
 //import page builder components
 import Board from "../../PageBuilder/Board";
@@ -61,6 +62,7 @@ const Pricing = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isRenderBoard, setIsRenderBoard] = useState(false);
+  const [isUploadImage, setIsUploadImage] = useState(false);
   const [mapState, setMapState] = useState({
     latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
     longitude: ComponentDefaultProps.MAP_COMPONENT.location.longitude,
@@ -1274,6 +1276,10 @@ const Pricing = () => {
     setMapState({ latitude: newLatitude, longitude: newLongitude });
   };
 
+  const closeUploadImage = () => {
+    setIsUploadImage(false);
+  };
+
   const editComponentProps = (propsTypes, target, value) => {
     let result = false;
 
@@ -1574,6 +1580,10 @@ const Pricing = () => {
     loadPage();
   };
 
+  const handleClickUploadImage = () => {
+    setIsUploadImage(true);
+  };
+
   const loadPage = async () => {
     setIsLoading(true);
 
@@ -1593,7 +1603,6 @@ const Pricing = () => {
         boardState.boardComponentsKey = -1;
         boardState.getComponentData = false;
         boardState.selectedComponentKey = null;
-        console.log(boardState.boardComponents);
         setEditComponent({
           isChoosePage: false,
           isEdit: false,
@@ -1924,6 +1933,10 @@ const Pricing = () => {
 
   return (
     <>
+      {isUploadImage && (
+        <UploadImage closeUploadImage={closeUploadImage} isMultiple={false} />
+      )}
+
       {isLoading && <LoadingScreen />}
 
       <PageBuilderContext.Provider
@@ -1934,6 +1947,7 @@ const Pricing = () => {
           changeMapState,
           editComponentProps,
           handleClick,
+          handleClickUploadImage,
           renderComponent,
         }}
       >

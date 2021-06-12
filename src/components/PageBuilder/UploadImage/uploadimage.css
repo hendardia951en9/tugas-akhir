@@ -1,0 +1,33 @@
+.upload-image {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 90;
+}
+
+.upload-image-blur {
+  background-color: rgba(0, 0, 0, 0.8);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 90;
+}
+
+.upload-image-box {
+  background-color: white;
+  bottom: 10%;
+  left: 10%;
+  margin-top: var(--navbar-height);
+  overflow: auto;
+  position: absolute;
+  right: 10%;
+  top: 10%;
+  z-index: 90;
+}
