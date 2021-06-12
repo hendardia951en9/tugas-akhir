@@ -3,10 +3,14 @@ import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
 import { ComponentEditableProps } from "../../../utils/ComponentEditableProps";
 import { faThList } from "@fortawesome/free-solid-svg-icons";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
+
+//components
+import LoadingScreen from "../../LoadingScreen";
 
 //import page builder components
 import Board from "../../PageBuilder/Board";
@@ -50,14 +54,18 @@ const boardState = {
 
 const Pricing = () => {
   const [editComponent, setEditComponent] = useState({
+    isChoosePage: false,
     isEdit: false,
+    isListComponent: true,
     selectedComponentItemTypes: null,
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [isRenderBoard, setIsRenderBoard] = useState(false);
   const [mapState, setMapState] = useState({
-    latitude: ComponentDefaultProps.MAP_COMPONENT.latitude,
-    longitude: ComponentDefaultProps.MAP_COMPONENT.longitude,
+    latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
+    longitude: ComponentDefaultProps.MAP_COMPONENT.location.longitude,
   });
+  const [sitePages, setSitePages] = useState([]);
 
   const addComponentToBoard = (itemTypes) => {
     boardState.boardComponentsKey += 1;
@@ -1391,143 +1399,215 @@ const Pricing = () => {
     }
   };
 
+  const getSitePagesBySiteID = async (site_id) => {
+    setIsLoading(true);
+
+    const formData = generateFormData({
+      siteID: site_id,
+    });
+
+    axios
+      .post(
+        `http://localhost/tugasakhir/index.php/api/getsitepagesbysiteid`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        console.log(res.data);
+        setIsLoading(false);
+        if (res.data.status === 200) {
+          setSitePages(res.data.result);
+          loadPage();
+        }
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        setIsLoading(false);
+      });
+  };
+
   const handleClick = (itemTypes, key) => {
     if (itemTypes === ItemTypes.BUTTON) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.CHOOSE_PAGE_BUTTON) {
+      setEditComponent({
+        isChoosePage: true,
+        isEdit: false,
+        isListComponent: false,
       });
     } else if (itemTypes === ItemTypes.COMPONENT_LIST_BUTTON) {
       setEditComponent({
+        isChoosePage: false,
         isEdit: false,
+        isListComponent: true,
       });
     } else if (itemTypes === ItemTypes.DIVIDER) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.HEADING) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.ICON) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.IMAGE) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.INNERSECTION) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.INNERSECTION_LAYOUT) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.SPACER) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.STAR_RATING) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     } else if (itemTypes === ItemTypes.VIDEO) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
       setEditComponent({
+        isChoosePage: false,
         isEdit: true,
+        isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
     }
   };
 
-  const handlePublish = () => {
-    console.log(JSON.stringify(boardState.boardComponents));
+  const handleClickSitePages = (site_pages_id) => {
+    localStorage.setItem("site_pages_id", site_pages_id);
+    loadPage();
+  };
+
+  const loadPage = async () => {
+    setIsLoading(true);
+
     const formData = generateFormData({
-      websiteJSON: JSON.stringify(boardState.boardComponents),
+      sitePagesID: localStorage.getItem("site_pages_id"),
     });
 
     axios
-      .post(`http://localhost/tugasakhir/index.php/api/test`, formData, {
+      .post(`http://localhost/tugasakhir/index.php/api/loadpage`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
-        console.log(res.data);
-        // setIsLoading(false);
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        // setIsLoading(false);
-      });
-  };
+        setIsLoading(false);
 
-  const load = () => {
-    axios
-      .get(`http://localhost/tugasakhir/index.php/api/loadtest`)
-      .then((res) => {
-        //success
-        console.log(res.data);
         boardState.boardComponents = [];
-        boardState.boardComponents.push(JSON.parse(res.data.result.json)[0]);
+        boardState.boardComponentsKey = -1;
+        boardState.getComponentData = false;
+        boardState.selectedComponentKey = null;
         console.log(boardState.boardComponents);
-        // setIsLoading(false);
+        setEditComponent({
+          isChoosePage: false,
+          isEdit: false,
+          isListComponent: true,
+        });
+        boardState.boardComponents = JSON.parse(
+          res.data.result.site_pages_json
+        );
+        boardState.boardComponentsKey = parseInt(
+          res.data.result.site_pages_components_key
+        );
+
+        //3ger rerender
+        setIsRenderBoard(!isRenderBoard);
       })
       .catch((err) => {
         //error
@@ -1538,7 +1618,7 @@ const Pricing = () => {
         } else {
           console.log("Error", err.message);
         }
-        // setIsLoading(false);
+        setIsLoading(false);
       });
   };
 
@@ -1793,8 +1873,45 @@ const Pricing = () => {
     }
   };
 
+  const savePage = async () => {
+    setIsLoading(true);
+
+    console.log(boardState.boardComponentsKey);
+
+    const formData = generateFormData({
+      sitePagesID: localStorage.getItem("site_pages_id"),
+      websiteComponentsKey: boardState.boardComponentsKey.toString(),
+      websiteJSON: JSON.stringify(boardState.boardComponents),
+    });
+
+    axios
+      .post(`http://localhost/tugasakhir/index.php/api/savepage`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        console.log(res.data);
+        setIsLoading(false);
+
+        //3ger rerender
+        setIsRenderBoard(!isRenderBoard);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        setIsLoading(false);
+      });
+  };
+
   useEffect(() => {
     document.title = "Pricing";
+    getSitePagesBySiteID(localStorage.getItem("site_id"));
 
     return () => {
       // boardState.boardComponents = [];
@@ -1802,10 +1919,13 @@ const Pricing = () => {
       // boardState.getComponentData = false;
       // boardState.selectedComponentKey = null;
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
+      {isLoading && <LoadingScreen />}
+
       <PageBuilderContext.Provider
         value={{
           boardState,
@@ -1821,9 +1941,23 @@ const Pricing = () => {
           <div className="page-builder-container">
             <div className="sidebar">
               <div className="sidebar-header">
-                {editComponent.isEdit
-                  ? "Edit " + editComponent.selectedComponentItemTypes
-                  : "Components"}
+                <button
+                  className="choose-page-button"
+                  onClick={() =>
+                    handleClick(ItemTypes.CHOOSE_PAGE_BUTTON, null)
+                  }
+                >
+                  <FontAwesomeIcon icon={faWindowRestore} />
+                </button>
+                <div className="title">
+                  {editComponent.isChoosePage
+                    ? "Choose Page"
+                    : editComponent.isEdit
+                    ? "Edit " + editComponent.selectedComponentItemTypes
+                    : editComponent.isListComponent
+                    ? "Components"
+                    : ""}
+                </div>
                 <button
                   className="components-button"
                   onClick={() =>
@@ -1834,30 +1968,42 @@ const Pricing = () => {
                 </button>
               </div>
               <div className="sidebar-container">
-                {editComponent.isEdit ? (
+                {editComponent.isChoosePage ? (
+                  sitePages.map((props) => {
+                    const { site_pages_id, site_pages_name } = props;
+                    return (
+                      <div
+                        key={site_pages_id}
+                        onClick={() => handleClickSitePages(site_pages_id)}
+                      >
+                        {site_pages_name}
+                      </div>
+                    );
+                  })
+                ) : editComponent.isEdit ? (
                   renderEditComponent(boardState.selectedComponentKey)
+                ) : editComponent.isListComponent ? (
+                  <div className="widgets">
+                    <ButtonWidget />
+                    <DividerWidget />
+                    <HeadingWidget />
+                    <IconWidget />
+                    <ImageWidget />
+                    <ImageGalleryWidget />
+                    <InnerSectionWidget />
+                    <MapComponentWidget />
+                    <SpacerWidget />
+                    <StarRatingWidget />
+                    <TextEditorWidget />
+                    <VideoWidget />
+                  </div>
                 ) : (
-                  <>
-                    <div className="widgets">
-                      <ButtonWidget />
-                      <DividerWidget />
-                      <HeadingWidget />
-                      <IconWidget />
-                      <ImageWidget />
-                      <ImageGalleryWidget />
-                      <InnerSectionWidget />
-                      <MapComponentWidget />
-                      <SpacerWidget />
-                      <StarRatingWidget />
-                      <TextEditorWidget />
-                      <VideoWidget />
-                    </div>
-                  </>
+                  ""
                 )}
               </div>
               <div className="sidebar-footer">
-                <button onClick={handlePublish}>Publish</button>
-                <button onClick={load}>Load</button>
+                <button onClick={savePage}>Save</button>
+                <button onClick={loadPage}>Load</button>
               </div>
             </div>
             <div className="board-container">

@@ -67,7 +67,7 @@ const SignIn = ({ login }) => {
         console.log(res.data);
         setIsLoading(false);
         if (res.data.status === 200) {
-          localStorage.setItem("userLoggedIn", JSON.stringify(res.data.user));
+          localStorage.setItem("userLoggedIn", JSON.stringify(res.data.result));
           login();
           history.push("/");
         } else {

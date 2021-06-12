@@ -53,7 +53,8 @@ const MapComponent = ({ componentKey, itemTypes, props }) => {
       onViewportChange={setViewport}
       ref={mapRef}
       style={generateStyle(props.style)}
-      width="100%"
+      width={props.style.width.value + props.style.width.unit}
+      height={props.style.height.value + props.style.height.unit}
     >
       <div
         style={{ width: "100%", height: "100%" }}
@@ -73,6 +74,7 @@ const MapComponent = ({ componentKey, itemTypes, props }) => {
         offsetTop={-16}
         onDragEnd={(e) => {
           setMarker({ longitude: e.lngLat[0], latitude: e.lngLat[1] });
+          pageBuilderContext.changeMapState(e.lngLat[1], e.lngLat[0]);
         }}
       >
         <FontAwesomeIcon icon={faMapMarkerAlt} />

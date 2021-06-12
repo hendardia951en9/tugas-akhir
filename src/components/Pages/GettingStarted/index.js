@@ -43,7 +43,7 @@ const GettingStarted = () => {
     setGettingStartedIndex(2);
   };
 
-  const handleClickSetWebsiteName = (params) => {
+  const handleClickSetWebsiteName = async (params) => {
     setWebsiteName(params);
     setIsLoading(true);
 
@@ -63,6 +63,8 @@ const GettingStarted = () => {
         console.log(res.data);
         setIsLoading(false);
         if (res.data.status === 200) {
+          localStorage.setItem("site_id", res.data.result.site_id);
+          localStorage.setItem("site_pages_id", res.data.result.site_pages_id);
           history.push("/pricing");
         }
       })
@@ -83,38 +85,42 @@ const GettingStarted = () => {
     <>
       {isLoading && <LoadingScreen />}
 
-      <div className="navbar-margin getting-started">
-        {gettingStartedIndex === 0 ? (
-          <WebstiteKind handleClickSetWebsiteKind={handleClickSetWebsiteKind} />
-        ) : gettingStartedIndex === 1 ? (
-          <>
-            <WebsiteTheme
-              handleClickSetWebsiteTheme={handleClickSetWebsiteTheme}
+      <div className="navbar-margin">
+        <div className="getting-started">
+          {gettingStartedIndex === 0 ? (
+            <WebstiteKind
+              handleClickSetWebsiteKind={handleClickSetWebsiteKind}
             />
-            <ButtonRipple
-              className="button-back"
-              fa={<FontAwesomeIcon icon={faArrowLeft} />}
-              iconIsLeft={true}
-              onClick={handleClickButtonBack}
-              text="back"
-            />
-          </>
-        ) : gettingStartedIndex === 2 ? (
-          <>
-            <WebsiteName
-              handleClickSetWebsiteName={handleClickSetWebsiteName}
-            />
-            <ButtonRipple
-              className="button-back"
-              fa={<FontAwesomeIcon icon={faArrowLeft} />}
-              iconIsLeft={true}
-              onClick={handleClickButtonBack}
-              text="back"
-            />
-          </>
-        ) : (
-          <div>3</div>
-        )}
+          ) : gettingStartedIndex === 1 ? (
+            <>
+              <WebsiteTheme
+                handleClickSetWebsiteTheme={handleClickSetWebsiteTheme}
+              />
+              <ButtonRipple
+                className="button-back"
+                fa={<FontAwesomeIcon icon={faArrowLeft} />}
+                iconIsLeft={true}
+                onClick={handleClickButtonBack}
+                text="back"
+              />
+            </>
+          ) : gettingStartedIndex === 2 ? (
+            <>
+              <WebsiteName
+                handleClickSetWebsiteName={handleClickSetWebsiteName}
+              />
+              <ButtonRipple
+                className="button-back"
+                fa={<FontAwesomeIcon icon={faArrowLeft} />}
+                iconIsLeft={true}
+                onClick={handleClickButtonBack}
+                text="back"
+              />
+            </>
+          ) : (
+            <div>3</div>
+          )}
+        </div>
       </div>
     </>
   );

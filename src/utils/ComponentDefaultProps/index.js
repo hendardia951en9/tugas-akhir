@@ -228,10 +228,8 @@ export const ComponentDefaultProps = {
       longitude: -122.4376,
     },
     style: {
-      minHeight: {
-        value: "300",
-        unit: "px",
-      },
+      height: { value: "300", unit: "px" },
+      width: { value: "100", unit: "%" },
     },
     text: "this is map",
     zoom: 8,

@@ -39,8 +39,6 @@ const Board = () => {
     []
   );
 
-  console.log("render board");
-
   return (
     <>
       <div

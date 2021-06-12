@@ -1,4 +1,7 @@
 .page-builder-container {
+  --sidebar-header: 55px;
+  --sidebar-footer: 38px;
+
   height: 100%;
   width: 100%;
 }
@@ -16,6 +19,7 @@
   align-items: center;
   display: flex;
   font-weight: bold;
+  height: var(--sidebar-header);
   justify-content: space-between;
   left: 0;
   letter-spacing: 0.1em;
@@ -24,6 +28,10 @@
   right: 0;
   top: 0;
   z-index: 99;
+}
+
+.sidebar-header .title {
+  text-align: center;
 }
 
 button.components-button {
@@ -40,8 +48,8 @@ button.components-button:hover {
 }
 
 .sidebar-container {
-  bottom: 38px; /* sesuai height widgets-nav */
-  top: 38px; /* sesuai height widgets-footer */
+  bottom: var(--sidebar-footer); /* sesuai height sidebar-footer */
+  top: var(--sidebar-header); /* sesuai height sidebar-header */
   left: 0;
   overflow-y: auto;
   padding: 1rem;

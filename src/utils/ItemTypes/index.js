@@ -1,5 +1,6 @@
 export const ItemTypes = {
   BUTTON: "Button",
+  CHOOSE_PAGE_BUTTON: "Choose Page Button",
   COMPONENT_LIST_BUTTON: "Component List Button",
   DIVIDER: "Divider",
   HEADING: "Heading",

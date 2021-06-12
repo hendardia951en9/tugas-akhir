@@ -180,7 +180,8 @@ export const ComponentEditableProps = {
   },
   MAP_COMPONENT: {
     saveLocation: true,
-    minHeight: PropsUnitOptions.minHeight,
+    height: PropsUnitOptions.height,
+    width: PropsUnitOptions.width,
   },
   SPACER: {
     height: PropsUnitOptions.height,

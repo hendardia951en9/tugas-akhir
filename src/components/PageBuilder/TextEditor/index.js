@@ -41,7 +41,8 @@ const TextEditor = ({ componentKey, itemTypes, props }) => {
           toolbarClassName="text-editor-component-toolbar"
           wrapperClassName="text-editor-component-wrapper"
           editorClassName="text-editor-component"
-          toolbarHidden
+          readOnly={true}
+          toolbarHidden={true}
         />
       ) : (
         props.text

@@ -627,8 +627,6 @@ const EditComponent = ({ props }) => {
     });
   });
 
-  console.log("render edit component");
-
   return (
     <section className="edit-component-container">
       {/* align items */}
