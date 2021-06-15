@@ -121,7 +121,6 @@ export const ComponentEditableProps = {
     marginLeft: PropsUnitOptions.marginLeft,
     marginRight: PropsUnitOptions.marginRight,
     marginTop: PropsUnitOptions.marginTop,
-    maxWidth: PropsUnitOptions.maxWidth,
     opacity: true,
     paddingBottom: PropsUnitOptions.paddingBottom,
     paddingLeft: PropsUnitOptions.paddingLeft,

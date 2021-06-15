@@ -717,11 +717,6 @@ const Pricing = () => {
           key: key,
           props: {
             children: [],
-            onClick: (e) => {
-              if (e.target === e.currentTarget) {
-                handleClick(ItemTypes.INNERSECTION_LAYOUT, key);
-              }
-            },
             style: ComponentDefaultProps.INNERSECTION_LAYOUT.style,
             text: ComponentDefaultProps.INNERSECTION_LAYOUT.text,
           },
@@ -1930,10 +1925,6 @@ const Pricing = () => {
 
   return (
     <>
-      {isUploadImage && (
-        <UploadImage closeUploadImage={closeUploadImage} isMultiple={false} />
-      )}
-
       {isLoading && <LoadingScreen />}
 
       <PageBuilderContext.Provider
@@ -1942,12 +1933,15 @@ const Pricing = () => {
           addComponentToBoard,
           addComponentToInnerSectionLayout,
           changeMapState,
+          closeUploadImage,
           editComponentProps,
           handleClick,
           handleClickUploadImage,
           renderComponent,
         }}
       >
+        {isUploadImage && <UploadImage isMultiple={false} />}
+
         <div className="navbar-margin">
           <div className="page-builder-container">
             <div className="sidebar">

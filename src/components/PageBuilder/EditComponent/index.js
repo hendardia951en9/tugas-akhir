@@ -1877,6 +1877,8 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
+        {/* image gallery */}
+
         {/* infinite */}
         {props.componentEditableProps.infinite && (
           <div className="form-input">
@@ -2648,23 +2650,6 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
-        {/* save location */}
-        {props.componentEditableProps.saveLocation && (
-          <div className="form-input">
-            <button
-              className="button"
-              onClick={() => {
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.LOCATION,
-                  "",
-                  null
-                );
-              }}
-            >
-              save location
-            </button>
-          </div>
-        )}
         {/* show bullets */}
         {props.componentEditableProps.showBullets && (
           <div className="form-input">
@@ -3136,6 +3121,23 @@ const EditComponent = ({ props }) => {
             <label htmlFor="zIndex">
               <span>{PropsTypes.ZINDEX}</span>
             </label>
+          </div>
+        )}
+        {/* save location */}
+        {props.componentEditableProps.saveLocation && (
+          <div className="form-input">
+            <button
+              className="button"
+              onClick={() => {
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.LOCATION,
+                  "",
+                  null
+                );
+              }}
+            >
+              save location
+            </button>
           </div>
         )}
       </section>

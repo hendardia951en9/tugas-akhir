@@ -139,7 +139,6 @@ export const ComponentDefaultProps = {
       marginLeft: { value: "0", unit: "px" },
       marginRight: { value: "0", unit: "px" },
       marginTop: { value: "0", unit: "px" },
-      maxWidth: { value: "0", unit: "auto" },
       opacity: "1",
       paddingBottom: { value: "0", unit: "px" },
       paddingLeft: { value: "0", unit: "px" },
