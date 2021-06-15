@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFade, EffectCoverflow, Autoplay } from "swiper";
 import { useHistory } from "react-router-dom";
-import { UserLoggedInContext } from "../../../App";
 
 import ButtonRipple from "../../ButtonRipple";
 
@@ -16,10 +15,9 @@ SwiperCore.use([EffectFade, EffectCoverflow, Autoplay]);
 
 const Home = () => {
   const history = useHistory();
-  const userLoggedIn = useContext(UserLoggedInContext);
 
   const handleGettingStarted = () => {
-    if (userLoggedIn) {
+    if (localStorage.getItem("userLoggedIn")) {
       history.push("/gettingstarted");
     } else {
       history.push("/signin");

@@ -34,7 +34,6 @@ const Dashboard = () => {
       )
       .then((res) => {
         //success
-        console.log(res.data);
         setIsLoading(false);
         if (res.data.status === 200) {
           localStorage.setItem(
@@ -80,7 +79,6 @@ const Dashboard = () => {
         )
         .then((res) => {
           //success
-          console.log(res.data);
           setIsLoading(false);
           if (res.data.status === 200) {
             setUserSite(res.data.result);

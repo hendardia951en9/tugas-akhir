@@ -1422,7 +1422,6 @@ const Pricing = () => {
       )
       .then((res) => {
         //success
-        console.log(res.data);
         setIsLoading(false);
         if (res.data.status === 200) {
           setSitePages(res.data.result);
@@ -1884,8 +1883,6 @@ const Pricing = () => {
 
   const savePage = async () => {
     setIsLoading(true);
-
-    console.log(boardState.boardComponentsKey);
 
     const formData = generateFormData({
       sitePagesID: localStorage.getItem("site_pages_id"),

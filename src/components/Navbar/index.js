@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { UserLoggedInContext } from "../../App";
 
 import $ from "jquery";
 import logo from "../../public/assets/images/logo.svg";
@@ -9,7 +8,6 @@ import logo from "../../public/assets/images/logo.svg";
 import "./navbar.css";
 
 const Navbar = ({ logout }) => {
-  const userLoggedIn = useContext(UserLoggedInContext);
   const location = useLocation();
 
   const handleScroll = () => {
@@ -48,7 +46,7 @@ const Navbar = ({ logout }) => {
             </NavLink>
           </li>
           <li>
-            {userLoggedIn && (
+            {localStorage.getItem("userLoggedIn") && (
               <NavLink exact to="/dashboard" activeClassName="navbar-active">
                 Dashboard
               </NavLink>
@@ -61,10 +59,11 @@ const Navbar = ({ logout }) => {
           </li>
         </ul>
         <ul className="navbar-item-middle"></ul>
-        {userLoggedIn ? (
+        {localStorage.getItem("userLoggedIn") ? (
           <ul className="navbar-user-control">
             <li>
-              Hello, {JSON.parse(userLoggedIn).user_name}
+              Hello,{" "}
+              {JSON.parse(localStorage.getItem("userLoggedIn")).user_name}
               <ul>
                 <li>
                   <NavLink

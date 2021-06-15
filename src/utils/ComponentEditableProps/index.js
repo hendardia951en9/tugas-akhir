@@ -114,6 +114,7 @@ export const ComponentEditableProps = {
     boxShadowSpread: PropsUnitOptions.boxShadowSpread,
     boxShadowX: PropsUnitOptions.boxShadowX,
     boxShadowY: PropsUnitOptions.boxShadowY,
+    height: PropsUnitOptions.height,
     imageAlignment: PropsUnitOptions.imageAlignment,
     linkTo: true,
     marginBottom: PropsUnitOptions.marginBottom,

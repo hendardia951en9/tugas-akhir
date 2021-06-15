@@ -122,7 +122,6 @@ nav > .nav-items > ul > li:not(.logo) > a.navbar-active::before {
 .navbar-user-control > li > ul > li {
   cursor: pointer;
   overflow: hidden;
-  padding: 0.5rem;
   position: relative;
   width: 100%;
 }
@@ -134,6 +133,7 @@ nav > .nav-items > ul > li:not(.logo) > a.navbar-active::before {
 nav > .nav-items > ul > li > ul > li > a {
   color: black;
   display: block;
+  padding: 0.5rem;
   text-decoration: none;
   text-transform: capitalize;
   width: 100%;

@@ -134,6 +134,7 @@ export const ComponentDefaultProps = {
         boxShadowX: { value: "0", unit: "px" },
         boxShadowY: { value: "0", unit: "px" },
       },
+      height: { value: "0", unit: "auto" },
       marginBottom: { value: "0", unit: "px" },
       marginLeft: { value: "0", unit: "px" },
       marginRight: { value: "0", unit: "px" },

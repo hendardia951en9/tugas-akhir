@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { useHistory } from "react-router-dom";
-import { UserLoggedInContext } from "../../../App";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
@@ -17,8 +16,6 @@ import WebsiteTheme from "./WebsiteTheme";
 import "./gettingstarted.css";
 
 const GettingStarted = () => {
-  const userLoggedIn = useContext(UserLoggedInContext);
-
   const [gettingStartedIndex, setGettingStartedIndex] = useState(0);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +45,7 @@ const GettingStarted = () => {
     setIsLoading(true);
 
     const formData = generateFormData({
-      userLoggedInID: JSON.parse(userLoggedIn).user_id,
+      userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
       websiteKind: websiteKind,
       websiteTheme: websiteTheme,
       websiteName: params,
