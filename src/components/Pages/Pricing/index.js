@@ -1414,7 +1414,7 @@ const Pricing = () => {
 
     axios
       .post(
-        `http://localhost/tugasakhir/index.php/api/getsitepagesbysiteid`,
+        `${process.env.REACT_APP_SITE_URL}/getsitepagesbysiteid`,
         formData,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1591,7 +1591,7 @@ const Pricing = () => {
     });
 
     axios
-      .post(`http://localhost/tugasakhir/index.php/api/loadpage`, formData, {
+      .post(`${process.env.REACT_APP_SITE_URL}/loadpage`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
@@ -1891,7 +1891,7 @@ const Pricing = () => {
     });
 
     axios
-      .post(`http://localhost/tugasakhir/index.php/api/savepage`, formData, {
+      .post(`${process.env.REACT_APP_SITE_URL}/savepage`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {

@@ -26,7 +26,7 @@ const Dashboard = () => {
 
     axios
       .post(
-        `http://localhost/tugasakhir/index.php/api/getsitepagesbysiteid`,
+        `${process.env.REACT_APP_SITE_URL}/getsitepagesbysiteid`,
         formData,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -70,13 +70,9 @@ const Dashboard = () => {
       });
 
       axios
-        .post(
-          `http://localhost/tugasakhir/index.php/api/getusersite`,
-          formData,
-          {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          }
-        )
+        .post(`${process.env.REACT_APP_SITE_URL}/getusersite`, formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
         .then((res) => {
           //success
           setIsLoading(false);

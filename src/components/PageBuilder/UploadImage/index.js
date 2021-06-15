@@ -27,7 +27,7 @@ const UploadImage = ({ closeUploadImage, isMultiple }) => {
     });
 
     axios
-      .post(`http://localhost/tugasakhir/index.php/api/uploadimage`, formData, {
+      .post(`${process.env.REACT_APP_SITE_URL}/uploadimage`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
@@ -57,13 +57,9 @@ const UploadImage = ({ closeUploadImage, isMultiple }) => {
     });
 
     axios
-      .post(
-        `http://localhost/tugasakhir/index.php/api/getusergallery`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      )
+      .post(`${process.env.REACT_APP_SITE_URL}/getusergallery`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((res) => {
         //success
         setIsLoading(false);
@@ -104,7 +100,7 @@ const UploadImage = ({ closeUploadImage, isMultiple }) => {
                       width="100px"
                       height="100px"
                       key={user_gallery_id}
-                      src={`http://localhost/tugasakhir/public/uploads/${
+                      src={`${process.env.REACT_APP_BASE_URL}/public/uploads/${
                         JSON.parse(localStorage.getItem("userLoggedIn")).user_id
                       }/${user_gallery_image_name}`}
                       alt=""

@@ -59,7 +59,7 @@ const SignIn = ({ login }) => {
     const formData = generateFormData(data);
 
     axios
-      .post(`http://localhost/tugasakhir/index.php/api/loginuser`, formData, {
+      .post(`${process.env.REACT_APP_SITE_URL}/loginuser`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {

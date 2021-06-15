@@ -58,13 +58,9 @@ const SignUp = () => {
     const formData = generateFormData(data);
 
     axios
-      .post(
-        `http://localhost/tugasakhir/index.php/api/registeruser`,
-        formData,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
-      )
+      .post(`${process.env.REACT_APP_SITE_URL}/registeruser`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
       .then((res) => {
         //success
         console.log(res.data);
