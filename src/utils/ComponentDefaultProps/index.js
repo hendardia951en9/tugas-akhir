@@ -150,8 +150,7 @@ export const ComponentDefaultProps = {
     text: "this is image",
   },
   IMAGE_GALLERY: {
-    infinite: "true",
-    images: [
+    imageGalleryImages: [
       {
         original: "https://picsum.photos/id/1018/1000/600/",
         thumbnail: "https://picsum.photos/id/1018/250/150/",
@@ -165,6 +164,7 @@ export const ComponentDefaultProps = {
         thumbnail: "https://picsum.photos/id/1019/250/150/",
       },
     ],
+    infinite: "true",
     showBullets: "true",
     showFullscreenButton: "true",
     showNav: "true",

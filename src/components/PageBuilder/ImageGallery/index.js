@@ -25,7 +25,7 @@ const ImageGallery = ({ componentKey, itemTypes, props }) => {
     >
       <ImageGalleryComponent
         infinite={props.infinite === "true"}
-        items={props.images}
+        items={props.imageGalleryImages}
         showBullets={props.showBullets === "true"}
         showFullscreenButton={props.showFullscreenButton === "true"}
         showNav={props.showNav === "true"}

@@ -77,6 +77,15 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     exact
+                    to="/subscribtion"
+                    activeClassName="navbar-active"
+                  >
+                    subscribtion
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    exact
                     to="/logout"
                     activeClassName="navbar-active"
                     onClick={() => handleClickLogout()}

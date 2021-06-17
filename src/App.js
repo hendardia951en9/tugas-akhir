@@ -81,6 +81,7 @@ const App = () => {
           <Route exact path="/pricing">
             <DndProvider backend={HTML5Backend}>
               <Pricing />
+              <Footer />
             </DndProvider>
           </Route>
           <Route exact path="/signin">

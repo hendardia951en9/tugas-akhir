@@ -719,7 +719,7 @@ const EditComponent = ({ props }) => {
             </label>
             <button
               className="button"
-              onClick={() => pageBuilderContext.handleClickUploadImage()}
+              onClick={() => pageBuilderContext.handleClickUploadImage(false)}
             >
               <FontAwesomeIcon icon={faFolderOpen} />
             </button>
@@ -1877,8 +1877,20 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
-        {/* image gallery */}
-
+        {/* image gallery images */}
+        {props.componentEditableProps.imageGalleryImages && (
+          <div className="image-gallery-images-input">
+            <label htmlFor="imageGalleryImages">
+              <span>{PropsTypes.IMAGE_GALLERY_IMAGES}</span>
+            </label>
+            <button
+              className="image-gallery-images-button"
+              onClick={() => pageBuilderContext.handleClickUploadImage(true)}
+            >
+              <FontAwesomeIcon icon={faFolderOpen} />
+            </button>
+          </div>
+        )}
         {/* infinite */}
         {props.componentEditableProps.infinite && (
           <div className="form-input">
@@ -3136,7 +3148,7 @@ const EditComponent = ({ props }) => {
                 );
               }}
             >
-              save location
+              {PropsTypes.LOCATION}
             </button>
           </div>
         )}

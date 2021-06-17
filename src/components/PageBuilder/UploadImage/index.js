@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../../App";
 import axios from "axios";
 import { generateFormData } from "../../../utils/generateFormData";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
-import LoadingScreen from "../../LoadingScreen";
-
 //css
 import "./uploadimage.css";
 
+let selectedFileMultiple = [];
+
 const UploadImage = ({ isMultiple }) => {
+  const appContext = useContext(AppContext);
   const pageBuilderContext = useContext(PageBuilderContext);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -20,7 +21,7 @@ const UploadImage = ({ isMultiple }) => {
   const [userGallery, setUserGallery] = useState([]);
 
   const fetchUserGallery = () => {
-    setIsLoading(true);
+    appContext.setIsLoading(true);
 
     const formData = generateFormData({
       userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
@@ -32,8 +33,20 @@ const UploadImage = ({ isMultiple }) => {
       })
       .then((res) => {
         //success
-        setIsLoading(false);
+        appContext.setIsLoading(false);
         setUserGallery(res.data.result);
+
+        if (isMultiple) {
+          selectedFileMultiple = [];
+
+          res.data.result.forEach((result) => {
+            const { user_gallery_image_name } = result;
+            const url = `${process.env.REACT_APP_BASE_URL}/public/uploads/${
+              JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+            }/${user_gallery_image_name}`;
+            selectedFileMultiple.push({ url: url, checked: false });
+          });
+        }
       })
       .catch((err) => {
         //error
@@ -44,12 +57,12 @@ const UploadImage = ({ isMultiple }) => {
         } else {
           console.log("Error", err.message);
         }
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       });
   };
 
   const handleUpload = () => {
-    setIsLoading(true);
+    appContext.setIsLoading(true);
 
     const formData = generateFormData({
       file: uploadedFile,
@@ -62,8 +75,7 @@ const UploadImage = ({ isMultiple }) => {
       })
       .then((res) => {
         //success
-        setIsLoading(false);
-        console.log(res.data);
+        appContext.setIsLoading(false);
         fetchUserGallery();
       })
       .catch((err) => {
@@ -75,7 +87,7 @@ const UploadImage = ({ isMultiple }) => {
         } else {
           console.log("Error", err.message);
         }
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       });
   };
 
@@ -84,14 +96,53 @@ const UploadImage = ({ isMultiple }) => {
     setSelectedFile(url);
   };
 
+  const onChangeCheckboxImageGallery = (e, url) => {
+    selectedFileMultiple.forEach((file) => {
+      if (file.url === url) {
+        file.checked = e.target.checked;
+      }
+    });
+
+    let temp = false;
+
+    selectedFileMultiple.forEach((file) => {
+      if (file.checked) {
+        temp = true;
+      }
+    });
+
+    setIsSelected(temp);
+  };
+
   const onConfirmSelectFile = () => {
-    pageBuilderContext.closeUploadImage();
-    pageBuilderContext.editComponentProps(
-      PropsTypes.BACKGROUND_IMAGE,
-      "",
-      selectedFile
-    );
-    pageBuilderContext.boardState.getComponentData = true;
+    if (isMultiple === false) {
+      pageBuilderContext.closeUploadImage();
+      pageBuilderContext.editComponentProps(
+        PropsTypes.BACKGROUND_IMAGE,
+        "",
+        selectedFile
+      );
+      pageBuilderContext.boardState.getComponentData = true;
+    } else {
+      let finalSelectedFileMultiple = [];
+
+      selectedFileMultiple.forEach((file) => {
+        if (file.checked === true) {
+          finalSelectedFileMultiple.push({
+            original: file.url,
+            thumbnail: file.url,
+          });
+        }
+      });
+
+      pageBuilderContext.closeUploadImage();
+      pageBuilderContext.editComponentProps(
+        PropsTypes.IMAGE_GALLERY_IMAGES,
+        "",
+        finalSelectedFileMultiple
+      );
+      pageBuilderContext.boardState.getComponentData = true;
+    }
   };
 
   const onUploadFile = (e) => {
@@ -101,12 +152,11 @@ const UploadImage = ({ isMultiple }) => {
 
   useEffect(() => {
     fetchUserGallery();
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
-      {isLoading && <LoadingScreen />}
-
       <div className="upload-image">
         <div
           className="upload-image-blur"
@@ -117,38 +167,71 @@ const UploadImage = ({ isMultiple }) => {
             <div className="upload-image-content-header">header</div>
             <div className="upload-image-content">
               {userGallery
-                ? userGallery.map((gallery) => {
-                    const { user_gallery_id, user_gallery_image_name } =
-                      gallery;
-                    const url = `${
-                      process.env.REACT_APP_BASE_URL
-                    }/public/uploads/${
-                      JSON.parse(localStorage.getItem("userLoggedIn")).user_id
-                    }/${user_gallery_image_name}`;
+                ? isMultiple === false
+                  ? userGallery.map((gallery) => {
+                      const { user_gallery_id, user_gallery_image_name } =
+                        gallery;
+                      const url = `${
+                        process.env.REACT_APP_BASE_URL
+                      }/public/uploads/${
+                        JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+                      }/${user_gallery_image_name}`;
 
-                    return (
-                      <label
-                        key={user_gallery_id}
-                        className="user-gallery-image-wrapper"
-                      >
-                        <input
-                          type="radio"
-                          name="user-gallery-radio"
-                          id={user_gallery_image_name}
-                        />
-                        <img
-                          alt=""
-                          className="user-gallery-image"
-                          height="200px"
-                          onClick={() => {
-                            handleClickUserGalleryImage(url);
-                          }}
-                          src={url}
-                          width="200px"
-                        />
-                      </label>
-                    );
-                  })
+                      return (
+                        <label
+                          className="user-gallery-image-wrapper"
+                          key={user_gallery_id}
+                        >
+                          <input
+                            id={user_gallery_image_name}
+                            name="user-gallery-radio"
+                            type="radio"
+                          />
+                          <img
+                            alt=""
+                            className="user-gallery-image"
+                            height="200px"
+                            onClick={() => {
+                              handleClickUserGalleryImage(url);
+                            }}
+                            src={url}
+                            width="200px"
+                          />
+                        </label>
+                      );
+                    })
+                  : userGallery.map((gallery) => {
+                      const { user_gallery_id, user_gallery_image_name } =
+                        gallery;
+                      const url = `${
+                        process.env.REACT_APP_BASE_URL
+                      }/public/uploads/${
+                        JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+                      }/${user_gallery_image_name}`;
+
+                      return (
+                        <label
+                          className="user-gallery-image-wrapper"
+                          key={user_gallery_id}
+                        >
+                          <input
+                            id={user_gallery_image_name}
+                            name="user-gallery-checkbox"
+                            onChange={(e) => {
+                              onChangeCheckboxImageGallery(e, url);
+                            }}
+                            type="checkbox"
+                          />
+                          <img
+                            alt=""
+                            className="user-gallery-image"
+                            height="200px"
+                            src={url}
+                            width="200px"
+                          />
+                        </label>
+                      );
+                    })
                 : "no image"}
             </div>
             <div className="upload-image-content-footer">

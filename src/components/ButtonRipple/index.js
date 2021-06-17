@@ -30,7 +30,7 @@ const ButtonRipple = ({
 
   return (
     <button
-      className={"button " + className}
+      className={"button-ripple " + className}
       name={name}
       onClick={onClick}
       onMouseDown={handleClick}

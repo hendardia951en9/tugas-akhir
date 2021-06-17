@@ -130,6 +130,7 @@ export const ComponentEditableProps = {
     zIndex: true,
   },
   IMAGE_GALLERY: {
+    imageGalleryImages: true,
     infinite: PropsUnitOptions.infinite,
     showBullets: PropsUnitOptions.showBullets,
     showFullscreenButton: PropsUnitOptions.showFullscreenButton,

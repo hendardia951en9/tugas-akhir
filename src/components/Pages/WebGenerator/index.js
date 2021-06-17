@@ -61,6 +61,7 @@ const WebGenerator = () => {
     isListComponent: true,
     selectedComponentItemTypes: null,
   });
+  const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
   const [isRerenderBoard, setIsRerenderBoard] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
   const [mapState, setMapState] = useState({
@@ -697,6 +698,14 @@ const WebGenerator = () => {
         props: {
           ...component.props,
           imageAlignment: value,
+        },
+      };
+    } else if (propsTypes === PropsTypes.IMAGE_GALLERY_IMAGES) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          imageGalleryImages: value,
         },
       };
     } else if (propsTypes === PropsTypes.INFINITE) {
@@ -1615,8 +1624,9 @@ const WebGenerator = () => {
     fetchUserSitePage();
   };
 
-  const handleClickUploadImage = () => {
+  const handleClickUploadImage = (isMultiple) => {
     setIsUploadImage(true);
+    setIsUploadImageMultiple(isMultiple);
   };
 
   const renderComponent = (component) => {
@@ -1925,7 +1935,7 @@ const WebGenerator = () => {
           renderComponent,
         }}
       >
-        {isUploadImage && <UploadImage isMultiple={false} />}
+        {isUploadImage && <UploadImage isMultiple={isUploadImageMultiple} />}
 
         <div className="navbar-margin">
           <div className="page-builder-container">
