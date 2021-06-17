@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./spacer.css";
@@ -13,7 +13,10 @@ const Spacer = ({ componentKey, itemTypes, props }) => {
       className="spacer-component"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
       style={generateStyle(props.style)}

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconPicker } from "react-fa-icon-picker";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { Editor } from "react-draft-wysiwyg";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { SketchPicker } from "react-color";

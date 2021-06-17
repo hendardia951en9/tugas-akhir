@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useReducer, useState } from "react";
+import React, { useContext, useEffect, useRef, useReducer } from "react";
 import $ from "jquery";
+import { AppContext } from "../../../App";
 import axios from "axios";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +9,6 @@ import { useForm } from "react-hook-form";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
-import LoadingScreen from "../../LoadingScreen";
 import MessageModal from "../../MessageModal";
 
 //css
@@ -33,7 +33,7 @@ const reducer = (state, action) => {
 };
 
 const SignUp = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const appContext = useContext(AppContext);
   const {
     register,
     handleSubmit,
@@ -53,8 +53,7 @@ const SignUp = () => {
   };
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
-
+    appContext.setIsLoading(true);
     const formData = generateFormData(data);
 
     axios
@@ -63,8 +62,7 @@ const SignUp = () => {
       })
       .then((res) => {
         //success
-        console.log(res.data);
-        setIsLoading(false);
+        appContext.setIsLoading(false);
         dispatch({
           type: "SHOW_MODAL",
           payload: res.data.message,
@@ -80,7 +78,7 @@ const SignUp = () => {
         } else {
           console.log("Error", err.message);
         }
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       });
   };
 
@@ -106,8 +104,6 @@ const SignUp = () => {
 
   return (
     <>
-      {isLoading && <LoadingScreen />}
-
       <div className="navbar-margin">
         <div className="sign-up-box">
           <h2>Sign Up</h2>

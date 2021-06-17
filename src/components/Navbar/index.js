@@ -7,8 +7,12 @@ import logo from "../../public/assets/images/logo.svg";
 //css
 import "./navbar.css";
 
-const Navbar = ({ logout }) => {
+const Navbar = () => {
   const location = useLocation();
+
+  const handleClickLogout = () => {
+    localStorage.clear();
+  };
 
   const handleScroll = () => {
     let scrollPos = document.documentElement.scrollTop;
@@ -66,13 +70,8 @@ const Navbar = ({ logout }) => {
               {JSON.parse(localStorage.getItem("userLoggedIn")).user_name}
               <ul>
                 <li>
-                  <NavLink
-                    exact
-                    to="/logout"
-                    activeClassName="navbar-active"
-                    onClick={() => logout()}
-                  >
-                    subscribtion
+                  <NavLink exact to="/gallery" activeClassName="navbar-active">
+                    my gallery
                   </NavLink>
                 </li>
                 <li>
@@ -80,7 +79,7 @@ const Navbar = ({ logout }) => {
                     exact
                     to="/logout"
                     activeClassName="navbar-active"
-                    onClick={() => logout()}
+                    onClick={() => handleClickLogout()}
                   >
                     logout
                   </NavLink>

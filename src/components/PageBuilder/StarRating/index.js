@@ -4,7 +4,7 @@ import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
 import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateStyle } from "../../../utils/generateStyle";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./starrating.css";
@@ -39,7 +39,10 @@ const StarRating = ({ componentKey, itemTypes, props }) => {
       className="star-rating-container"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
       style={generateStyle(props.style)}

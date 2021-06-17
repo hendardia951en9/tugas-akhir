@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./button.css";
@@ -50,7 +50,10 @@ const Button = ({ componentKey, itemTypes, props }) => {
       className="button-component"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
       style={generateStyle(editStyle(props.style, props.buttonAlignment))}

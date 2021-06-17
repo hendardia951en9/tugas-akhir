@@ -16,7 +16,7 @@ SwiperCore.use([EffectFade, EffectCoverflow, Autoplay]);
 const Home = () => {
   const history = useHistory();
 
-  const handleGettingStarted = () => {
+  const handleClickGettingStarted = () => {
     if (localStorage.getItem("userLoggedIn")) {
       history.push("/gettingstarted");
     } else {
@@ -69,7 +69,7 @@ const Home = () => {
           <ButtonRipple
             fa={<FontAwesomeIcon icon={faArrowRight} />}
             iconIsLeft={false}
-            onClick={handleGettingStarted}
+            onClick={handleClickGettingStarted}
             text="getting started"
           />
         </div>
@@ -126,7 +126,10 @@ const Home = () => {
                 </span>
                 <span>can do it all with our website builder.</span>
               </p>
-              <ButtonRipple onClick={handleGettingStarted} text="start now" />
+              <ButtonRipple
+                onClick={handleClickGettingStarted}
+                text="start now"
+              />
             </div>
           </div>
         </div>

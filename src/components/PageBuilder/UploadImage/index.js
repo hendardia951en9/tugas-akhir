@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { generateFormData } from "../../../utils/generateFormData";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
 import LoadingScreen from "../../LoadingScreen";

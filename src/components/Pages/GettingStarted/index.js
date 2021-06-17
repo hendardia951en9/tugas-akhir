@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../../../App";
 import axios from "axios";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +8,6 @@ import { useHistory } from "react-router-dom";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
-import LoadingScreen from "../../LoadingScreen";
 import WebstiteKind from "./WebsiteKind";
 import WebsiteName from "./WebsiteName";
 import WebsiteTheme from "./WebsiteTheme";
@@ -16,9 +16,9 @@ import WebsiteTheme from "./WebsiteTheme";
 import "./gettingstarted.css";
 
 const GettingStarted = () => {
+  const appContext = useContext(AppContext);
   const [gettingStartedIndex, setGettingStartedIndex] = useState(0);
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
   const [websiteKind, setWebsiteKind] = useState(null);
   const [websiteTheme, setWebsiteTheme] = useState(null);
   // eslint-disable-next-line
@@ -42,7 +42,7 @@ const GettingStarted = () => {
 
   const handleClickSetWebsiteName = async (params) => {
     setWebsiteName(params);
-    setIsLoading(true);
+    appContext.setIsLoading(true);
 
     const formData = generateFormData({
       userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
@@ -57,12 +57,11 @@ const GettingStarted = () => {
       })
       .then((res) => {
         //success
-        console.log(res.data);
-        setIsLoading(false);
+        appContext.setIsLoading(false);
         if (res.data.status === 200) {
           localStorage.setItem("site_id", res.data.result.site_id);
-          localStorage.setItem("site_pages_id", res.data.result.site_pages_id);
-          history.push("/pricing");
+          localStorage.setItem("site_page_id", res.data.result.site_page_id);
+          history.push("/webgenerator");
         }
       })
       .catch((err) => {
@@ -74,14 +73,12 @@ const GettingStarted = () => {
         } else {
           console.log("Error", err.message);
         }
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       });
   };
 
   return (
     <>
-      {isLoading && <LoadingScreen />}
-
       <div className="navbar-margin">
         <div className="getting-started">
           {gettingStartedIndex === 0 ? (

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { generateStyle } from "../../../utils/generateStyle";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./texteditor.css";
@@ -30,7 +30,10 @@ const TextEditor = ({ componentKey, itemTypes, props }) => {
       className="text-editor-component-container"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
       style={generateStyle(props.style)}

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useReducer, useState } from "react";
+import React, { useContext, useEffect, useRef, useReducer } from "react";
 import $ from "jquery";
+import { AppContext } from "../../../App";
 import axios from "axios";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +10,6 @@ import { useHistory } from "react-router-dom";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
-import LoadingScreen from "../../LoadingScreen";
 import MessageModal from "../../MessageModal";
 
 //css
@@ -33,7 +33,8 @@ const reducer = (state, action) => {
   throw new Error("no matching action type");
 };
 
-const SignIn = ({ login }) => {
+const SignIn = () => {
+  const appContext = useContext(AppContext);
   const {
     register,
     handleSubmit,
@@ -42,7 +43,6 @@ const SignIn = ({ login }) => {
   const { ref } = register("email");
   const emailRef = useRef(null);
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
   const [state, dispatch] = useReducer(reducer, {
     isShowMessageModal: false,
     messageModalContent: "hello world",
@@ -54,8 +54,7 @@ const SignIn = ({ login }) => {
   };
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
-
+    appContext.setIsLoading(true);
     const formData = generateFormData(data);
 
     axios
@@ -64,11 +63,9 @@ const SignIn = ({ login }) => {
       })
       .then((res) => {
         //success
-        console.log(res.data);
-        setIsLoading(false);
+        appContext.setIsLoading(false);
         if (res.data.status === 200) {
           localStorage.setItem("userLoggedIn", JSON.stringify(res.data.result));
-          login();
           history.push("/");
         } else {
           dispatch({
@@ -87,7 +84,7 @@ const SignIn = ({ login }) => {
         } else {
           console.log("Error", err.message);
         }
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       });
   };
 
@@ -113,8 +110,6 @@ const SignIn = ({ login }) => {
 
   return (
     <>
-      {isLoading && <LoadingScreen />}
-
       <div className="navbar-margin">
         <div className="sign-in-box">
           <h2>Sign In</h2>

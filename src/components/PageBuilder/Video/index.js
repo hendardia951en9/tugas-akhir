@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import ReactPlayer from "react-player";
 import { generateStyle } from "../../../utils/generateStyle";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./video.css";
@@ -19,7 +19,10 @@ const Video = ({ componentKey, itemTypes, props }) => {
         muted={props.muted === "true"}
         onClick={(e) => {
           if (e.target === e.currentTarget) {
-            pageBuilderContext.handleClick(itemTypes, componentKey);
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
           }
         }}
         playing={props.playing === "true"}

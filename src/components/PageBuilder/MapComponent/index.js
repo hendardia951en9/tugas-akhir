@@ -4,7 +4,7 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateStyle } from "../../../utils/generateStyle";
 import Geocoder from "react-map-gl-geocoder";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./mapcomponent.css";
@@ -61,7 +61,10 @@ const MapComponent = ({ componentKey, itemTypes, props }) => {
         className="map-component-click-container"
         onClick={(e) => {
           if (e.target === e.currentTarget) {
-            pageBuilderContext.handleClick(itemTypes, componentKey);
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
           }
         }}
       ></div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
 import { IconPickerItem } from "react-fa-icon-picker";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./icon.css";
@@ -14,7 +14,10 @@ const Icon = ({ componentKey, itemTypes, props }) => {
       className="icon-component"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
     >

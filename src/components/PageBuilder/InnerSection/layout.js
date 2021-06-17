@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
 import { ItemTypes } from "../../../utils/ItemTypes";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { useDrop } from "react-dnd";
 
 //css
@@ -49,7 +49,10 @@ const Layout = ({ id, componentKey, itemTypes, props }) => {
       } ${canDrop && "inner-section-component-layout-canDrop"}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
       ref={drop}

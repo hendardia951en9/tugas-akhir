@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import ImageGalleryComponent from "react-image-gallery";
 import { generateStyle } from "../../../utils/generateStyle";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./imagegallery.css";
@@ -15,7 +15,10 @@ const ImageGallery = ({ componentKey, itemTypes, props }) => {
       className="image-gallery-component-wrapper"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClick(itemTypes, componentKey);
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
         }
       }}
       style={generateStyle(props.style)}

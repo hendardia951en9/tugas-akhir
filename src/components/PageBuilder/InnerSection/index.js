@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
 import Layout from "../InnerSection/layout";
-import { PageBuilderContext } from "../../Pages/Pricing";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./innersection.css";
@@ -15,7 +15,10 @@ const InnerSection = ({ componentKey, itemTypes, props }) => {
         className="inner-section-component"
         onClick={(e) => {
           if (e.target === e.currentTarget) {
-            pageBuilderContext.handleClick(itemTypes, componentKey);
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
           }
         }}
         style={generateStyle(props.style)}

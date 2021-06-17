@@ -30,6 +30,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 //components
+import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -37,6 +38,7 @@ import Footer from "./components/Footer";
 import Dashboard from "./components/Pages/Dashboard";
 import GettingStarted from "./components/Pages/GettingStarted";
 import Home from "./components/Pages/Home";
+import WebGenerator from "./components/Pages/WebGenerator";
 import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
@@ -44,35 +46,21 @@ import SignUp from "./components/Pages/SignUp";
 //css
 import "./App.css";
 
-export const UserLoggedInContext = React.createContext();
+export const AppContext = React.createContext();
 
 const App = () => {
-  const [userLoggedIn, setUserLoggedIn] = useState(
-    localStorage.getItem("userLoggedIn")
-  );
-
-  const login = () => {
-    setUserLoggedIn(localStorage.getItem("userLoggedIn"));
-  };
-
-  const logout = () => {
-    localStorage.clear();
-    setUserLoggedIn(localStorage.getItem("userLoggedIn"));
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
+      {isLoading && <LoadingScreen />}
+
       <Router>
-        <UserLoggedInContext.Provider value={userLoggedIn}>
-          <Navbar logout={logout} />
+        <AppContext.Provider value={{ isLoading, setIsLoading }}>
+          <Navbar />
           <Route exact path="/">
             <Home />
             <Footer />
-          </Route>
-          <Route exact path="/pricing">
-            <DndProvider backend={HTML5Backend}>
-              <Pricing />
-            </DndProvider>
           </Route>
           <Route exact path="/dashboard">
             <Dashboard />
@@ -82,18 +70,28 @@ const App = () => {
             <GettingStarted />
             <Footer />
           </Route>
+          <Route exact path="/logout">
+            <Redirect to="/" />
+          </Route>
+          <Route exact path="/webgenerator">
+            <DndProvider backend={HTML5Backend}>
+              <WebGenerator />
+            </DndProvider>
+          </Route>
+          <Route exact path="/pricing">
+            <DndProvider backend={HTML5Backend}>
+              <Pricing />
+            </DndProvider>
+          </Route>
           <Route exact path="/signin">
-            <SignIn login={login} />
+            <SignIn />
             <Footer />
           </Route>
           <Route exact path="/signup">
             <SignUp />
             <Footer />
           </Route>
-          <Route exact path="/logout">
-            <Redirect to="/" />
-          </Route>
-        </UserLoggedInContext.Provider>
+        </AppContext.Provider>
       </Router>
     </>
   );
