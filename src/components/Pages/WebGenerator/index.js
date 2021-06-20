@@ -47,10 +47,11 @@ import "./webgenerator.css";
 export const PageBuilderContext = React.createContext();
 
 const boardState = {
-  boardComponents: [],
+  boardComponents: {},
   boardComponentsKey: -1,
   getComponentData: false,
   selectedComponentKey: null,
+  selectedSitePageID: -1,
 };
 
 const WebGenerator = () => {
@@ -73,15 +74,20 @@ const WebGenerator = () => {
   const addComponentToBoard = (itemTypes) => {
     boardState.boardComponentsKey += 1;
     addItems(
-      boardState.boardComponents,
+      boardState.boardComponents[boardState.selectedSitePageID],
       itemTypes,
       boardState.boardComponentsKey
     );
+
+    setIsRerenderBoard(!isRerenderBoard);
   };
 
   const addComponentToInnerSectionLayout = (itemTypes, id) => {
     boardState.boardComponentsKey += 1;
-    const component = findComponent(boardState.boardComponents, id);
+    const component = findComponent(
+      boardState.boardComponents[boardState.selectedSitePageID],
+      id
+    );
     addItems(
       component.props.children,
       itemTypes,
@@ -1288,103 +1294,102 @@ const WebGenerator = () => {
     let result = false;
 
     //cari di boardcomponent
-    boardState.boardComponents.forEach((component, index) => {
-      if (component.key === boardState.selectedComponentKey) {
-        result = true;
-        boardState.boardComponents[index] = {
-          ...changeComponentProps(component, propsTypes, target, value),
-        };
+    boardState.boardComponents[boardState.selectedSitePageID].forEach(
+      (component, index) => {
+        if (component.key === boardState.selectedComponentKey) {
+          result = true;
+          boardState.boardComponents[boardState.selectedSitePageID][index] = {
+            ...changeComponentProps(component, propsTypes, target, value),
+          };
+        }
       }
-    });
+    );
 
     //cari di innersection
     if (!result) {
-      boardState.boardComponents.forEach((component, index) => {
-        if (!result) {
-          if (component.itemTypes === ItemTypes.INNERSECTION) {
-            component.props.children.forEach((child, index2) => {
-              if (!result) {
-                if (child.key === boardState.selectedComponentKey) {
-                  result = true;
-                  boardState.boardComponents[index].props.children[index2] = {
-                    ...changeComponentProps(child, propsTypes, target, value),
-                  };
+      boardState.boardComponents[boardState.selectedSitePageID].forEach(
+        (component, index) => {
+          if (!result) {
+            if (component.itemTypes === ItemTypes.INNERSECTION) {
+              component.props.children.forEach((child, index2) => {
+                if (!result) {
+                  if (child.key === boardState.selectedComponentKey) {
+                    result = true;
+                    boardState.boardComponents[boardState.selectedSitePageID][
+                      index
+                    ].props.children[index2] = {
+                      ...changeComponentProps(child, propsTypes, target, value),
+                    };
+                  }
                 }
-              }
-            });
+              });
+            }
           }
         }
-      });
+      );
     }
 
     //cari di innersectionlayout
     if (!result) {
-      boardState.boardComponents.forEach((component, index) => {
-        if (!result) {
-          if (component.itemTypes === ItemTypes.INNERSECTION) {
-            component.props.children.forEach((child, index2) => {
-              if (!result) {
-                if (child.props.children.length > 0) {
-                  child.props.children.forEach((child2, index3) => {
-                    if (!result) {
-                      if (child2.key === boardState.selectedComponentKey) {
-                        result = true;
-                        boardState.boardComponents[index].props.children[
-                          index2
-                        ].props.children[index3] = {
-                          ...changeComponentProps(
-                            child2,
-                            propsTypes,
-                            target,
-                            value
-                          ),
-                        };
+      boardState.boardComponents[boardState.selectedSitePageID].forEach(
+        (component, index) => {
+          if (!result) {
+            if (component.itemTypes === ItemTypes.INNERSECTION) {
+              component.props.children.forEach((child, index2) => {
+                if (!result) {
+                  if (child.props.children.length > 0) {
+                    child.props.children.forEach((child2, index3) => {
+                      if (!result) {
+                        if (child2.key === boardState.selectedComponentKey) {
+                          result = true;
+                          boardState.boardComponents[
+                            boardState.selectedSitePageID
+                          ][index].props.children[index2].props.children[
+                            index3
+                          ] = {
+                            ...changeComponentProps(
+                              child2,
+                              propsTypes,
+                              target,
+                              value
+                            ),
+                          };
+                        }
                       }
-                    }
-                  });
+                    });
+                  }
                 }
-              }
-            });
+              });
+            }
           }
         }
-      });
+      );
     }
 
     //3ger rerender
     setIsRerenderBoard(!isRerenderBoard);
   };
 
-  const fetchUserSitePage = async () => {
+  const fetchUserSiteData = async () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      sitePageID: localStorage.getItem("site_page_id"),
+      siteID: localStorage.getItem("site_id"),
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getusersitepage`, formData, {
+      .post(`${process.env.REACT_APP_SITE_URL}/getusersitedata`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        //reset board
-        boardState.boardComponents = [];
-        boardState.boardComponentsKey = -1;
-        boardState.getComponentData = false;
-        boardState.selectedComponentKey = null;
-        setEditComponent({
-          isChoosePage: false,
-          isEdit: false,
-          isListComponent: true,
-        });
-        boardState.boardComponents = JSON.parse(res.data.result.site_page_json);
-        boardState.boardComponentsKey = parseInt(
-          res.data.result.site_page_components_key
-        );
 
-        //3ger rerender
-        setIsRerenderBoard(!isRerenderBoard);
+        if (res.data.status === 200) {
+          const { site_components_key } = res.data.result;
+          boardState.boardComponentsKey = parseInt(site_components_key);
+          fetchUserSitePages();
+        }
       })
       .catch((err) => {
         //error
@@ -1413,9 +1418,32 @@ const WebGenerator = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
+
         if (res.data.status === 200) {
           setSitePages(res.data.result);
-          fetchUserSitePage();
+          boardState.boardComponents = {};
+          boardState.getComponentData = false;
+          boardState.selectedComponentKey = null;
+          boardState.selectedSitePageID = -1;
+
+          setEditComponent({
+            isChoosePage: false,
+            isEdit: false,
+            isListComponent: true,
+            selectedComponentItemTypes: null,
+          });
+
+          res.data.result.forEach((element, index) => {
+            const { site_page_id, site_page_json } = element;
+            boardState.boardComponents[`${site_page_id}`] =
+              JSON.parse(site_page_json);
+
+            if (index === 0) {
+              boardState.selectedSitePageID = parseInt(site_page_id);
+            }
+          });
+
+          setIsRerenderBoard(!isRerenderBoard);
         }
       })
       .catch((err) => {
@@ -1620,8 +1648,10 @@ const WebGenerator = () => {
   };
 
   const handleClickSitePage = (site_page_id) => {
-    localStorage.setItem("site_page_id", site_page_id);
-    fetchUserSitePage();
+    boardState.selectedSitePageID = site_page_id;
+
+    //3ger rerender
+    setIsRerenderBoard(!isRerenderBoard);
   };
 
   const handleClickUploadImage = (isMultiple) => {
@@ -1743,7 +1773,7 @@ const WebGenerator = () => {
 
   const renderEditComponent = (selectedComponentKey) => {
     const component = findComponent(
-      boardState.boardComponents,
+      boardState.boardComponents[boardState.selectedSitePageID],
       selectedComponentKey
     );
     const itemTypes = component.itemTypes;
@@ -1880,25 +1910,22 @@ const WebGenerator = () => {
     }
   };
 
-  const savePage = async () => {
+  const saveSite = async () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      sitePageID: localStorage.getItem("site_page_id"),
-      websiteComponentsKey: boardState.boardComponentsKey.toString(),
-      websiteJSON: JSON.stringify(boardState.boardComponents),
+      siteID: localStorage.getItem("site_id"),
+      siteComponentsKey: boardState.boardComponentsKey.toString(),
+      siteJSON: JSON.stringify(boardState.boardComponents),
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/savepage`, formData, {
+      .post(`${process.env.REACT_APP_SITE_URL}/savesite`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-
-        //3ger rerender
-        setIsRerenderBoard(!isRerenderBoard);
       })
       .catch((err) => {
         //error
@@ -1915,8 +1942,22 @@ const WebGenerator = () => {
 
   useEffect(() => {
     document.title = "Web Generator";
-    fetchUserSitePages();
+    fetchUserSiteData();
 
+    return () => {
+      boardState.boardComponents = {};
+      boardState.boardComponentsKey = -1;
+      boardState.getComponentData = false;
+      boardState.selectedComponentKey = null;
+      boardState.selectedSitePageID = -1;
+
+      setEditComponent({
+        isChoosePage: false,
+        isEdit: false,
+        isListComponent: true,
+        selectedComponentItemTypes: null,
+      });
+    };
     // eslint-disable-next-line
   }, []);
 
@@ -2008,12 +2049,16 @@ const WebGenerator = () => {
                 )}
               </div>
               <div className="sidebar-footer">
-                <button onClick={savePage}>Save</button>
-                <button onClick={fetchUserSitePage}>Load</button>
+                <button onClick={saveSite}>Save</button>
+                <button onClick={fetchUserSiteData}>Load</button>
               </div>
             </div>
             <div className="board-container">
-              <Board />
+              <Board
+                boardComponents={
+                  boardState.boardComponents[boardState.selectedSitePageID]
+                }
+              />
             </div>
           </div>
         </div>

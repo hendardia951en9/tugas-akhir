@@ -6,7 +6,7 @@ import { useDrop } from "react-dnd";
 //css
 import "./board.css";
 
-const Board = () => {
+const Board = ({ boardComponents }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const [{ isOver, canDrop }, drop] = useDrop(
@@ -27,7 +27,6 @@ const Board = () => {
       ],
       drop: (item, monitor) => {
         if (monitor.getClientOffset() != null) {
-          console.log("add to board");
           pageBuilderContext.addComponentToBoard(monitor.getItemType());
         }
       },
@@ -49,9 +48,10 @@ const Board = () => {
       >
         {
           //eslint-disable-next-line
-          pageBuilderContext.boardState.boardComponents.map((component) => {
-            return pageBuilderContext.renderComponent(component);
-          })
+          boardComponents &&
+            boardComponents.map((component) => {
+              return pageBuilderContext.renderComponent(component);
+            })
         }
       </div>
     </>

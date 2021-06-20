@@ -26,7 +26,6 @@ const Layout = ({ id, componentKey, itemTypes, props }) => {
         ItemTypes.VIDEO,
       ],
       drop: (item, monitor) => {
-        console.log("add to inner");
         if (monitor.getClientOffset() != null) {
           pageBuilderContext.addComponentToInnerSectionLayout(
             monitor.getItemType(),

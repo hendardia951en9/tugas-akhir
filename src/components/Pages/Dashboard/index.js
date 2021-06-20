@@ -12,39 +12,6 @@ const Dashboard = () => {
   const history = useHistory();
   const [userSite, setUserSite] = useState([]);
 
-  const fetchUserSitePages = async () => {
-    appContext.setIsLoading(true);
-
-    const formData = generateFormData({
-      siteID: localStorage.getItem("site_id"),
-    });
-
-    axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getusersitepages`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        if (res.data.status === 200) {
-          //get page index 0 to edit
-          localStorage.setItem("site_page_id", res.data.result[0].site_page_id);
-          history.push("/webgenerator");
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
-      });
-  };
-
   const fetchUserSites = async () => {
     appContext.setIsLoading(true);
 
@@ -78,7 +45,7 @@ const Dashboard = () => {
 
   const handleClickSite = (site_id) => {
     localStorage.setItem("site_id", site_id);
-    fetchUserSitePages();
+    history.push("/webgenerator");
   };
 
   useEffect(() => {

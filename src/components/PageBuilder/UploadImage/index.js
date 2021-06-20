@@ -20,7 +20,7 @@ const UploadImage = ({ isMultiple }) => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [userGallery, setUserGallery] = useState([]);
 
-  const fetchUserGallery = () => {
+  const fetchUserGallery = async () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
@@ -36,7 +36,8 @@ const UploadImage = ({ isMultiple }) => {
         appContext.setIsLoading(false);
         setUserGallery(res.data.result);
 
-        if (isMultiple) {
+        //set all image selected status with false
+        if (isMultiple && res.data.result) {
           selectedFileMultiple = [];
 
           res.data.result.forEach((result) => {
