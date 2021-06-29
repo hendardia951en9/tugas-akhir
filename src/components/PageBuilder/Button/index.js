@@ -5,7 +5,7 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./button.css";
 
-const Button = ({ componentKey, itemTypes, props }) => {
+const Button = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const editStyle = (style, buttonAlignment) => {
@@ -48,17 +48,21 @@ const Button = ({ componentKey, itemTypes, props }) => {
   return (
     <button
       className="button-component"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
       style={generateStyle(editStyle(props.style, props.buttonAlignment))}
     >
-      {props.text}
+      {isEdit ? props.text : <a href={props.linkTo}>{props.text}</a>}
     </button>
   );
 };

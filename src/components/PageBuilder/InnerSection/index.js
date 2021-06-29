@@ -6,21 +6,25 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./innersection.css";
 
-const InnerSection = ({ componentKey, itemTypes, props }) => {
+const InnerSection = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
     <>
       <div
         className="inner-section-component"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            pageBuilderContext.handleClickPageBuilderComponent(
-              itemTypes,
-              componentKey
-            );
-          }
-        }}
+        onClick={
+          isEdit
+            ? (e) => {
+                if (e.target === e.currentTarget) {
+                  pageBuilderContext.handleClickPageBuilderComponent(
+                    itemTypes,
+                    componentKey
+                  );
+                }
+              }
+            : undefined
+        }
         style={generateStyle(props.style)}
       >
         {props.children.length > 0

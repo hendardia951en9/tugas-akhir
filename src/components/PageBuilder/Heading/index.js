@@ -5,20 +5,24 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./heading.css";
 
-const Heading = ({ componentKey, itemTypes, props }) => {
+const Heading = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
     <h1
       className="heading-component"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
       style={generateStyle(props.style)}
     >
       {props.text}

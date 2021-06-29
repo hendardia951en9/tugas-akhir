@@ -8,7 +8,7 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 import "./texteditor.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const TextEditor = ({ componentKey, itemTypes, props }) => {
+const TextEditor = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const [textEditorValue, setTextEditorValue] = useState(
@@ -28,14 +28,18 @@ const TextEditor = ({ componentKey, itemTypes, props }) => {
   return (
     <section
       className="text-editor-component-container"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
       style={generateStyle(props.style)}
     >
       {textEditorValue ? (

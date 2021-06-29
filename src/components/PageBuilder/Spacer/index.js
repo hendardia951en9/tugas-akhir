@@ -5,20 +5,24 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./spacer.css";
 
-const Spacer = ({ componentKey, itemTypes, props }) => {
+const Spacer = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
     <div
       className="spacer-component"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
       style={generateStyle(props.style)}
     ></div>
   );

@@ -150,6 +150,7 @@ export const ComponentDefaultProps = {
     text: "this is image",
   },
   IMAGE_GALLERY: {
+    imageGalleryAlignment: "left",
     imageGalleryImages: [
       {
         original: "https://picsum.photos/id/1018/1000/600/",
@@ -293,7 +294,7 @@ export const ComponentDefaultProps = {
     playing: "false",
     source: "https://www.youtube.com/watch?v=E4K0XbLtwHc",
     style: {
-      height: { value: "300", unit: "px" },
+      height: { value: "0", unit: "auto" },
       marginBottom: { value: "0", unit: "px" },
       marginLeft: { value: "0", unit: "px" },
       marginRight: { value: "0", unit: "px" },
@@ -302,7 +303,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
-      width: { value: "100", unit: "%" },
+      width: { value: "0", unit: "auto" },
       zIndex: "auto",
     },
     text: "this is video",

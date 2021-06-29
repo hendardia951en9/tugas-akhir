@@ -43,6 +43,7 @@ export const PropsUnitOptions = {
   gap: ["%", "em", "px", "rem"],
   height: ["auto", "em", "px", "rem", "vh"],
   imageAlignment: ["center", "left", "right"],
+  imageGalleryAlignment: ["center", "left", "right"],
   infinite: [false, true],
   justifyContent: [
     "center",

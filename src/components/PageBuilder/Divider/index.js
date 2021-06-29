@@ -5,20 +5,24 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./divider.css";
 
-const Divider = ({ componentKey, itemTypes, props }) => {
+const Divider = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
     <div
       className="divider-component"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
     >
       <div
         className="divider-component-text-container"

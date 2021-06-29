@@ -25,9 +25,9 @@
 // export default App;
 
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 //components
 import LoadingScreen from "./components/LoadingScreen";
@@ -38,10 +38,11 @@ import Footer from "./components/Footer";
 import Dashboard from "./components/Pages/Dashboard";
 import GettingStarted from "./components/Pages/GettingStarted";
 import Home from "./components/Pages/Home";
-import WebGenerator from "./components/Pages/WebGenerator";
 import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
+import UserWebsite from "./components/Pages/UserWebsite";
+import WebGenerator from "./components/Pages/WebGenerator";
 
 //css
 import "./App.css";
@@ -57,40 +58,50 @@ const App = () => {
 
       <Router>
         <AppContext.Provider value={{ isLoading, setIsLoading }}>
-          <Navbar />
           <Route exact path="/">
+            <Navbar />
             <Home />
             <Footer />
           </Route>
           <Route exact path="/dashboard">
+            <Navbar />
             <Dashboard />
             <Footer />
           </Route>
           <Route exact path="/gettingstarted">
+            <Navbar />
             <GettingStarted />
             <Footer />
+          </Route>
+          <Route exact path="/home">
+            <Redirect to="/" />
           </Route>
           <Route exact path="/logout">
             <Redirect to="/" />
           </Route>
           <Route exact path="/webgenerator">
+            <Navbar />
             <DndProvider backend={HTML5Backend}>
               <WebGenerator />
             </DndProvider>
           </Route>
           <Route exact path="/pricing">
-            <DndProvider backend={HTML5Backend}>
-              <Pricing />
-              <Footer />
-            </DndProvider>
+            <Navbar />
+            <Pricing />
+            <Footer />
           </Route>
           <Route exact path="/signin">
+            <Navbar />
             <SignIn />
             <Footer />
           </Route>
           <Route exact path="/signup">
+            <Navbar />
             <SignUp />
             <Footer />
+          </Route>
+          <Route exact path="/website/:websiteID">
+            <UserWebsite />
           </Route>
         </AppContext.Provider>
       </Router>

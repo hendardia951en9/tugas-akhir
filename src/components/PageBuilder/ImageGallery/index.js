@@ -7,21 +7,62 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 import "./imagegallery.css";
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const ImageGallery = ({ componentKey, itemTypes, props }) => {
+const ImageGallery = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
+
+  const editStyle = (style, imageAlignment) => {
+    if (imageAlignment === "center") {
+      style = {
+        ...style,
+        marginLeft: {
+          ...style.marginLeft,
+          unit: "auto",
+        },
+      };
+      style = {
+        ...style,
+        marginRight: {
+          ...style.marginRight,
+          unit: "auto",
+        },
+      };
+    } else if (imageAlignment === "left") {
+      style = {
+        ...style,
+        marginRight: {
+          ...style.marginRight,
+          unit: "auto",
+        },
+      };
+    } else if (imageAlignment === "right") {
+      style = {
+        ...style,
+        marginLeft: {
+          ...style.marginLeft,
+          unit: "auto",
+        },
+      };
+    }
+
+    return style;
+  };
 
   return (
     <div
       className="image-gallery-component-wrapper"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
-      style={generateStyle(props.style)}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
+      style={generateStyle(editStyle(props.style, props.imageGalleryAlignment))}
     >
       <ImageGalleryComponent
         infinite={props.infinite === "true"}

@@ -94,6 +94,7 @@ const EditComponent = ({ props }) => {
   const [heightUnit, setHeightUnit] = useState("auto");
   const [icon, setIcon] = useState("");
   const [imageAlignment, setImageAlignment] = useState("left");
+  const [imageGalleryAlignment, setImageGalleryAlignment] = useState("left");
   const [infinite, setInfinite] = useState(true);
   const innerSectionLayoutRef = useRef(null);
   const [justifyContent, setJustifyContent] = useState("flex-start");
@@ -400,6 +401,9 @@ const EditComponent = ({ props }) => {
       }
       if (props.componentEditableProps.imageAlignment) {
         setImageAlignment(props.componentProps.imageAlignment);
+      }
+      if (props.componentEditableProps.imageGalleryAlignment) {
+        setImageGalleryAlignment(props.componentProps.imageGalleryAlignment);
       }
       if (props.componentEditableProps.infinite) {
         setInfinite(props.componentProps.infinite);
@@ -1874,6 +1878,37 @@ const EditComponent = ({ props }) => {
             </select>
             <label htmlFor="imageAlignment">
               <span>{PropsTypes.IMAGE_ALIGNMENT}</span>
+            </label>
+          </div>
+        )}
+        {/* image gallery alignment */}
+        {props.componentEditableProps.imageGalleryAlignment && (
+          <div className="form-input">
+            <select
+              id="imageGalleryAlignment"
+              name="imageGalleryAlignment"
+              onChange={(e) => {
+                setImageGalleryAlignment(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.IMAGE_GALLERY_ALIGNMENT,
+                  "",
+                  e.target.value
+                );
+              }}
+              value={imageGalleryAlignment}
+            >
+              {props.componentEditableProps.imageGalleryAlignment.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="imageGalleryAlignment">
+              <span>{PropsTypes.IMAGE_GALLERY_ALIGNMENT}</span>
             </label>
           </div>
         )}

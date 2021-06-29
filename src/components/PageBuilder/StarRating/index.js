@@ -9,7 +9,7 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./starrating.css";
 
-const StarRating = ({ componentKey, itemTypes, props }) => {
+const StarRating = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const generateStarRating = (starRatingCap, starRatingValue) => {
@@ -37,14 +37,18 @@ const StarRating = ({ componentKey, itemTypes, props }) => {
   return (
     <div
       className="star-rating-container"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
       style={generateStyle(props.style)}
     >
       {generateStarRating(props.starRatingCap, props.starRatingValue)}

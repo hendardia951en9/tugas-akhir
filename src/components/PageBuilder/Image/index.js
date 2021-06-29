@@ -5,7 +5,7 @@ import { PageBuilderContext } from "../../Pages/WebGenerator";
 //css
 import "./image.css";
 
-const Image = ({ componentKey, itemTypes, props }) => {
+const Image = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const editStyle = (style, imageAlignment) => {
@@ -52,21 +52,35 @@ const Image = ({ componentKey, itemTypes, props }) => {
   return (
     <div
       className="image-component"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
+      onClick={
+        isEdit
+          ? (e) => {
+              if (e.target === e.currentTarget) {
+                pageBuilderContext.handleClickPageBuilderComponent(
+                  itemTypes,
+                  componentKey
+                );
+              }
+            }
+          : undefined
+      }
       style={generateStyle(editStyle(props.style, props.imageAlignment))}
     >
-      <img
-        src={getBackgroundImageUrl(props.style.backgroundImage)}
-        style={{ visibility: "hidden" }}
-        alt=""
-      />
+      {isEdit ? (
+        <img
+          src={getBackgroundImageUrl(props.style.backgroundImage)}
+          style={{ visibility: "hidden" }}
+          alt=""
+        />
+      ) : (
+        <a href={props.linkTo}>
+          <img
+            src={getBackgroundImageUrl(props.style.backgroundImage)}
+            style={{ visibility: "hidden" }}
+            alt=""
+          />
+        </a>
+      )}
     </div>
   );
 };

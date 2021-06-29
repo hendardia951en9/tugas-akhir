@@ -32,6 +32,7 @@ export const PropsTypes = {
   HEIGHT: "Height",
   ICON: "Icon",
   IMAGE_ALIGNMENT: "Image Alignment",
+  IMAGE_GALLERY_ALIGNMENT: "Image Gallery Alignment",
   IMAGE_GALLERY_IMAGES: "Image Gallery Images",
   INFINITE: "Infinite",
   INNER_SECTION_LAYOUT: "Inner Section Layout",

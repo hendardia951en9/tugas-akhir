@@ -11,9 +11,8 @@ import "./mapcomponent.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-const MapComponent = ({ componentKey, itemTypes, props }) => {
-  const MAPBOX_API =
-    "pk.eyJ1IjoiaGVuZHkwNiIsImEiOiJja293dTFsdjAwODg4MndyMXFmYWEzdzY1In0.jYPrMAP3Gvp14GEpt5eAbA";
+const MapComponent = ({ componentKey, isEdit, itemTypes, props }) => {
+  const MAPBOX_API = `${process.env.REACT_APP_MAPBOX_API}`;
   const [viewport, setViewport] = useState({
     latitude: props.location.latitude,
     longitude: props.location.longitude,
@@ -59,14 +58,18 @@ const MapComponent = ({ componentKey, itemTypes, props }) => {
       <div
         style={{ width: "100%", height: "100%" }}
         className="map-component-click-container"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            pageBuilderContext.handleClickPageBuilderComponent(
-              itemTypes,
-              componentKey
-            );
-          }
-        }}
+        onClick={
+          isEdit
+            ? (e) => {
+                if (e.target === e.currentTarget) {
+                  pageBuilderContext.handleClickPageBuilderComponent(
+                    itemTypes,
+                    componentKey
+                  );
+                }
+              }
+            : undefined
+        }
       ></div>
       <Marker
         className="map-component-marker"

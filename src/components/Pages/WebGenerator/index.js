@@ -706,6 +706,14 @@ const WebGenerator = () => {
           imageAlignment: value,
         },
       };
+    } else if (propsTypes === PropsTypes.IMAGE_GALLERY_ALIGNMENT) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          imageGalleryAlignment: value,
+        },
+      };
     } else if (propsTypes === PropsTypes.IMAGE_GALLERY_IMAGES) {
       component = {
         ...component,
@@ -1665,6 +1673,7 @@ const WebGenerator = () => {
         <Button
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1674,6 +1683,7 @@ const WebGenerator = () => {
         <Divider
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1683,6 +1693,7 @@ const WebGenerator = () => {
         <Heading
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1692,6 +1703,7 @@ const WebGenerator = () => {
         <Icon
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1701,6 +1713,7 @@ const WebGenerator = () => {
         <InnerSection
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1710,6 +1723,7 @@ const WebGenerator = () => {
         <Image
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1719,6 +1733,7 @@ const WebGenerator = () => {
         <ImageGallery
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1728,6 +1743,7 @@ const WebGenerator = () => {
         <MapComponent
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1737,6 +1753,7 @@ const WebGenerator = () => {
         <Spacer
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1746,6 +1763,7 @@ const WebGenerator = () => {
         <StarRating
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1755,6 +1773,7 @@ const WebGenerator = () => {
         <TextEditor
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1764,6 +1783,7 @@ const WebGenerator = () => {
         <Video
           key={component.key}
           componentKey={component.key}
+          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -1957,6 +1977,8 @@ const WebGenerator = () => {
         isListComponent: true,
         selectedComponentItemTypes: null,
       });
+
+      localStorage.removeItem("site_id");
     };
     // eslint-disable-next-line
   }, []);
