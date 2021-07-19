@@ -100,7 +100,7 @@ const App = () => {
             <SignUp />
             <Footer />
           </Route>
-          <Route exact path="/website/:websiteID">
+          <Route exact path="/website/:websiteID/:websitePage">
             <UserWebsite />
           </Route>
         </AppContext.Provider>

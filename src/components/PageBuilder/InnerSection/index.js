@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { generateStyle } from "../../../utils/generateStyle";
-import Layout from "../InnerSection/layout";
+import Layout from "./layout";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
@@ -34,6 +34,7 @@ const InnerSection = ({ componentKey, isEdit, itemTypes, props }) => {
                   key={child.key}
                   id={child.key}
                   componentKey={child.key}
+                  isEdit={isEdit}
                   itemTypes={child.itemTypes}
                   props={child.props}
                   style={generateStyle(child.props.style)}

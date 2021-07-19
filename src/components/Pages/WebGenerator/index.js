@@ -11,6 +11,7 @@ import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
 //components
+import DOMTree from "../../DOMTree";
 import UploadImage from "../../PageBuilder/UploadImage";
 
 //import page builder components
@@ -58,6 +59,7 @@ const WebGenerator = () => {
   const appContext = useContext(AppContext);
   const [editComponent, setEditComponent] = useState({
     isChoosePage: false,
+    isDOMTree: false,
     isEdit: false,
     isListComponent: true,
     selectedComponentItemTypes: null,
@@ -1528,6 +1530,7 @@ const WebGenerator = () => {
       boardState.getComponentData = true;
       setEditComponent({
         isChoosePage: false,
+        isDOMTree: false,
         isEdit: true,
         isListComponent: false,
         selectedComponentItemTypes: itemTypes,
@@ -1535,14 +1538,23 @@ const WebGenerator = () => {
     } else if (itemTypes === ItemTypes.CHOOSE_PAGE_BUTTON) {
       setEditComponent({
         isChoosePage: true,
+        isDOMTree: false,
         isEdit: false,
         isListComponent: false,
       });
     } else if (itemTypes === ItemTypes.COMPONENT_LIST_BUTTON) {
       setEditComponent({
         isChoosePage: false,
+        isDOMTree: false,
         isEdit: false,
         isListComponent: true,
+      });
+    } else if (itemTypes === ItemTypes.DOM_TREE_BUTTON) {
+      setEditComponent({
+        isChoosePage: false,
+        isDOMTree: true,
+        isEdit: false,
+        isListComponent: false,
       });
     } else if (itemTypes === ItemTypes.DIVIDER) {
       boardState.selectedComponentKey = key;
@@ -2015,9 +2027,22 @@ const WebGenerator = () => {
                 >
                   <FontAwesomeIcon icon={faWindowRestore} />
                 </button>
+                <button
+                  className="dom-tree-button"
+                  onClick={() =>
+                    handleClickPageBuilderComponent(
+                      ItemTypes.DOM_TREE_BUTTON,
+                      null
+                    )
+                  }
+                >
+                  <FontAwesomeIcon icon={faWindowRestore} />
+                </button>
                 <div className="title">
                   {editComponent.isChoosePage
                     ? "Choose Page"
+                    : editComponent.isDOMTree
+                    ? "DOM Tree"
                     : editComponent.isEdit
                     ? "Edit " + editComponent.selectedComponentItemTypes
                     : editComponent.isListComponent
@@ -2049,6 +2074,12 @@ const WebGenerator = () => {
                       </div>
                     );
                   })
+                ) : editComponent.isDOMTree ? (
+                  <DOMTree
+                    components={
+                      boardState.boardComponents[boardState.selectedSitePageID]
+                    }
+                  />
                 ) : editComponent.isEdit ? (
                   renderEditComponent(boardState.selectedComponentKey)
                 ) : editComponent.isListComponent ? (

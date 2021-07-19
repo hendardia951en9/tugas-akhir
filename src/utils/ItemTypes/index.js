@@ -2,6 +2,8 @@ export const ItemTypes = {
   BUTTON: "Button",
   CHOOSE_PAGE_BUTTON: "Choose Page Button",
   COMPONENT_LIST_BUTTON: "Component List Button",
+  DOM_TREE_BUTTON: "DOM Tree Button",
+  DOM_TREE_ELEMENT: "DOM Tree Element",
   DIVIDER: "Divider",
   HEADING: "Heading",
   ICON: "Icon",

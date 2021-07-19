@@ -22,6 +22,7 @@ import Video from "../../PageBuilder/Video";
 const UserWebsite = () => {
   const appContext = useContext(AppContext);
   const { websiteID } = useParams();
+  const { websitePage } = useParams();
   const [components, setComponents] = useState();
 
   const fetchUserWebsite = async () => {
@@ -29,6 +30,7 @@ const UserWebsite = () => {
 
     const formData = generateFormData({
       websiteID: websiteID,
+      websitePage: websitePage,
     });
 
     axios
@@ -56,7 +58,7 @@ const UserWebsite = () => {
       });
   };
 
-  const renderComponent = (component, isEdit) => {
+  const renderComponent = (component) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
       return (
         <Button
