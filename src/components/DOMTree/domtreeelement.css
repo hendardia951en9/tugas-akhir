@@ -1,0 +1,7 @@
+.dom-tree-element button {
+  display: none;
+}
+
+.dom-tree-element:hover button {
+  display: inline-block;
+}

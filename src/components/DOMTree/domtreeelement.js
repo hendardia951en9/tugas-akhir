@@ -9,6 +9,7 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
 
   return (
     <div
+      className="dom-tree-element-container"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           pageBuilderContext.handleClickPageBuilderComponent(
@@ -18,7 +19,23 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
         }
       }}
     >
-      {itemTypes}
+      <div className="dom-tree-element">
+        <button
+          onClick={() =>
+            pageBuilderContext.reorderComponent(componentKey, "UP")
+          }
+        >
+          up
+        </button>
+        <button
+          onClick={() =>
+            pageBuilderContext.reorderComponent(componentKey, "DOWN")
+          }
+        >
+          down
+        </button>
+        <div>{itemTypes}</div>
+      </div>
       {itemTypes === ItemTypes.INNERSECTION
         ? props.children.length > 0
           ? props.children.map((innersectionlayout) => {
@@ -35,7 +52,29 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                     }
                   }}
                 >
-                  {innersectionlayout.itemTypes}
+                  <div className="dom-tree-element">
+                    <button
+                      onClick={() =>
+                        pageBuilderContext.reorderComponent(
+                          innersectionlayout.key,
+                          "UP"
+                        )
+                      }
+                    >
+                      up
+                    </button>
+                    <button
+                      onClick={() =>
+                        pageBuilderContext.reorderComponent(
+                          innersectionlayout.key,
+                          "DOWN"
+                        )
+                      }
+                    >
+                      down
+                    </button>
+                    <div>{innersectionlayout.itemTypes}</div>
+                  </div>
                   {innersectionlayout.props.children.length > 0
                     ? innersectionlayout.props.children.map((child) => {
                         return (
@@ -51,7 +90,29 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                               }
                             }}
                           >
-                            {child.itemTypes}
+                            <div className="dom-tree-element">
+                              <button
+                                onClick={() =>
+                                  pageBuilderContext.reorderComponent(
+                                    child.key,
+                                    "UP"
+                                  )
+                                }
+                              >
+                                up
+                              </button>
+                              <button
+                                onClick={() =>
+                                  pageBuilderContext.reorderComponent(
+                                    child.key,
+                                    "DOWN"
+                                  )
+                                }
+                              >
+                                down
+                              </button>
+                              <div>{child.itemTypes}</div>
+                            </div>
                           </div>
                         );
                       })

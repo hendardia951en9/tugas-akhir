@@ -65,7 +65,7 @@ const WebGenerator = () => {
     selectedComponentItemTypes: null,
   });
   const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
-  const [isRerenderBoard, setIsRerenderBoard] = useState(false);
+  const [isRerenderPage, setIsRerenderPage] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
   const [mapState, setMapState] = useState({
     latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
@@ -81,7 +81,7 @@ const WebGenerator = () => {
       boardState.boardComponentsKey
     );
 
-    setIsRerenderBoard(!isRerenderBoard);
+    setIsRerenderPage(!isRerenderPage);
   };
 
   const addComponentToInnerSectionLayout = (itemTypes, id) => {
@@ -1377,7 +1377,7 @@ const WebGenerator = () => {
     }
 
     //3ger rerender
-    setIsRerenderBoard(!isRerenderBoard);
+    setIsRerenderPage(!isRerenderPage);
   };
 
   const fetchUserSiteData = async () => {
@@ -1453,7 +1453,7 @@ const WebGenerator = () => {
             }
           });
 
-          setIsRerenderBoard(!isRerenderBoard);
+          setIsRerenderPage(!isRerenderPage);
         }
       })
       .catch((err) => {
@@ -1671,7 +1671,7 @@ const WebGenerator = () => {
     boardState.selectedSitePageID = site_page_id;
 
     //3ger rerender
-    setIsRerenderBoard(!isRerenderBoard);
+    setIsRerenderPage(!isRerenderPage);
   };
 
   const handleClickUploadImage = (isMultiple) => {
@@ -1942,6 +1942,155 @@ const WebGenerator = () => {
     }
   };
 
+  const reorderComponent = (componentKey, direction) => {
+    let found = false;
+
+    //cari di boardcomponent
+    boardState.boardComponents[boardState.selectedSitePageID].forEach(
+      (element, index) => {
+        if (element.key === componentKey) {
+          found = true;
+
+          const indexFound = index;
+          const tempArr = [
+            ...boardState.boardComponents[boardState.selectedSitePageID],
+          ];
+
+          if (direction === "UP") {
+            if (indexFound > 0) {
+              const componentToMove = tempArr.splice(index, 1)[0];
+              tempArr.splice(indexFound - 1, 0, componentToMove);
+              boardState.boardComponents[boardState.selectedSitePageID] =
+                tempArr;
+              setIsRerenderPage(!isRerenderPage);
+            }
+          } else if (direction === "DOWN") {
+            if (
+              indexFound <
+              boardState.boardComponents[boardState.selectedSitePageID].length
+            ) {
+              const componentToMove = tempArr.splice(index, 1)[0];
+              tempArr.splice(indexFound + 1, 0, componentToMove);
+              boardState.boardComponents[boardState.selectedSitePageID] =
+                tempArr;
+              setIsRerenderPage(!isRerenderPage);
+            }
+          }
+        }
+      }
+    );
+
+    //cari di innersection
+    if (found === false) {
+      boardState.boardComponents[boardState.selectedSitePageID].forEach(
+        (element, index) => {
+          if (found === true) {
+            return;
+          } else {
+            if (element.itemTypes === ItemTypes.INNERSECTION) {
+              element.props.children.forEach((element2, index2) => {
+                if (element2.key === componentKey) {
+                  found = true;
+
+                  const indexFound = index2;
+                  const tempArr = [
+                    ...boardState.boardComponents[
+                      boardState.selectedSitePageID
+                    ][index].props.children,
+                  ];
+
+                  if (direction === "UP") {
+                    if (indexFound > 0) {
+                      const componentToMove = tempArr.splice(index2, 1)[0];
+                      tempArr.splice(indexFound - 1, 0, componentToMove);
+                      boardState.boardComponents[boardState.selectedSitePageID][
+                        index
+                      ].props.children = tempArr;
+                      setIsRerenderPage(!isRerenderPage);
+                    }
+                  } else if (direction === "DOWN") {
+                    if (
+                      indexFound <
+                      boardState.boardComponents[boardState.selectedSitePageID][
+                        index
+                      ].props.children.length
+                    ) {
+                      const componentToMove = tempArr.splice(index2, 1)[0];
+                      tempArr.splice(indexFound + 1, 0, componentToMove);
+                      boardState.boardComponents[boardState.selectedSitePageID][
+                        index
+                      ].props.children = tempArr;
+                      setIsRerenderPage(!isRerenderPage);
+                    }
+                  }
+                }
+              });
+            }
+          }
+        }
+      );
+    }
+
+    //cari di innersection layout
+    if (found === false) {
+      boardState.boardComponents[boardState.selectedSitePageID].forEach(
+        (element, index) => {
+          if (found) {
+            return;
+          } else {
+            if (element.itemTypes === ItemTypes.INNERSECTION) {
+              element.props.children.forEach((element2, index2) => {
+                if (found) {
+                  return;
+                } else {
+                  element2.props.children.forEach((element3, index3) => {
+                    if (element3.key === componentKey) {
+                      found = true;
+
+                      const indexFound = index3;
+                      const tempArr = [
+                        ...boardState.boardComponents[
+                          boardState.selectedSitePageID
+                        ][index].props.children[index2].props.children,
+                      ];
+
+                      if (direction === "UP") {
+                        if (indexFound > 0) {
+                          const componentToMove = tempArr.splice(index3, 1)[0];
+                          tempArr.splice(indexFound - 1, 0, componentToMove);
+                          boardState.boardComponents[
+                            boardState.selectedSitePageID
+                          ][index].props.children[index2].props.children =
+                            tempArr;
+                          setIsRerenderPage(!isRerenderPage);
+                        }
+                      } else if (direction === "DOWN") {
+                        if (
+                          indexFound <
+                          boardState.boardComponents[
+                            boardState.selectedSitePageID
+                          ][index].props.children[index2].props.children.length
+                        ) {
+                          const componentToMove = tempArr.splice(index3, 1)[0];
+                          tempArr.splice(indexFound + 1, 0, componentToMove);
+                          boardState.boardComponents[
+                            boardState.selectedSitePageID
+                          ][index].props.children[index2].props.children =
+                            tempArr;
+                          setIsRerenderPage(!isRerenderPage);
+                        }
+                      }
+                    }
+                  });
+                }
+              });
+            }
+          }
+        }
+      );
+    }
+  };
+
   const saveSite = async () => {
     appContext.setIsLoading(true);
 
@@ -2008,6 +2157,7 @@ const WebGenerator = () => {
           handleClickPageBuilderComponent,
           handleClickUploadImage,
           renderComponent,
+          reorderComponent,
         }}
       >
         {isUploadImage && <UploadImage isMultiple={isUploadImageMultiple} />}
