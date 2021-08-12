@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { useHistory } from "react-router-dom";
+import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
@@ -14,6 +16,7 @@ import WebsiteTheme from "./WebsiteTheme";
 
 //css
 import "./gettingstarted.css";
+import { ItemTypes } from "../../../utils/ItemTypes";
 
 const GettingStarted = () => {
   const appContext = useContext(AppContext);
@@ -23,6 +26,8 @@ const GettingStarted = () => {
   const [websiteTheme, setWebsiteTheme] = useState(null);
   // eslint-disable-next-line
   const [websiteName, setWebsiteName] = useState(null);
+  const [websiteNavbarJSON, setWebsiteNavbarJSON] = useState(null);
+  const [websiteFooterJSON, setWebsiteFooterJSON] = useState(null);
 
   const handleClickButtonBack = () => {
     setGettingStartedIndex((prevState) => {
@@ -32,6 +37,26 @@ const GettingStarted = () => {
 
   const handleClickSetWebsiteKind = (params) => {
     setWebsiteKind(params);
+    if (params === WebsiteTypes.BLOG) {
+      setWebsiteNavbarJSON({
+        itemTypes: ItemTypes.USER_NAVBAR,
+        props: ComponentDefaultProps.USER_NAVBAR_BLOG,
+      });
+    } else if (params === WebsiteTypes.COMPANY_PROFILE) {
+      setWebsiteNavbarJSON({
+        itemTypes: ItemTypes.USER_NAVBAR,
+        props: ComponentDefaultProps.USER_NAVBAR_COMPANY_PROFILE,
+      });
+    } else if (params === WebsiteTypes.LANDING_PAGES) {
+      setWebsiteNavbarJSON({
+        itemTypes: ItemTypes.USER_NAVBAR,
+        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGES,
+      });
+    }
+    setWebsiteFooterJSON({
+      itemTypes: ItemTypes.USER_FOOTER,
+      props: ComponentDefaultProps.USER_FOOTER,
+    });
     setGettingStartedIndex(1);
   };
 
@@ -49,6 +74,8 @@ const GettingStarted = () => {
       websiteKind: websiteKind,
       websiteTheme: websiteTheme,
       websiteName: params,
+      websiteNavbarJSON: JSON.stringify(websiteNavbarJSON),
+      websiteFooterJSON: JSON.stringify(websiteFooterJSON),
     });
 
     axios

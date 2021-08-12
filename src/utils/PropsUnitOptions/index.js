@@ -87,5 +87,17 @@ export const PropsUnitOptions = {
   ],
   textTransform: ["capitalize", "lowercase", "none", "uppercase"],
   thumbnailPosition: ["bottom", "left", "right", "top"],
+  userNavbarLogoIsShow: [false, true],
+  userNavbarLogoMaxHeight: ["auto", "%", "em", "px", "rem", "vw"],
+  userNavbarLogoMaxWidth: ["auto", "%", "em", "px", "rem", "vw"],
+  userNavbarSubMenuFontSize: ["%", "em", "px", "rem"],
+  userNavbarSubMenuFontWeight: ["bold", "normal"],
+  userNavbarSubMenuGap: ["%", "em", "px", "rem"],
+  userNavbarSubMenuTextTransform: [
+    "capitalize",
+    "lowercase",
+    "none",
+    "uppercase",
+  ],
   width: ["auto", "%", "em", "px", "rem", "vw"],
 };

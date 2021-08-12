@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { generateFormData } from "../../../utils/generateFormData";
+import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
@@ -10,7 +11,7 @@ import "./uploadimage.css";
 
 let selectedFileMultiple = [];
 
-const UploadImage = ({ isMultiple }) => {
+const UploadImage = ({ isMultiple, location }) => {
   const appContext = useContext(AppContext);
   const pageBuilderContext = useContext(PageBuilderContext);
 
@@ -118,11 +119,21 @@ const UploadImage = ({ isMultiple }) => {
   const onConfirmSelectFile = () => {
     if (isMultiple === false) {
       pageBuilderContext.closeUploadImage();
-      pageBuilderContext.editComponentProps(
-        PropsTypes.BACKGROUND_IMAGE,
-        "",
-        selectedFile
-      );
+
+      if (location === ItemTypes.USER_NAVBAR) {
+        pageBuilderContext.editComponentProps(
+          PropsTypes.USER_NAVBAR_LOGO,
+          "",
+          selectedFile,
+          location
+        );
+      } else {
+        pageBuilderContext.editComponentProps(
+          PropsTypes.BACKGROUND_IMAGE,
+          "",
+          selectedFile
+        );
+      }
       pageBuilderContext.boardState.getComponentData = true;
     } else {
       let finalSelectedFileMultiple = [];

@@ -1,0 +1,45 @@
+.user-navbar {
+  align-items: center;
+  display: flex;
+}
+
+.user-navbar > ul {
+  align-items: center;
+  display: flex;
+  list-style-type: none;
+}
+
+.user-navbar > ul > li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.user-navbar-menu-logo {
+  display: block;
+  max-height: 80px;
+  max-width: 100px;
+}
+
+.user-navbar > ul > li {
+  position: relative;
+}
+
+.user-navbar > ul > li > ul {
+  display: none;
+  flex-direction: column;
+  left: 0;
+  list-style-type: none;
+  min-width: 100%;
+  padding: 0.5rem;
+  position: absolute;
+  top: 100%;
+  z-index: 80;
+}
+
+.user-navbar ul > li:hover > ul {
+  display: flex;
+}
+
+.user-navbar > ul > li > ul > li {
+  width: 100%;
+}

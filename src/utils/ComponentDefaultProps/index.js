@@ -287,6 +287,97 @@ export const ComponentDefaultProps = {
     text: "this is text editor",
     textEditorValue: null,
   },
+  USER_FOOTER: {
+    text: "footer",
+  },
+  USER_NAVBAR_BLOG: {
+    userNavbarLogo: "https://ipac.page/images/brand-logo-1.jpg",
+    userNavbarLogoMaxHeight: { value: "40", unit: "px" },
+    userNavbarLogoMaxWidth: { value: "80", unit: "px" },
+    userNavbarLogoIsShow: true,
+    menuStyle: {
+      color: { r: 255, g: 255, b: 255, a: 1 },
+    },
+    style: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "bold",
+      gap: { value: "16", unit: "px" },
+      paddingBottom: { value: "0", unit: "px" },
+      paddingLeft: { value: "0", unit: "px" },
+      paddingRight: { value: "0", unit: "px" },
+      paddingTop: { value: "0", unit: "px" },
+      textTransform: "uppercase",
+    },
+    subMenuStyle: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "normal",
+      gap: { value: "16", unit: "px" },
+      textTransform: "capitalize",
+    },
+    menu: [
+      {
+        props: {
+          linkTo: "home",
+          text: "home",
+        },
+        submenu: [],
+      },
+      {
+        props: {
+          linkTo: "about",
+          text: "about",
+        },
+        submenu: [],
+      },
+    ],
+  },
+  USER_NAVBAR_COMPANY_PROFILE: {
+    logo: "https://ipac.page/images/brand-logo-1.jpg",
+    menuStyle: {
+      color: { r: 255, g: 255, b: 255, a: 1 },
+    },
+    style: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+    },
+    subMenuStyle: {
+      color: { r: 255, g: 255, b: 255, a: 1 },
+    },
+    menu: [
+      {
+        submenu: null,
+        text: "home",
+      },
+      {
+        submenu: null,
+        text: "about",
+      },
+      {
+        submenu: null,
+        text: "contact us",
+      },
+    ],
+  },
+  USER_NAVBAR_LANDING_PAGES: {
+    logo: "https://ipac.page/images/brand-logo-1.jpg",
+    menuStyle: {
+      color: { r: 255, g: 255, b: 255, a: 1 },
+    },
+    style: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+    },
+    subMenuStyle: {
+      color: { r: 255, g: 255, b: 255, a: 1 },
+    },
+    menu: [
+      {
+        submenu: null,
+        text: "home",
+      },
+    ],
+  },
   VIDEO: {
     controls: "true",
     loop: "false",

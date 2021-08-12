@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { useDrop } from "react-dnd";
+import UserNavbar from "../UserNavbar";
+import UserFooter from "../UserFooter";
 
 //css
 import "./board.css";
 
-const Board = ({ boardComponents }) => {
+const Board = ({ boardComponents, boardNavbar, boardFooter }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const [{ isOver, canDrop }, drop] = useDrop(
@@ -40,6 +42,14 @@ const Board = ({ boardComponents }) => {
 
   return (
     <>
+      {boardNavbar && (
+        <UserNavbar
+          componentKey={boardNavbar.itemTypes}
+          isEdit={true}
+          itemTypes={boardNavbar.itemTypes}
+          props={boardNavbar.props}
+        />
+      )}
       <div
         className={`board ${isOver && "board-isOver"} ${
           canDrop && "board-canDrop"
@@ -54,6 +64,15 @@ const Board = ({ boardComponents }) => {
             })
         }
       </div>
+
+      {boardFooter && (
+        <UserFooter
+          componentKey={boardFooter.itemTypes}
+          isEdit={true}
+          itemTypes={boardFooter.itemTypes}
+          props={boardFooter.props}
+        />
+      )}
     </>
   );
 };

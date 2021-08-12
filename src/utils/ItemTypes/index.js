@@ -1,4 +1,5 @@
 export const ItemTypes = {
+  BOARD: "Board",
   BUTTON: "Button",
   CHOOSE_PAGE_BUTTON: "Choose Page Button",
   COMPONENT_LIST_BUTTON: "Component List Button",
@@ -15,5 +16,9 @@ export const ItemTypes = {
   SPACER: "Spacer",
   STAR_RATING: "Star Rating",
   TEXT_EDITOR: "Text Editor",
+  USER_NAVBAR: "User Navbar",
+  USER_NAVBAR_MENU: "User Navbar Menu",
+  USER_NAVBAR_SUBMENU: "User Navbar Sub Menu",
+  USER_FOOTER: "User Footer",
   VIDEO: "Video",
 };

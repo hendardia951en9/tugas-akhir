@@ -1,4 +1,5 @@
 import React from "react";
+import { WebsiteTypes } from "../../../../utils/WebsiteTypes";
 
 //css
 import "./websitekind.css";
@@ -10,21 +11,23 @@ const WebsiteKind = ({ handleClickSetWebsiteKind }) => {
       <div className="options">
         <div
           className="option"
-          onClick={() => handleClickSetWebsiteKind("landingpages")}
+          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.LANDING_PAGES)}
         >
           landing pages
         </div>
         <div
           className="option"
-          onClick={() => handleClickSetWebsiteKind("companyprofile")}
+          onClick={() =>
+            handleClickSetWebsiteKind(WebsiteTypes.COMPANY_PROFILE)
+          }
         >
           company profile
         </div>
         <div
           className="option"
-          onClick={() => handleClickSetWebsiteKind("blogs")}
+          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.BLOG)}
         >
-          blogs
+          blog
         </div>
       </div>
     </div>

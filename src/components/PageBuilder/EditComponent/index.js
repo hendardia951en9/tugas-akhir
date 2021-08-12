@@ -30,6 +30,19 @@ const EditComponent = ({ props }) => {
     useState(false);
   const [isColorPickerColorOpen, setIsColorPickerColorOpen] = useState(false);
 
+  const [
+    isColorPickerUserNavbarMenuColorOpen,
+    setIsColorPickerUserNavbarMenuColorOpen,
+  ] = useState(false);
+  const [
+    isColorPickerUserNavbarSubMenuBackgroundColorOpen,
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen,
+  ] = useState(false);
+  const [
+    isColorPickerUserNavbarSubMenuColorOpen,
+    setIsColorPickerUserNavbarSubMenuColorOpen,
+  ] = useState(false);
+
   const [alignItems, setAlignItems] = useState("stretch");
   const [backgroundColor, setBackgroundColor] = useState({
     r: 0,
@@ -88,7 +101,7 @@ const EditComponent = ({ props }) => {
   const [fontSizeValue, setFontSizeValue] = useState(0);
   const [fontSizeUnit, setFontSizeUnit] = useState("px");
   const [fontWeight, setFontWeight] = useState("normal");
-  const [gapValue, setGapValue] = useState("px");
+  const [gapValue, setGapValue] = useState(0);
   const [gapUnit, setGapUnit] = useState("px");
   const [heightValue, setHeightValue] = useState(0);
   const [heightUnit, setHeightUnit] = useState("auto");
@@ -117,6 +130,43 @@ const EditComponent = ({ props }) => {
   const [minHeightValue, setMinHeightValue] = useState(0);
   const [minHeightUnit, setMinHeightUnit] = useState("auto");
   const [muted, setMuted] = useState(false);
+  const [userNavbarLogo, setUserNavbarLogo] = useState("");
+  const [userNavbarLogoIsShow, setUserNavbarLogoIsShow] = useState(true);
+  const [userNavbarLogoMaxHeightValue, setUserNavbarLogoMaxHeightValue] =
+    useState(0);
+  const [userNavbarLogoMaxHeightUnit, setUserNavbarLogoMaxHeightUnit] =
+    useState("px");
+  const [userNavbarLogoMaxWidthValue, setUserNavbarLogoMaxWidthValue] =
+    useState(0);
+  const [userNavbarLogoMaxWidthUnit, setUserNavbarLogoMaxWidthUnit] =
+    useState("px");
+  const [userNavbarMenuColor, setUserNavbarMenuColor] = useState({
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
+  const [
+    userNavbarSubMenuBackgroundColor,
+    setUserNavbarSubMenuBackgroundColor,
+  ] = useState({ r: 0, g: 0, b: 0, a: 1 });
+  const [userNavbarSubMenuColor, setUserNavbarSubMenuColor] = useState({
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
+  const [userNavbarSubMenuFontSizeValue, setUserNavbarSubMenuFontSizeValue] =
+    useState(0);
+  const [userNavbarSubMenuFontSizeUnit, setUserNavbarSubMenuFontSizeUnit] =
+    useState("px");
+  const [userNavbarSubMenuFontWeight, setUserNavbarSubMenuFontWeight] =
+    useState("normal");
+  const [userNavbarSubMenuGapValue, setUserNavbarSubMenuGapValue] = useState(0);
+  const [userNavbarSubMenuGapUnit, setUserNavbarSubMenuGapUnit] =
+    useState("px");
+  const [userNavbarSubMenuTextTransform, setUserNavbarSubMenuTextTransform] =
+    useState("none");
   const [opacity, setOpacity] = useState(1);
   const [overflow, setOverflow] = useState("visible");
   const [paddingBottomValue, setPaddingBottomValue] = useState(0);
@@ -154,6 +204,8 @@ const EditComponent = ({ props }) => {
     setIsColorPickerBorderColorOpen(false);
     setIsColorPickerBoxShadowColorOpen(false);
     setIsColorPickerColorOpen(false);
+    setIsColorPickerUserNavbarMenuColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
   };
 
   const handleClickColorPickerBorderColor = () => {
@@ -177,6 +229,32 @@ const EditComponent = ({ props }) => {
     setIsColorPickerColorOpen(!isColorPickerColorOpen);
   };
 
+  const handleClickColorPickerUserNavbarMenuColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarMenuColorOpen(
+      !isColorPickerUserNavbarMenuColorOpen
+    );
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+  };
+
+  const handleClickColorPickerUserNavbarSubMenuBackgroundColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarMenuColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(
+      !isColorPickerUserNavbarSubMenuBackgroundColorOpen
+    );
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
+  };
+
+  const handleClickColorPickerUserNavbarSubMenuColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarMenuColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(
+      !isColorPickerUserNavbarSubMenuColorOpen
+    );
+  };
+
   const handleClickInnerSectionLayout = () => {
     innerSectionLayoutRef.current.value =
       parseInt(innerSectionLayoutRef.current.value) + 1;
@@ -194,6 +272,7 @@ const EditComponent = ({ props }) => {
       setIsColorPickerBorderColorOpen(false);
       setIsColorPickerBoxShadowColorOpen(false);
       setIsColorPickerColorOpen(false);
+      setIsColorPickerUserNavbarMenuColorOpen(false);
 
       if (props.componentEditableProps.alignItems) {
         if (props.itemTypes === ItemTypes.DIVIDER) {
@@ -604,6 +683,63 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.thumbnailPosition) {
         setThumbnailPosition(props.componentProps.thumbnailPosition);
       }
+      if (props.componentEditableProps.userNavbarLogo) {
+        setUserNavbarLogo(props.componentProps.userNavbarLogo);
+      }
+      if (props.componentEditableProps.userNavbarLogoIsShow) {
+        setUserNavbarLogoIsShow(props.componentProps.userNavbarLogoIsShow);
+      }
+      if (props.componentEditableProps.userNavbarLogoMaxHeight) {
+        setUserNavbarLogoMaxHeightValue(
+          props.componentProps.userNavbarLogoMaxHeight.value
+        );
+        setUserNavbarLogoMaxHeightUnit(
+          props.componentProps.userNavbarLogoMaxHeight.unit
+        );
+      }
+      if (props.componentEditableProps.userNavbarLogoMaxWidth) {
+        setUserNavbarLogoMaxWidthValue(
+          props.componentProps.userNavbarLogoMaxWidth.value
+        );
+        setUserNavbarLogoMaxWidthUnit(
+          props.componentProps.userNavbarLogoMaxWidth.unit
+        );
+      }
+      if (props.componentEditableProps.userNavbarMenuColor) {
+        setUserNavbarMenuColor(props.componentProps.menuStyle.color);
+      }
+      if (props.componentEditableProps.userNavbarSubMenuBackgroundColor) {
+        setUserNavbarSubMenuBackgroundColor(
+          props.componentProps.subMenuStyle.backgroundColor
+        );
+      }
+      if (props.componentEditableProps.userNavbarSubMenuColor) {
+        setUserNavbarSubMenuColor(props.componentProps.subMenuStyle.color);
+      }
+      if (props.componentEditableProps.userNavbarSubMenuFontSize) {
+        setUserNavbarSubMenuFontSizeValue(
+          props.componentProps.subMenuStyle.fontSize.value
+        );
+        setUserNavbarSubMenuFontSizeUnit(
+          props.componentProps.subMenuStyle.fontSize.unit
+        );
+      }
+      if (props.componentEditableProps.userNavbarSubMenuFontWeight) {
+        setUserNavbarSubMenuFontWeight(
+          props.componentProps.subMenuStyle.fontWeight
+        );
+      }
+      if (props.componentEditableProps.userNavbarSubMenuGap) {
+        setUserNavbarSubMenuGapValue(
+          props.componentProps.subMenuStyle.gap.value
+        );
+        setUserNavbarSubMenuGapUnit(props.componentProps.subMenuStyle.gap.unit);
+      }
+      if (props.componentEditableProps.userNavbarSubMenuTextTransform) {
+        setUserNavbarSubMenuTextTransform(
+          props.componentProps.subMenuStyle.textTransform
+        );
+      }
       if (props.componentEditableProps.width) {
         setWidthValue(props.componentProps.style.width.value);
         setWidthUnit(props.componentProps.style.width.unit);
@@ -692,7 +828,8 @@ const EditComponent = ({ props }) => {
                       pageBuilderContext.editComponentProps(
                         PropsTypes.BACKGROUND_COLOR,
                         "",
-                        color.rgb
+                        color.rgb,
+                        props.location
                       );
                     }}
                   />
@@ -1577,35 +1714,6 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
-        {/* controls */}
-        {props.componentEditableProps.controls && (
-          <div className="form-input">
-            <select
-              id="controls"
-              name="controls"
-              onChange={(e) => {
-                setControls(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.CONTROLS,
-                  "",
-                  e.target.value
-                );
-              }}
-              value={controls}
-            >
-              {props.componentEditableProps.controls.map((unit, index) => {
-                return (
-                  <option key={index} value={unit}>
-                    {unit ? "Enable" : "Disable"}
-                  </option>
-                );
-              })}
-            </select>
-            <label htmlFor="controls">
-              <span>{PropsTypes.CONTROLS}</span>
-            </label>
-          </div>
-        )}
         {/* color */}
         {props.componentEditableProps.color && (
           <div className="color-picker-input">
@@ -1642,6 +1750,35 @@ const EditComponent = ({ props }) => {
             </div>
           </div>
         )}
+        {/* controls */}
+        {props.componentEditableProps.controls && (
+          <div className="form-input">
+            <select
+              id="controls"
+              name="controls"
+              onChange={(e) => {
+                setControls(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.CONTROLS,
+                  "",
+                  e.target.value
+                );
+              }}
+              value={controls}
+            >
+              {props.componentEditableProps.controls.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit ? "Enable" : "Disable"}
+                  </option>
+                );
+              })}
+            </select>
+            <label htmlFor="controls">
+              <span>{PropsTypes.CONTROLS}</span>
+            </label>
+          </div>
+        )}
         {/* divider text */}
         {props.componentEditableProps.dividerText && (
           <div className="form-input">
@@ -1676,7 +1813,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.FONT_SIZE,
                   "value",
-                  e.target.value || 0
+                  e.target.value || 0,
+                  props.location
                 );
               }}
               type="number"
@@ -1693,7 +1831,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.FONT_SIZE,
                   "unit",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={fontSizeUnit}
@@ -1719,7 +1858,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.FONT_WEIGHT,
                   "",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={fontWeight}
@@ -1749,7 +1889,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.GAP,
                   "value",
-                  e.target.value || 0
+                  e.target.value || 0,
+                  props.location
                 );
               }}
               type="number"
@@ -1766,7 +1907,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.GAP,
                   "unit",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={gapUnit}
@@ -2105,7 +2247,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.LINK_TO,
                   "value",
-                  e.target.value || ""
+                  e.target.value || "",
+                  props.location
                 );
               }}
               type="text"
@@ -2504,7 +2647,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_BOTTOM,
                   "value",
-                  e.target.value || 0
+                  e.target.value || 0,
+                  props.location
                 );
               }}
               type="number"
@@ -2521,7 +2665,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_BOTTOM,
                   "unit",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={paddingBottomUnit}
@@ -2548,7 +2693,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_LEFT,
                   "value",
-                  e.target.value || 0
+                  e.target.value || 0,
+                  props.location
                 );
               }}
               type="number"
@@ -2565,7 +2711,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_LEFT,
                   "unit",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={paddingLeftUnit}
@@ -2592,7 +2739,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_RIGHT,
                   "value",
-                  e.target.value || 0
+                  e.target.value || 0,
+                  props.location
                 );
               }}
               type="number"
@@ -2609,7 +2757,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_RIGHT,
                   "unit",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={paddingRightUnit}
@@ -2636,7 +2785,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_TOP,
                   "value",
-                  e.target.value || 0
+                  e.target.value || 0,
+                  props.location
                 );
               }}
               type="number"
@@ -2653,7 +2803,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.PADDING_TOP,
                   "unit",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={paddingTopUnit}
@@ -2954,7 +3105,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.TEXT,
                   "",
-                  e.target.value || "Type Something"
+                  e.target.value || "Type Something",
+                  props.location
                 );
               }}
               type="text"
@@ -3053,7 +3205,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.TEXT_TRANSFORM,
                   "",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={textTransform}
@@ -3099,6 +3252,468 @@ const EditComponent = ({ props }) => {
             </select>
             <label htmlFor="thumbnailPosition">
               <span>{PropsTypes.THUMBNAIL_POSITION}</span>
+            </label>
+          </div>
+        )}
+        {/* user navbar menu */}
+        {props.componentEditableProps.userNavbarMenu && (
+          <div className="user-navbar-menu-input">
+            <label htmlFor="userNavbarMenu">
+              <span>{PropsTypes.USER_NAVBAR_MENU}</span>
+            </label>
+            <button
+              className="button"
+              onClick={() => pageBuilderContext.addNavbarMenu()}
+            >
+              add
+              <FontAwesomeIcon icon={faColumns} />
+            </button>
+          </div>
+        )}
+        {/* user navbar logo */}
+        {props.componentEditableProps.userNavbarLogo && (
+          <div className="form-input">
+            <input
+              id="userNavbarLogo"
+              name="userNavbarLogo"
+              onChange={(e) => {
+                setUserNavbarLogo(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_LOGO,
+                  "value",
+                  e.target.value || "",
+                  props.location
+                );
+              }}
+              type="text"
+              value={userNavbarLogo}
+            />
+            <label htmlFor="userNavbarLogo">
+              <span>{PropsTypes.USER_NAVBAR_LOGO}</span>
+            </label>
+            <button
+              className="button"
+              onClick={() =>
+                pageBuilderContext.handleClickUploadImage(false, props.location)
+              }
+            >
+              <FontAwesomeIcon icon={faFolderOpen} />
+            </button>
+          </div>
+        )}
+        {/* user navbar logo is show */}
+        {props.componentEditableProps.userNavbarLogoIsShow && (
+          <div className="form-input">
+            <select
+              id="userNavbarLogoIsShow"
+              name="userNavbarLogoIsShow"
+              onChange={(e) => {
+                setUserNavbarLogoIsShow(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_LOGO_IS_SHOW,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarLogoIsShow}
+            >
+              {props.componentEditableProps.userNavbarLogoIsShow.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit ? "Enable" : "Disable"}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userNavbarLogoIsShow">
+              <span>{PropsTypes.USER_NAVBAR_LOGO_IS_SHOW}</span>
+            </label>
+          </div>
+        )}
+        {/* user navbar logo max height */}
+        {props.componentEditableProps.userNavbarLogoMaxHeight && (
+          <div className="form-input">
+            <input
+              id="userNavbarLogoMaxHeightValue"
+              min="0"
+              name="userNavbarLogoMaxHeightValue"
+              onChange={(e) => {
+                setUserNavbarLogoMaxHeightValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_LOGO_MAX_HEIGHT,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userNavbarLogoMaxHeightValue}
+            />
+            <label htmlFor="userNavbarLogoMaxHeightValue">
+              <span>{PropsTypes.USER_NAVBAR_LOGO_MAX_HEIGHT}</span>
+            </label>
+            <select
+              id="userNavbarLogoMaxHeightUnit"
+              name="userNavbarLogoMaxHeightUnit"
+              onChange={(e) => {
+                setUserNavbarLogoMaxHeightUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_LOGO_MAX_HEIGHT,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarLogoMaxHeightUnit}
+            >
+              {props.componentEditableProps.userNavbarLogoMaxHeight.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user navbar logo max width */}
+        {props.componentEditableProps.userNavbarLogoMaxWidth && (
+          <div className="form-input">
+            <input
+              id="userNavbarLogoMaxWidthValue"
+              min="0"
+              name="userNavbarLogoMaxWidthValue"
+              onChange={(e) => {
+                setUserNavbarLogoMaxWidthValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_LOGO_MAX_WIDTH,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userNavbarLogoMaxWidthValue}
+            />
+            <label htmlFor="userNavbarLogoMaxWidthValue">
+              <span>{PropsTypes.USER_NAVBAR_LOGO_MAX_WIDTH}</span>
+            </label>
+            <select
+              id="userNavbarLogoMaxWidthUnit"
+              name="userNavbarLogoMaxWidthUnit"
+              onChange={(e) => {
+                setUserNavbarLogoMaxWidthUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_LOGO_MAX_WIDTH,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarLogoMaxWidthUnit}
+            >
+              {props.componentEditableProps.userNavbarLogoMaxWidth.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user navbar menu color */}
+        {props.componentEditableProps.userNavbarMenuColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_NAVBAR_MENU_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userNavbarMenuColor.r}, ${userNavbarMenuColor.g}, ${userNavbarMenuColor.b}, ${userNavbarMenuColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={handleClickColorPickerUserNavbarMenuColor}
+              />
+              {isColorPickerUserNavbarMenuColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    color={userNavbarMenuColor}
+                    onChange={(color) => {
+                      setUserNavbarMenuColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_NAVBAR_MENU_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user navbar submenu */}
+        {props.componentEditableProps.userNavbarSubMenu && (
+          <div className="user-navbar-submenu-input">
+            <label htmlFor="userNavbarSubMenu">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU}</span>
+            </label>
+            <button
+              className="button"
+              onClick={() =>
+                pageBuilderContext.addNavbarSubMenu(props.location)
+              }
+            >
+              add
+              <FontAwesomeIcon icon={faColumns} />
+            </button>
+          </div>
+        )}
+        {/* user navbar submenu backgroundcolor */}
+        {props.componentEditableProps.userNavbarSubMenuBackgroundColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_BACKGROUND_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userNavbarSubMenuBackgroundColor.r}, ${userNavbarSubMenuBackgroundColor.g}, ${userNavbarSubMenuBackgroundColor.b}, ${userNavbarSubMenuBackgroundColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={handleClickColorPickerUserNavbarSubMenuBackgroundColor}
+              />
+              {isColorPickerUserNavbarSubMenuBackgroundColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    color={userNavbarSubMenuBackgroundColor}
+                    onChange={(color) => {
+                      setUserNavbarSubMenuBackgroundColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_NAVBAR_SUBMENU_BACKGROUND_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user navbar submenu color */}
+        {props.componentEditableProps.userNavbarSubMenuColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userNavbarSubMenuColor.r}, ${userNavbarSubMenuColor.g}, ${userNavbarSubMenuColor.b}, ${userNavbarSubMenuColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={handleClickColorPickerUserNavbarSubMenuColor}
+              />
+              {isColorPickerUserNavbarSubMenuColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    color={userNavbarSubMenuColor}
+                    onChange={(color) => {
+                      setUserNavbarSubMenuColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_NAVBAR_SUBMENU_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user navbar submenu font size */}
+        {props.componentEditableProps.userNavbarSubMenuFontSize && (
+          <div className="form-input">
+            <input
+              id="userNavbarSubMenuFontSizeValue"
+              min="0"
+              name="userNavbarSubMenuFontSizeValue"
+              onChange={(e) => {
+                setUserNavbarSubMenuFontSizeValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_FONT_SIZE,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userNavbarSubMenuFontSizeValue}
+            />
+            <label htmlFor="userNavbarSubMenuFontSizeValue">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_FONT_SIZE}</span>
+            </label>
+            <select
+              id="userNavbarSubMenuFontSizeUnit"
+              name="userNavbarSubMenuFontSizeUnit"
+              onChange={(e) => {
+                setUserNavbarSubMenuFontSizeUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_FONT_SIZE,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarSubMenuFontSizeUnit}
+            >
+              {props.componentEditableProps.userNavbarSubMenuFontSize.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user navbar submenu font weight */}
+        {props.componentEditableProps.userNavbarSubMenuFontWeight && (
+          <div className="form-input">
+            <select
+              id="userNavbarSubMenuFontWeight"
+              name="userNavbarSubMenuFontWeight"
+              onChange={(e) => {
+                setUserNavbarSubMenuFontWeight(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_FONT_WEIGHT,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarSubMenuFontWeight}
+            >
+              {props.componentEditableProps.userNavbarSubMenuFontWeight.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userNavbarSubMenuFontWeight">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_FONT_WEIGHT}</span>
+            </label>
+          </div>
+        )}
+        {/* user navbar submenu gap */}
+        {props.componentEditableProps.userNavbarSubMenuGap && (
+          <div className="form-input">
+            <input
+              id="userNavbarSubMenuGapValue"
+              min="0"
+              name="userNavbarSubMenuGapValue"
+              onChange={(e) => {
+                setUserNavbarSubMenuGapValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_GAP,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userNavbarSubMenuGapValue}
+            />
+            <label htmlFor="userNavbarSubMenuGapValue">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_GAP}</span>
+            </label>
+            <select
+              id="userNavbarSubMenuGapUnit"
+              name="userNavbarSubMenuGapUnit"
+              onChange={(e) => {
+                setUserNavbarSubMenuGapUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_GAP,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarSubMenuGapUnit}
+            >
+              {props.componentEditableProps.userNavbarSubMenuGap.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user navbar submenu text transform */}
+        {props.componentEditableProps.userNavbarSubMenuTextTransform && (
+          <div className="form-input">
+            <select
+              id="userNavbarSubMenuTextTransform"
+              name="userNavbarSubMenuTextTransform"
+              onChange={(e) => {
+                setUserNavbarSubMenuTextTransform(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_TEXT_TRANSFORM,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarSubMenuTextTransform}
+            >
+              {props.componentEditableProps.userNavbarSubMenuTextTransform.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userNavbarSubMenuTextTransform">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_TEXT_TRANSFORM}</span>
             </label>
           </div>
         )}

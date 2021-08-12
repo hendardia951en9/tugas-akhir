@@ -50,6 +50,8 @@ export const PageBuilderContext = React.createContext();
 const boardState = {
   boardComponents: {},
   boardComponentsKey: -1,
+  boardNavbar: null,
+  boardFooter: null,
   getComponentData: false,
   selectedComponentKey: null,
   selectedSitePageID: -1,
@@ -64,9 +66,10 @@ const WebGenerator = () => {
     isListComponent: true,
     selectedComponentItemTypes: null,
   });
-  const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
   const [isRerenderPage, setIsRerenderPage] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
+  const [uploadImageLocation, setUploadImageLocation] = useState("");
+  const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
   const [mapState, setMapState] = useState({
     latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
     longitude: ComponentDefaultProps.MAP_COMPONENT.location.longitude,
@@ -201,6 +204,32 @@ const WebGenerator = () => {
         props: ComponentDefaultProps.VIDEO,
       });
     }
+  };
+
+  const addNavbarMenu = () => {
+    boardState.boardNavbar.props.menu.push({
+      props: {
+        linkTo: "lorem",
+        text: "lorem",
+      },
+      submenu: [],
+    });
+
+    //3ger rerender
+    setIsRerenderPage(!isRerenderPage);
+  };
+
+  const addNavbarSubMenu = (location) => {
+    boardState.boardNavbar.props.menu[location[1]].submenu.push({
+      itemTypes: ItemTypes.USER_NAVBAR_SUBMENU,
+      props: {
+        linkTo: "lorem",
+        text: "lorem",
+      },
+    });
+
+    //3ger rerender
+    setIsRerenderPage(!isRerenderPage);
   };
 
   const changeComponentProps = (component, propsTypes, target, value) => {
@@ -1262,6 +1291,129 @@ const WebGenerator = () => {
           thumbnailPosition: value,
         },
       };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_LOGO) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          userNavbarLogo: value,
+        },
+      };
+      console.log(component);
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_LOGO_IS_SHOW) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          userNavbarLogoIsShow: value === "true",
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_LOGO_MAX_HEIGHT) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          userNavbarLogoMaxHeight: {
+            ...component.props.userNavbarLogoMaxHeight,
+            [target]: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_LOGO_MAX_WIDTH) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          userNavbarLogoMaxWidth: {
+            ...component.props.userNavbarLogoMaxWidth,
+            [target]: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_MENU_COLOR) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          menuStyle: {
+            ...component.props.menuStyle,
+            color: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_BACKGROUND_COLOR) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            backgroundColor: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_COLOR) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            color: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_FONT_SIZE) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            fontSize: {
+              ...component.props.subMenuStyle.fontSize,
+              [target]: value,
+            },
+          },
+        },
+      };
+      console.log(component);
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_FONT_WEIGHT) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            fontWeight: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_GAP) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            gap: {
+              ...component.props.subMenuStyle.gap,
+              [target]: value,
+            },
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_TEXT_TRANSFORM) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            textTransform: value,
+          },
+        },
+      };
     } else if (propsTypes === PropsTypes.WIDTH) {
       component = {
         ...component,
@@ -1300,80 +1452,112 @@ const WebGenerator = () => {
     setIsUploadImage(false);
   };
 
-  const editComponentProps = (propsTypes, target, value) => {
-    let result = false;
-
-    //cari di boardcomponent
-    boardState.boardComponents[boardState.selectedSitePageID].forEach(
-      (component, index) => {
-        if (component.key === boardState.selectedComponentKey) {
-          result = true;
-          boardState.boardComponents[boardState.selectedSitePageID][index] = {
-            ...changeComponentProps(component, propsTypes, target, value),
-          };
-        }
+  const editComponentProps = (propsTypes, target, value, location) => {
+    if (Array.isArray(location)) {
+      console.log(location);
+      if (location[0] === ItemTypes.USER_NAVBAR_MENU) {
+        boardState.boardNavbar.props.menu[location[1]] = changeComponentProps(
+          boardState.boardNavbar.props.menu[location[1]],
+          propsTypes,
+          target,
+          value
+        );
+      } else if (location[0] === ItemTypes.USER_NAVBAR_SUBMENU) {
+        boardState.boardNavbar.props.menu[location[1]].submenu[location[2]] =
+          changeComponentProps(
+            boardState.boardNavbar.props.menu[location[1]].submenu[location[2]],
+            propsTypes,
+            target,
+            value
+          );
       }
-    );
+    } else if (location === ItemTypes.USER_NAVBAR) {
+      boardState.boardNavbar = changeComponentProps(
+        boardState.boardNavbar,
+        propsTypes,
+        target,
+        value
+      );
+    } else {
+      let result = false;
 
-    //cari di innersection
-    if (!result) {
+      //cari di boardcomponent
       boardState.boardComponents[boardState.selectedSitePageID].forEach(
         (component, index) => {
-          if (!result) {
-            if (component.itemTypes === ItemTypes.INNERSECTION) {
-              component.props.children.forEach((child, index2) => {
-                if (!result) {
-                  if (child.key === boardState.selectedComponentKey) {
-                    result = true;
-                    boardState.boardComponents[boardState.selectedSitePageID][
-                      index
-                    ].props.children[index2] = {
-                      ...changeComponentProps(child, propsTypes, target, value),
-                    };
-                  }
-                }
-              });
-            }
+          if (component.key === boardState.selectedComponentKey) {
+            result = true;
+            boardState.boardComponents[boardState.selectedSitePageID][index] = {
+              ...changeComponentProps(component, propsTypes, target, value),
+            };
           }
         }
       );
-    }
 
-    //cari di innersectionlayout
-    if (!result) {
-      boardState.boardComponents[boardState.selectedSitePageID].forEach(
-        (component, index) => {
-          if (!result) {
-            if (component.itemTypes === ItemTypes.INNERSECTION) {
-              component.props.children.forEach((child, index2) => {
-                if (!result) {
-                  if (child.props.children.length > 0) {
-                    child.props.children.forEach((child2, index3) => {
-                      if (!result) {
-                        if (child2.key === boardState.selectedComponentKey) {
-                          result = true;
-                          boardState.boardComponents[
-                            boardState.selectedSitePageID
-                          ][index].props.children[index2].props.children[
-                            index3
-                          ] = {
-                            ...changeComponentProps(
-                              child2,
-                              propsTypes,
-                              target,
-                              value
-                            ),
-                          };
+      //cari di innersection
+      if (!result) {
+        boardState.boardComponents[boardState.selectedSitePageID].forEach(
+          (component, index) => {
+            if (!result) {
+              if (component.itemTypes === ItemTypes.INNERSECTION) {
+                component.props.children.forEach((child, index2) => {
+                  if (!result) {
+                    if (child.key === boardState.selectedComponentKey) {
+                      result = true;
+                      boardState.boardComponents[boardState.selectedSitePageID][
+                        index
+                      ].props.children[index2] = {
+                        ...changeComponentProps(
+                          child,
+                          propsTypes,
+                          target,
+                          value
+                        ),
+                      };
+                    }
+                  }
+                });
+              }
+            }
+          }
+        );
+      }
+
+      //cari di innersectionlayout
+      if (!result) {
+        boardState.boardComponents[boardState.selectedSitePageID].forEach(
+          (component, index) => {
+            if (!result) {
+              if (component.itemTypes === ItemTypes.INNERSECTION) {
+                component.props.children.forEach((child, index2) => {
+                  if (!result) {
+                    if (child.props.children.length > 0) {
+                      child.props.children.forEach((child2, index3) => {
+                        if (!result) {
+                          if (child2.key === boardState.selectedComponentKey) {
+                            result = true;
+                            boardState.boardComponents[
+                              boardState.selectedSitePageID
+                            ][index].props.children[index2].props.children[
+                              index3
+                            ] = {
+                              ...changeComponentProps(
+                                child2,
+                                propsTypes,
+                                target,
+                                value
+                              ),
+                            };
+                          }
                         }
-                      }
-                    });
+                      });
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
-        }
-      );
+        );
+      }
     }
 
     //3ger rerender
@@ -1396,8 +1580,11 @@ const WebGenerator = () => {
         appContext.setIsLoading(false);
 
         if (res.data.status === 200) {
-          const { site_components_key } = res.data.result;
+          const { site_components_key, site_navbar_json, site_footer_json } =
+            res.data.result;
           boardState.boardComponentsKey = parseInt(site_components_key);
+          boardState.boardNavbar = JSON.parse(site_navbar_json);
+          boardState.boardFooter = JSON.parse(site_footer_json);
           fetchUserSitePages();
         }
       })
@@ -1655,6 +1842,46 @@ const WebGenerator = () => {
         isListComponent: false,
         selectedComponentItemTypes: itemTypes,
       });
+    } else if (itemTypes === ItemTypes.USER_NAVBAR) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isChoosePage: false,
+        isDOMTree: false,
+        isEdit: true,
+        isListComponent: false,
+        selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.USER_NAVBAR_MENU) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isChoosePage: false,
+        isDOMTree: false,
+        isEdit: true,
+        isListComponent: false,
+        selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.USER_NAVBAR_SUBMENU) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isChoosePage: false,
+        isDOMTree: false,
+        isEdit: true,
+        isListComponent: false,
+        selectedComponentItemTypes: itemTypes,
+      });
+    } else if (itemTypes === ItemTypes.USER_FOOTER) {
+      boardState.selectedComponentKey = key;
+      boardState.getComponentData = true;
+      setEditComponent({
+        isChoosePage: false,
+        isDOMTree: false,
+        isEdit: true,
+        isListComponent: false,
+        selectedComponentItemTypes: itemTypes,
+      });
     } else if (itemTypes === ItemTypes.VIDEO) {
       boardState.selectedComponentKey = key;
       boardState.getComponentData = true;
@@ -1674,9 +1901,10 @@ const WebGenerator = () => {
     setIsRerenderPage(!isRerenderPage);
   };
 
-  const handleClickUploadImage = (isMultiple) => {
+  const handleClickUploadImage = (isMultiple, propsTypes) => {
     setIsUploadImage(true);
     setIsUploadImageMultiple(isMultiple);
+    setUploadImageLocation(propsTypes);
   };
 
   const renderComponent = (component) => {
@@ -1804,141 +2032,226 @@ const WebGenerator = () => {
   };
 
   const renderEditComponent = (selectedComponentKey) => {
-    const component = findComponent(
-      boardState.boardComponents[boardState.selectedSitePageID],
-      selectedComponentKey
-    );
-    const itemTypes = component.itemTypes;
+    if (Array.isArray(selectedComponentKey)) {
+      if (selectedComponentKey[0] === ItemTypes.USER_NAVBAR_MENU) {
+        const component =
+          boardState.boardNavbar.props.menu[selectedComponentKey[1]];
+        const location = [ItemTypes.USER_NAVBAR_MENU, selectedComponentKey[1]];
 
-    if (itemTypes === ItemTypes.BUTTON) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.USER_NAVBAR_MENU,
+              componentProps: component.props,
+              itemTypes: component.itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (selectedComponentKey[0] === ItemTypes.USER_NAVBAR_SUBMENU) {
+        const component =
+          boardState.boardNavbar.props.menu[selectedComponentKey[1]].submenu[
+            selectedComponentKey[2]
+          ];
+        const location = [
+          ItemTypes.USER_NAVBAR_SUBMENU,
+          selectedComponentKey[1],
+          selectedComponentKey[2],
+        ];
+
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps:
+                ComponentEditableProps.USER_NAVBAR_SUBMENU,
+              componentProps: component.props,
+              itemTypes: component.itemTypes,
+              location: location,
+            }}
+          />
+        );
+      }
+    } else if (selectedComponentKey === ItemTypes.USER_NAVBAR) {
+      const component = boardState.boardNavbar;
+      const location = ItemTypes.USER_NAVBAR;
+
       return (
         <EditComponent
           props={{
-            componentEditableProps: ComponentEditableProps.BUTTON,
+            componentEditableProps: ComponentEditableProps.USER_NAVBAR,
             componentProps: component.props,
+            itemTypes: component.itemTypes,
+            location: location,
           }}
         />
       );
-    } else if (itemTypes === ItemTypes.DIVIDER) {
+    } else if (selectedComponentKey === ItemTypes.USER_FOOTER) {
+      const component = boardState.boardFooter;
+      const location = ItemTypes.USER_FOOTER;
+
       return (
         <EditComponent
           props={{
-            componentEditableProps: ComponentEditableProps.DIVIDER,
-            componentProps: component.props,
-            itemTypes: itemTypes,
+            componentEditableProps: ComponentEditableProps.USER_FOOTER,
+            componentProps: component,
+            itemTypes: component.itemTypes,
+            location: location,
           }}
         />
       );
-    } else if (itemTypes === ItemTypes.HEADING) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.HEADING,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
+    } else {
+      const component = findComponent(
+        boardState.boardComponents[boardState.selectedSitePageID],
+        selectedComponentKey
       );
-    } else if (itemTypes === ItemTypes.ICON) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.ICON,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.IMAGE) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.IMAGE,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.IMAGE_GALLERY,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.INNERSECTION) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.INNERSECTION,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.INNERSECTION_LAYOUT) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.INNERSECTION_LAYOUT,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.MAP_COMPONENT,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.SPACER) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.SPACER,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.STAR_RATING) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.STAR_RATING,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.TEXT_EDITOR,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
-    } else if (itemTypes === ItemTypes.VIDEO) {
-      return (
-        <EditComponent
-          props={{
-            componentEditableProps: ComponentEditableProps.VIDEO,
-            componentProps: component.props,
-            itemTypes: itemTypes,
-          }}
-        />
-      );
+      const itemTypes = component.itemTypes;
+      const location = ItemTypes.BOARD;
+
+      if (itemTypes === ItemTypes.BUTTON) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.BUTTON,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.DIVIDER) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.DIVIDER,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.HEADING) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.HEADING,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.ICON) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.ICON,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.IMAGE) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.IMAGE,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.IMAGE_GALLERY) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.IMAGE_GALLERY,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.INNERSECTION) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.INNERSECTION,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.INNERSECTION_LAYOUT) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps:
+                ComponentEditableProps.INNERSECTION_LAYOUT,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.MAP_COMPONENT) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.MAP_COMPONENT,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.SPACER) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.SPACER,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.STAR_RATING) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.STAR_RATING,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.TEXT_EDITOR) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.TEXT_EDITOR,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      } else if (itemTypes === ItemTypes.VIDEO) {
+        return (
+          <EditComponent
+            props={{
+              componentEditableProps: ComponentEditableProps.VIDEO,
+              componentProps: component.props,
+              itemTypes: itemTypes,
+              location: location,
+            }}
+          />
+        );
+      }
     }
   };
 
@@ -2098,6 +2411,8 @@ const WebGenerator = () => {
       siteID: localStorage.getItem("site_id"),
       siteComponentsKey: boardState.boardComponentsKey.toString(),
       siteJSON: JSON.stringify(boardState.boardComponents),
+      siteNavbarJSON: JSON.stringify(boardState.boardNavbar),
+      siteFooterJSON: JSON.stringify(boardState.boardFooter),
     });
 
     axios
@@ -2128,6 +2443,8 @@ const WebGenerator = () => {
     return () => {
       boardState.boardComponents = {};
       boardState.boardComponentsKey = -1;
+      boardState.boardNavbar = null;
+      boardState.boardFooter = null;
       boardState.getComponentData = false;
       boardState.selectedComponentKey = null;
       boardState.selectedSitePageID = -1;
@@ -2151,6 +2468,8 @@ const WebGenerator = () => {
           boardState,
           addComponentToBoard,
           addComponentToInnerSectionLayout,
+          addNavbarMenu,
+          addNavbarSubMenu,
           changeMapState,
           closeUploadImage,
           editComponentProps,
@@ -2160,7 +2479,12 @@ const WebGenerator = () => {
           reorderComponent,
         }}
       >
-        {isUploadImage && <UploadImage isMultiple={isUploadImageMultiple} />}
+        {isUploadImage && (
+          <UploadImage
+            isMultiple={isUploadImageMultiple}
+            location={uploadImageLocation}
+          />
+        )}
 
         <div className="navbar-margin">
           <div className="page-builder-container">
@@ -2261,6 +2585,8 @@ const WebGenerator = () => {
                 boardComponents={
                   boardState.boardComponents[boardState.selectedSitePageID]
                 }
+                boardNavbar={boardState.boardNavbar}
+                boardFooter={boardState.boardFooter}
               />
             </div>
           </div>
