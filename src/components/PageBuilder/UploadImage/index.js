@@ -127,6 +127,13 @@ const UploadImage = ({ isMultiple, location }) => {
           selectedFile,
           location
         );
+      } else if (location === ItemTypes.USER_FOOTER) {
+        pageBuilderContext.editComponentProps(
+          PropsTypes.USER_FOOTER_LOGO,
+          "",
+          selectedFile,
+          location
+        );
       } else {
         pageBuilderContext.editComponentProps(
           PropsTypes.BACKGROUND_IMAGE,

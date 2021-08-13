@@ -1,3 +1,5 @@
+import { ItemTypes } from "../ItemTypes";
+
 export const PropsUnitOptions = {
   alignItems: ["center", "flex-end", "flex-start", "stretch"],
   backgroundPosition: [
@@ -38,6 +40,7 @@ export const PropsUnitOptions = {
   boxShadowY: ["em", "px", "rem"],
   buttonAlignment: ["center", "left", "right"],
   controls: [false, true],
+  flexDirection: ["column", "column-reverse", "row", "row-reverse"],
   fontSize: ["%", "em", "px", "rem"],
   fontWeight: ["bold", "normal"],
   gap: ["%", "em", "px", "rem"],
@@ -87,6 +90,29 @@ export const PropsUnitOptions = {
   ],
   textTransform: ["capitalize", "lowercase", "none", "uppercase"],
   thumbnailPosition: ["bottom", "left", "right", "top"],
+  userFooterLogoIsShow: [false, true],
+  userFooterLogoMaxHeight: ["auto", "%", "em", "px", "rem", "vw"],
+  userFooterLogoMaxWidth: ["auto", "%", "em", "px", "rem", "vw"],
+  userFooterSubMenuFontSize: ["%", "em", "px", "rem"],
+  userFooterSubMenuFontWeight: ["bold", "normal"],
+  userFooterSubMenuGap: ["%", "em", "px", "rem"],
+  userFooterSubMenuIsShowIcon: [false, true],
+  userFooterSubMenuTextTransform: [
+    "capitalize",
+    "lowercase",
+    "none",
+    "uppercase",
+  ],
+  userFooterType: [ItemTypes.USER_FOOTER_TYPE_1, ItemTypes.USER_FOOTER_TYPE_2],
+  userFooterWatermarkFontSize: ["%", "em", "px", "rem"],
+  userFooterWatermarkFontWeight: ["bold", "normal"],
+  userFooterWatermarkIsShow: [false, true],
+  userFooterWatermarkTextTransform: [
+    "capitalize",
+    "lowercase",
+    "none",
+    "uppercase",
+  ],
   userNavbarLogoIsShow: [false, true],
   userNavbarLogoMaxHeight: ["auto", "%", "em", "px", "rem", "vw"],
   userNavbarLogoMaxWidth: ["auto", "%", "em", "px", "rem", "vw"],

@@ -29,10 +29,21 @@ const EditComponent = ({ props }) => {
   const [isColorPickerBoxShadowColorOpen, setIsColorPickerBoxShadowColorOpen] =
     useState(false);
   const [isColorPickerColorOpen, setIsColorPickerColorOpen] = useState(false);
-
   const [
-    isColorPickerUserNavbarMenuColorOpen,
-    setIsColorPickerUserNavbarMenuColorOpen,
+    isColorPickerUserFooterSubMenuBackgroundColorOpen,
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen,
+  ] = useState(false);
+  const [
+    isColorPickerUserFooterSubMenuColorOpen,
+    setIsColorPickerUserFooterSubMenuColorOpen,
+  ] = useState(false);
+  const [
+    isColorPickerUserFooterWatermarkBackgroundColorOpen,
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen,
+  ] = useState(false);
+  const [
+    isColorPickerUserFooterWatermarkColorOpen,
+    setIsColorPickerUserFooterWatermarkColorOpen,
   ] = useState(false);
   const [
     isColorPickerUserNavbarSubMenuBackgroundColorOpen,
@@ -98,6 +109,7 @@ const EditComponent = ({ props }) => {
   const [color, setColor] = useState({ r: 0, g: 0, b: 0, a: 1 });
   const [controls, setControls] = useState(false);
   const [dividerText, setDividerText] = useState("");
+  const [flexDirection, setFlexDirection] = useState("row");
   const [fontSizeValue, setFontSizeValue] = useState(0);
   const [fontSizeUnit, setFontSizeUnit] = useState("px");
   const [fontWeight, setFontWeight] = useState("normal");
@@ -130,6 +142,64 @@ const EditComponent = ({ props }) => {
   const [minHeightValue, setMinHeightValue] = useState(0);
   const [minHeightUnit, setMinHeightUnit] = useState("auto");
   const [muted, setMuted] = useState(false);
+  const [userFooterLogo, setUserFooterLogo] = useState("");
+  const [userFooterLogoIsShow, setUserFooterLogoIsShow] = useState(true);
+  const [userFooterLogoMaxHeightValue, setUserFooterLogoMaxHeightValue] =
+    useState(0);
+  const [userFooterLogoMaxHeightUnit, setUserFooterLogoMaxHeightUnit] =
+    useState("px");
+  const [userFooterLogoMaxWidthValue, setUserFooterLogoMaxWidthValue] =
+    useState(0);
+  const [userFooterLogoMaxWidthUnit, setUserFooterLogoMaxWidthUnit] =
+    useState("px");
+  const [
+    userFooterSubMenuBackgroundColor,
+    setUserFooterSubMenuBackgroundColor,
+  ] = useState({ r: 0, g: 0, b: 0, a: 1 });
+  const [userFooterSubMenuColor, setUserFooterSubMenuColor] = useState({
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
+  const [userFooterSubMenuFontSizeValue, setUserFooterSubMenuFontSizeValue] =
+    useState(0);
+  const [userFooterSubMenuFontSizeUnit, setUserFooterSubMenuFontSizeUnit] =
+    useState("px");
+  const [userFooterSubMenuFontWeight, setUserFooterSubMenuFontWeight] =
+    useState("normal");
+  const [userFooterSubMenuGapValue, setUserFooterSubMenuGapValue] = useState(0);
+  const [userFooterSubMenuGapUnit, setUserFooterSubMenuGapUnit] =
+    useState("px");
+  const [userFooterSubMenuIsShowIcon, setUserFooterSubMenuIsShowIcon] =
+    useState(true);
+  const [userFooterSubMenuTextTransform, setUserFooterSubMenuTextTransform] =
+    useState("none");
+  const [
+    userFooterWatermarkBackgroundColor,
+    setUserFooterWatermarkBackgroundColor,
+  ] = useState({ r: 0, g: 0, b: 0, a: 1 });
+  const [userFooterWatermarkColor, setUserFooterWatermarkColor] = useState({
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
+  const [
+    userFooterWatermarkFontSizeValue,
+    setUserFooterWatermarkFontSizeValue,
+  ] = useState(0);
+  const [userFooterWatermarkFontSizeUnit, setUserFooterWatermarkFontSizeUnit] =
+    useState("px");
+  const [userFooterWatermarkFontWeight, setUserFooterWatermarkFontWeight] =
+    useState("normal");
+  const [
+    userFooterWatermarkTextTransform,
+    setUserFooterWatermarkTextTransform,
+  ] = useState("none");
+  const [userFooterWatermarkIsShow, setUserFooterWatermarkIsShow] =
+    useState(true);
+  const [userFooterWatermarkText, setUserFooterWatermarkText] = useState("");
   const [userNavbarLogo, setUserNavbarLogo] = useState("");
   const [userNavbarLogoIsShow, setUserNavbarLogoIsShow] = useState(true);
   const [userNavbarLogoMaxHeightValue, setUserNavbarLogoMaxHeightValue] =
@@ -140,12 +210,6 @@ const EditComponent = ({ props }) => {
     useState(0);
   const [userNavbarLogoMaxWidthUnit, setUserNavbarLogoMaxWidthUnit] =
     useState("px");
-  const [userNavbarMenuColor, setUserNavbarMenuColor] = useState({
-    r: 0,
-    g: 0,
-    b: 0,
-    a: 1,
-  });
   const [
     userNavbarSubMenuBackgroundColor,
     setUserNavbarSubMenuBackgroundColor,
@@ -204,8 +268,12 @@ const EditComponent = ({ props }) => {
     setIsColorPickerBorderColorOpen(false);
     setIsColorPickerBoxShadowColorOpen(false);
     setIsColorPickerColorOpen(false);
-    setIsColorPickerUserNavbarMenuColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
     setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
   };
 
   const handleClickColorPickerBorderColor = () => {
@@ -213,6 +281,12 @@ const EditComponent = ({ props }) => {
     setIsColorPickerBorderColorOpen(!isColorPickerBorderColorOpen);
     setIsColorPickerBoxShadowColorOpen(false);
     setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
   };
 
   const handleClickColorPickerBoxShadowColor = () => {
@@ -220,6 +294,12 @@ const EditComponent = ({ props }) => {
     setIsColorPickerBorderColorOpen(false);
     setIsColorPickerBoxShadowColorOpen(!isColorPickerBoxShadowColorOpen);
     setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
   };
 
   const handleClickColorPickerColor = () => {
@@ -227,19 +307,83 @@ const EditComponent = ({ props }) => {
     setIsColorPickerBorderColorOpen(false);
     setIsColorPickerBoxShadowColorOpen(false);
     setIsColorPickerColorOpen(!isColorPickerColorOpen);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
   };
 
-  const handleClickColorPickerUserNavbarMenuColor = () => {
+  const handleClickColorPickerUserFooterSubMenuBackgroundColor = () => {
     setIsColorPickerBackgroundColorOpen(false);
-    setIsColorPickerUserNavbarMenuColorOpen(
-      !isColorPickerUserNavbarMenuColorOpen
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(
+      !isColorPickerUserFooterSubMenuBackgroundColorOpen
+    );
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
+  };
+
+  const handleClickColorPickerUserFooterSubMenuColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(
+      !isColorPickerUserFooterSubMenuColorOpen
+    );
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
+  };
+
+  const handleClickColorPickerUserFooterWatermarkBackgroundColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(
+      !isColorPickerUserFooterWatermarkBackgroundColorOpen
+    );
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
+  };
+
+  const handleClickColorPickerUserFooterWatermarkColor = () => {
+    setIsColorPickerBackgroundColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(
+      !isColorPickerUserFooterWatermarkColorOpen
     );
     setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserNavbarSubMenuColorOpen(false);
   };
 
   const handleClickColorPickerUserNavbarSubMenuBackgroundColor = () => {
     setIsColorPickerBackgroundColorOpen(false);
-    setIsColorPickerUserNavbarMenuColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
     setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(
       !isColorPickerUserNavbarSubMenuBackgroundColorOpen
     );
@@ -248,7 +392,13 @@ const EditComponent = ({ props }) => {
 
   const handleClickColorPickerUserNavbarSubMenuColor = () => {
     setIsColorPickerBackgroundColorOpen(false);
-    setIsColorPickerUserNavbarMenuColorOpen(false);
+    setIsColorPickerBorderColorOpen(false);
+    setIsColorPickerBoxShadowColorOpen(false);
+    setIsColorPickerColorOpen(false);
+    setIsColorPickerUserFooterSubMenuBackgroundColorOpen(false);
+    setIsColorPickerUserFooterSubMenuColorOpen(false);
+    setIsColorPickerUserFooterWatermarkBackgroundColorOpen(false);
+    setIsColorPickerUserFooterWatermarkColorOpen(false);
     setIsColorPickerUserNavbarSubMenuBackgroundColorOpen(false);
     setIsColorPickerUserNavbarSubMenuColorOpen(
       !isColorPickerUserNavbarSubMenuColorOpen
@@ -272,7 +422,6 @@ const EditComponent = ({ props }) => {
       setIsColorPickerBorderColorOpen(false);
       setIsColorPickerBoxShadowColorOpen(false);
       setIsColorPickerColorOpen(false);
-      setIsColorPickerUserNavbarMenuColorOpen(false);
 
       if (props.componentEditableProps.alignItems) {
         if (props.itemTypes === ItemTypes.DIVIDER) {
@@ -450,6 +599,9 @@ const EditComponent = ({ props }) => {
       }
       if (props.componentEditableProps.dividerText) {
         setDividerText(props.componentProps.dividerText);
+      }
+      if (props.componentEditableProps.flexDirection) {
+        setFlexDirection(props.componentProps.style.flexDirection);
       }
       if (props.componentEditableProps.fontSize) {
         if (props.itemTypes === ItemTypes.DIVIDER) {
@@ -683,6 +835,101 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.thumbnailPosition) {
         setThumbnailPosition(props.componentProps.thumbnailPosition);
       }
+      if (props.componentEditableProps.userFooterLogo) {
+        setUserFooterLogo(props.componentProps.userFooterLogo);
+      }
+      if (props.componentEditableProps.userFooterLogoIsShow) {
+        setUserFooterLogoIsShow(props.componentProps.userFooterLogoIsShow);
+      }
+      if (props.componentEditableProps.userFooterLogoMaxHeight) {
+        setUserFooterLogoMaxHeightValue(
+          props.componentProps.userFooterLogoMaxHeight.value
+        );
+        setUserFooterLogoMaxHeightUnit(
+          props.componentProps.userFooterLogoMaxHeight.unit
+        );
+      }
+      if (props.componentEditableProps.userFooterLogoMaxWidth) {
+        setUserFooterLogoMaxWidthValue(
+          props.componentProps.userFooterLogoMaxWidth.value
+        );
+        setUserFooterLogoMaxWidthUnit(
+          props.componentProps.userFooterLogoMaxWidth.unit
+        );
+      }
+      if (props.componentEditableProps.userFooterSubMenuBackgroundColor) {
+        setUserFooterSubMenuBackgroundColor(
+          props.componentProps.subMenuStyle.backgroundColor
+        );
+      }
+      if (props.componentEditableProps.userFooterSubMenuColor) {
+        setUserFooterSubMenuColor(props.componentProps.subMenuStyle.color);
+      }
+      if (props.componentEditableProps.userFooterSubMenuFontSize) {
+        setUserFooterSubMenuFontSizeValue(
+          props.componentProps.subMenuStyle.fontSize.value
+        );
+        setUserFooterSubMenuFontSizeUnit(
+          props.componentProps.subMenuStyle.fontSize.unit
+        );
+      }
+      if (props.componentEditableProps.userFooterSubMenuFontWeight) {
+        setUserFooterSubMenuFontWeight(
+          props.componentProps.subMenuStyle.fontWeight
+        );
+      }
+      if (props.componentEditableProps.userFooterSubMenuGap) {
+        setUserFooterSubMenuGapValue(
+          props.componentProps.subMenuStyle.gap.value
+        );
+        setUserFooterSubMenuGapUnit(props.componentProps.subMenuStyle.gap.unit);
+      }
+      if (props.componentEditableProps.userFooterSubMenuIsShowIcon) {
+        setUserFooterSubMenuIsShowIcon(
+          props.componentProps.userFooterSubMenuIsShowIcon
+        );
+      }
+      if (props.componentEditableProps.userFooterSubMenuTextTransform) {
+        setUserFooterSubMenuTextTransform(
+          props.componentProps.subMenuStyle.textTransform
+        );
+      }
+      if (props.componentEditableProps.userFooterWatermarkBackgroundColor) {
+        setUserFooterWatermarkBackgroundColor(
+          props.componentProps.watermarkStyle.backgroundColor
+        );
+      }
+      if (props.componentEditableProps.userFooterWatermarkColor) {
+        setUserFooterWatermarkColor(props.componentProps.watermarkStyle.color);
+      }
+      if (props.componentEditableProps.userFooterWatermarkFontSize) {
+        setUserFooterWatermarkFontSizeValue(
+          props.componentProps.watermarkStyle.fontSize.value
+        );
+        setUserFooterWatermarkFontSizeUnit(
+          props.componentProps.watermarkStyle.fontSize.unit
+        );
+      }
+      if (props.componentEditableProps.userFooterWatermarkFontWeight) {
+        setUserFooterWatermarkFontWeight(
+          props.componentProps.watermarkStyle.fontWeight
+        );
+      }
+      if (props.componentEditableProps.userFooterWatermarkIsShow) {
+        setUserFooterWatermarkIsShow(
+          props.componentProps.userFooterWatermarkIsShow
+        );
+      }
+      if (props.componentEditableProps.userFooterWatermarkText) {
+        setUserFooterWatermarkText(
+          props.componentProps.userFooterWatermarkText
+        );
+      }
+      if (props.componentEditableProps.userFooterWatermarkTextTransform) {
+        setUserFooterWatermarkTextTransform(
+          props.componentProps.watermarkStyle.textTransform
+        );
+      }
       if (props.componentEditableProps.userNavbarLogo) {
         setUserNavbarLogo(props.componentProps.userNavbarLogo);
       }
@@ -704,9 +951,6 @@ const EditComponent = ({ props }) => {
         setUserNavbarLogoMaxWidthUnit(
           props.componentProps.userNavbarLogoMaxWidth.unit
         );
-      }
-      if (props.componentEditableProps.userNavbarMenuColor) {
-        setUserNavbarMenuColor(props.componentProps.menuStyle.color);
       }
       if (props.componentEditableProps.userNavbarSubMenuBackgroundColor) {
         setUserNavbarSubMenuBackgroundColor(
@@ -782,7 +1026,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.ALIGN_ITEMS,
                   "",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={alignItems}
@@ -1741,7 +1986,8 @@ const EditComponent = ({ props }) => {
                       pageBuilderContext.editComponentProps(
                         PropsTypes.COLOR,
                         "",
-                        color.rgb
+                        color.rgb,
+                        props.location
                       );
                     }}
                   />
@@ -1798,6 +2044,36 @@ const EditComponent = ({ props }) => {
             />
             <label htmlFor="text">
               <span>{PropsTypes.DIVIDER_TEXT}</span>
+            </label>
+          </div>
+        )}
+        {/* flex direction */}
+        {props.componentEditableProps.flexDirection && (
+          <div className="form-input">
+            <select
+              id="flexDirection"
+              name="flexDirection"
+              onChange={(e) => {
+                setFlexDirection(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.FLEX_DIRECTION,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={flexDirection}
+            >
+              {props.componentEditableProps.flexDirection.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+            <label htmlFor="flexDirection">
+              <span>{PropsTypes.FLEX_DIRECTION}</span>
             </label>
           </div>
         )}
@@ -1986,7 +2262,12 @@ const EditComponent = ({ props }) => {
               containerStyles={{ top: "110%", right: "0" }}
               onChange={(e) => {
                 setIcon(e);
-                pageBuilderContext.editComponentProps(PropsTypes.ICON, "", e);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.ICON,
+                  "",
+                  e,
+                  props.location
+                );
               }}
               value={icon}
             />
@@ -2128,7 +2409,8 @@ const EditComponent = ({ props }) => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.JUSTIFY_CONTENT,
                   "",
-                  e.target.value
+                  e.target.value,
+                  props.location
                 );
               }}
               value={justifyContent}
@@ -3255,6 +3537,708 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
+        {/* user footer menu */}
+        {props.componentEditableProps.userFooterMenu && (
+          <div className="user-footer-menu-input">
+            <label htmlFor="userFooterMenu">
+              <span>{PropsTypes.USER_FOOTER_MENU}</span>
+            </label>
+            <button
+              className="button"
+              onClick={() => pageBuilderContext.addFooterMenu()}
+            >
+              add
+              <FontAwesomeIcon icon={faColumns} />
+            </button>
+          </div>
+        )}
+        {/* user footer submenu */}
+        {props.componentEditableProps.userFooterSubMenu && (
+          <div className="user-footer-submenu-input">
+            <label htmlFor="userFooterSubMenu">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU}</span>
+            </label>
+            <button
+              className="button"
+              onClick={() =>
+                pageBuilderContext.addFooterSubMenu(props.location)
+              }
+            >
+              add
+              <FontAwesomeIcon icon={faColumns} />
+            </button>
+          </div>
+        )}
+        {/* user footer logo */}
+        {props.componentEditableProps.userFooterLogo && (
+          <div className="form-input">
+            <input
+              id="userFooterLogo"
+              name="userFooterLogo"
+              onChange={(e) => {
+                setUserFooterLogo(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_LOGO,
+                  "value",
+                  e.target.value || "",
+                  props.location
+                );
+              }}
+              type="text"
+              value={userFooterLogo}
+            />
+            <label htmlFor="userFooterLogo">
+              <span>{PropsTypes.USER_FOOTER_LOGO}</span>
+            </label>
+            <button
+              className="button"
+              onClick={() =>
+                pageBuilderContext.handleClickUploadImage(false, props.location)
+              }
+            >
+              <FontAwesomeIcon icon={faFolderOpen} />
+            </button>
+          </div>
+        )}
+        {/* user footer logo is show */}
+        {props.componentEditableProps.userFooterLogoIsShow && (
+          <div className="form-input">
+            <select
+              id="userFooterLogoIsShow"
+              name="userFooterLogoIsShow"
+              onChange={(e) => {
+                setUserFooterLogoIsShow(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_LOGO_IS_SHOW,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterLogoIsShow}
+            >
+              {props.componentEditableProps.userFooterLogoIsShow.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit ? "Enable" : "Disable"}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterLogoIsShow">
+              <span>{PropsTypes.USER_FOOTER_LOGO_IS_SHOW}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer logo max height */}
+        {props.componentEditableProps.userFooterLogoMaxHeight && (
+          <div className="form-input">
+            <input
+              id="userFooterLogoMaxHeightValue"
+              min="0"
+              name="userFooterLogoMaxHeightValue"
+              onChange={(e) => {
+                setUserFooterLogoMaxHeightValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_LOGO_MAX_HEIGHT,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userFooterLogoMaxHeightValue}
+            />
+            <label htmlFor="userFooterLogoMaxHeightValue">
+              <span>{PropsTypes.USER_FOOTER_LOGO_MAX_HEIGHT}</span>
+            </label>
+            <select
+              id="userFooterLogoMaxHeightUnit"
+              name="userFooterLogoMaxHeightUnit"
+              onChange={(e) => {
+                setUserFooterLogoMaxHeightUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_LOGO_MAX_HEIGHT,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterLogoMaxHeightUnit}
+            >
+              {props.componentEditableProps.userFooterLogoMaxHeight.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user footer logo max width */}
+        {props.componentEditableProps.userFooterLogoMaxWidth && (
+          <div className="form-input">
+            <input
+              id="userFooterLogoMaxWidthValue"
+              min="0"
+              name="userFooterLogoMaxWidthValue"
+              onChange={(e) => {
+                setUserFooterLogoMaxWidthValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_LOGO_MAX_WIDTH,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userFooterLogoMaxWidthValue}
+            />
+            <label htmlFor="userFooterLogoMaxWidthValue">
+              <span>{PropsTypes.USER_FOOTER_LOGO_MAX_WIDTH}</span>
+            </label>
+            <select
+              id="userFooterLogoMaxWidthUnit"
+              name="userFooterLogoMaxWidthUnit"
+              onChange={(e) => {
+                setUserFooterLogoMaxWidthUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_LOGO_MAX_WIDTH,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterLogoMaxWidthUnit}
+            >
+              {props.componentEditableProps.userFooterLogoMaxWidth.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user footer submenu backgroundcolor */}
+        {props.componentEditableProps.userFooterSubMenuBackgroundColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_BACKGROUND_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userFooterSubMenuBackgroundColor.r}, ${userFooterSubMenuBackgroundColor.g}, ${userFooterSubMenuBackgroundColor.b}, ${userFooterSubMenuBackgroundColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={handleClickColorPickerUserFooterSubMenuBackgroundColor}
+              />
+              {isColorPickerUserFooterSubMenuBackgroundColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    color={userFooterSubMenuBackgroundColor}
+                    onChange={(color) => {
+                      setUserFooterSubMenuBackgroundColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_FOOTER_SUBMENU_BACKGROUND_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user footer submenu color */}
+        {props.componentEditableProps.userFooterSubMenuColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userFooterSubMenuColor.r}, ${userFooterSubMenuColor.g}, ${userFooterSubMenuColor.b}, ${userFooterSubMenuColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={handleClickColorPickerUserFooterSubMenuColor}
+              />
+              {isColorPickerUserFooterSubMenuColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    color={userFooterSubMenuColor}
+                    onChange={(color) => {
+                      setUserFooterSubMenuColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_FOOTER_SUBMENU_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user footer submenu font size */}
+        {props.componentEditableProps.userFooterSubMenuFontSize && (
+          <div className="form-input">
+            <input
+              id="userFooterSubMenuFontSizeValue"
+              min="0"
+              name="userFooterSubMenuFontSizeValue"
+              onChange={(e) => {
+                setUserFooterSubMenuFontSizeValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_FONT_SIZE,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userFooterSubMenuFontSizeValue}
+            />
+            <label htmlFor="userFooterSubMenuFontSizeValue">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_FONT_SIZE}</span>
+            </label>
+            <select
+              id="userFooterSubMenuFontSizeUnit"
+              name="userFooterSubMenuFontSizeUnit"
+              onChange={(e) => {
+                setUserFooterSubMenuFontSizeUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_FONT_SIZE,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterSubMenuFontSizeUnit}
+            >
+              {props.componentEditableProps.userFooterSubMenuFontSize.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user footer submenu font weight */}
+        {props.componentEditableProps.userFooterSubMenuFontWeight && (
+          <div className="form-input">
+            <select
+              id="userFooterSubMenuFontWeight"
+              name="userFooterSubMenuFontWeight"
+              onChange={(e) => {
+                setUserFooterSubMenuFontWeight(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_FONT_WEIGHT,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterSubMenuFontWeight}
+            >
+              {props.componentEditableProps.userFooterSubMenuFontWeight.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterSubMenuFontWeight">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_FONT_WEIGHT}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer submenu gap */}
+        {props.componentEditableProps.userFooterSubMenuGap && (
+          <div className="form-input">
+            <input
+              id="userFooterSubMenuGapValue"
+              min="0"
+              name="userFooterSubMenuGapValue"
+              onChange={(e) => {
+                setUserFooterSubMenuGapValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_GAP,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userFooterSubMenuGapValue}
+            />
+            <label htmlFor="userFooterSubMenuGapValue">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_GAP}</span>
+            </label>
+            <select
+              id="userFooterSubMenuGapUnit"
+              name="userFooterSubMenuGapUnit"
+              onChange={(e) => {
+                setUserFooterSubMenuGapUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_GAP,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterSubMenuGapUnit}
+            >
+              {props.componentEditableProps.userFooterSubMenuGap.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user footer submenu is show icon */}
+        {props.componentEditableProps.userFooterSubMenuIsShowIcon && (
+          <div className="form-input">
+            <select
+              id="userFooterSubMenuIsShowIcon"
+              name="userFooterSubMenuIsShowIcon"
+              onChange={(e) => {
+                setUserFooterSubMenuIsShowIcon(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_IS_SHOW_ICON,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterSubMenuIsShowIcon}
+            >
+              {props.componentEditableProps.userFooterSubMenuIsShowIcon.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit ? "Enable" : "Disable"}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterSubMenuIsShowIcon">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_IS_SHOW_ICON}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer submenu text transform */}
+        {props.componentEditableProps.userFooterSubMenuTextTransform && (
+          <div className="form-input">
+            <select
+              id="userFooterSubMenuTextTransform"
+              name="userFooterSubMenuTextTransform"
+              onChange={(e) => {
+                setUserFooterSubMenuTextTransform(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_TEXT_TRANSFORM,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterSubMenuTextTransform}
+            >
+              {props.componentEditableProps.userFooterSubMenuTextTransform.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterSubMenuTextTransform">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_TEXT_TRANSFORM}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer watermark background color */}
+        {props.componentEditableProps.userFooterWatermarkBackgroundColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_BACKGROUND_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userFooterWatermarkBackgroundColor.r}, ${userFooterWatermarkBackgroundColor.g}, ${userFooterWatermarkBackgroundColor.b}, ${userFooterWatermarkBackgroundColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={
+                  handleClickColorPickerUserFooterWatermarkBackgroundColor
+                }
+              />
+              {isColorPickerUserFooterWatermarkBackgroundColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    style={{ zIndex: "99" }}
+                    color={userFooterWatermarkBackgroundColor}
+                    onChange={(color) => {
+                      setUserFooterWatermarkBackgroundColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_FOOTER_WATERMARK_BACKGROUND_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user footer watermark color */}
+        {props.componentEditableProps.userFooterWatermarkColor && (
+          <div className="color-picker-input">
+            <label htmlFor="">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_COLOR}</span>
+            </label>
+            <div className="color-picker-button-wrapper">
+              <button
+                className="color-picker-button"
+                style={{
+                  backgroundColor: `rgba(${userFooterWatermarkColor.r}, ${userFooterWatermarkColor.g}, ${userFooterWatermarkColor.b}, ${userFooterWatermarkColor.a})`,
+                }}
+              ></button>
+              <FontAwesomeIcon
+                className="color-picker-icon"
+                icon={faPalette}
+                onClick={handleClickColorPickerUserFooterWatermarkColor}
+              />
+              {isColorPickerUserFooterWatermarkColorOpen && (
+                <div className="color-picker-container">
+                  <SketchPicker
+                    style={{ zIndex: "99" }}
+                    color={userFooterWatermarkColor}
+                    onChange={(color) => {
+                      setUserFooterWatermarkColor(color.rgb);
+                      pageBuilderContext.editComponentProps(
+                        PropsTypes.USER_FOOTER_WATERMARK_COLOR,
+                        "",
+                        color.rgb,
+                        props.location
+                      );
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* user footer watermark font size */}
+        {props.componentEditableProps.userFooterWatermarkFontSize && (
+          <div className="form-input">
+            <input
+              id="userFooterWatermarkFontSizeValue"
+              min="0"
+              name="userFooterWatermarkFontSizeValue"
+              onChange={(e) => {
+                setUserFooterWatermarkFontSizeValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE,
+                  "value",
+                  e.target.value || 0,
+                  props.location
+                );
+              }}
+              type="number"
+              value={userFooterWatermarkFontSizeValue}
+            />
+            <label htmlFor="userFooterWatermarkFontSizeValue">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE}</span>
+            </label>
+            <select
+              id="userFooterWatermarkFontSizeUnit"
+              name="userFooterWatermarkFontSizeUnit"
+              onChange={(e) => {
+                setUserFooterWatermarkFontSizeUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE,
+                  "unit",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterWatermarkFontSizeUnit}
+            >
+              {props.componentEditableProps.userFooterWatermarkFontSize.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+          </div>
+        )}
+        {/* user footer watermark font weight */}
+        {props.componentEditableProps.userFooterWatermarkFontWeight && (
+          <div className="form-input">
+            <select
+              id="userFooterWatermarkFontWeight"
+              name="userFooterWatermarkFontWeight"
+              onChange={(e) => {
+                setUserFooterWatermarkFontWeight(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_FONT_WEIGHT,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterWatermarkFontWeight}
+            >
+              {props.componentEditableProps.userFooterWatermarkFontWeight.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterWatermarkFontWeight">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_WEIGHT}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer watermark is show */}
+        {props.componentEditableProps.userFooterWatermarkIsShow && (
+          <div className="form-input">
+            <select
+              id="userFooterWatermarkIsShow"
+              name="userFooterWatermarkIsShow"
+              onChange={(e) => {
+                setUserFooterWatermarkIsShow(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_IS_SHOW,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterWatermarkIsShow}
+            >
+              {props.componentEditableProps.userFooterWatermarkIsShow.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit ? "Enable" : "Disable"}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterWatermarkIsShow">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_IS_SHOW}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer watermark text */}
+        {props.componentEditableProps.userFooterWatermarkText && (
+          <div className="form-input">
+            <input
+              id="userFooterWatermarkText"
+              name="userFooterWatermarkText"
+              onChange={(e) => {
+                setUserFooterWatermarkText(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_TEXT,
+                  "",
+                  e.target.value || "Type Something",
+                  props.location
+                );
+              }}
+              type="text"
+              value={userFooterWatermarkText}
+            />
+            <label htmlFor="userFooterWatermarkText">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_TEXT}</span>
+            </label>
+          </div>
+        )}
+        {/* user footer watermark text transform */}
+        {props.componentEditableProps.userFooterWatermarkTextTransform && (
+          <div className="form-input">
+            <select
+              id="userFooterWatermarkTextTransform"
+              name="userFooterWatermarkTextTransform"
+              onChange={(e) => {
+                setUserFooterWatermarkTextTransform(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_TEXT_TRANSFORM,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterWatermarkTextTransform}
+            >
+              {props.componentEditableProps.userFooterWatermarkTextTransform.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterWatermarkTextTransform">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_TEXT_TRANSFORM}</span>
+            </label>
+          </div>
+        )}
         {/* user navbar menu */}
         {props.componentEditableProps.userNavbarMenu && (
           <div className="user-navbar-menu-input">
@@ -3427,43 +4411,6 @@ const EditComponent = ({ props }) => {
                 }
               )}
             </select>
-          </div>
-        )}
-        {/* user navbar menu color */}
-        {props.componentEditableProps.userNavbarMenuColor && (
-          <div className="color-picker-input">
-            <label htmlFor="">
-              <span>{PropsTypes.USER_NAVBAR_MENU_COLOR}</span>
-            </label>
-            <div className="color-picker-button-wrapper">
-              <button
-                className="color-picker-button"
-                style={{
-                  backgroundColor: `rgba(${userNavbarMenuColor.r}, ${userNavbarMenuColor.g}, ${userNavbarMenuColor.b}, ${userNavbarMenuColor.a})`,
-                }}
-              ></button>
-              <FontAwesomeIcon
-                className="color-picker-icon"
-                icon={faPalette}
-                onClick={handleClickColorPickerUserNavbarMenuColor}
-              />
-              {isColorPickerUserNavbarMenuColorOpen && (
-                <div className="color-picker-container">
-                  <SketchPicker
-                    color={userNavbarMenuColor}
-                    onChange={(color) => {
-                      setUserNavbarMenuColor(color.rgb);
-                      pageBuilderContext.editComponentProps(
-                        PropsTypes.USER_NAVBAR_MENU_COLOR,
-                        "",
-                        color.rgb,
-                        props.location
-                      );
-                    }}
-                  />
-                </div>
-              )}
-            </div>
           </div>
         )}
         {/* user navbar submenu */}

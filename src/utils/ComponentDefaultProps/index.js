@@ -1,3 +1,5 @@
+import { ItemTypes } from "../ItemTypes";
+
 export const ComponentDefaultProps = {
   BUTTON: {
     buttonAlignment: "left",
@@ -288,19 +290,144 @@ export const ComponentDefaultProps = {
     text: "this is text editor",
     textEditorValue: null,
   },
-  USER_FOOTER: {
-    text: "footer",
+  USER_FOOTER_BLOG: {
+    menu: [
+      {
+        itemTypes: ItemTypes.USER_FOOTER_MENU,
+        props: {
+          style: {
+            flexDirection: "column",
+          },
+          text: "contact",
+        },
+        submenu: [
+          {
+            itemTypes: ItemTypes.USER_FOOTER_SUBMENU,
+            props: {
+              icon: "FaReact",
+              userFooterSubMenuIsShowIcon: true,
+              linkTo: "",
+              text: "ngagel",
+            },
+          },
+          {
+            itemTypes: ItemTypes.USER_FOOTER_SUBMENU,
+            props: {
+              icon: "FaReact",
+              userFooterSubMenuIsShowIcon: true,
+              linkTo: "",
+              text: "08123456789",
+            },
+          },
+          {
+            itemTypes: ItemTypes.USER_FOOTER_SUBMENU,
+            props: {
+              icon: "FaReact",
+              userFooterSubMenuIsShowIcon: true,
+              linkTo: "",
+              text: "test@gmail.com",
+            },
+          },
+        ],
+      },
+      {
+        itemTypes: ItemTypes.USER_FOOTER_MENU,
+        props: {
+          style: {
+            flexDirection: "row",
+          },
+          text: "follow us",
+        },
+        submenu: [
+          {
+            itemTypes: ItemTypes.USER_FOOTER_SUBMENU,
+            props: {
+              icon: "FaReact",
+              userFooterSubMenuIsShowIcon: true,
+              linkTo: "",
+              text: "fb",
+            },
+          },
+          {
+            itemTypes: ItemTypes.USER_FOOTER_SUBMENU,
+            props: {
+              icon: "FaReact",
+              userFooterSubMenuIsShowIcon: true,
+              linkTo: "",
+              text: "ig",
+            },
+          },
+          {
+            itemTypes: ItemTypes.USER_FOOTER_SUBMENU,
+            props: {
+              icon: "FaReact",
+              userFooterSubMenuIsShowIcon: true,
+              linkTo: "",
+              text: "tw",
+            },
+          },
+        ],
+      },
+    ],
+    style: {
+      alignItems: "flex-start",
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "bold",
+      gap: { value: "16", unit: "px" },
+      justifyContent: "space-evenly",
+      paddingBottom: { value: "0", unit: "px" },
+      paddingLeft: { value: "0", unit: "px" },
+      paddingRight: { value: "0", unit: "px" },
+      paddingTop: { value: "0", unit: "px" },
+      textTransform: "uppercase",
+    },
+    subMenuStyle: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 0 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "normal",
+      gap: { value: "16", unit: "px" },
+      textTransform: "capitalize",
+    },
+    type: ItemTypes.USER_FOOTER_TYPE_1,
+    userFooterLogo: "https://ipac.page/images/brand-logo-1.jpg",
+    userFooterLogoMaxHeight: { value: "70", unit: "px" },
+    userFooterLogoMaxWidth: { value: "140", unit: "px" },
+    userFooterLogoIsShow: true,
+    userFooterWatermarkIsShow: true,
+    watermarkStyle: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "normal",
+      textTransform: "capitalize",
+    },
+    userFooterWatermarkText: "watermark",
   },
   USER_NAVBAR_BLOG: {
-    userNavbarLogo: "https://ipac.page/images/brand-logo-1.jpg",
-    userNavbarLogoMaxHeight: { value: "40", unit: "px" },
-    userNavbarLogoMaxWidth: { value: "80", unit: "px" },
-    userNavbarLogoIsShow: true,
-    menuStyle: {
-      color: { r: 255, g: 255, b: 255, a: 1 },
-    },
+    menu: [
+      {
+        itemTypes: ItemTypes.USER_NAVBAR_MENU,
+        props: {
+          linkTo: "home",
+          text: "home",
+        },
+        submenu: [],
+      },
+      {
+        itemTypes: ItemTypes.USER_NAVBAR_MENU,
+        props: {
+          linkTo: "about",
+          text: "about",
+        },
+        submenu: [],
+      },
+    ],
     style: {
       backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
       fontSize: { value: "16", unit: "px" },
       fontWeight: "bold",
       gap: { value: "16", unit: "px" },
@@ -318,22 +445,10 @@ export const ComponentDefaultProps = {
       gap: { value: "16", unit: "px" },
       textTransform: "capitalize",
     },
-    menu: [
-      {
-        props: {
-          linkTo: "home",
-          text: "home",
-        },
-        submenu: [],
-      },
-      {
-        props: {
-          linkTo: "about",
-          text: "about",
-        },
-        submenu: [],
-      },
-    ],
+    userNavbarLogo: "https://ipac.page/images/brand-logo-1.jpg",
+    userNavbarLogoMaxHeight: { value: "40", unit: "px" },
+    userNavbarLogoMaxWidth: { value: "80", unit: "px" },
+    userNavbarLogoIsShow: true,
   },
   USER_NAVBAR_COMPANY_PROFILE: {
     logo: "https://ipac.page/images/brand-logo-1.jpg",

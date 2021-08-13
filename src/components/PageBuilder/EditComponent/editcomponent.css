@@ -168,3 +168,55 @@ input#innerSectionLayout::-webkit-inner-spin-button {
   padding: 0.6rem;
   text-transform: capitalize;
 }
+
+.user-footer-menu-input {
+  align-items: center;
+  display: flex;
+  font-size: 0.85rem;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.user-footer-menu-input button {
+  align-items: center;
+  background-color: mediumblue;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: bold;
+  gap: 5px;
+  justify-content: center;
+  margin-left: 0.5rem;
+  outline: none;
+  padding: 0.6rem;
+  text-transform: capitalize;
+}
+
+.user-footer-submenu-input {
+  align-items: center;
+  display: flex;
+  font-size: 0.85rem;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.user-footer-submenu-input button {
+  align-items: center;
+  background-color: mediumblue;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: bold;
+  gap: 5px;
+  justify-content: center;
+  margin-left: 0.5rem;
+  outline: none;
+  padding: 0.6rem;
+  text-transform: capitalize;
+}

@@ -42,6 +42,10 @@ const GettingStarted = () => {
         itemTypes: ItemTypes.USER_NAVBAR,
         props: ComponentDefaultProps.USER_NAVBAR_BLOG,
       });
+      setWebsiteFooterJSON({
+        itemTypes: ItemTypes.USER_FOOTER,
+        props: ComponentDefaultProps.USER_FOOTER_BLOG,
+      });
     } else if (params === WebsiteTypes.COMPANY_PROFILE) {
       setWebsiteNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
@@ -53,10 +57,6 @@ const GettingStarted = () => {
         props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGES,
       });
     }
-    setWebsiteFooterJSON({
-      itemTypes: ItemTypes.USER_FOOTER,
-      props: ComponentDefaultProps.USER_FOOTER,
-    });
     setGettingStartedIndex(1);
   };
 

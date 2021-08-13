@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { ItemTypes } from "../../../utils/ItemTypes";
-import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
 import "./usernavbar.css";
@@ -34,9 +33,9 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
           }}
         >
           <img
+            alt=""
             className="user-navbar-menu-logo"
             src={props.userNavbarLogo}
-            alt=""
             style={{
               maxHeight:
                 props.userNavbarLogoMaxHeight.value +
@@ -58,14 +57,13 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                     ? (e) => {
                         if (e.target === e.currentTarget) {
                           pageBuilderContext.handleClickPageBuilderComponent(
-                            ItemTypes.USER_NAVBAR_MENU,
-                            [ItemTypes.USER_NAVBAR_MENU, index]
+                            menu.itemTypes,
+                            [menu.itemTypes, index]
                           );
                         }
                       }
                     : undefined
                 }
-                style={generateStyle(props.menuStyle)}
               >
                 {menu.props.text}
                 {menu.submenu.length > 0 && (
@@ -79,12 +77,8 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                               ? (e) => {
                                   if (e.target === e.currentTarget) {
                                     pageBuilderContext.handleClickPageBuilderComponent(
-                                      ItemTypes.USER_NAVBAR_SUBMENU,
-                                      [
-                                        ItemTypes.USER_NAVBAR_SUBMENU,
-                                        index,
-                                        index2,
-                                      ]
+                                      submenu.itemTypes,
+                                      [submenu.itemTypes, index, index2]
                                     );
                                   }
                                 }

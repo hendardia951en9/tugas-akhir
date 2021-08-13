@@ -1,0 +1,20 @@
+.flex-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.user-footer-submenu-container {
+  display: flex;
+  margin-top: 0.7rem;
+}
+
+.user-footer-submenu {
+  align-items: center;
+  display: flex;
+  gap: 0.1rem;
+}
+
+.footer-watermark {
+  padding: 0.5rem;
+  text-align: center;
+}
