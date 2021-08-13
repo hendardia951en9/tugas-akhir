@@ -1454,7 +1454,6 @@ const WebGenerator = () => {
 
   const editComponentProps = (propsTypes, target, value, location) => {
     if (Array.isArray(location)) {
-      console.log(location);
       if (location[0] === ItemTypes.USER_NAVBAR_MENU) {
         boardState.boardNavbar.props.menu[location[1]] = changeComponentProps(
           boardState.boardNavbar.props.menu[location[1]],
@@ -1478,6 +1477,7 @@ const WebGenerator = () => {
         target,
         value
       );
+    } else if (location === ItemTypes.USER_FOOTER) {
     } else {
       let result = false;
 

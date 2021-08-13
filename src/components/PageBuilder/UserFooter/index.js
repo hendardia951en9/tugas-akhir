@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { generateStyle } from "../../../utils/generateStyle";
+import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);

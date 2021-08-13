@@ -102,6 +102,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
+      width: { value: "100", unit: "%" },
       zIndex: "auto",
     },
     text: "this is icon",

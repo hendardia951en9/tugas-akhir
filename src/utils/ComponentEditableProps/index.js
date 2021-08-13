@@ -90,6 +90,7 @@ export const ComponentEditableProps = {
     paddingLeft: PropsUnitOptions.paddingLeft,
     paddingRight: PropsUnitOptions.paddingRight,
     paddingTop: PropsUnitOptions.paddingTop,
+    width: PropsUnitOptions.width,
     zIndex: true,
   },
   IMAGE: {

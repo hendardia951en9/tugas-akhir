@@ -3,6 +3,7 @@ import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { generateStyle } from "../../../utils/generateStyle";
 
+//css
 import "./usernavbar.css";
 
 const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
