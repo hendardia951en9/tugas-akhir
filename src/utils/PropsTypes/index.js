@@ -25,6 +25,7 @@ export const PropsTypes = {
   BOX_SHADOW_Y: "Box Shadow Y",
   BUTTON_ALIGNMENT: "Button Alignment",
   CONTROLS: "Controls",
+  DELETE_COMPONENT: "Delete Component",
   DIVIDER_TEXT: "Divider Text",
   FLEX_DIRECTION: "Flex Direction",
   FONT_SIZE: "Font Size",

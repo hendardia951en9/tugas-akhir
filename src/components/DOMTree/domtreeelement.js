@@ -8,40 +8,42 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
-    <div
-      className="dom-tree-element-container"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          pageBuilderContext.handleClickPageBuilderComponent(
-            itemTypes,
-            componentKey
-          );
-        }
-      }}
-    >
-      <div className="dom-tree-element">
-        <button
-          onClick={() =>
-            pageBuilderContext.reorderComponent(componentKey, "UP")
+    <div className="dom-tree-element-container">
+      <div
+        className="dom-tree-element"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
           }
-        >
-          up
-        </button>
-        <button
-          onClick={() =>
-            pageBuilderContext.reorderComponent(componentKey, "DOWN")
-          }
-        >
-          down
-        </button>
-        <div>{itemTypes}</div>
+        }}
+      >
+        <div className="dom-tree-element-button-wrapper">
+          <button
+            onClick={() =>
+              pageBuilderContext.reorderComponent(componentKey, "UP")
+            }
+          >
+            up
+          </button>
+          <button
+            onClick={() =>
+              pageBuilderContext.reorderComponent(componentKey, "DOWN")
+            }
+          >
+            down
+          </button>
+        </div>
+        <span>{itemTypes}</span>
       </div>
       {itemTypes === ItemTypes.INNERSECTION
         ? props.children.length > 0
           ? props.children.map((innersectionlayout) => {
               return (
                 <div
-                  style={{ marginLeft: "1rem" }}
+                  className="dom-tree-element"
                   key={innersectionlayout.key}
                   onClick={(e) => {
                     if (e.target === e.currentTarget) {
@@ -51,8 +53,9 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                       );
                     }
                   }}
+                  style={{ marginLeft: "1rem" }}
                 >
-                  <div className="dom-tree-element">
+                  <div className="dom-tree-element-button-wrapper">
                     <button
                       onClick={() =>
                         pageBuilderContext.reorderComponent(
@@ -73,13 +76,13 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                     >
                       down
                     </button>
-                    <div>{innersectionlayout.itemTypes}</div>
                   </div>
+                  <span>{innersectionlayout.itemTypes}</span>
                   {innersectionlayout.props.children.length > 0
                     ? innersectionlayout.props.children.map((child) => {
                         return (
                           <div
-                            style={{ marginLeft: "2rem" }}
+                            className="dom-tree-element"
                             key={child.key}
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
@@ -89,8 +92,9 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                                 );
                               }
                             }}
+                            style={{ marginLeft: "2rem" }}
                           >
-                            <div className="dom-tree-element">
+                            <div className="dom-tree-element-button-wrapper">
                               <button
                                 onClick={() =>
                                   pageBuilderContext.reorderComponent(
@@ -111,8 +115,8 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                               >
                                 down
                               </button>
-                              <div>{child.itemTypes}</div>
                             </div>
+                            <span>{child.itemTypes}</span>
                           </div>
                         );
                       })

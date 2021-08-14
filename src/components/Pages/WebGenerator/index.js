@@ -1676,6 +1676,175 @@ const WebGenerator = () => {
     setIsUploadImage(false);
   };
 
+  const deleteComponent = (location) => {
+    if (Array.isArray(location)) {
+      if (location[0] === ItemTypes.USER_FOOTER_MENU) {
+        const tempArr = [...boardState.boardFooter.props.menu];
+        tempArr.splice(location[1], 1);
+        boardState.boardFooter.props.menu = tempArr;
+        boardState.selectedComponentKey = null;
+        setEditComponent({
+          isChoosePage: false,
+          isEdit: false,
+          isListComponent: true,
+          selectedComponentItemTypes: null,
+        });
+        setIsRerenderPage(!isRerenderPage);
+      } else if (location[0] === ItemTypes.USER_FOOTER_SUBMENU) {
+        const tempArr = [
+          ...boardState.boardFooter.props.menu[location[1]].submenu,
+        ];
+        tempArr.splice(location[2], 1);
+        boardState.boardFooter.props.menu[location[1]].submenu = tempArr;
+        boardState.selectedComponentKey = null;
+        setEditComponent({
+          isChoosePage: false,
+          isEdit: false,
+          isListComponent: true,
+          selectedComponentItemTypes: null,
+        });
+        setIsRerenderPage(!isRerenderPage);
+      } else if (location[0] === ItemTypes.USER_NAVBAR_MENU) {
+        const tempArr = [...boardState.boardNavbar.props.menu];
+        tempArr.splice(location[1], 1);
+        boardState.boardNavbar.props.menu = tempArr;
+        boardState.selectedComponentKey = null;
+        setEditComponent({
+          isChoosePage: false,
+          isEdit: false,
+          isListComponent: true,
+          selectedComponentItemTypes: null,
+        });
+        setIsRerenderPage(!isRerenderPage);
+      } else if (location[0] === ItemTypes.USER_NAVBAR_SUBMENU) {
+        const tempArr = [
+          ...boardState.boardNavbar.props.menu[location[1]].submenu,
+        ];
+        tempArr.splice(location[2], 1);
+        boardState.boardNavbar.props.menu[location[1]].submenu = tempArr;
+        boardState.selectedComponentKey = null;
+        setEditComponent({
+          isChoosePage: false,
+          isEdit: false,
+          isListComponent: true,
+          selectedComponentItemTypes: null,
+        });
+        setIsRerenderPage(!isRerenderPage);
+      }
+    } else {
+      let found = false;
+
+      //cari di boardcomponent
+      boardState.boardComponents[boardState.selectedSitePageID].forEach(
+        (element, index) => {
+          if (found) {
+            return;
+          } else {
+            if (element.key === boardState.selectedComponentKey) {
+              found = true;
+
+              const tempArr = [
+                ...boardState.boardComponents[boardState.selectedSitePageID],
+              ];
+              tempArr.splice(index, 1);
+              boardState.boardComponents[boardState.selectedSitePageID] =
+                tempArr;
+              boardState.selectedComponentKey = null;
+              setEditComponent({
+                isChoosePage: false,
+                isEdit: false,
+                isListComponent: true,
+                selectedComponentItemTypes: null,
+              });
+              setIsRerenderPage(!isRerenderPage);
+            }
+          }
+        }
+      );
+
+      //cari di innersection
+      if (found === false) {
+        boardState.boardComponents[boardState.selectedSitePageID].forEach(
+          (element, index) => {
+            if (found === true) {
+              return;
+            } else {
+              if (element.itemTypes === ItemTypes.INNERSECTION) {
+                element.props.children.forEach((element2, index2) => {
+                  if (element2.key === boardState.selectedComponentKey) {
+                    found = true;
+
+                    const tempArr = [
+                      ...boardState.boardComponents[
+                        boardState.selectedSitePageID
+                      ][index].props.children,
+                    ];
+                    tempArr.splice(index2, 1);
+                    boardState.boardComponents[boardState.selectedSitePageID][
+                      index
+                    ].props.children = tempArr;
+                    boardState.selectedComponentKey = null;
+                    setEditComponent({
+                      isChoosePage: false,
+                      isEdit: false,
+                      isListComponent: true,
+                      selectedComponentItemTypes: null,
+                    });
+                    setIsRerenderPage(!isRerenderPage);
+                  }
+                });
+              }
+            }
+          }
+        );
+      }
+
+      //cari di innersection layout
+      if (found === false) {
+        boardState.boardComponents[boardState.selectedSitePageID].forEach(
+          (element, index) => {
+            if (found) {
+              return;
+            } else {
+              if (element.itemTypes === ItemTypes.INNERSECTION) {
+                element.props.children.forEach((element2, index2) => {
+                  if (found) {
+                    return;
+                  } else {
+                    element2.props.children.forEach((element3, index3) => {
+                      if (element3.key === boardState.selectedComponentKey) {
+                        found = true;
+
+                        const tempArr = [
+                          ...boardState.boardComponents[
+                            boardState.selectedSitePageID
+                          ][index].props.children[index2].props.children,
+                        ];
+                        tempArr.splice(index3, 1);
+                        boardState.boardComponents[
+                          boardState.selectedSitePageID
+                        ][index].props.children[index2].props.children =
+                          tempArr;
+                        boardState.selectedComponentKey = null;
+                        setEditComponent({
+                          isChoosePage: false,
+                          isEdit: false,
+                          isListComponent: true,
+                          selectedComponentItemTypes: null,
+                        });
+                        setIsRerenderPage(!isRerenderPage);
+                      }
+                    });
+                  }
+                });
+              }
+            }
+          }
+        );
+      }
+    }
+  };
+
   const editComponentProps = (propsTypes, target, value, location) => {
     if (Array.isArray(location)) {
       if (location[0] === ItemTypes.USER_FOOTER_MENU) {
@@ -2563,32 +2732,36 @@ const WebGenerator = () => {
     //cari di boardcomponent
     boardState.boardComponents[boardState.selectedSitePageID].forEach(
       (element, index) => {
-        if (element.key === componentKey) {
-          found = true;
+        if (found) {
+          return;
+        } else {
+          if (element.key === componentKey) {
+            found = true;
 
-          const indexFound = index;
-          const tempArr = [
-            ...boardState.boardComponents[boardState.selectedSitePageID],
-          ];
+            const indexFound = index;
+            const tempArr = [
+              ...boardState.boardComponents[boardState.selectedSitePageID],
+            ];
 
-          if (direction === "UP") {
-            if (indexFound > 0) {
-              const componentToMove = tempArr.splice(index, 1)[0];
-              tempArr.splice(indexFound - 1, 0, componentToMove);
-              boardState.boardComponents[boardState.selectedSitePageID] =
-                tempArr;
-              setIsRerenderPage(!isRerenderPage);
-            }
-          } else if (direction === "DOWN") {
-            if (
-              indexFound <
-              boardState.boardComponents[boardState.selectedSitePageID].length
-            ) {
-              const componentToMove = tempArr.splice(index, 1)[0];
-              tempArr.splice(indexFound + 1, 0, componentToMove);
-              boardState.boardComponents[boardState.selectedSitePageID] =
-                tempArr;
-              setIsRerenderPage(!isRerenderPage);
+            if (direction === "UP") {
+              if (indexFound > 0) {
+                const componentToMove = tempArr.splice(index, 1)[0];
+                tempArr.splice(indexFound - 1, 0, componentToMove);
+                boardState.boardComponents[boardState.selectedSitePageID] =
+                  tempArr;
+                setIsRerenderPage(!isRerenderPage);
+              }
+            } else if (direction === "DOWN") {
+              if (
+                indexFound <
+                boardState.boardComponents[boardState.selectedSitePageID].length
+              ) {
+                const componentToMove = tempArr.splice(index, 1)[0];
+                tempArr.splice(indexFound + 1, 0, componentToMove);
+                boardState.boardComponents[boardState.selectedSitePageID] =
+                  tempArr;
+                setIsRerenderPage(!isRerenderPage);
+              }
             }
           }
         }
@@ -2776,6 +2949,7 @@ const WebGenerator = () => {
           addNavbarSubMenu,
           changeMapState,
           closeUploadImage,
+          deleteComponent,
           editComponentProps,
           handleClickPageBuilderComponent,
           handleClickUploadImage,

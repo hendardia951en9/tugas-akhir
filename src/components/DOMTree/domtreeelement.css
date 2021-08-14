@@ -1,7 +1,18 @@
-.dom-tree-element button {
+.dom-tree-element {
+  position: relative;
+}
+
+.dom-tree-element span {
+  pointer-events: none;
+}
+
+.dom-tree-element-button-wrapper {
   display: none;
 }
 
-.dom-tree-element:hover button {
+.dom-tree-element:hover .dom-tree-element-button-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: inline-block;
 }

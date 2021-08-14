@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { DeleteableComponent } from "../../../utils/DeletableComponent";
 import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
@@ -413,6 +414,10 @@ const EditComponent = ({ props }) => {
       "value",
       innerSectionLayoutRef.current.value
     );
+  };
+
+  const checkDeletable = (itemTypes) => {
+    return DeleteableComponent.indexOf(itemTypes) > -1;
   };
 
   useEffect(() => {
@@ -4749,6 +4754,17 @@ const EditComponent = ({ props }) => {
             </button>
           </div>
         )}
+        {/* {delete} */}
+        {checkDeletable(props.itemTypes) && <div className="form-input">
+            <button
+              className="button delete-component"
+              onClick={() => {
+                pageBuilderContext.deleteComponent(props.location);
+              }}
+            >
+              {PropsTypes.DELETE_COMPONENT}
+            </button>
+          </div>}
       </section>
     </>
   );
