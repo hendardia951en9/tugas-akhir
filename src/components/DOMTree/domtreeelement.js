@@ -42,42 +42,44 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
         ? props.children.length > 0
           ? props.children.map((innersectionlayout) => {
               return (
-                <div
-                  className="dom-tree-element"
-                  key={innersectionlayout.key}
-                  onClick={(e) => {
-                    if (e.target === e.currentTarget) {
-                      pageBuilderContext.handleClickPageBuilderComponent(
-                        innersectionlayout.itemTypes,
-                        innersectionlayout.key
-                      );
-                    }
-                  }}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  <div className="dom-tree-element-button-wrapper">
-                    <button
-                      onClick={() =>
-                        pageBuilderContext.reorderComponent(
-                          innersectionlayout.key,
-                          "UP"
-                        )
+                <>
+                  <div
+                    className="dom-tree-element"
+                    key={innersectionlayout.key}
+                    onClick={(e) => {
+                      if (e.target === e.currentTarget) {
+                        pageBuilderContext.handleClickPageBuilderComponent(
+                          innersectionlayout.itemTypes,
+                          innersectionlayout.key
+                        );
                       }
-                    >
-                      up
-                    </button>
-                    <button
-                      onClick={() =>
-                        pageBuilderContext.reorderComponent(
-                          innersectionlayout.key,
-                          "DOWN"
-                        )
-                      }
-                    >
-                      down
-                    </button>
+                    }}
+                    style={{ marginLeft: "1rem" }}
+                  >
+                    <div className="dom-tree-element-button-wrapper">
+                      <button
+                        onClick={() =>
+                          pageBuilderContext.reorderComponent(
+                            innersectionlayout.key,
+                            "UP"
+                          )
+                        }
+                      >
+                        up
+                      </button>
+                      <button
+                        onClick={() =>
+                          pageBuilderContext.reorderComponent(
+                            innersectionlayout.key,
+                            "DOWN"
+                          )
+                        }
+                      >
+                        down
+                      </button>
+                    </div>
+                    <span>{innersectionlayout.itemTypes}</span>
                   </div>
-                  <span>{innersectionlayout.itemTypes}</span>
                   {innersectionlayout.props.children.length > 0
                     ? innersectionlayout.props.children.map((child) => {
                         return (
@@ -121,7 +123,7 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                         );
                       })
                     : ""}
-                </div>
+                </>
               );
             })
           : props.text

@@ -10,7 +10,7 @@
   display: none;
 }
 
-.dom-tree-element:hover .dom-tree-element-button-wrapper {
+.dom-tree-element:hover > .dom-tree-element-button-wrapper {
   position: absolute;
   top: 0;
   right: 0;
