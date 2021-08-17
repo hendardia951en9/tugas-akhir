@@ -78,30 +78,38 @@ const MapComponent = ({ componentKey, isEdit, itemTypes, props }) => {
         longitude={marker.longitude}
         offsetLeft={-6}
         offsetTop={-16}
-        onDragEnd={(e) => {
-          setMarker({ longitude: e.lngLat[0], latitude: e.lngLat[1] });
-          pageBuilderContext.changeMapState(e.lngLat[1], e.lngLat[0]);
-        }}
+        onDragEnd={
+          isEdit
+            ? (e) => {
+                setMarker({ longitude: e.lngLat[0], latitude: e.lngLat[1] });
+                pageBuilderContext.changeMapState(e.lngLat[1], e.lngLat[0]);
+              }
+            : undefined
+        }
       >
         <FontAwesomeIcon icon={faMapMarkerAlt} />
       </Marker>
-      <Geocoder
-        mapboxApiAccessToken={MAPBOX_API}
-        mapRef={mapRef}
-        marker={true}
-        onResult={(e) => {
-          setMarker({
-            longitude: e.result.center[0],
-            latitude: e.result.center[1],
-          });
-          pageBuilderContext.changeMapState(
-            e.result.center[1],
-            e.result.center[0]
-          );
-        }}
-        onViewportChange={handleGeocoderViewportChange}
-        position="top-left"
-      />
+      {isEdit ? (
+        <Geocoder
+          mapboxApiAccessToken={MAPBOX_API}
+          mapRef={mapRef}
+          marker={true}
+          onResult={(e) => {
+            setMarker({
+              longitude: e.result.center[0],
+              latitude: e.result.center[1],
+            });
+            pageBuilderContext.changeMapState(
+              e.result.center[1],
+              e.result.center[0]
+            );
+          }}
+          onViewportChange={handleGeocoderViewportChange}
+          position="top-left"
+        />
+      ) : (
+        ""
+      )}
     </ReactMapGL>
   );
 };

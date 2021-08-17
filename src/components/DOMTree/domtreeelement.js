@@ -8,9 +8,10 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
-    <div className="dom-tree-element-container">
+    <>
       <div
         className="dom-tree-element"
+        key={componentKey}
         onClick={(e) => {
           if (e.target === e.currentTarget) {
             pageBuilderContext.handleClickPageBuilderComponent(
@@ -42,10 +43,9 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
         ? props.children.length > 0
           ? props.children.map((innersectionlayout) => {
               return (
-                <>
+                <React.Fragment key={innersectionlayout.key}>
                   <div
                     className="dom-tree-element"
-                    key={innersectionlayout.key}
                     onClick={(e) => {
                       if (e.target === e.currentTarget) {
                         pageBuilderContext.handleClickPageBuilderComponent(
@@ -123,12 +123,12 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                         );
                       })
                     : ""}
-                </>
+                </React.Fragment>
               );
             })
           : props.text
         : ""}
-    </div>
+    </>
   );
 };
 
