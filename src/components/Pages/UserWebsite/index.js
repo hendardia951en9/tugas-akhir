@@ -3,6 +3,7 @@ import { AppContext } from "../../../App";
 import axios from "axios";
 import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
+import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 //components
@@ -12,29 +13,39 @@ import Heading from "../../PageBuilder/Heading";
 import Icon from "../../PageBuilder/Icon";
 import Image from "../../PageBuilder/Image";
 import ImageGallery from "../../PageBuilder/ImageGallery";
-import InnerSection from "../../PageBuilder/InnerSection";
+import UserInnerSection from "../../PageBuilder/UserInnerSection";
 import MapComponent from "../../PageBuilder/MapComponent";
 import Spacer from "../../PageBuilder/Spacer";
 import StarRating from "../../PageBuilder/StarRating";
 import TextEditor from "../../PageBuilder/TextEditor";
+import UserFooter from "../../PageBuilder/UserFooter";
+import UserNavbar from "../../PageBuilder/UserNavbar";
 import Video from "../../PageBuilder/Video";
+
+//css
+import "./userwebsite.css";
 
 const UserWebsite = () => {
   const appContext = useContext(AppContext);
-  const { websiteID } = useParams();
+  const location = useLocation();
+  const [siteFooterComponents, setSiteFooterComponents] = useState();
+  const [siteNavbarComponents, setSiteNavbarComponents] = useState();
+  const [sitePageComponents, setSitePageComponents] = useState();
+  const { userEmail } = useParams();
+  const { websiteName } = useParams();
   const { websitePage } = useParams();
-  const [components, setComponents] = useState();
 
   const fetchUserWebsite = async () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      websiteID: websiteID,
-      websitePage: websitePage,
+      userEmail: userEmail,
+      websiteName: websiteName,
+      websitePage: websitePage === undefined ? "home" : websitePage,
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getuserwebsite`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/getuserwebsite`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
@@ -42,7 +53,9 @@ const UserWebsite = () => {
         appContext.setIsLoading(false);
 
         if (res.data.status === 200) {
-          setComponents(JSON.parse(res.data.result));
+          setSiteFooterComponents(JSON.parse(res.data.result.site_footer_json));
+          setSiteNavbarComponents(JSON.parse(res.data.result.site_navbar_json));
+          setSitePageComponents(JSON.parse(res.data.result.site_page_json));
         }
       })
       .catch((err) => {
@@ -99,16 +112,6 @@ const UserWebsite = () => {
           props={component.props}
         />
       );
-    } else if (component.itemTypes === ItemTypes.INNERSECTION) {
-      return (
-        <InnerSection
-          key={component.key}
-          componentKey={component.key}
-          isEdit={false}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
-      );
     } else if (component.itemTypes === ItemTypes.IMAGE) {
       return (
         <Image
@@ -129,6 +132,8 @@ const UserWebsite = () => {
           props={component.props}
         />
       );
+    } else if (component.itemTypes === ItemTypes.INNERSECTION) {
+      return <UserInnerSection key={component.key} props={component.props} />;
     } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
       return (
         <MapComponent
@@ -185,15 +190,25 @@ const UserWebsite = () => {
   useEffect(() => {
     fetchUserWebsite();
     // eslint-disable-next-line
-  }, []);
+  }, [location]);
 
   return (
-    <div>
-      {components &&
-        components.map((test) => {
-          return renderComponent(test);
-        })}
-    </div>
+    <>
+      {siteNavbarComponents && (
+        <UserNavbar isEdit={false} props={siteNavbarComponents.props} />
+      )}
+
+      <div className="site-page-container">
+        {sitePageComponents &&
+          sitePageComponents.map((component) => {
+            return renderComponent(component);
+          })}
+      </div>
+
+      {siteFooterComponents && (
+        <UserFooter isEdit={false} props={siteFooterComponents.props} />
+      )}
+    </>
   );
 };
 

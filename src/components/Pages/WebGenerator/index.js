@@ -1986,7 +1986,7 @@ const WebGenerator = () => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getusersitedata`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/getusersitedata`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
@@ -2023,9 +2023,13 @@ const WebGenerator = () => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getusersitepages`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/getusersitepages`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
       .then((res) => {
         //success
         appContext.setIsLoading(false);
@@ -2387,7 +2391,6 @@ const WebGenerator = () => {
         <InnerSection
           key={component.key}
           componentKey={component.key}
-          isEdit={true}
           itemTypes={component.itemTypes}
           props={component.props}
         />
@@ -2891,7 +2894,7 @@ const WebGenerator = () => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/savesite`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/savesite`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {

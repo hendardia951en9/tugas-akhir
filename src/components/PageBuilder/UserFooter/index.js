@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
+import { checkLinkTo } from "../../../utils/checkLinkTo";
 import { generateStyle } from "../../../utils/generateStyle";
 import { IconPickerItem } from "react-fa-icon-picker";
 import { ItemTypes } from "../../../utils/ItemTypes";
+import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
@@ -87,22 +89,10 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
                               : undefined
                           }
                         >
-                          {submenu.props.userFooterSubMenuIsShowIcon ===
-                          true ? (
-                            isEdit ? (
-                              <IconPickerItem
-                                containerStyles={{
-                                  alignItems: "center",
-                                  color: generateStyle(
-                                    props.subMenuStyle.color
-                                  ),
-                                  display: "flex",
-                                  pointerEvents: "none",
-                                }}
-                                icon={submenu.props.icon}
-                              />
-                            ) : (
-                              <a href={submenu.props.linkTo}>
+                          {isEdit ? (
+                            submenu.props.userFooterSubMenuIsShowIcon ===
+                            true ? (
+                              <>
                                 <IconPickerItem
                                   containerStyles={{
                                     alignItems: "center",
@@ -110,15 +100,60 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
                                       props.subMenuStyle.color
                                     ),
                                     display: "flex",
+                                    pointerEvents: "none",
                                   }}
                                   icon={submenu.props.icon}
                                 />
-                              </a>
+                                {submenu.props.text}
+                              </>
+                            ) : (
+                              submenu.props.text
                             )
+                          ) : checkLinkTo(submenu.props.linkTo) === true ? (
+                            <NavLink exact to={submenu.props.linkTo}>
+                              {submenu.props.userFooterSubMenuIsShowIcon ===
+                              true ? (
+                                <>
+                                  <IconPickerItem
+                                    containerStyles={{
+                                      alignItems: "center",
+                                      color: generateStyle(
+                                        props.subMenuStyle.color
+                                      ),
+                                      display: "flex",
+                                      pointerEvents: "none",
+                                    }}
+                                    icon={submenu.props.icon}
+                                  />
+                                  {submenu.props.text}
+                                </>
+                              ) : (
+                                submenu.props.text
+                              )}
+                            </NavLink>
                           ) : (
-                            ""
+                            <a href={submenu.props.linkTo}>
+                              {submenu.props.userFooterSubMenuIsShowIcon ===
+                              true ? (
+                                <>
+                                  <IconPickerItem
+                                    containerStyles={{
+                                      alignItems: "center",
+                                      color: generateStyle(
+                                        props.subMenuStyle.color
+                                      ),
+                                      display: "flex",
+                                      pointerEvents: "none",
+                                    }}
+                                    icon={submenu.props.icon}
+                                  />
+                                  {submenu.props.text}
+                                </>
+                              ) : (
+                                submenu.props.text
+                              )}
+                            </a>
                           )}
-                          {submenu.props.text}
                         </div>
                       );
                     })}

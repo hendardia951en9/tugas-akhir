@@ -20,7 +20,7 @@ const Dashboard = () => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getusersites`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/getusersites`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {

@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+import { checkLinkTo } from "../../../utils/checkLinkTo";
 import { generateStyle } from "../../../utils/generateStyle";
+import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
@@ -62,7 +64,15 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
       }
       style={generateStyle(editStyle(props.style, props.buttonAlignment))}
     >
-      {isEdit ? props.text : <a href={props.linkTo}>{props.text}</a>}
+      {isEdit ? (
+        props.text
+      ) : checkLinkTo(props.linkTo) === true ? (
+        <NavLink exact to={props.linkTo}>
+          {props.text}
+        </NavLink>
+      ) : (
+        <a href={props.linkTo}>{props.text}</a>
+      )}
     </button>
   );
 };

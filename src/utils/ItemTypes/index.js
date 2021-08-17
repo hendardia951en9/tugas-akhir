@@ -21,6 +21,7 @@ export const ItemTypes = {
   USER_FOOTER_SUBMENU: "User Footer Sub Menu",
   USER_FOOTER_TYPE_1: "User Footer Type 1",
   USER_FOOTER_TYPE_2: "User Footer Type 2",
+  USER_INNERSECTION: "User Inner Section",
   USER_NAVBAR: "User Navbar",
   USER_NAVBAR_MENU: "User Navbar Menu",
   USER_NAVBAR_SUBMENU: "User Navbar Sub Menu",

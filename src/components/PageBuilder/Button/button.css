@@ -3,3 +3,8 @@
   display: block;
   position: relative;
 }
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+}

@@ -58,7 +58,7 @@ const SignIn = () => {
     const formData = generateFormData(data);
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/loginuser`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/loginuser`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {

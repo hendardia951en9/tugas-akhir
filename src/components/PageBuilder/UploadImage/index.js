@@ -29,7 +29,7 @@ const UploadImage = ({ isMultiple, location }) => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/getusergallery`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/getusergallery`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
@@ -43,7 +43,7 @@ const UploadImage = ({ isMultiple, location }) => {
 
           res.data.result.forEach((result) => {
             const { user_gallery_image_name } = result;
-            const url = `${process.env.REACT_APP_BASE_URL}/public/uploads/${
+            const url = `${process.env.REACT_APP_BASE_API_URL}/public/uploads/${
               JSON.parse(localStorage.getItem("userLoggedIn")).user_id
             }/${user_gallery_image_name}`;
             selectedFileMultiple.push({ url: url, checked: false });
@@ -72,7 +72,7 @@ const UploadImage = ({ isMultiple, location }) => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/uploadimage`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/uploadimage`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
@@ -191,7 +191,7 @@ const UploadImage = ({ isMultiple, location }) => {
                       const { user_gallery_id, user_gallery_image_name } =
                         gallery;
                       const url = `${
-                        process.env.REACT_APP_BASE_URL
+                        process.env.REACT_APP_BASE_API_URL
                       }/public/uploads/${
                         JSON.parse(localStorage.getItem("userLoggedIn")).user_id
                       }/${user_gallery_image_name}`;
@@ -223,7 +223,7 @@ const UploadImage = ({ isMultiple, location }) => {
                       const { user_gallery_id, user_gallery_image_name } =
                         gallery;
                       const url = `${
-                        process.env.REACT_APP_BASE_URL
+                        process.env.REACT_APP_BASE_API_URL
                       }/public/uploads/${
                         JSON.parse(localStorage.getItem("userLoggedIn")).user_id
                       }/${user_gallery_image_name}`;

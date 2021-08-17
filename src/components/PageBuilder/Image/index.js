@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+import { checkLinkTo } from "../../../utils/checkLinkTo";
 import { generateStyle } from "../../../utils/generateStyle";
+import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
@@ -72,6 +74,14 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
           style={{ visibility: "hidden" }}
           alt=""
         />
+      ) : checkLinkTo(props.linkTo) === true ? (
+        <NavLink exact to={props.linkTo}>
+          <img
+            src={getBackgroundImageUrl(props.style.backgroundImage)}
+            style={{ visibility: "hidden" }}
+            alt=""
+          />
+        </NavLink>
       ) : (
         <a href={props.linkTo}>
           <img

@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+import { checkLinkTo } from "../../../utils/checkLinkTo";
 import { generateStyle } from "../../../utils/generateStyle";
+import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
@@ -65,7 +67,15 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                     : undefined
                 }
               >
-                {menu.props.text}
+                {isEdit ? (
+                  menu.props.text
+                ) : checkLinkTo(menu.props.linkTo) === true ? (
+                  <NavLink exact to={menu.props.linkTo}>
+                    {menu.props.text}
+                  </NavLink>
+                ) : (
+                  <a href={menu.props.linkTo}>{menu.props.text}</a>
+                )}
                 {menu.submenu.length > 0 && (
                   <ul style={generateStyle(props.subMenuStyle)}>
                     {menu.submenu.map((submenu, index2) => {
@@ -86,7 +96,17 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                           }
                           style={generateStyle(props.subMenuStyle)}
                         >
-                          {submenu.props.text}
+                          {isEdit ? (
+                            submenu.props.text
+                          ) : checkLinkTo(submenu.props.linkTo) === true ? (
+                            <NavLink exact to={submenu.props.linkTo}>
+                              {submenu.props.text}
+                            </NavLink>
+                          ) : (
+                            <a href={submenu.props.linkTo}>
+                              {submenu.props.text}
+                            </a>
+                          )}
                         </li>
                       );
                     })}

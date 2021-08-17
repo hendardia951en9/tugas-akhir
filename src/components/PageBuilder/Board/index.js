@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { useDrop } from "react-dnd";
+
+//components
 import UserFooter from "../UserFooter";
 import UserNavbar from "../UserNavbar";
 

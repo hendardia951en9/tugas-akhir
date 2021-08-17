@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
+import { checkLinkTo } from "../../../utils/checkLinkTo";
 import { generateStyle } from "../../../utils/generateStyle";
 import { IconPickerItem } from "react-fa-icon-picker";
+import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 
 //css
@@ -33,6 +35,16 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
           })}
           icon={props.icon}
         />
+      ) : checkLinkTo(props.linkTo) === true ? (
+        <NavLink exact to={props.linkTo}>
+          <IconPickerItem
+            containerStyles={Object.assign(generateStyle(props.style), {
+              alignItems: "center",
+              display: "flex",
+            })}
+            icon={props.icon}
+          />
+        </NavLink>
       ) : (
         <a href={props.linkTo}>
           <IconPickerItem

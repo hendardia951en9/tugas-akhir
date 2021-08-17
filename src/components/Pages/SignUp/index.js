@@ -57,7 +57,7 @@ const SignUp = () => {
     const formData = generateFormData(data);
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/registeruser`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/registeruser`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {

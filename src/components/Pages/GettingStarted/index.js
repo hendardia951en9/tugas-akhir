@@ -79,7 +79,7 @@ const GettingStarted = () => {
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_URL}/createsite`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/createsite`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
