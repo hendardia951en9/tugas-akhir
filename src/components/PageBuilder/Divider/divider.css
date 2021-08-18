@@ -1,14 +1,10 @@
 .divider-component {
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   position: relative;
   width: 100%;
 }
 
-.divider-component:hover {
-  border: 3px solid darkblue;
-}
-
-.divider-component * {
+.divider-component > * {
   pointer-events: none;
 }
 
@@ -16,6 +12,7 @@
   bottom: 0;
   display: flex;
   left: 0;
+  pointer-events: none;
   position: absolute;
   right: 0;
   top: 0;

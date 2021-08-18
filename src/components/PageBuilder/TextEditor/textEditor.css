@@ -1,11 +1,11 @@
 .text-editor-component-container {
-  border: 3px solid transparent;
+  cursor: default;
   font-size: 1rem;
   min-width: 100px;
 }
 
-.text-editor-component-container:hover {
-  border: 3px solid darkslateblue;
+.text-editor-component-container > * {
+  pointer-events: none;
 }
 
 .text-editor-component-container .public-DraftStyleDefault-block {

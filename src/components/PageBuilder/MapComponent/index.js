@@ -55,22 +55,26 @@ const MapComponent = ({ componentKey, isEdit, itemTypes, props }) => {
       width={props.style.width.value + props.style.width.unit}
       height={props.style.height.value + props.style.height.unit}
     >
-      <div
-        style={{ width: "100%", height: "100%" }}
-        className="map-component-click-container"
-        onClick={
-          isEdit
-            ? (e) => {
-                if (e.target === e.currentTarget) {
-                  pageBuilderContext.handleClickPageBuilderComponent(
-                    itemTypes,
-                    componentKey
-                  );
+      {isEdit && (
+        <button
+          className="map-component-edit-button"
+          onClick={
+            isEdit
+              ? (e) => {
+                  if (e.target === e.currentTarget) {
+                    pageBuilderContext.handleClickPageBuilderComponent(
+                      itemTypes,
+                      componentKey
+                    );
+                  }
                 }
-              }
-            : undefined
-        }
-      ></div>
+              : undefined
+          }
+        >
+          edit
+        </button>
+      )}
+
       <Marker
         className="map-component-marker"
         draggable={true}

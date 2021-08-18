@@ -48,8 +48,8 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
   };
 
   return (
-    <button
-      className={`button-component ${isEdit && "isEdit"}`}
+    <div
+      className="button-component-wrapper"
       onClick={
         isEdit
           ? (e) => {
@@ -62,18 +62,22 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
             }
           : undefined
       }
-      style={generateStyle(editStyle(props.style, props.buttonAlignment))}
     >
-      {isEdit ? (
-        props.text
-      ) : checkLinkTo(props.linkTo) === true ? (
-        <NavLink exact to={props.linkTo}>
-          {props.text}
-        </NavLink>
-      ) : (
-        <a href={props.linkTo}>{props.text}</a>
-      )}
-    </button>
+      <button
+        className={`button-component ${isEdit && "isEdit"}`}
+        style={generateStyle(editStyle(props.style, props.buttonAlignment))}
+      >
+        {isEdit ? (
+          props.text
+        ) : checkLinkTo(props.linkTo) === true ? (
+          <NavLink exact to={props.linkTo}>
+            {props.text}
+          </NavLink>
+        ) : (
+          <a href={props.linkTo}>{props.text}</a>
+        )}
+      </button>
+    </div>
   );
 };
 

@@ -50,20 +50,25 @@ const ImageGallery = ({ componentKey, isEdit, itemTypes, props }) => {
   return (
     <div
       className="image-gallery-component-wrapper"
-      onClick={
-        isEdit
-          ? (e) => {
-              if (e.target === e.currentTarget) {
-                pageBuilderContext.handleClickPageBuilderComponent(
-                  itemTypes,
-                  componentKey
-                );
-              }
-            }
-          : undefined
-      }
       style={generateStyle(editStyle(props.style, props.imageGalleryAlignment))}
     >
+      {isEdit ? (
+        <button
+          className="image-gallery-component-edit-button"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              pageBuilderContext.handleClickPageBuilderComponent(
+                itemTypes,
+                componentKey
+              );
+            }
+          }}
+        >
+          edit
+        </button>
+      ) : (
+        ""
+      )}
       <ImageGalleryComponent
         infinite={props.infinite === "true"}
         items={props.imageGalleryImages}

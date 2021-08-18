@@ -1,7 +1,18 @@
 .image-gallery-component-wrapper {
-  border: 3px solid transparent;
+  position: relative;
+  pointer-events: none;
 }
 
-.image-gallery-component-wrapper:hover {
-  border: 3px solid darkblue;
+.image-gallery-component-wrapper > * {
+  pointer-events: all;
+}
+
+.image-gallery-component-edit-button {
+  cursor: pointer;
+  height: 30px;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 30px;
+  z-index: 10;
 }

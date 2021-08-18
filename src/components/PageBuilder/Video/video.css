@@ -1,7 +1,17 @@
-.video-component {
-  border: 3px solid transparent;
+.video-component-edit-button {
+  cursor: pointer;
+  height: 25px;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 25px;
+  z-index: 10;
+}
+.video-component-wrapper {
+  pointer-events: none;
+  position: relative;
 }
 
-.video-component:hover {
-  border: 3px solid darkblue;
+.video-component-wrapper > * {
+  pointer-events: all;
 }

@@ -1,13 +1,8 @@
 .star-rating-container {
-  border: 3px solid transparent;
   display: flex;
 }
 
-.star-rating-container:hover {
-  border: 3px solid darkblue;
-}
-
-.star-rating-container * {
+.star-rating-container > * {
   pointer-events: none;
 }
 

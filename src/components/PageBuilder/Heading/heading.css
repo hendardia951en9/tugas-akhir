@@ -1,14 +1,3 @@
 .heading-component {
-  position: relative;
-}
-
-.heading-component:hover::before {
-  border: 3px solid darkblue;
-  bottom: 0;
-  content: "";
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
+  cursor: default;
 }

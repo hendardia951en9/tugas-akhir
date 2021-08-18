@@ -1,0 +1,13 @@
+.map-component {
+  position: relative;
+}
+
+.map-component-edit-button {
+  cursor: pointer;
+  height: 25px;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 25px;
+  z-index: 10;
+}

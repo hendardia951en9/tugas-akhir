@@ -6,11 +6,11 @@
 }
 
 .board-canDrop {
-  background-color: darkorchid;
+  background-color: #eafdff;
 }
 
 .board-isOver::before {
-  border: 3px dashed yellow;
+  border: 3px dashed #94f8fc;
   bottom: 0;
   content: "";
   left: 0;

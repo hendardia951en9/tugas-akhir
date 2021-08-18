@@ -43,9 +43,9 @@ const Layout = ({ id, componentKey, itemTypes, props }) => {
 
   return (
     <div
-      className={`inner-section-component-layout ${
-        isOver && "inner-section-component-layout-isOver"
-      } ${canDrop && "inner-section-component-layout-canDrop"}`}
+      className={`inner-section-component-layout isEdit ${
+        isOver && "inner-section-component-layout-isOver isEdit"
+      } ${canDrop && "inner-section-component-layout-canDrop isEdit"}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           pageBuilderContext.handleClickPageBuilderComponent(

@@ -11,24 +11,33 @@ const Video = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div className="video-component-wrapper" style={generateStyle(props.style)}>
+      {isEdit ? (
+        <button
+          className="video-component-edit-button"
+          onClick={
+            isEdit
+              ? (e) => {
+                  if (e.target === e.currentTarget) {
+                    pageBuilderContext.handleClickPageBuilderComponent(
+                      itemTypes,
+                      componentKey
+                    );
+                  }
+                }
+              : undefined
+          }
+        >
+          edit
+        </button>
+      ) : (
+        ""
+      )}
       <ReactPlayer
         className="video-component"
         controls={props.controls === "true"}
         height={`${props.style.height.value}${props.style.height.unit}`}
         loop={props.loop === "true"}
         muted={props.muted === "true"}
-        onClick={
-          isEdit
-            ? (e) => {
-                if (e.target === e.currentTarget) {
-                  pageBuilderContext.handleClickPageBuilderComponent(
-                    itemTypes,
-                    componentKey
-                  );
-                }
-              }
-            : undefined
-        }
         playing={props.playing === "true"}
         url={props.source}
         width={`${props.style.width.value}${props.style.width.unit}`}

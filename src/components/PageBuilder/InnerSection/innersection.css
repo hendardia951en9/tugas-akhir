@@ -1,32 +1,34 @@
 .inner-section-component {
   align-items: center;
-  background-color: blanchedalmond;
-  border: 3px solid transparent;
-  cursor: pointer;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   position: relative;
 }
 
-.inner-section-component:hover {
-  border: 3px solid royalblue;
-}
-
 .inner-section-component-layout {
-  background-color: brown;
-  border: 3px solid transparent;
-  cursor: pointer;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   flex-wrap: wrap;
+  min-width: 300px;
   padding: 1rem;
   position: relative;
 }
 
-.inner-section-component-layout:hover {
-  border: 3px solid dodgerblue;
+.inner-section-component-layout .component-wrapper {
+  width: fit-content;
+}
+
+.inner-section-component-layout.isEdit:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #459fed;
+  background-color: rgba(69, 159, 237, 0.3);
 }
 
 .inner-section-component-layout-canDrop {
@@ -34,7 +36,7 @@
 }
 
 .inner-section-component-layout-isOver::before {
-  border: 3px dashed violet;
+  border: 3px dashed violet !important;
   bottom: 0;
   content: "";
   left: 0;

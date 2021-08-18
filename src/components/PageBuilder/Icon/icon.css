@@ -1,12 +1,4 @@
-.icon-component {
-  border: 3px solid transparent;
-  width: fit-content;
-}
-
-.icon-component:hover {
-  border: 3px solid darkblue;
-}
-
-.icon-component * {
+.icon-component > * {
   pointer-events: none;
+  width: fit-content;
 }

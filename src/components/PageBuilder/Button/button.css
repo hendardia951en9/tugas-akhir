@@ -9,6 +9,6 @@ a {
   position: relative;
 }
 
-.button-component.isEdit:hover {
-  border: 3px solid blue !important;
+.button-component.isEdit {
+  pointer-events: none !important;
 }

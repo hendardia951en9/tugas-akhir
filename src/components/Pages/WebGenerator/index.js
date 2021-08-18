@@ -2348,72 +2348,86 @@ const WebGenerator = () => {
   const renderComponent = (component) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
       return (
-        <Button
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <Button
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.DIVIDER) {
       return (
-        <Divider
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper divider" key={component.key}>
+          <Divider
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.HEADING) {
       return (
-        <Heading
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <Heading
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.ICON) {
       return (
-        <Icon
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <Icon
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.INNERSECTION) {
       return (
-        <InnerSection
-          key={component.key}
-          componentKey={component.key}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <InnerSection
+            key={component.key}
+            componentKey={component.key}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.IMAGE) {
       return (
-        <Image
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <Image
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.IMAGE_GALLERY) {
       return (
-        <ImageGallery
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <ImageGallery
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
       return (
@@ -2427,43 +2441,51 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.SPACER) {
       return (
-        <Spacer
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <Spacer
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.STAR_RATING) {
       return (
-        <StarRating
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <StarRating
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.TEXT_EDITOR) {
       return (
-        <TextEditor
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <TextEditor
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     } else if (component.itemTypes === ItemTypes.VIDEO) {
       return (
-        <Video
-          key={component.key}
-          componentKey={component.key}
-          isEdit={true}
-          itemTypes={component.itemTypes}
-          props={component.props}
-        />
+        <div className="component-wrapper" key={component.key}>
+          <Video
+            key={component.key}
+            componentKey={component.key}
+            isEdit={true}
+            itemTypes={component.itemTypes}
+            props={component.props}
+          />
+        </div>
       );
     }
   };

@@ -1,3 +1,51 @@
+button.components-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+button.components-button:hover {
+  color: dodgerblue;
+}
+
+.board-container {
+  min-height: calc(100vh - var(--navbar-height)); /* 100vh - height navbar */
+  margin-left: var(--sidebar-width); /* sesuai width sidebar */
+  overflow-y: auto;
+  position: relative;
+  width: calc(100% - var(--sidebar-width)); /* 100% - width sidebar */
+}
+
+.component-wrapper {
+  background-color: rgba(0, 0, 0, 0);
+  position: relative;
+  pointer-events: none;
+  width: 100%;
+}
+
+.component-wrapper:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #459fed;
+  background-color: rgba(69, 159, 237, 0.3);
+  z-index: 10;
+}
+
+.component-wrapper.divider {
+  width: 100% !important;
+}
+
+.component-wrapper > * {
+  pointer-events: all;
+}
+
 .page-builder-container {
   --sidebar-header: 55px;
   --sidebar-footer: 38px;
@@ -32,19 +80,6 @@
 
 .sidebar-header .title {
   text-align: center;
-}
-
-button.components-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.4rem;
-  outline: none;
-  transition: all 0.2s ease-in-out;
-}
-
-button.components-button:hover {
-  color: dodgerblue;
 }
 
 .sidebar-container {
@@ -86,12 +121,4 @@ button.components-button:hover {
 
 .widget.widget-dragged {
   opacity: 0.5;
-}
-
-.board-container {
-  min-height: calc(100vh - var(--navbar-height)); /* 100vh - height navbar */
-  margin-left: var(--sidebar-width); /* sesuai width sidebar */
-  overflow-y: auto;
-  position: relative;
-  width: calc(100% - var(--sidebar-width)); /* 100% - width sidebar */
 }
