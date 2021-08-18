@@ -55,12 +55,14 @@ button.components-button:hover {
 }
 
 .sidebar {
+  box-shadow: 4px 0px 12px rgba(0, 0, 0, 0.2);
   height: calc(100% - var(--navbar-height)); /* 100% - height navbar */
   left: 0;
   padding: 1rem;
   position: fixed;
   top: var(--navbar-height); /* sesuai height navbar */
   width: var(--sidebar-width);
+  z-index: 10;
 }
 
 .sidebar-header {
