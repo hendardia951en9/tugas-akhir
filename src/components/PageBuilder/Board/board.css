@@ -6,15 +6,17 @@
 }
 
 .board-canDrop {
-  background-color: #eafdff;
+  background-color: #c7e4f8;
 }
 
 .board-isOver::before {
-  border: 3px dashed #94f8fc;
+  border: 3px dashed #3c6078;
   bottom: 0;
   content: "";
   left: 0;
   position: absolute;
+  pointer-events: none;
   right: 0;
   top: 0;
+  z-index: 10;
 }

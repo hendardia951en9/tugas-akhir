@@ -32,11 +32,11 @@
 }
 
 .inner-section-component-layout-canDrop {
-  background-color: dimgray !important;
+  background-color: #c7e4f8 !important;
 }
 
 .inner-section-component-layout-isOver::before {
-  border: 3px dashed violet !important;
+  border: 3px dashed #3c6078 !important;
   bottom: 0;
   content: "";
   left: 0;
