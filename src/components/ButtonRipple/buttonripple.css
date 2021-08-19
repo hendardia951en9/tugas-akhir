@@ -1,11 +1,14 @@
 .button-ripple {
+  align-items: center;
   background-color: mediumblue;
   border: none;
   border-radius: 200px;
   color: white;
   cursor: pointer;
-  display: block;
+  display: flex;
   font-weight: bold;
+  gap: 0.5em;
+  justify-content: center;
   letter-spacing: 0.1em;
   outline: none;
   overflow: hidden;

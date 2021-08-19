@@ -14,7 +14,7 @@
 }
 
 .home section button {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 }
 
 .home .swiper-slide {
@@ -156,11 +156,11 @@
   }
 
   .home section p {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .home section button {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 
   .swiper-description-coverflow-content {

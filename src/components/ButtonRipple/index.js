@@ -3,6 +3,7 @@ import "./buttonripple.css";
 
 const ButtonRipple = ({
   className,
+  disabled,
   fa,
   iconIsLeft,
   name,
@@ -31,6 +32,7 @@ const ButtonRipple = ({
   return (
     <button
       className={"button-ripple " + className}
+      disabled={disabled}
       name={name}
       onClick={onClick}
       onMouseDown={handleClick}
@@ -39,13 +41,13 @@ const ButtonRipple = ({
     >
       {iconIsLeft ? (
         <>
-          {fa && <span style={{ display: "inline" }}>{fa}&nbsp;</span>}
+          {fa}
           {text}
         </>
       ) : (
         <>
           {text}
-          {fa && <span style={{ display: "inline" }}>&nbsp;{fa}</span>}
+          {fa}
         </>
       )}
     </button>

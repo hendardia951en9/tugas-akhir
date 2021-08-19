@@ -21,11 +21,136 @@
 
 .upload-image-box {
   background-color: white;
+  border-radius: 10px;
   bottom: 10%;
-  left: 10%;
+  left: 15%;
   margin-top: var(--navbar-height);
   overflow: auto;
   position: absolute;
-  right: 10%;
+  right: 15%;
   top: 10%;
+}
+
+.upload-image-content-wrapper {
+  position: relative;
+}
+
+.upload-image-content-header {
+  align-items: center;
+  color: white;
+  background-color: black;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  left: 0;
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-transform: capitalize;
+  z-index: 10;
+}
+
+.upload-image-content-header button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5em;
+  outline: none;
+}
+
+.upload-image-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 50px;
+  height: calc(100% - 50px - 50px);
+  overflow: auto;
+  padding: 1rem 2rem;
+}
+
+.user-gallery-image-container {
+  height: 160px;
+  position: relative;
+  width: 240px;
+}
+
+.user-gallery-image-container img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.user-gallery-image-container label {
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.user-gallery-image-container label::before {
+  border-radius: 50px;
+  content: "";
+  height: 30px;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 30px;
+}
+
+.user-gallery-image-container input[type="radio"] {
+  display: none;
+}
+
+.user-gallery-image-container input[type="radio"]:checked + label,
+.user-gallery-image-container input[type="checkbox"]:checked + label {
+  border: 3px solid #3799ee;
+}
+
+.user-gallery-image-container input[type="radio"]:checked + label::before,
+.user-gallery-image-container input[type="checkbox"]:checked + label::before {
+  background-image: url("https://png.pngtree.com/png-vector/20190228/ourmid/pngtree-check-mark-icon-design-template-vector-isolated-png-image_711433.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.upload-image-content-footer {
+  align-items: center;
+  background-color: #f1f4f6;
+  bottom: 0;
+  display: flex;
+  font-size: 0.8em;
+  height: 50px;
+  justify-content: space-between;
+  left: 0;
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
+  z-index: 10;
+}
+
+.upload-image-content-footer input[type="file"]::-webkit-file-upload-button {
+  background-color: mediumblue;
+  border: none;
+  border-radius: 200px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  gap: 0.5em;
+  letter-spacing: 0.1em;
+  outline: none;
+  overflow: hidden;
+  padding: 0.8em 1em;
+  position: relative;
+  text-transform: capitalize;
+}
+
+.upload-image-content-footer-button {
+  display: inline-block;
+  font-size: 0.9em;
 }

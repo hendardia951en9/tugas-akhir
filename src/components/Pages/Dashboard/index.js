@@ -1,8 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { faClone } from "@fortawesome/free-regular-svg-icons";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { useHistory } from "react-router-dom";
+
+import ButtonRipple from "../../ButtonRipple";
 
 //css
 import "./dashboard.css";
@@ -10,7 +18,7 @@ import "./dashboard.css";
 const Dashboard = () => {
   const appContext = useContext(AppContext);
   const history = useHistory();
-  const [userSite, setUserSite] = useState([]);
+  const [userSites, setUserSites] = useState([]);
 
   const fetchUserSites = async () => {
     appContext.setIsLoading(true);
@@ -27,7 +35,7 @@ const Dashboard = () => {
         //success
         appContext.setIsLoading(false);
         if (res.data.status === 200) {
-          setUserSite(res.data.result);
+          setUserSites(res.data.result);
         }
       })
       .catch((err) => {
@@ -41,6 +49,14 @@ const Dashboard = () => {
         }
         appContext.setIsLoading(false);
       });
+  };
+
+  const handleClickGettingStarted = () => {
+    if (localStorage.getItem("userLoggedIn")) {
+      history.push("/gettingstarted");
+    } else {
+      history.push("/signin");
+    }
   };
 
   const handleClickSite = (site_id) => {
@@ -58,14 +74,92 @@ const Dashboard = () => {
     <>
       <div className="navbar-margin">
         <div className="dashboard">
-          {userSite.map((props) => {
-            const { site_id, site_name } = props;
-            return (
-              <div key={site_id} onClick={() => handleClickSite(site_id)}>
-                {site_name}
-              </div>
-            );
-          })}
+          <div className="dashboard-header">
+            <h2>My Sites</h2>
+            <ButtonRipple
+              fa={<FontAwesomeIcon icon={faPlus} />}
+              iconIsLeft={true}
+              onClick={handleClickGettingStarted}
+              text="Create New Site"
+            />
+          </div>
+          <div className="dashboard-content">
+            <div className="user-sites">
+              {userSites.map((props) => {
+                const { site_id, site_name } = props;
+                return (
+                  <div className="user-site-container" key={site_id}>
+                    <div
+                      className="user-site-content"
+                      onClick={(e) => {
+                        if (e.target === e.currentTarget) {
+                          handleClickSite(site_id);
+                        }
+                      }}
+                    >
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                        alt=""
+                      />
+                      <div className="user-site-content-label">
+                        <span>{site_name}</span>
+                      </div>
+                    </div>
+                    <div className="user-site-options">
+                      <FontAwesomeIcon
+                        className="user-site-options-icon"
+                        icon={faEllipsisV}
+                      />
+                      <ul className="user-site-options-list">
+                        <li
+                          className="user-site-option"
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              console.log("1");
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faGlobe}
+                          />
+                          &nbsp;publish
+                        </li>
+                        <li
+                          className="user-site-option"
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              console.log("2");
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faClone}
+                          />
+                          &nbsp;duplicate
+                        </li>
+                        <li
+                          className="user-site-option"
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              console.log("3");
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faTrashAlt}
+                          />
+                          &nbsp;delete
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </>

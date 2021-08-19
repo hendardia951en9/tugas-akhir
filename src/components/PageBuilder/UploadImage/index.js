@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
@@ -8,6 +10,8 @@ import { PropsTypes } from "../../../utils/PropsTypes";
 
 //css
 import "./uploadimage.css";
+
+import ButtonRipple from "../../ButtonRipple";
 
 let selectedFileMultiple = [];
 
@@ -182,91 +186,102 @@ const UploadImage = ({ isMultiple, location }) => {
           onClick={pageBuilderContext.closeUploadImage}
         ></div>
         <div className="upload-image-box">
-          <div className="upload-image-content-wrapper">
-            <div className="upload-image-content-header">header</div>
-            <div className="upload-image-content">
-              {userGallery
-                ? isMultiple === false
-                  ? userGallery.map((gallery) => {
-                      const { user_gallery_id, user_gallery_image_name } =
-                        gallery;
-                      const url = `${
-                        process.env.REACT_APP_BASE_API_URL
-                      }/public/uploads/${
-                        JSON.parse(localStorage.getItem("userLoggedIn")).user_id
-                      }/${user_gallery_image_name}`;
+          <div className="upload-image-content-header">
+            <h3>choose image</h3>
+            <button onClick={pageBuilderContext.closeUploadImage}>
+              <FontAwesomeIcon icon={faTimesCircle} />
+            </button>
+          </div>
+          <div className="upload-image-content">
+            {userGallery
+              ? isMultiple === false
+                ? userGallery.map((gallery) => {
+                    const { user_gallery_id, user_gallery_image_name } =
+                      gallery;
+                    const url = `${
+                      process.env.REACT_APP_BASE_API_URL
+                    }/public/uploads/${
+                      JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+                    }/${user_gallery_image_name}`;
 
-                      return (
-                        <label
-                          className="user-gallery-image-wrapper"
-                          key={user_gallery_id}
-                        >
-                          <input
-                            id={user_gallery_image_name}
-                            name="user-gallery-radio"
-                            type="radio"
-                          />
+                    return (
+                      <div
+                        className="user-gallery-image-container"
+                        key={user_gallery_id}
+                      >
+                        <input
+                          id={user_gallery_image_name}
+                          name="user-gallery-radio"
+                          type="radio"
+                        />
+                        <label htmlFor={user_gallery_image_name}>
                           <img
                             alt=""
                             className="user-gallery-image"
-                            height="200px"
                             onClick={() => {
                               handleClickUserGalleryImage(url);
                             }}
                             src={url}
-                            width="200px"
                           />
                         </label>
-                      );
-                    })
-                  : userGallery.map((gallery) => {
-                      const { user_gallery_id, user_gallery_image_name } =
-                        gallery;
-                      const url = `${
-                        process.env.REACT_APP_BASE_API_URL
-                      }/public/uploads/${
-                        JSON.parse(localStorage.getItem("userLoggedIn")).user_id
-                      }/${user_gallery_image_name}`;
+                      </div>
+                    );
+                  })
+                : userGallery.map((gallery) => {
+                    const { user_gallery_id, user_gallery_image_name } =
+                      gallery;
+                    const url = `${
+                      process.env.REACT_APP_BASE_API_URL
+                    }/public/uploads/${
+                      JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+                    }/${user_gallery_image_name}`;
 
-                      return (
-                        <label
-                          className="user-gallery-image-wrapper"
-                          key={user_gallery_id}
-                        >
-                          <input
-                            id={user_gallery_image_name}
-                            name="user-gallery-checkbox"
-                            onChange={(e) => {
-                              onChangeCheckboxImageGallery(e, url);
-                            }}
-                            type="checkbox"
-                          />
+                    return (
+                      <div
+                        className="user-gallery-image-container"
+                        key={user_gallery_id}
+                      >
+                        <input
+                          id={user_gallery_image_name}
+                          name="user-gallery-checkbox"
+                          onChange={(e) => {
+                            onChangeCheckboxImageGallery(e, url);
+                          }}
+                          type="checkbox"
+                        />
+                        <label htmlFor={user_gallery_image_name}>
                           <img
                             alt=""
                             className="user-gallery-image"
-                            height="200px"
                             src={url}
-                            width="200px"
                           />
                         </label>
-                      );
-                    })
-                : "no image"}
-            </div>
-            <div className="upload-image-content-footer">
+                      </div>
+                    );
+                  })
+              : "no image"}
+          </div>
+          <div className="upload-image-content-footer">
+            <div className="upload-image-content-footer-left">
               <input
-                type="file"
-                name="upload"
                 id="upload"
+                name="upload"
                 onChange={(e) => onUploadFile(e)}
+                type="file"
               />
-              <button disabled={!isUploaded} onClick={handleUpload}>
-                Submit
-              </button>
-              <button disabled={!isSelected} onClick={onConfirmSelectFile}>
-                Confirm
-              </button>
+              <ButtonRipple
+                className="upload-image-content-footer-button"
+                disabled={!isUploaded}
+                onClick={() => handleUpload()}
+                text="submit"
+              />
             </div>
+            <ButtonRipple
+              className="upload-image-content-footer-button"
+              disabled={!isSelected}
+              onClick={() => onConfirmSelectFile()}
+              text="confirm"
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { DeleteableComponent } from "../../../utils/DeletableComponent";
-import { faColumns } from "@fortawesome/free-solid-svg-icons";
+import { faColumns, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,10 +13,12 @@ import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { SketchPicker } from "react-color";
 
 import $ from "jquery";
+import ButtonRipple from "../../ButtonRipple";
 
 //css
 import "./editcomponent.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { faSave, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 const EditComponent = ({ props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
@@ -1108,12 +1110,11 @@ const EditComponent = ({ props }) => {
             <label htmlFor="backgroundImage">
               <span>{PropsTypes.BACKGROUND_IMAGE}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faFolderOpen} />}
               onClick={() => pageBuilderContext.handleClickUploadImage(false)}
-            >
-              <FontAwesomeIcon icon={faFolderOpen} />
-            </button>
+            />
           </div>
         )}
         {/* background position */}
@@ -2346,12 +2347,11 @@ const EditComponent = ({ props }) => {
             <label htmlFor="imageGalleryImages">
               <span>{PropsTypes.IMAGE_GALLERY_IMAGES}</span>
             </label>
-            <button
-              className="image-gallery-images-button"
+            <ButtonRipple
+              className="button"
+              fa={<FontAwesomeIcon icon={faFolderOpen} />}
               onClick={() => pageBuilderContext.handleClickUploadImage(true)}
-            >
-              <FontAwesomeIcon icon={faFolderOpen} />
-            </button>
+            />
           </div>
         )}
         {/* infinite */}
@@ -2397,10 +2397,13 @@ const EditComponent = ({ props }) => {
             <label htmlFor="innerSectionLayout">
               <span>{PropsTypes.INNER_SECTION_LAYOUT}</span>
             </label>
-            <button className="button" onClick={handleClickInnerSectionLayout}>
-              add
-              <FontAwesomeIcon icon={faColumns} />
-            </button>
+            <ButtonRipple
+              className="button"
+              fa={<FontAwesomeIcon icon={faColumns} />}
+              iconIsLeft={true}
+              onClick={() => handleClickInnerSectionLayout()}
+              text="add"
+            />
           </div>
         )}
         {/* justify content */}
@@ -3548,13 +3551,13 @@ const EditComponent = ({ props }) => {
             <label htmlFor="userFooterMenu">
               <span>{PropsTypes.USER_FOOTER_MENU}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faPlus} />}
+              iconIsLeft={true}
               onClick={() => pageBuilderContext.addFooterMenu()}
-            >
-              add
-              <FontAwesomeIcon icon={faColumns} />
-            </button>
+              text="add"
+            />
           </div>
         )}
         {/* user footer submenu */}
@@ -3563,15 +3566,15 @@ const EditComponent = ({ props }) => {
             <label htmlFor="userFooterSubMenu">
               <span>{PropsTypes.USER_FOOTER_SUBMENU}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faPlus} />}
+              iconIsLeft={true}
               onClick={() =>
                 pageBuilderContext.addFooterSubMenu(props.location)
               }
-            >
-              add
-              <FontAwesomeIcon icon={faColumns} />
-            </button>
+              text="add"
+            />
           </div>
         )}
         {/* user footer logo */}
@@ -3595,14 +3598,13 @@ const EditComponent = ({ props }) => {
             <label htmlFor="userFooterLogo">
               <span>{PropsTypes.USER_FOOTER_LOGO}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faFolderOpen} />}
               onClick={() =>
                 pageBuilderContext.handleClickUploadImage(false, props.location)
               }
-            >
-              <FontAwesomeIcon icon={faFolderOpen} />
-            </button>
+            />
           </div>
         )}
         {/* user footer logo is show */}
@@ -4250,13 +4252,13 @@ const EditComponent = ({ props }) => {
             <label htmlFor="userNavbarMenu">
               <span>{PropsTypes.USER_NAVBAR_MENU}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faPlus} />}
+              iconIsLeft={true}
               onClick={() => pageBuilderContext.addNavbarMenu()}
-            >
-              add
-              <FontAwesomeIcon icon={faColumns} />
-            </button>
+              text="add"
+            />
           </div>
         )}
         {/* user navbar logo */}
@@ -4280,14 +4282,13 @@ const EditComponent = ({ props }) => {
             <label htmlFor="userNavbarLogo">
               <span>{PropsTypes.USER_NAVBAR_LOGO}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faFolderOpen} />}
               onClick={() =>
                 pageBuilderContext.handleClickUploadImage(false, props.location)
               }
-            >
-              <FontAwesomeIcon icon={faFolderOpen} />
-            </button>
+            />
           </div>
         )}
         {/* user navbar logo is show */}
@@ -4424,15 +4425,15 @@ const EditComponent = ({ props }) => {
             <label htmlFor="userNavbarSubMenu">
               <span>{PropsTypes.USER_NAVBAR_SUBMENU}</span>
             </label>
-            <button
+            <ButtonRipple
               className="button"
+              fa={<FontAwesomeIcon icon={faPlus} />}
+              iconIsLeft={true}
               onClick={() =>
                 pageBuilderContext.addNavbarSubMenu(props.location)
               }
-            >
-              add
-              <FontAwesomeIcon icon={faColumns} />
-            </button>
+              text="add"
+            />
           </div>
         )}
         {/* user navbar submenu backgroundcolor */}
@@ -4740,8 +4741,10 @@ const EditComponent = ({ props }) => {
         {/* save location */}
         {props.componentEditableProps.saveLocation && (
           <div className="form-input">
-            <button
-              className="button"
+            <ButtonRipple
+              className="button save-location"
+              fa={<FontAwesomeIcon icon={faSave} />}
+              iconIsLeft={true}
               onClick={() => {
                 pageBuilderContext.editComponentProps(
                   PropsTypes.LOCATION,
@@ -4749,22 +4752,24 @@ const EditComponent = ({ props }) => {
                   null
                 );
               }}
-            >
-              {PropsTypes.LOCATION}
-            </button>
+              text={PropsTypes.LOCATION}
+            />
           </div>
         )}
         {/* {delete} */}
-        {checkDeletable(props.itemTypes) && <div className="form-input">
-            <button
+        {checkDeletable(props.itemTypes) && (
+          <div className="form-input">
+            <ButtonRipple
               className="button delete-component"
+              fa={<FontAwesomeIcon icon={faTrashAlt} />}
+              iconIsLeft={true}
               onClick={() => {
                 pageBuilderContext.deleteComponent(props.location);
               }}
-            >
-              {PropsTypes.DELETE_COMPONENT}
-            </button>
-          </div>}
+              text={PropsTypes.DELETE_COMPONENT}
+            />
+          </div>
+        )}
       </section>
     </>
   );
