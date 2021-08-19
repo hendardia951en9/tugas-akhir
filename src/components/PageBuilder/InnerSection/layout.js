@@ -4,9 +4,6 @@ import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { useDrop } from "react-dnd";
 
-//css
-import "./innersection.css";
-
 const Layout = ({ id, componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 

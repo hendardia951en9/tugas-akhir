@@ -49,6 +49,7 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
               return (
                 <div key={index} className="user-footer-menu-container">
                   <span
+                    className={`user-footer-menu ${isEdit && "isEdit"}`}
                     onClick={
                       isEdit
                         ? (e) => {

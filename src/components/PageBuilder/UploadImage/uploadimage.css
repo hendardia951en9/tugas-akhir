@@ -7,7 +7,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 95;
+  z-index: 80;
 }
 
 .upload-image-blur {
@@ -21,14 +21,14 @@
 
 .upload-image-box {
   background-color: white;
-  border-radius: 10px;
-  bottom: 10%;
+  border-radius: 5px;
+  bottom: 6%;
   left: 15%;
   margin-top: var(--navbar-height);
   overflow: auto;
   position: absolute;
   right: 15%;
-  top: 10%;
+  top: 6%;
 }
 
 .upload-image-content-wrapper {
@@ -93,7 +93,7 @@
 }
 
 .user-gallery-image-container label::before {
-  border-radius: 50px;
+  border-radius: 100px;
   content: "";
   height: 30px;
   position: absolute;
@@ -116,6 +116,7 @@
   background-image: url("https://png.pngtree.com/png-vector/20190228/ourmid/pngtree-check-mark-icon-design-template-vector-isolated-png-image_711433.jpg");
   background-position: center;
   background-size: cover;
+  border: 1px solid #3799ee;
 }
 
 .upload-image-content-footer {

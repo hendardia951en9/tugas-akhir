@@ -1,0 +1,35 @@
+.dom-tree-element {
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 0.2rem 0;
+  position: relative;
+}
+
+.dom-tree-element:hover {
+  color: #3799ee;
+}
+
+.dom-tree-element span {
+  pointer-events: none;
+}
+
+.dom-tree-element-button-container {
+  align-items: center;
+  bottom: 0;
+  display: none;
+  gap: 0.3rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.dom-tree-element-button-container-button {
+  background-color: white;
+  color: mediumblue;
+  font-size: 1.2em;
+  padding: 0;
+}
+
+.dom-tree-element:hover > .dom-tree-element-button-container {
+  display: flex;
+}

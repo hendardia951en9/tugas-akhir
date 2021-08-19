@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -115,6 +117,34 @@ const Dashboard = () => {
                           className="user-site-option"
                           onClick={(e) => {
                             if (e.target === e.currentTarget) {
+                              handleClickSite(site_id);
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faEdit}
+                          />
+                          edit
+                        </li>
+                        <li
+                          className="user-site-option"
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              console.log("1");
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faEye}
+                          />
+                          preview
+                        </li>
+                        <li
+                          className="user-site-option"
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
                               console.log("1");
                             }
                           }}
@@ -123,13 +153,13 @@ const Dashboard = () => {
                             className="user-site-option-icon"
                             icon={faGlobe}
                           />
-                          &nbsp;publish
+                          publish
                         </li>
                         <li
                           className="user-site-option"
                           onClick={(e) => {
                             if (e.target === e.currentTarget) {
-                              console.log("2");
+                              console.log("1");
                             }
                           }}
                         >
@@ -137,13 +167,13 @@ const Dashboard = () => {
                             className="user-site-option-icon"
                             icon={faClone}
                           />
-                          &nbsp;duplicate
+                          duplicate
                         </li>
                         <li
                           className="user-site-option"
                           onClick={(e) => {
                             if (e.target === e.currentTarget) {
-                              console.log("3");
+                              console.log("1");
                             }
                           }}
                         >
@@ -151,7 +181,7 @@ const Dashboard = () => {
                             className="user-site-option-icon"
                             icon={faTrashAlt}
                           />
-                          &nbsp;delete
+                          delete
                         </li>
                       </ul>
                     </div>

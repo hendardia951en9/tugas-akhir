@@ -8,6 +8,10 @@ a {
   overflow: hidden;
 }
 
+.user-footer-menu.isEdit {
+  cursor: pointer;
+}
+
 .user-footer-submenu-container {
   display: flex;
   margin-top: 0.7rem;
@@ -16,6 +20,7 @@ a {
 .user-footer-submenu,
 .user-footer-submenu a {
   align-items: center;
+  cursor: pointer;
   display: flex;
   gap: 0.1rem;
 }

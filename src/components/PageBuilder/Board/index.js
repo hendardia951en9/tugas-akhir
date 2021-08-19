@@ -45,12 +45,14 @@ const Board = ({ boardComponents, boardNavbar, boardFooter }) => {
   return (
     <>
       {boardNavbar && (
-        <UserNavbar
-          componentKey={boardNavbar.itemTypes}
-          isEdit={true}
-          itemTypes={boardNavbar.itemTypes}
-          props={boardNavbar.props}
-        />
+        <div className="component-wrapper">
+          <UserNavbar
+            componentKey={boardNavbar.itemTypes}
+            isEdit={true}
+            itemTypes={boardNavbar.itemTypes}
+            props={boardNavbar.props}
+          />
+        </div>
       )}
       <div
         className={`board ${isOver && "board-isOver"} ${
@@ -68,12 +70,14 @@ const Board = ({ boardComponents, boardNavbar, boardFooter }) => {
       </div>
 
       {boardFooter && (
-        <UserFooter
-          componentKey={boardFooter.itemTypes}
-          isEdit={true}
-          itemTypes={boardFooter.itemTypes}
-          props={boardFooter.props}
-        />
+        <div className="component-wrapper">
+          <UserFooter
+            componentKey={boardFooter.itemTypes}
+            isEdit={true}
+            itemTypes={boardFooter.itemTypes}
+            props={boardFooter.props}
+          />
+        </div>
       )}
     </>
   );

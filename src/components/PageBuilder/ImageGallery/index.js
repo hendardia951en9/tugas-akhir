@@ -1,4 +1,7 @@
 import React, { useContext } from "react";
+import ButtonRipple from "../../ButtonRipple";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageGalleryComponent from "react-image-gallery";
 import { generateStyle } from "../../../utils/generateStyle";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
@@ -52,22 +55,17 @@ const ImageGallery = ({ componentKey, isEdit, itemTypes, props }) => {
       className="image-gallery-component-wrapper"
       style={generateStyle(editStyle(props.style, props.imageGalleryAlignment))}
     >
-      {isEdit ? (
-        <button
+      {isEdit && (
+        <ButtonRipple
           className="image-gallery-component-edit-button"
+          fa={<FontAwesomeIcon icon={faEdit} />}
           onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              pageBuilderContext.handleClickPageBuilderComponent(
-                itemTypes,
-                componentKey
-              );
-            }
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
           }}
-        >
-          edit
-        </button>
-      ) : (
-        ""
+        />
       )}
       <ImageGalleryComponent
         infinite={props.infinite === "true"}

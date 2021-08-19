@@ -68,7 +68,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                 }
               >
                 {isEdit ? (
-                  menu.props.text
+                  <div className="component-wrapper">{menu.props.text}</div>
                 ) : checkLinkTo(menu.props.linkTo) === true ? (
                   <NavLink exact to={menu.props.linkTo}>
                     {menu.props.text}

@@ -1,10 +1,12 @@
 import React, { useCallback, useContext, useRef, useState } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ButtonRipple from "../../ButtonRipple";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateStyle } from "../../../utils/generateStyle";
 import Geocoder from "react-map-gl-geocoder";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
+import ReactMapGL, { Marker } from "react-map-gl";
 
 //css
 import "./mapcomponent.css";
@@ -56,23 +58,16 @@ const MapComponent = ({ componentKey, isEdit, itemTypes, props }) => {
       height={props.style.height.value + props.style.height.unit}
     >
       {isEdit && (
-        <button
+        <ButtonRipple
           className="map-component-edit-button"
-          onClick={
-            isEdit
-              ? (e) => {
-                  if (e.target === e.currentTarget) {
-                    pageBuilderContext.handleClickPageBuilderComponent(
-                      itemTypes,
-                      componentKey
-                    );
-                  }
-                }
-              : undefined
-          }
-        >
-          edit
-        </button>
+          fa={<FontAwesomeIcon icon={faEdit} />}
+          onClick={(e) => {
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
+          }}
+        />
       )}
 
       <Marker

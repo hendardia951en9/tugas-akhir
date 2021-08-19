@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import ButtonRipple from "../ButtonRipple";
+import { faArrowAltCircleDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ItemTypes } from "../../utils/ItemTypes";
 import { PageBuilderContext } from "../Pages/WebGenerator";
-
-import "./domtreeelement.css";
 
 const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
@@ -21,21 +23,21 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
           }
         }}
       >
-        <div className="dom-tree-element-button-wrapper">
-          <button
+        <div className="dom-tree-element-button-container">
+          <ButtonRipple
+            className="dom-tree-element-button-container-button"
+            fa={<FontAwesomeIcon icon={faArrowAltCircleUp} />}
             onClick={() =>
               pageBuilderContext.reorderComponent(componentKey, "UP")
             }
-          >
-            up
-          </button>
-          <button
+          />
+          <ButtonRipple
+            className="dom-tree-element-button-container-button"
+            fa={<FontAwesomeIcon icon={faArrowAltCircleDown} />}
             onClick={() =>
               pageBuilderContext.reorderComponent(componentKey, "DOWN")
             }
-          >
-            down
-          </button>
+          />
         </div>
         <span>{itemTypes}</span>
       </div>
@@ -56,27 +58,27 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                     }}
                     style={{ marginLeft: "1rem" }}
                   >
-                    <div className="dom-tree-element-button-wrapper">
-                      <button
+                    <div className="dom-tree-element-button-container">
+                      <ButtonRipple
+                        className="dom-tree-element-button-container-button"
+                        fa={<FontAwesomeIcon icon={faArrowAltCircleUp} />}
                         onClick={() =>
                           pageBuilderContext.reorderComponent(
                             innersectionlayout.key,
                             "UP"
                           )
                         }
-                      >
-                        up
-                      </button>
-                      <button
+                      />
+                      <ButtonRipple
+                        className="dom-tree-element-button-container-button"
+                        fa={<FontAwesomeIcon icon={faArrowAltCircleDown} />}
                         onClick={() =>
                           pageBuilderContext.reorderComponent(
                             innersectionlayout.key,
                             "DOWN"
                           )
                         }
-                      >
-                        down
-                      </button>
+                      />
                     </div>
                     <span>{innersectionlayout.itemTypes}</span>
                   </div>
@@ -96,27 +98,33 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                             }}
                             style={{ marginLeft: "2rem" }}
                           >
-                            <div className="dom-tree-element-button-wrapper">
-                              <button
+                            <div className="dom-tree-element-button-container">
+                              <ButtonRipple
+                                className="dom-tree-element-button-container-button"
+                                fa={
+                                  <FontAwesomeIcon icon={faArrowAltCircleUp} />
+                                }
                                 onClick={() =>
                                   pageBuilderContext.reorderComponent(
                                     child.key,
                                     "UP"
                                   )
                                 }
-                              >
-                                up
-                              </button>
-                              <button
+                              />
+                              <ButtonRipple
+                                className="dom-tree-element-button-container-button"
+                                fa={
+                                  <FontAwesomeIcon
+                                    icon={faArrowAltCircleDown}
+                                  />
+                                }
                                 onClick={() =>
                                   pageBuilderContext.reorderComponent(
                                     child.key,
                                     "DOWN"
                                   )
                                 }
-                              >
-                                down
-                              </button>
+                              />
                             </div>
                             <span>{child.itemTypes}</span>
                           </div>

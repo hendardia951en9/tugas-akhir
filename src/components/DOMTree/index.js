@@ -5,7 +5,7 @@ import "./domtree.css";
 
 const DOMTree = ({ components }) => {
   return (
-    <>
+    <div className="dom-tree-container">
       {components.length > 0
         ? components.map((component) => {
             return (
@@ -18,7 +18,7 @@ const DOMTree = ({ components }) => {
             );
           })
         : ""}
-    </>
+    </div>
   );
 };
 

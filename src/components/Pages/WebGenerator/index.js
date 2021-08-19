@@ -4,6 +4,7 @@ import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
 import { ComponentEditableProps } from "../../../utils/ComponentEditableProps";
 import { faThList } from "@fortawesome/free-solid-svg-icons";
+import { faProjectDiagram } from "@fortawesome/free-solid-svg-icons";
 import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
@@ -2993,29 +2994,42 @@ const WebGenerator = () => {
           <div className="page-builder-container">
             <div className="sidebar">
               <div className="sidebar-header">
-                <button
-                  className="choose-page-button"
-                  onClick={() =>
-                    handleClickPageBuilderComponent(
-                      ItemTypes.CHOOSE_PAGE_BUTTON,
-                      null
-                    )
-                  }
-                >
-                  <FontAwesomeIcon icon={faWindowRestore} />
-                </button>
-                <button
-                  className="dom-tree-button"
-                  onClick={() =>
-                    handleClickPageBuilderComponent(
-                      ItemTypes.DOM_TREE_BUTTON,
-                      null
-                    )
-                  }
-                >
-                  <FontAwesomeIcon icon={faWindowRestore} />
-                </button>
-                <div className="title">
+                <div className="sidebar-header-navigation">
+                  <button
+                    className="sidebar-header-navigation-button"
+                    onClick={() =>
+                      handleClickPageBuilderComponent(
+                        ItemTypes.CHOOSE_PAGE_BUTTON,
+                        null
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon icon={faWindowRestore} />
+                  </button>
+                  <button
+                    className="sidebar-header-navigation-button"
+                    onClick={() =>
+                      handleClickPageBuilderComponent(
+                        ItemTypes.DOM_TREE_BUTTON,
+                        null
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon icon={faProjectDiagram} />
+                  </button>
+                  <button
+                    className="sidebar-header-navigation-button"
+                    onClick={() =>
+                      handleClickPageBuilderComponent(
+                        ItemTypes.COMPONENT_LIST_BUTTON,
+                        null
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon icon={faThList} />
+                  </button>
+                </div>
+                <div className="sidebar-header-title">
                   {editComponent.isChoosePage
                     ? "Choose Page"
                     : editComponent.isDOMTree
@@ -3026,17 +3040,6 @@ const WebGenerator = () => {
                     ? "Components"
                     : ""}
                 </div>
-                <button
-                  className="components-button"
-                  onClick={() =>
-                    handleClickPageBuilderComponent(
-                      ItemTypes.COMPONENT_LIST_BUTTON,
-                      null
-                    )
-                  }
-                >
-                  <FontAwesomeIcon icon={faThList} />
-                </button>
               </div>
               <div className="sidebar-container">
                 {editComponent.isChoosePage ? (
@@ -3044,10 +3047,11 @@ const WebGenerator = () => {
                     const { site_page_id, site_page_name } = props;
                     return (
                       <div
+                        className="sidebar-site-page"
                         key={site_page_id}
                         onClick={() => handleClickSitePage(site_page_id)}
                       >
-                        {site_page_name}
+                        <span>{site_page_name}</span>
                       </div>
                     );
                   })
