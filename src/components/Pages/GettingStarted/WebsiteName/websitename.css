@@ -4,11 +4,12 @@
   flex-direction: column;
   justify-content: center;
   min-height: calc(100vh - var(--navbar-height) - 86px);
+  padding: 0 0.5em;
 }
 
 .website-name h1 {
-  font-size: 2rem;
-  margin-top: 3rem;
+  font-size: 2em;
+  margin-top: 3em;
   text-align: center;
   text-transform: capitalize;
 }

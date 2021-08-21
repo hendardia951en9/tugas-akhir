@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
-import { faClone } from "@fortawesome/free-regular-svg-icons";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
@@ -76,7 +75,7 @@ const Dashboard = () => {
     <>
       <div className="navbar-margin">
         <div className="dashboard">
-          <div className="dashboard-header">
+          <header>
             <h2>My Sites</h2>
             <ButtonRipple
               fa={<FontAwesomeIcon icon={faPlus} />}
@@ -84,112 +83,90 @@ const Dashboard = () => {
               onClick={handleClickGettingStarted}
               text="Create New Site"
             />
-          </div>
-          <div className="dashboard-content">
-            <div className="user-sites">
-              {userSites.map((props) => {
-                const { site_id, site_name } = props;
-                return (
-                  <div className="user-site-container" key={site_id}>
-                    <div
-                      className="user-site-content"
-                      onClick={(e) => {
-                        if (e.target === e.currentTarget) {
-                          handleClickSite(site_id);
-                        }
-                      }}
-                    >
-                      <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
-                        alt=""
-                      />
-                      <div className="user-site-content-label">
-                        <span>{site_name}</span>
-                      </div>
-                    </div>
-                    <div className="user-site-options">
-                      <FontAwesomeIcon
-                        className="user-site-options-icon"
-                        icon={faEllipsisV}
-                      />
-                      <ul className="user-site-options-list">
-                        <li
-                          className="user-site-option"
-                          onClick={(e) => {
-                            if (e.target === e.currentTarget) {
-                              handleClickSite(site_id);
-                            }
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            className="user-site-option-icon"
-                            icon={faEdit}
-                          />
-                          edit
-                        </li>
-                        <li
-                          className="user-site-option"
-                          onClick={(e) => {
-                            if (e.target === e.currentTarget) {
-                              console.log("1");
-                            }
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            className="user-site-option-icon"
-                            icon={faEye}
-                          />
-                          preview
-                        </li>
-                        <li
-                          className="user-site-option"
-                          onClick={(e) => {
-                            if (e.target === e.currentTarget) {
-                              console.log("1");
-                            }
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            className="user-site-option-icon"
-                            icon={faGlobe}
-                          />
-                          publish
-                        </li>
-                        <li
-                          className="user-site-option"
-                          onClick={(e) => {
-                            if (e.target === e.currentTarget) {
-                              console.log("1");
-                            }
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            className="user-site-option-icon"
-                            icon={faClone}
-                          />
-                          duplicate
-                        </li>
-                        <li
-                          className="user-site-option"
-                          onClick={(e) => {
-                            if (e.target === e.currentTarget) {
-                              console.log("1");
-                            }
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            className="user-site-option-icon"
-                            icon={faTrashAlt}
-                          />
-                          delete
-                        </li>
-                      </ul>
-                    </div>
+          </header>
+          <section className="user-sites">
+            {userSites.map((props) => {
+              const { site_id, site_name } = props;
+              return (
+                <div className="user-site-container" key={site_id}>
+                  <div
+                    className="user-site-content"
+                    onClick={(e) => {
+                      if (e.target === e.currentTarget) {
+                        handleClickSite(site_id);
+                      }
+                    }}
+                  >
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                      alt=""
+                    />
+                    <p>{site_name}</p>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                  <div className="user-site-options">
+                    <FontAwesomeIcon
+                      className="user-site-options-icon"
+                      icon={faEllipsisV}
+                    />
+                    <ul>
+                      <li
+                        onClick={(e) => {
+                          if (e.target === e.currentTarget) {
+                            handleClickSite(site_id);
+                          }
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="user-site-option-icon"
+                          icon={faEdit}
+                        />
+                        edit
+                      </li>
+                      <li
+                        onClick={(e) => {
+                          if (e.target === e.currentTarget) {
+                            console.log("1");
+                          }
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="user-site-option-icon"
+                          icon={faEye}
+                        />
+                        preview
+                      </li>
+                      <li
+                        onClick={(e) => {
+                          if (e.target === e.currentTarget) {
+                            console.log("1");
+                          }
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="user-site-option-icon"
+                          icon={faGlobe}
+                        />
+                        publish
+                      </li>
+                      <li
+                        onClick={(e) => {
+                          if (e.target === e.currentTarget) {
+                            console.log("1");
+                          }
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="user-site-option-icon"
+                          icon={faTrashAlt}
+                        />
+                        delete
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
+          </section>
         </div>
       </div>
     </>

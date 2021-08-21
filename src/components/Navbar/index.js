@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import $ from "jquery";
-import logo from "../../public/assets/images/logo.svg";
 
 //css
 import "./navbar.css";
@@ -42,7 +41,7 @@ const Navbar = () => {
       <div className="nav-items">
         <ul className="navbar-item-left">
           <li className="logo">
-            <img src={logo} alt="logo" />
+            <img src="/assets/images/logo.svg" alt="logo" />
           </li>
           <li>
             <NavLink exact to="/" activeClassName="navbar-active">

@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   min-height: calc(100vh - var(--navbar-height) - 86px);
+  padding: 0 0.5em;
 }
 
 .website-theme h1,
@@ -13,17 +14,17 @@
 }
 
 .website-theme h1 {
-  font-size: 2rem;
+  font-size: 2em;
 }
 
 .website-theme h3 {
-  margin-top: 3rem;
+  margin-top: 3em;
 }
 
 .website-theme section {
   align-items: center;
   display: flex;
-  gap: 2rem;
+  gap: 2em;
   justify-content: center;
   margin-top: 5rem;
   text-transform: capitalize;
@@ -33,7 +34,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2em;
   justify-content: center;
   text-align: center;
   text-transform: capitalize;

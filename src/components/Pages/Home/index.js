@@ -96,22 +96,22 @@ const Home = () => {
           }}
         >
           <SwiperSlide className="swiper-slide">
-            <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
+            <img src="/assets/images/home/swiper_coverflow_1.jpg" alt="" />
           </SwiperSlide>
           <SwiperSlide className="swiper-slide">
-            <img src="/assets/images/home/swiper_fade_2.jpg" alt="" />
+            <img src="/assets/images/home/swiper_coverflow_2.jpg" alt="" />
           </SwiperSlide>
           <SwiperSlide className="swiper-slide">
-            <img src="/assets/images/home/swiper_fade_3.jpg" alt="" />
+            <img src="/assets/images/home/swiper_coverflow_3.jpg" alt="" />
           </SwiperSlide>
           <SwiperSlide className="swiper-slide">
-            <img src="/assets/images/home/swiper_fade_4.jpg" alt="" />
+            <img src="/assets/images/home/swiper_coverflow_4.jpg" alt="" />
           </SwiperSlide>
           <SwiperSlide className="swiper-slide">
-            <img src="/assets/images/home/swiper_fade_5.jpg" alt="" />
+            <img src="/assets/images/home/swiper_coverflow_5.jpg" alt="" />
           </SwiperSlide>
         </Swiper>
-        <div className="swiper-description-coverflow-wrapper">
+        <div className="swiper-description-coverflow-container">
           <div className="swiper-description-coverflow">
             <h5>
               The Freedom to Create
@@ -144,7 +144,12 @@ const Home = () => {
           <span>that are built to meet your business needs</span>
         </p>
         <ButtonRipple text="see all templates" />
-        <div className="grid-container">
+        <div
+          className="grid-container"
+          style={{
+            backgroundImage: "url('/assets/images/home/swiper_fade_1.jpg')",
+          }}
+        >
           <div className="grid-item">
             <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
           </div>
