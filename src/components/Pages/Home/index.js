@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { EncryptStorage } from "encrypt-storage";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,10 +15,13 @@ import "swiper/swiper-bundle.min.css";
 SwiperCore.use([EffectFade, EffectCoverflow, Autoplay]);
 
 const Home = () => {
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const history = useHistory();
 
   const handleClickGettingStarted = () => {
-    if (localStorage.getItem("userLoggedIn")) {
+    if (encryptStorage.getItem("userLoggedIn")) {
       history.push("/gettingstarted");
     } else {
       history.push("/signin");

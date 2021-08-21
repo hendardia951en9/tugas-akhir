@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useReducer } from "react";
 import $ from "jquery";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { EncryptStorage } from "encrypt-storage";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
@@ -42,6 +43,9 @@ const SignIn = () => {
   } = useForm();
   const { ref } = register("email");
   const emailRef = useRef(null);
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const history = useHistory();
   const [state, dispatch] = useReducer(reducer, {
     isShowMessageModal: false,
@@ -65,7 +69,7 @@ const SignIn = () => {
         //success
         appContext.setIsLoading(false);
         if (res.data.status === 200) {
-          localStorage.setItem("userLoggedIn", JSON.stringify(res.data.result));
+          encryptStorage.setItem("userLoggedIn", res.data.result);
           history.push("/");
         } else {
           dispatch({

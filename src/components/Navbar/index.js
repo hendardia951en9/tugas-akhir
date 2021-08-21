@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { EncryptStorage } from "encrypt-storage";
 import { NavLink, useLocation } from "react-router-dom";
 
 import $ from "jquery";
@@ -7,10 +8,13 @@ import $ from "jquery";
 import "./navbar.css";
 
 const Navbar = () => {
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const location = useLocation();
 
   const handleClickLogout = () => {
-    localStorage.clear();
+    encryptStorage.clear();
   };
 
   const handleScroll = () => {
@@ -49,7 +53,7 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            {localStorage.getItem("userLoggedIn") && (
+            {encryptStorage.getItem("userLoggedIn") && (
               <NavLink exact to="/dashboard" activeClassName="navbar-active">
                 Dashboard
               </NavLink>
@@ -62,11 +66,10 @@ const Navbar = () => {
           </li>
         </ul>
         <ul className="navbar-item-middle"></ul>
-        {localStorage.getItem("userLoggedIn") ? (
+        {encryptStorage.getItem("userLoggedIn") ? (
           <ul className="navbar-user-control">
             <li>
-              Hello,{" "}
-              {JSON.parse(localStorage.getItem("userLoggedIn")).user_name}
+              Hello, {encryptStorage.getItem("userLoggedIn").user_name}
               <ul>
                 <li>
                   <NavLink exact to="/gallery" activeClassName="navbar-active">

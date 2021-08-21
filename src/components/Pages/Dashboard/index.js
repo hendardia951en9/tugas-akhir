@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { EncryptStorage } from "encrypt-storage";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { useHistory } from "react-router-dom";
 
+//components
 import ButtonRipple from "../../ButtonRipple";
 
 //css
@@ -18,6 +20,10 @@ import "./dashboard.css";
 
 const Dashboard = () => {
   const appContext = useContext(AppContext);
+
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const history = useHistory();
   const [userSites, setUserSites] = useState([]);
 
@@ -25,7 +31,7 @@ const Dashboard = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
+      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
     });
 
     axios
@@ -53,7 +59,7 @@ const Dashboard = () => {
   };
 
   const handleClickGettingStarted = () => {
-    if (localStorage.getItem("userLoggedIn")) {
+    if (encryptStorage.getItem("userLoggedIn")) {
       history.push("/gettingstarted");
     } else {
       history.push("/signin");
@@ -61,7 +67,7 @@ const Dashboard = () => {
   };
 
   const handleClickSite = (site_id) => {
-    localStorage.setItem("site_id", site_id);
+    encryptStorage.setItem("site_id", site_id);
     history.push("/webgenerator");
   };
 

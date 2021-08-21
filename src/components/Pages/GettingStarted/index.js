@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
+import { EncryptStorage } from "encrypt-storage";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
@@ -20,6 +21,10 @@ import { ItemTypes } from "../../../utils/ItemTypes";
 
 const GettingStarted = () => {
   const appContext = useContext(AppContext);
+
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const [gettingStartedIndex, setGettingStartedIndex] = useState(0);
   const history = useHistory();
   const [websiteKind, setWebsiteKind] = useState(null);
@@ -70,7 +75,7 @@ const GettingStarted = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
+      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
       websiteKind: websiteKind,
       websiteTheme: websiteTheme,
       websiteName: params,
@@ -86,8 +91,7 @@ const GettingStarted = () => {
         //success
         appContext.setIsLoading(false);
         if (res.data.status === 200) {
-          localStorage.setItem("site_id", res.data.result.site_id);
-          localStorage.setItem("site_page_id", res.data.result.site_page_id);
+          encryptStorage.setItem("site_id", res.data.result.site_id);
           history.push("/webgenerator");
         }
       })

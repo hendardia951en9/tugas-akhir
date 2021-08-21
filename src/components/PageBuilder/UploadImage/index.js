@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { EncryptStorage } from "encrypt-storage";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
@@ -8,10 +9,11 @@ import { ItemTypes } from "../../../utils/ItemTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
+//components
+import ButtonRipple from "../../ButtonRipple";
+
 //css
 import "./uploadimage.css";
-
-import ButtonRipple from "../../ButtonRipple";
 
 let selectedFileMultiple = [];
 
@@ -19,6 +21,9 @@ const UploadImage = ({ isMultiple, location }) => {
   const appContext = useContext(AppContext);
   const pageBuilderContext = useContext(PageBuilderContext);
 
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const [isSelected, setIsSelected] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -29,7 +34,7 @@ const UploadImage = ({ isMultiple, location }) => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
+      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
     });
 
     axios
@@ -48,7 +53,7 @@ const UploadImage = ({ isMultiple, location }) => {
           res.data.result.forEach((result) => {
             const { user_gallery_image_name } = result;
             const url = `${process.env.REACT_APP_BASE_API_URL}/public/uploads/${
-              JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+              encryptStorage.getItem("userLoggedIn").user_id
             }/${user_gallery_image_name}`;
             selectedFileMultiple.push({ url: url, checked: false });
           });
@@ -72,7 +77,7 @@ const UploadImage = ({ isMultiple, location }) => {
 
     const formData = generateFormData({
       file: uploadedFile,
-      userLoggedInID: JSON.parse(localStorage.getItem("userLoggedIn")).user_id,
+      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
     });
 
     axios
@@ -201,7 +206,7 @@ const UploadImage = ({ isMultiple, location }) => {
                     const url = `${
                       process.env.REACT_APP_BASE_API_URL
                     }/public/uploads/${
-                      JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+                      encryptStorage.getItem("userLoggedIn").user_id
                     }/${user_gallery_image_name}`;
 
                     return (
@@ -233,7 +238,7 @@ const UploadImage = ({ isMultiple, location }) => {
                     const url = `${
                       process.env.REACT_APP_BASE_API_URL
                     }/public/uploads/${
-                      JSON.parse(localStorage.getItem("userLoggedIn")).user_id
+                      encryptStorage.getItem("userLoggedIn").user_id
                     }/${user_gallery_image_name}`;
 
                     return (

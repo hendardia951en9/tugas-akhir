@@ -3,6 +3,7 @@ import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
 import { ComponentEditableProps } from "../../../utils/ComponentEditableProps";
+import { EncryptStorage } from "encrypt-storage";
 import { faThList } from "@fortawesome/free-solid-svg-icons";
 import { faProjectDiagram } from "@fortawesome/free-solid-svg-icons";
 import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
@@ -60,6 +61,7 @@ const boardState = {
 
 const WebGenerator = () => {
   const appContext = useContext(AppContext);
+
   const [editComponent, setEditComponent] = useState({
     isChoosePage: false,
     isDOMTree: false,
@@ -67,6 +69,9 @@ const WebGenerator = () => {
     isListComponent: true,
     selectedComponentItemTypes: null,
   });
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
   const [isRerenderPage, setIsRerenderPage] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
   const [uploadImageLocation, setUploadImageLocation] = useState("");
@@ -1983,7 +1988,7 @@ const WebGenerator = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      siteID: localStorage.getItem("site_id"),
+      siteID: encryptStorage.getItem("site_id"),
     });
 
     axios
@@ -2020,7 +2025,7 @@ const WebGenerator = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      siteID: localStorage.getItem("site_id"),
+      siteID: encryptStorage.getItem("site_id"),
     });
 
     axios
@@ -2054,6 +2059,7 @@ const WebGenerator = () => {
             boardState.boardComponents[`${site_page_id}`] =
               JSON.parse(site_page_json);
 
+            //select the first page
             if (index === 0) {
               boardState.selectedSitePageID = parseInt(site_page_id);
             }
@@ -2909,7 +2915,7 @@ const WebGenerator = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      siteID: localStorage.getItem("site_id"),
+      siteID: encryptStorage.getItem("site_id"),
       siteComponentsKey: boardState.boardComponentsKey.toString(),
       siteJSON: JSON.stringify(boardState.boardComponents),
       siteFooterJSON: JSON.stringify(boardState.boardFooter),
@@ -2957,7 +2963,7 @@ const WebGenerator = () => {
         selectedComponentItemTypes: null,
       });
 
-      localStorage.removeItem("site_id");
+      encryptStorage.removeItem("site_id");
     };
     // eslint-disable-next-line
   }, []);
