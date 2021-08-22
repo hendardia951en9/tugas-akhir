@@ -13,7 +13,7 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="icon-component"
+      className={`icon-component ${isEdit && "isEdit"}`}
       onClick={
         isEdit
           ? (e) => {

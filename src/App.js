@@ -106,9 +106,6 @@ const App = () => {
             <SignUp />
             <Footer />
           </Route>
-          <Route exact path="/website/:userEmail/:websiteName/">
-            <UserWebsite />
-          </Route>
           <Route exact path="/website/:userEmail/:websiteName/:websitePage">
             <UserWebsite />
           </Route>

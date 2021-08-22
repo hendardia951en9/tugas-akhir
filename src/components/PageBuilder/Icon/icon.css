@@ -1,4 +1,9 @@
-.icon-component > * {
+.icon-component.isEdit > * {
   pointer-events: none;
+  width: fit-content;
+}
+
+.icon-component a {
+  display: block;
   width: fit-content;
 }

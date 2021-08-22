@@ -1,7 +1,12 @@
 import React, { useContext } from "react";
-import ReactPlayer from "react-player";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateStyle } from "../../../utils/generateStyle";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
+import ReactPlayer from "react-player";
+
+//component
+import ButtonRipple from "../../ButtonRipple";
 
 //css
 import "./video.css";
@@ -11,26 +16,17 @@ const Video = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div className="video-component-wrapper" style={generateStyle(props.style)}>
-      {isEdit ? (
-        <button
+      {isEdit && (
+        <ButtonRipple
           className="video-component-edit-button"
-          onClick={
-            isEdit
-              ? (e) => {
-                  if (e.target === e.currentTarget) {
-                    pageBuilderContext.handleClickPageBuilderComponent(
-                      itemTypes,
-                      componentKey
-                    );
-                  }
-                }
-              : undefined
-          }
-        >
-          edit
-        </button>
-      ) : (
-        ""
+          fa={<FontAwesomeIcon icon={faEdit} />}
+          onClick={(e) => {
+            pageBuilderContext.handleClickPageBuilderComponent(
+              itemTypes,
+              componentKey
+            );
+          }}
+        />
       )}
       <ReactPlayer
         className="video-component"

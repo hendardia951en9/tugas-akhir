@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useRef, useState } from "react";
-import ButtonRipple from "../../ButtonRipple";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +6,9 @@ import { generateStyle } from "../../../utils/generateStyle";
 import Geocoder from "react-map-gl-geocoder";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import ReactMapGL, { Marker } from "react-map-gl";
+
+//component
+import ButtonRipple from "../../ButtonRipple";
 
 //css
 import "./mapcomponent.css";
