@@ -16,17 +16,17 @@ import MessageModal from "../../MessageModal";
 //css
 import "./signin.css";
 
-const reducer = (state, action) => {
+const modalReducer = (modalState, action) => {
   if (action.type === "SHOW_MODAL") {
     return {
-      ...state,
+      ...modalState,
       isShowMessageModal: true,
       messageModalContent: action.payload,
       messageModalStatusCode: action.statusCode,
     };
   } else if (action.type === "CLOSE_MODAL") {
     return {
-      ...state,
+      ...modalState,
       isShowMessageModal: false,
     };
   }
@@ -47,49 +47,57 @@ const SignIn = () => {
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
   const history = useHistory();
-  const [state, dispatch] = useReducer(reducer, {
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
     isShowMessageModal: false,
     messageModalContent: "hello world",
     messageModalStatusCode: 200,
   });
 
   const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
+    modalDispatch({ type: "CLOSE_MODAL" });
   };
 
   const onSubmit = async (data) => {
-    appContext.setIsLoading(true);
-    const formData = generateFormData(data);
+    if (
+      data.email === `${process.env.REACT_APP_ADMIN_EMAIL}` &&
+      data.password === `${process.env.REACT_APP_ADMIN_PASSWORD}`
+    ) {
+      encryptStorage.setItem("adminLoggedIn", true);
+      history.push("/admindashboard");
+    } else {
+      appContext.setIsLoading(true);
+      const formData = generateFormData(data);
 
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/loginuser`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        if (res.data.status === 200) {
-          encryptStorage.setItem("userLoggedIn", res.data.result);
-          history.push("/");
-        } else {
-          dispatch({
-            type: "SHOW_MODAL",
-            payload: res.data.message,
-            statusCode: res.data.status,
-          });
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
-      });
+      axios
+        .post(`${process.env.REACT_APP_SITE_API_URL}/loginuser`, formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          if (res.data.status === 200) {
+            encryptStorage.setItem("userLoggedIn", res.data.result);
+            history.push("/");
+          } else {
+            modalDispatch({
+              type: "SHOW_MODAL",
+              payload: res.data.message,
+              statusCode: res.data.status,
+            });
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
@@ -118,11 +126,11 @@ const SignIn = () => {
         <div className="sign-in-box">
           <h2>Sign In</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {state.isShowMessageModal && (
+            {modalState.isShowMessageModal && (
               <MessageModal
                 closeModal={closeModal}
-                content={state.messageModalContent}
-                statusCode={state.messageModalStatusCode}
+                content={modalState.messageModalContent}
+                statusCode={modalState.messageModalStatusCode}
               />
             )}
             <div className="form-input">

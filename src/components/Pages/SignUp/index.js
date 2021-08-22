@@ -14,17 +14,17 @@ import MessageModal from "../../MessageModal";
 //css
 import "./signup.css";
 
-const reducer = (state, action) => {
+const modalReducer = (modalState, action) => {
   if (action.type === "SHOW_MODAL") {
     return {
-      ...state,
+      ...modalState,
       isShowMessageModal: true,
       messageModalContent: action.payload,
       messageModalStatusCode: action.statusCode,
     };
   } else if (action.type === "CLOSE_MODAL") {
     return {
-      ...state,
+      ...modalState,
       isShowMessageModal: false,
     };
   }
@@ -42,14 +42,14 @@ const SignUp = () => {
   } = useForm();
   const nameRef = useRef(null);
   const { ref } = register("name");
-  const [state, dispatch] = useReducer(reducer, {
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
     isShowMessageModal: false,
     messageModalContent: "hello world",
     messageModalStatusCode: 200,
   });
 
   const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
+    modalDispatch({ type: "CLOSE_MODAL" });
   };
 
   const onSubmit = async (data) => {
@@ -63,7 +63,7 @@ const SignUp = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        dispatch({
+        modalDispatch({
           type: "SHOW_MODAL",
           payload: res.data.message,
           statusCode: res.data.status,
@@ -108,11 +108,11 @@ const SignUp = () => {
         <div className="sign-up-box">
           <h2>Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {state.isShowMessageModal && (
+            {modalState.isShowMessageModal && (
               <MessageModal
                 closeModal={closeModal}
-                content={state.messageModalContent}
-                statusCode={state.messageModalStatusCode}
+                content={modalState.messageModalContent}
+                statusCode={modalState.messageModalStatusCode}
               />
             )}
             <div className="form-input">

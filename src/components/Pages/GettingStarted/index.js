@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
@@ -6,6 +6,7 @@ import { EncryptStorage } from "encrypt-storage";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
+import { ItemTypes } from "../../../utils/ItemTypes";
 import { useHistory } from "react-router-dom";
 import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
@@ -17,7 +18,24 @@ import WebsiteTheme from "./WebsiteTheme";
 
 //css
 import "./gettingstarted.css";
-import { ItemTypes } from "../../../utils/ItemTypes";
+
+const modalReducer = (modalState, action) => {
+  if (action.type === "SHOW_MODAL") {
+    return {
+      ...modalState,
+      isShowMessageModal: true,
+      messageModalContent: action.payload,
+      messageModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowMessageModal: false,
+    };
+  }
+
+  throw new Error("no matching action type");
+};
 
 const GettingStarted = () => {
   const appContext = useContext(AppContext);
@@ -27,12 +45,21 @@ const GettingStarted = () => {
   );
   const [gettingStartedIndex, setGettingStartedIndex] = useState(0);
   const history = useHistory();
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowMessageModal: false,
+    messageModalContent: "hello world",
+    messageModalStatusCode: 200,
+  });
   const [websiteKind, setWebsiteKind] = useState(null);
   const [websiteTheme, setWebsiteTheme] = useState(null);
   // eslint-disable-next-line
   const [websiteName, setWebsiteName] = useState(null);
   const [websiteNavbarJSON, setWebsiteNavbarJSON] = useState(null);
   const [websiteFooterJSON, setWebsiteFooterJSON] = useState(null);
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
 
   const handleClickButtonBack = () => {
     setGettingStartedIndex((prevState) => {
@@ -93,6 +120,12 @@ const GettingStarted = () => {
         if (res.data.status === 200) {
           encryptStorage.setItem("site_id", res.data.result.site_id);
           history.push("/webgenerator");
+        } else {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: res.data.message,
+            statusCode: res.data.status,
+          });
         }
       })
       .catch((err) => {
@@ -132,7 +165,9 @@ const GettingStarted = () => {
           ) : gettingStartedIndex === 2 ? (
             <>
               <WebsiteName
+                closeModal={closeModal}
                 handleClickSetWebsiteName={handleClickSetWebsiteName}
+                modalState={modalState}
               />
               <ButtonRipple
                 className="button-back"

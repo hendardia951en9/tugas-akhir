@@ -4,10 +4,13 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 
+//components
+import MessageModal from "../../../MessageModal";
+
 //css
 import "./websitename.css";
 
-const WebsiteName = ({ handleClickSetWebsiteName }) => {
+const WebsiteName = ({ closeModal, handleClickSetWebsiteName, modalState }) => {
   const {
     register,
     handleSubmit,
@@ -27,6 +30,13 @@ const WebsiteName = ({ handleClickSetWebsiteName }) => {
   return (
     <div className="website-name">
       <h1>what is the name of your business or website?</h1>
+      {modalState.isShowMessageModal && (
+        <MessageModal
+          closeModal={closeModal}
+          content={modalState.messageModalContent}
+          statusCode={modalState.messageModalStatusCode}
+        />
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-input">
           <input

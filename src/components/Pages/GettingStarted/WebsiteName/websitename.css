@@ -9,7 +9,7 @@
 
 .website-name h1 {
   font-size: 2em;
-  margin-top: 3em;
+  margin: 3em 0 1em 0;
   text-align: center;
   text-transform: capitalize;
 }

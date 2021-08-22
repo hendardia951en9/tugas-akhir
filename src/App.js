@@ -35,6 +35,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 //pages
+import AdminDashboard from "./components/Pages/AdminDashboard";
 import Dashboard from "./components/Pages/Dashboard";
 import GettingStarted from "./components/Pages/GettingStarted";
 import Home from "./components/Pages/Home";
@@ -61,6 +62,11 @@ const App = () => {
           <Route exact path="/">
             <Navbar />
             <Home />
+            <Footer />
+          </Route>
+          <Route exact path="/admindashboard">
+            <Navbar />
+            <AdminDashboard />
             <Footer />
           </Route>
           <Route exact path="/dashboard">

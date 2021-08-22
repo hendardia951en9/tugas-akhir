@@ -53,10 +53,20 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            {encryptStorage.getItem("userLoggedIn") && (
+            {encryptStorage.getItem("userLoggedIn") ? (
               <NavLink exact to="/dashboard" activeClassName="navbar-active">
                 Dashboard
               </NavLink>
+            ) : (
+              encryptStorage.getItem("adminLoggedIn") && (
+                <NavLink
+                  exact
+                  to="/admindashboard"
+                  activeClassName="navbar-active"
+                >
+                  Dashboard
+                </NavLink>
+              )
             )}
           </li>
           <li>
@@ -85,6 +95,24 @@ const Navbar = () => {
                     subscribtion
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    exact
+                    to="/logout"
+                    activeClassName="navbar-active"
+                    onClick={() => handleClickLogout()}
+                  >
+                    logout
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        ) : encryptStorage.getItem("adminLoggedIn") ? (
+          <ul className="navbar-user-control">
+            <li>
+              Hello, admin
+              <ul>
                 <li>
                   <NavLink
                     exact
