@@ -42,7 +42,11 @@ const UploadImage = ({ isMultiple, location }) => {
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          setUserGallery(res.data.result);
+          if (res.data.result.length <= 0) {
+            setUserGallery(undefined);
+          } else {
+            setUserGallery(res.data.result);
+          }
 
           //set all image selected status with false
           if (isMultiple && res.data.result) {
