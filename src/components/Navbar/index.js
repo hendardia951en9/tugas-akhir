@@ -47,18 +47,22 @@ const Navbar = () => {
           <li className="logo">
             <img src="/assets/images/logo.svg" alt="logo" />
           </li>
-          <li>
-            <NavLink exact to="/" activeClassName="navbar-active">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            {encryptStorage.getItem("userLoggedIn") ? (
+          {!encryptStorage.getItem("admin_logged_in") && (
+            <li>
+              <NavLink exact to="/" activeClassName="navbar-active">
+                Home
+              </NavLink>
+            </li>
+          )}
+          {encryptStorage.getItem("user_logged_in") ? (
+            <li>
               <NavLink exact to="/dashboard" activeClassName="navbar-active">
                 Dashboard
               </NavLink>
-            ) : (
-              encryptStorage.getItem("adminLoggedIn") && (
+            </li>
+          ) : (
+            encryptStorage.getItem("admin_logged_in") && (
+              <li>
                 <NavLink
                   exact
                   to="/admindashboard"
@@ -66,9 +70,9 @@ const Navbar = () => {
                 >
                   Dashboard
                 </NavLink>
-              )
-            )}
-          </li>
+              </li>
+            )
+          )}
           <li>
             <NavLink exact to="/pricing" activeClassName="navbar-active">
               Pricing
@@ -76,10 +80,10 @@ const Navbar = () => {
           </li>
         </ul>
         <ul className="navbar-item-middle"></ul>
-        {encryptStorage.getItem("userLoggedIn") ? (
+        {encryptStorage.getItem("user_logged_in") ? (
           <ul className="navbar-user-control">
             <li>
-              Hello, {encryptStorage.getItem("userLoggedIn").user_name}
+              Hello, {encryptStorage.getItem("user_logged_in").user_name}
               <ul>
                 <li>
                   <NavLink exact to="/gallery" activeClassName="navbar-active">
@@ -108,7 +112,7 @@ const Navbar = () => {
               </ul>
             </li>
           </ul>
-        ) : encryptStorage.getItem("adminLoggedIn") ? (
+        ) : encryptStorage.getItem("admin_logged_in") ? (
           <ul className="navbar-user-control">
             <li>
               Hello, admin

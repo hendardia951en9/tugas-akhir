@@ -62,7 +62,7 @@ const SignIn = () => {
       data.email === `${process.env.REACT_APP_ADMIN_EMAIL}` &&
       data.password === `${process.env.REACT_APP_ADMIN_PASSWORD}`
     ) {
-      encryptStorage.setItem("adminLoggedIn", true);
+      encryptStorage.setItem("admin_logged_in", true);
       history.push("/admindashboard");
     } else {
       appContext.setIsLoading(true);
@@ -76,7 +76,7 @@ const SignIn = () => {
           //success
           appContext.setIsLoading(false);
           if (res.data.status === 200) {
-            encryptStorage.setItem("userLoggedIn", res.data.result);
+            encryptStorage.setItem("user_logged_in", res.data.result);
             history.push("/");
           } else {
             modalDispatch({

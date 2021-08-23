@@ -21,7 +21,7 @@ const Home = () => {
   const history = useHistory();
 
   const handleClickGettingStarted = () => {
-    if (encryptStorage.getItem("userLoggedIn")) {
+    if (encryptStorage.getItem("user_logged_in")) {
       history.push("/gettingstarted");
     } else {
       history.push("/signin");

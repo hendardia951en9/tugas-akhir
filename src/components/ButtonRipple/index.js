@@ -31,7 +31,7 @@ const ButtonRipple = ({
 
   return (
     <button
-      className={"button-ripple " + className}
+      className={"button-ripple " + className + " " + (disabled && "disabled")}
       disabled={disabled}
       name={name}
       onClick={onClick}

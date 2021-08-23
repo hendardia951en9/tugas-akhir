@@ -61,7 +61,7 @@ const Board = ({ boardComponents, boardNavbar, boardFooter }) => {
         ref={drop}
       >
         {
-          //eslint-disable-next-line
+          // eslint-disable-next-line
           boardComponents &&
             boardComponents.map((component) => {
               return pageBuilderContext.renderComponent(component);

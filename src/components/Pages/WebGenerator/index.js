@@ -1987,98 +1987,206 @@ const WebGenerator = () => {
   const fetchUserSiteData = async () => {
     appContext.setIsLoading(true);
 
-    const formData = generateFormData({
-      siteID: encryptStorage.getItem("site_id"),
-    });
-
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/getusersitedata`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-
-        if (res.data.status === 200) {
-          const { site_components_key, site_navbar_json, site_footer_json } =
-            res.data.result;
-          boardState.boardComponentsKey = parseInt(site_components_key);
-          boardState.boardFooter = JSON.parse(site_footer_json);
-          boardState.boardNavbar = JSON.parse(site_navbar_json);
-          fetchUserSitePages();
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
+    //jika admin
+    if (encryptStorage.getItem("admin_logged_in")) {
+      const formData = generateFormData({
+        themeID: encryptStorage.getItem("theme_id"),
       });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getthemesitedata`,
+          formData,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+
+          if (res.data.status === 200) {
+            const {
+              theme_components_key,
+              theme_navbar_json,
+              theme_footer_json,
+            } = res.data.result;
+            boardState.boardComponentsKey = parseInt(theme_components_key);
+            boardState.boardFooter = JSON.parse(theme_footer_json);
+            boardState.boardNavbar = JSON.parse(theme_navbar_json);
+            fetchUserSitePages();
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      //jika user
+      const formData = generateFormData({
+        siteID: encryptStorage.getItem("site_id"),
+      });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getusersitedata`,
+          formData,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+
+          if (res.data.status === 200) {
+            const { site_components_key, site_navbar_json, site_footer_json } =
+              res.data.result;
+            boardState.boardComponentsKey = parseInt(site_components_key);
+            boardState.boardFooter = JSON.parse(site_footer_json);
+            boardState.boardNavbar = JSON.parse(site_navbar_json);
+            fetchUserSitePages();
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
   };
 
   const fetchUserSitePages = async () => {
     appContext.setIsLoading(true);
 
-    const formData = generateFormData({
-      siteID: encryptStorage.getItem("site_id"),
-    });
-
-    axios
-      .post(
-        `${process.env.REACT_APP_SITE_API_URL}/getusersitepages`,
-        formData,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
-      )
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-
-        if (res.data.status === 200) {
-          setSitePages(res.data.result);
-          boardState.boardComponents = {};
-          boardState.getComponentData = false;
-          boardState.selectedComponentKey = null;
-          boardState.selectedSitePageID = -1;
-
-          setEditComponent({
-            isChoosePage: false,
-            isEdit: false,
-            isListComponent: true,
-            selectedComponentItemTypes: null,
-          });
-
-          res.data.result.forEach((element, index) => {
-            const { site_page_id, site_page_json } = element;
-            boardState.boardComponents[`${site_page_id}`] =
-              JSON.parse(site_page_json);
-
-            //select the first page
-            if (index === 0) {
-              boardState.selectedSitePageID = parseInt(site_page_id);
-            }
-          });
-
-          setIsRerenderPage(!isRerenderPage);
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
+    //jika admin
+    if (encryptStorage.getItem("admin_logged_in")) {
+      const formData = generateFormData({
+        themeID: encryptStorage.getItem("theme_id"),
       });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getthemesitepages`,
+          formData,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+
+          if (res.data.status === 200) {
+            setSitePages(res.data.result);
+            boardState.boardComponents = {};
+            boardState.getComponentData = false;
+            boardState.selectedComponentKey = null;
+            boardState.selectedSitePageID = -1;
+
+            setEditComponent({
+              isChoosePage: false,
+              isEdit: false,
+              isListComponent: true,
+              selectedComponentItemTypes: null,
+            });
+
+            res.data.result.forEach((element, index) => {
+              const { theme_page_id, theme_page_json } = element;
+              boardState.boardComponents[`${theme_page_id}`] =
+                JSON.parse(theme_page_json);
+
+              //ambil halaman pertama
+              if (index === 0) {
+                boardState.selectedSitePageID = parseInt(theme_page_id);
+              }
+            });
+
+            setIsRerenderPage(!isRerenderPage);
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      //jika user
+      const formData = generateFormData({
+        siteID: encryptStorage.getItem("site_id"),
+      });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getusersitepages`,
+          formData,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+
+          if (res.data.status === 200) {
+            setSitePages(res.data.result);
+            boardState.boardComponents = {};
+            boardState.getComponentData = false;
+            boardState.selectedComponentKey = null;
+            boardState.selectedSitePageID = -1;
+
+            setEditComponent({
+              isChoosePage: false,
+              isEdit: false,
+              isListComponent: true,
+              selectedComponentItemTypes: null,
+            });
+
+            res.data.result.forEach((element, index) => {
+              const { site_page_id, site_page_json } = element;
+              boardState.boardComponents[`${site_page_id}`] =
+                JSON.parse(site_page_json);
+
+              //select the first page
+              if (index === 0) {
+                boardState.selectedSitePageID = parseInt(site_page_id);
+              }
+            });
+
+            setIsRerenderPage(!isRerenderPage);
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
   };
 
   const findComponent = (arr, id) => {
@@ -2914,33 +3022,65 @@ const WebGenerator = () => {
   const saveSite = async () => {
     appContext.setIsLoading(true);
 
-    const formData = generateFormData({
-      siteID: encryptStorage.getItem("site_id"),
-      siteComponentsKey: boardState.boardComponentsKey.toString(),
-      siteJSON: JSON.stringify(boardState.boardComponents),
-      siteFooterJSON: JSON.stringify(boardState.boardFooter),
-      siteNavbarJSON: JSON.stringify(boardState.boardNavbar),
-    });
-
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/savesite`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
+    //jika admin
+    if (encryptStorage.getItem("admin_logged_in")) {
+      const formData = generateFormData({
+        themeID: encryptStorage.getItem("theme_id"),
+        themeComponentsKey: boardState.boardComponentsKey.toString(),
+        themeJSON: JSON.stringify(boardState.boardComponents),
+        themeFooterJSON: JSON.stringify(boardState.boardFooter),
+        themeNavbarJSON: JSON.stringify(boardState.boardNavbar),
       });
+
+      axios
+        .post(`${process.env.REACT_APP_SITE_API_URL}/savetheme`, formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      //jika user
+      const formData = generateFormData({
+        siteID: encryptStorage.getItem("site_id"),
+        siteComponentsKey: boardState.boardComponentsKey.toString(),
+        siteJSON: JSON.stringify(boardState.boardComponents),
+        siteFooterJSON: JSON.stringify(boardState.boardFooter),
+        siteNavbarJSON: JSON.stringify(boardState.boardNavbar),
+      });
+
+      axios
+        .post(`${process.env.REACT_APP_SITE_API_URL}/savesite`, formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
@@ -2963,7 +3103,11 @@ const WebGenerator = () => {
         selectedComponentItemTypes: null,
       });
 
-      encryptStorage.removeItem("site_id");
+      if (encryptStorage.getItem("admin_logged_in")) {
+        encryptStorage.removeItem("theme_id");
+      } else if (encryptStorage.getItem("user_logged_in")) {
+        encryptStorage.removeItem("site_id");
+      }
     };
     // eslint-disable-next-line
   }, []);
@@ -3050,16 +3194,29 @@ const WebGenerator = () => {
               <div className="sidebar-container">
                 {editComponent.isChoosePage ? (
                   sitePages.map((props) => {
-                    const { site_page_id, site_page_name } = props;
-                    return (
-                      <div
-                        className="sidebar-site-page"
-                        key={site_page_id}
-                        onClick={() => handleClickSitePage(site_page_id)}
-                      >
-                        <span>{site_page_name}</span>
-                      </div>
-                    );
+                    if (encryptStorage.getItem("admin_logged_in")) {
+                      const { theme_page_id, theme_page_name } = props;
+                      return (
+                        <div
+                          className="sidebar-site-page"
+                          key={theme_page_id}
+                          onClick={() => handleClickSitePage(theme_page_id)}
+                        >
+                          <span>{theme_page_name}</span>
+                        </div>
+                      );
+                    } else {
+                      const { site_page_id, site_page_name } = props;
+                      return (
+                        <div
+                          className="sidebar-site-page"
+                          key={site_page_id}
+                          onClick={() => handleClickSitePage(site_page_id)}
+                        >
+                          <span>{site_page_name}</span>
+                        </div>
+                      );
+                    }
                   })
                 ) : editComponent.isDOMTree ? (
                   <DOMTree

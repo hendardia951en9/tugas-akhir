@@ -33,73 +33,151 @@ const UploadImage = ({ isMultiple, location }) => {
   const fetchUserGallery = async () => {
     appContext.setIsLoading(true);
 
-    const formData = generateFormData({
-      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
-    });
+    //jika admin
+    if (encryptStorage.getItem("admin_logged_in")) {
+      axios
+        .get(`${process.env.REACT_APP_SITE_API_URL}/getadmingallery`, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          setUserGallery(res.data.result);
 
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/getusergallery`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        setUserGallery(res.data.result);
+          //set all image selected status with false
+          if (isMultiple && res.data.result) {
+            selectedFileMultiple = [];
 
-        //set all image selected status with false
-        if (isMultiple && res.data.result) {
-          selectedFileMultiple = [];
-
-          res.data.result.forEach((result) => {
-            const { user_gallery_image_name } = result;
-            const url = `${process.env.REACT_APP_BASE_API_URL}/public/uploads/${
-              encryptStorage.getItem("userLoggedIn").user_id
-            }/${user_gallery_image_name}`;
-            selectedFileMultiple.push({ url: url, checked: false });
-          });
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
+            res.data.result.forEach((result) => {
+              const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${result}`;
+              selectedFileMultiple.push({ url: url, checked: false });
+            });
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      //jika user
+      const formData = generateFormData({
+        userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
       });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getusergallery`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          setUserGallery(res.data.result);
+
+          //set all image selected status with false
+          if (isMultiple && res.data.result) {
+            selectedFileMultiple = [];
+
+            res.data.result.forEach((result) => {
+              const { user_gallery_image_name } = result;
+              const url = `${
+                process.env.REACT_APP_BASE_API_URL
+              }/public/uploads/${
+                encryptStorage.getItem("user_logged_in").user_id
+              }/${user_gallery_image_name}`;
+              selectedFileMultiple.push({ url: url, checked: false });
+            });
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
   };
 
-  const handleUpload = () => {
+  const handleClickUpload = () => {
     appContext.setIsLoading(true);
 
-    const formData = generateFormData({
-      file: uploadedFile,
-      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
-    });
-
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/uploadimage`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        fetchUserGallery();
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
+    //jika admin
+    if (encryptStorage.getItem("admin_logged_in")) {
+      const formData = generateFormData({
+        file: uploadedFile,
       });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/uploadimageadmin`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          fetchUserGallery();
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      //jika user
+      const formData = generateFormData({
+        file: uploadedFile,
+        userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
+      });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/uploadimageuser`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          fetchUserGallery();
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
   };
 
   const handleClickUserGalleryImage = (url) => {
@@ -199,14 +277,68 @@ const UploadImage = ({ isMultiple, location }) => {
           </div>
           <div className="upload-image-content">
             {userGallery
-              ? isMultiple === false
+              ? encryptStorage.getItem("admin_logged_in")
+                ? isMultiple === false
+                  ? userGallery.map((image, index) => {
+                      const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${image}`;
+
+                      return (
+                        <div
+                          className="user-gallery-image-container"
+                          key={index}
+                        >
+                          <input
+                            id={image}
+                            name="user-gallery-radio"
+                            type="radio"
+                          />
+                          <label htmlFor={image}>
+                            <img
+                              alt=""
+                              className="user-gallery-image"
+                              onClick={() => {
+                                handleClickUserGalleryImage(url);
+                              }}
+                              src={url}
+                            />
+                          </label>
+                        </div>
+                      );
+                    })
+                  : userGallery.map((image, index) => {
+                      const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${image}`;
+
+                      return (
+                        <div
+                          className="user-gallery-image-container"
+                          key={index}
+                        >
+                          <input
+                            id={image}
+                            name="user-gallery-checkbox"
+                            onChange={(e) => {
+                              onChangeCheckboxImageGallery(e, url);
+                            }}
+                            type="checkbox"
+                          />
+                          <label htmlFor={image}>
+                            <img
+                              alt=""
+                              className="user-gallery-image"
+                              src={url}
+                            />
+                          </label>
+                        </div>
+                      );
+                    })
+                : isMultiple === false
                 ? userGallery.map((gallery) => {
                     const { user_gallery_id, user_gallery_image_name } =
                       gallery;
                     const url = `${
                       process.env.REACT_APP_BASE_API_URL
                     }/public/uploads/${
-                      encryptStorage.getItem("userLoggedIn").user_id
+                      encryptStorage.getItem("user_logged_in").user_id
                     }/${user_gallery_image_name}`;
 
                     return (
@@ -238,7 +370,7 @@ const UploadImage = ({ isMultiple, location }) => {
                     const url = `${
                       process.env.REACT_APP_BASE_API_URL
                     }/public/uploads/${
-                      encryptStorage.getItem("userLoggedIn").user_id
+                      encryptStorage.getItem("user_logged_in").user_id
                     }/${user_gallery_image_name}`;
 
                     return (
@@ -277,7 +409,7 @@ const UploadImage = ({ isMultiple, location }) => {
               <ButtonRipple
                 className="upload-image-content-footer-button"
                 disabled={!isUploaded}
-                onClick={() => handleUpload()}
+                onClick={() => handleClickUpload()}
                 text="submit"
               />
             </div>

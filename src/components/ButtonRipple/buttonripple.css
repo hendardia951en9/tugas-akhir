@@ -17,6 +17,10 @@
   text-transform: capitalize;
 }
 
+.button-ripple.disabled {
+  background-color: cornflowerblue;
+}
+
 span.ripple {
   animation: ripple 0.3s;
   background-color: white;

@@ -1,0 +1,32 @@
+.theme-name {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height) - 86px);
+  padding: 0 0.5em;
+}
+
+.theme-name h1 {
+  font-size: 2em;
+  margin: 3em 0 1em 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.theme-name form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.theme-name .form-input {
+  margin: 1rem 0;
+}
+
+@media screen and (max-width: 800px) {
+  .theme-name form {
+    width: 70%;
+  }
+}

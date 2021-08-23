@@ -31,7 +31,7 @@ const Dashboard = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      userLoggedInID: encryptStorage.getItem("userLoggedIn").user_id,
+      userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
     });
 
     axios
@@ -41,9 +41,7 @@ const Dashboard = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        if (res.data.status === 200) {
-          setUserSites(res.data.result);
-        }
+        setUserSites(res.data.result);
       })
       .catch((err) => {
         //error
@@ -59,7 +57,7 @@ const Dashboard = () => {
   };
 
   const handleClickGettingStarted = () => {
-    if (encryptStorage.getItem("userLoggedIn")) {
+    if (encryptStorage.getItem("user_logged_in")) {
       history.push("/gettingstarted");
     } else {
       history.push("/signin");
@@ -91,87 +89,89 @@ const Dashboard = () => {
             />
           </header>
           <section className="user-sites">
-            {userSites.map((props) => {
-              const { site_id, site_name } = props;
-              return (
-                <div className="user-site-container" key={site_id}>
-                  <div
-                    className="user-site-content"
-                    onClick={(e) => {
-                      if (e.target === e.currentTarget) {
-                        handleClickSite(site_id);
-                      }
-                    }}
-                  >
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
-                      alt=""
-                    />
-                    <p>{site_name}</p>
-                  </div>
-                  <div className="user-site-options">
-                    <FontAwesomeIcon
-                      className="user-site-options-icon"
-                      icon={faEllipsisV}
-                    />
-                    <ul>
-                      <li
+            {userSites
+              ? userSites.map((props) => {
+                  const { site_id, site_name } = props;
+                  return (
+                    <div className="user-site-container" key={site_id}>
+                      <div
+                        className="user-site-content"
                         onClick={(e) => {
                           if (e.target === e.currentTarget) {
                             handleClickSite(site_id);
                           }
                         }}
                       >
-                        <FontAwesomeIcon
-                          className="user-site-option-icon"
-                          icon={faEdit}
+                        <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                          alt=""
                         />
-                        edit
-                      </li>
-                      <li
-                        onClick={(e) => {
-                          if (e.target === e.currentTarget) {
-                            console.log("1");
-                          }
-                        }}
-                      >
+                        <p>{site_name}</p>
+                      </div>
+                      <div className="user-site-options">
                         <FontAwesomeIcon
-                          className="user-site-option-icon"
-                          icon={faEye}
+                          className="user-site-options-icon"
+                          icon={faEllipsisV}
                         />
-                        preview
-                      </li>
-                      <li
-                        onClick={(e) => {
-                          if (e.target === e.currentTarget) {
-                            console.log("1");
-                          }
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          className="user-site-option-icon"
-                          icon={faGlobe}
-                        />
-                        publish
-                      </li>
-                      <li
-                        onClick={(e) => {
-                          if (e.target === e.currentTarget) {
-                            console.log("1");
-                          }
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          className="user-site-option-icon"
-                          icon={faTrashAlt}
-                        />
-                        delete
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              );
-            })}
+                        <ul>
+                          <li
+                            onClick={(e) => {
+                              if (e.target === e.currentTarget) {
+                                handleClickSite(site_id);
+                              }
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="user-site-option-icon"
+                              icon={faEdit}
+                            />
+                            edit
+                          </li>
+                          <li
+                            onClick={(e) => {
+                              if (e.target === e.currentTarget) {
+                                console.log("1");
+                              }
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="user-site-option-icon"
+                              icon={faEye}
+                            />
+                            preview
+                          </li>
+                          <li
+                            onClick={(e) => {
+                              if (e.target === e.currentTarget) {
+                                console.log("1");
+                              }
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="user-site-option-icon"
+                              icon={faGlobe}
+                            />
+                            publish
+                          </li>
+                          <li
+                            onClick={(e) => {
+                              if (e.target === e.currentTarget) {
+                                console.log("1");
+                              }
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="user-site-option-icon"
+                              icon={faTrashAlt}
+                            />
+                            delete
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })
+              : "no sites"}
           </section>
         </div>
       </div>

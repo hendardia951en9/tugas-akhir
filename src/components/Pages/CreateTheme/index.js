@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useState, useReducer } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
@@ -12,12 +12,11 @@ import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
-import WebstiteKind from "./WebsiteKind";
-import WebsiteName from "./WebsiteName";
-import WebsiteTheme from "./WebsiteTheme";
+import ThemeCategory from "./ThemeCategory";
+import ThemeName from "./ThemeName";
 
 //css
-import "./gettingstarted.css";
+import "./createtheme.css";
 
 const modalReducer = (modalState, action) => {
   if (action.type === "SHOW_MODAL") {
@@ -37,88 +36,90 @@ const modalReducer = (modalState, action) => {
   throw new Error("no matching action type");
 };
 
-const GettingStarted = () => {
+const CreateTheme = () => {
   const appContext = useContext(AppContext);
 
+  const [createThemeIndex, setCreateThemeIndex] = useState(0);
   const encryptStorage = EncryptStorage(
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
-  const [gettingStartedIndex, setGettingStartedIndex] = useState(0);
   const history = useHistory();
   const [modalState, modalDispatch] = useReducer(modalReducer, {
     isShowMessageModal: false,
     messageModalContent: "hello world",
     messageModalStatusCode: 200,
   });
-  const [websiteKind, setWebsiteKind] = useState(null);
-  const [websiteTheme, setWebsiteTheme] = useState(null);
+  const [themeCategory, setThemeCategory] = useState(null);
   // eslint-disable-next-line
-  const [websiteName, setWebsiteName] = useState(null);
-  const [websiteNavbarJSON, setWebsiteNavbarJSON] = useState(null);
-  const [websiteFooterJSON, setWebsiteFooterJSON] = useState(null);
+  const [themeName, setThemeName] = useState(null);
+  const [themeNavbarJSON, setThemeNavbarJSON] = useState(null);
+  const [themeFooterJSON, setThemeFooterJSON] = useState(null);
 
   const closeModal = () => {
     modalDispatch({ type: "CLOSE_MODAL" });
   };
 
   const handleClickButtonBack = () => {
-    setGettingStartedIndex((prevState) => {
+    setCreateThemeIndex((prevState) => {
       return prevState - 1;
     });
   };
 
-  const handleClickSetWebsiteKind = (params) => {
-    setWebsiteKind(params);
+  const handleClickSetThemeCategory = (params) => {
     if (params === WebsiteTypes.BLOG) {
-      setWebsiteNavbarJSON({
+      setThemeCategory(1);
+      setThemeNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
         props: ComponentDefaultProps.USER_NAVBAR_BLOG,
       });
-      setWebsiteFooterJSON({
+      setThemeFooterJSON({
         itemTypes: ItemTypes.USER_FOOTER,
         props: ComponentDefaultProps.USER_FOOTER_BLOG,
       });
     } else if (params === WebsiteTypes.COMPANY_PROFILE) {
-      setWebsiteNavbarJSON({
+      setThemeCategory(2);
+      setThemeNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
         props: ComponentDefaultProps.USER_NAVBAR_COMPANY_PROFILE,
       });
+      setThemeFooterJSON({
+        itemTypes: ItemTypes.USER_FOOTER,
+        props: ComponentDefaultProps.USER_FOOTER_COMPANY_PROFILE,
+      });
     } else if (params === WebsiteTypes.LANDING_PAGES) {
-      setWebsiteNavbarJSON({
+      setThemeCategory(3);
+      setThemeNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
         props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGES,
       });
+      setThemeFooterJSON({
+        itemTypes: ItemTypes.USER_FOOTER,
+        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGES,
+      });
     }
-    setGettingStartedIndex(1);
+    setCreateThemeIndex(1);
   };
 
-  const handleClickSetWebsiteTheme = (params) => {
-    setWebsiteTheme(params);
-    setGettingStartedIndex(2);
-  };
-
-  const handleClickSetWebsiteName = async (params) => {
-    setWebsiteName(params);
+  const handleClickSetThemeName = async (params) => {
+    setThemeName(params);
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
-      websiteKind: websiteKind,
-      websiteTheme: websiteTheme,
-      websiteName: params,
-      websiteNavbarJSON: JSON.stringify(websiteNavbarJSON),
-      websiteFooterJSON: JSON.stringify(websiteFooterJSON),
+      themeCategoryID: themeCategory,
+      themeName: params,
+      themeNavbarJSON: JSON.stringify(themeNavbarJSON),
+      themeFooterJSON: JSON.stringify(themeFooterJSON),
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/createsite`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/createtheme`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
         if (res.data.status === 200) {
-          encryptStorage.setItem("site_id", res.data.result.site_id);
+          encryptStorage.setItem("theme_id", res.data.result.theme_id);
           history.push("/webgenerator");
         } else {
           modalDispatch({
@@ -143,27 +144,16 @@ const GettingStarted = () => {
 
   return (
     <div className="navbar-margin">
-      <div className="getting-started">
-        {gettingStartedIndex === 0 ? (
-          <WebstiteKind handleClickSetWebsiteKind={handleClickSetWebsiteKind} />
-        ) : gettingStartedIndex === 1 ? (
+      <div className="create-theme">
+        {createThemeIndex === 0 ? (
+          <ThemeCategory
+            handleClickSetThemeCategory={handleClickSetThemeCategory}
+          />
+        ) : createThemeIndex === 1 ? (
           <>
-            <WebsiteTheme
-              handleClickSetWebsiteTheme={handleClickSetWebsiteTheme}
-            />
-            <ButtonRipple
-              className="button-back"
-              fa={<FontAwesomeIcon icon={faArrowLeft} />}
-              iconIsLeft={true}
-              onClick={handleClickButtonBack}
-              text="back"
-            />
-          </>
-        ) : gettingStartedIndex === 2 ? (
-          <>
-            <WebsiteName
+            <ThemeName
               closeModal={closeModal}
-              handleClickSetWebsiteName={handleClickSetWebsiteName}
+              handleClickSetThemeName={handleClickSetThemeName}
               modalState={modalState}
             />
             <ButtonRipple
@@ -175,11 +165,11 @@ const GettingStarted = () => {
             />
           </>
         ) : (
-          <div>3</div>
+          <div>2</div>
         )}
       </div>
     </div>
   );
 };
 
-export default GettingStarted;
+export default CreateTheme;
