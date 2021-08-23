@@ -12,6 +12,7 @@ import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
+import ThemeList from "./ThemeList";
 import WebstiteKind from "./WebsiteKind";
 import WebsiteName from "./WebsiteName";
 import WebsiteTheme from "./WebsiteTheme";
@@ -52,6 +53,7 @@ const GettingStarted = () => {
   });
   const [websiteKind, setWebsiteKind] = useState(null);
   const [websiteTheme, setWebsiteTheme] = useState(null);
+  const [websiteThemeID, setWebsiteThemeID] = useState(-1);
   // eslint-disable-next-line
   const [websiteName, setWebsiteName] = useState(null);
   const [websiteNavbarJSON, setWebsiteNavbarJSON] = useState(null);
@@ -62,9 +64,15 @@ const GettingStarted = () => {
   };
 
   const handleClickButtonBack = () => {
-    setGettingStartedIndex((prevState) => {
-      return prevState - 1;
-    });
+    if (websiteTheme) {
+      setGettingStartedIndex(1);
+      setWebsiteTheme(false);
+      setWebsiteThemeID(-1);
+    } else {
+      setGettingStartedIndex((prevState) => {
+        return prevState - 1;
+      });
+    }
   };
 
   const handleClickSetWebsiteKind = (params) => {
@@ -83,10 +91,18 @@ const GettingStarted = () => {
         itemTypes: ItemTypes.USER_NAVBAR,
         props: ComponentDefaultProps.USER_NAVBAR_COMPANY_PROFILE,
       });
+      setWebsiteFooterJSON({
+        itemTypes: ItemTypes.USER_FOOTER,
+        props: ComponentDefaultProps.USER_FOOTER_COMPANY_PROFILE,
+      });
     } else if (params === WebsiteTypes.LANDING_PAGES) {
       setWebsiteNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
         props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGES,
+      });
+      setWebsiteFooterJSON({
+        itemTypes: ItemTypes.USER_FOOTER,
+        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGES,
       });
     }
     setGettingStartedIndex(1);
@@ -94,6 +110,15 @@ const GettingStarted = () => {
 
   const handleClickSetWebsiteTheme = (params) => {
     setWebsiteTheme(params);
+    if (params === true) {
+      setGettingStartedIndex(3);
+    } else {
+      setGettingStartedIndex(2);
+    }
+  };
+
+  const handleClickSetWebsiteThemeID = (params) => {
+    setWebsiteThemeID(params);
     setGettingStartedIndex(2);
   };
 
@@ -104,7 +129,7 @@ const GettingStarted = () => {
     const formData = generateFormData({
       userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
       websiteKind: websiteKind,
-      websiteTheme: websiteTheme,
+      websiteThemeID: websiteThemeID,
       websiteName: params,
       websiteNavbarJSON: JSON.stringify(websiteNavbarJSON),
       websiteFooterJSON: JSON.stringify(websiteFooterJSON),
@@ -121,6 +146,7 @@ const GettingStarted = () => {
           encryptStorage.setItem("site_id", res.data.result.site_id);
           history.push("/webgenerator");
         } else {
+          console.log(res.data);
           modalDispatch({
             type: "SHOW_MODAL",
             payload: res.data.message,
@@ -175,7 +201,19 @@ const GettingStarted = () => {
             />
           </>
         ) : (
-          <div>3</div>
+          <>
+            <ThemeList
+              handleClickSetWebsiteThemeID={handleClickSetWebsiteThemeID}
+              websiteKind={websiteKind}
+            />
+            <ButtonRipple
+              className="button-back"
+              fa={<FontAwesomeIcon icon={faArrowLeft} />}
+              iconIsLeft={true}
+              onClick={handleClickButtonBack}
+              text="back"
+            />
+          </>
         )}
       </div>
     </div>

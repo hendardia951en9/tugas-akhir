@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
+import $ from "jquery";
 import { EncryptStorage } from "encrypt-storage";
 import { NavLink, useLocation } from "react-router-dom";
-
-import $ from "jquery";
 
 //css
 import "./navbar.css";
@@ -83,7 +82,9 @@ const Navbar = () => {
         {encryptStorage.getItem("user_logged_in") ? (
           <ul className="navbar-user-control">
             <li>
-              Hello, {encryptStorage.getItem("user_logged_in").user_name}
+              <span>
+                Hello, {encryptStorage.getItem("user_logged_in").user_name}
+              </span>
               <ul>
                 <li>
                   <NavLink exact to="/gallery" activeClassName="navbar-active">
@@ -115,7 +116,7 @@ const Navbar = () => {
         ) : encryptStorage.getItem("admin_logged_in") ? (
           <ul className="navbar-user-control">
             <li>
-              Hello, admin
+              <span>Hello, admin</span>
               <ul>
                 <li>
                   <NavLink

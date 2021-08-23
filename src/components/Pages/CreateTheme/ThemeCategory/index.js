@@ -11,11 +11,9 @@ const ThemeCategory = ({ handleClickSetThemeCategory }) => {
       <div className="options">
         <div
           className="option"
-          onClick={() =>
-            handleClickSetThemeCategory(WebsiteTypes.LANDING_PAGES)
-          }
+          onClick={() => handleClickSetThemeCategory(WebsiteTypes.BLOG)}
         >
-          landing pages
+          {WebsiteTypes.BLOG}
         </div>
         <div
           className="option"
@@ -23,13 +21,15 @@ const ThemeCategory = ({ handleClickSetThemeCategory }) => {
             handleClickSetThemeCategory(WebsiteTypes.COMPANY_PROFILE)
           }
         >
-          company profile
+          {WebsiteTypes.COMPANY_PROFILE}
         </div>
         <div
           className="option"
-          onClick={() => handleClickSetThemeCategory(WebsiteTypes.BLOG)}
+          onClick={() =>
+            handleClickSetThemeCategory(WebsiteTypes.LANDING_PAGES)
+          }
         >
-          blog
+          {WebsiteTypes.LANDING_PAGES}
         </div>
       </div>
     </section>

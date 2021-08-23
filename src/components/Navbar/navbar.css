@@ -54,6 +54,11 @@ nav > .nav-items > ul > li > a {
   text-decoration: none;
 }
 
+nav > .nav-items > ul > li > span {
+  display: inline-block;
+  padding: 0.5em 0;
+}
+
 nav > .nav-items > ul > li > a::before {
   background-color: white;
   bottom: 0;

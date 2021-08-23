@@ -54,6 +54,7 @@ const Board = ({ boardComponents, boardNavbar, boardFooter }) => {
           />
         </div>
       )}
+
       <div
         className={`board ${isOver && "board-isOver"} ${
           canDrop && "board-canDrop"

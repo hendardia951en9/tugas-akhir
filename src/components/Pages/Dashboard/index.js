@@ -3,8 +3,8 @@ import { AppContext } from "../../../App";
 import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -94,20 +94,6 @@ const Dashboard = () => {
                   const { site_id, site_name } = props;
                   return (
                     <div className="user-site-container" key={site_id}>
-                      <div
-                        className="user-site-content"
-                        onClick={(e) => {
-                          if (e.target === e.currentTarget) {
-                            handleClickSite(site_id);
-                          }
-                        }}
-                      >
-                        <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
-                          alt=""
-                        />
-                        <p>{site_name}</p>
-                      </div>
                       <div className="user-site-options">
                         <FontAwesomeIcon
                           className="user-site-options-icon"
@@ -167,6 +153,20 @@ const Dashboard = () => {
                             delete
                           </li>
                         </ul>
+                      </div>
+                      <div
+                        className="user-site-content"
+                        onClick={(e) => {
+                          if (e.target === e.currentTarget) {
+                            handleClickSite(site_id);
+                          }
+                        }}
+                      >
+                        <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                          alt=""
+                        />
+                        <p>{site_name}</p>
                       </div>
                     </div>
                   );

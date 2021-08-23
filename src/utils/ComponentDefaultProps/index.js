@@ -567,30 +567,56 @@ export const ComponentDefaultProps = {
     userFooterWatermarkText: "watermark",
   },
   USER_NAVBAR_COMPANY_PROFILE: {
-    logo: "https://ipac.page/images/brand-logo-1.jpg",
-    menuStyle: {
-      color: { r: 255, g: 255, b: 255, a: 1 },
-    },
-    style: {
-      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
-    },
-    subMenuStyle: {
-      color: { r: 255, g: 255, b: 255, a: 1 },
-    },
     menu: [
       {
-        submenu: null,
-        text: "home",
+        itemTypes: ItemTypes.USER_NAVBAR_MENU,
+        props: {
+          linkTo: "home",
+          text: "home",
+        },
+        submenu: [],
       },
       {
-        submenu: null,
-        text: "about",
+        itemTypes: ItemTypes.USER_NAVBAR_MENU,
+        props: {
+          linkTo: "about",
+          text: "about",
+        },
+        submenu: [],
       },
       {
-        submenu: null,
-        text: "contact us",
+        itemTypes: ItemTypes.USER_NAVBAR_MENU,
+        props: {
+          linkTo: "contact",
+          text: "contact us",
+        },
+        submenu: [],
       },
     ],
+    style: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "bold",
+      gap: { value: "16", unit: "px" },
+      paddingBottom: { value: "0", unit: "px" },
+      paddingLeft: { value: "0", unit: "px" },
+      paddingRight: { value: "0", unit: "px" },
+      paddingTop: { value: "0", unit: "px" },
+      textTransform: "uppercase",
+    },
+    subMenuStyle: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "normal",
+      gap: { value: "16", unit: "px" },
+      textTransform: "capitalize",
+    },
+    userNavbarLogo: "https://ipac.page/images/brand-logo-1.jpg",
+    userNavbarLogoMaxHeight: { value: "40", unit: "px" },
+    userNavbarLogoMaxWidth: { value: "80", unit: "px" },
+    userNavbarLogoIsShow: true,
   },
   USER_FOOTER_LANDING_PAGES: {
     menu: [
@@ -709,22 +735,40 @@ export const ComponentDefaultProps = {
     userFooterWatermarkText: "watermark",
   },
   USER_NAVBAR_LANDING_PAGES: {
-    logo: "https://ipac.page/images/brand-logo-1.jpg",
-    menuStyle: {
-      color: { r: 255, g: 255, b: 255, a: 1 },
-    },
-    style: {
-      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
-    },
-    subMenuStyle: {
-      color: { r: 255, g: 255, b: 255, a: 1 },
-    },
     menu: [
       {
-        submenu: null,
-        text: "home",
+        itemTypes: ItemTypes.USER_NAVBAR_MENU,
+        props: {
+          linkTo: "home",
+          text: "home",
+        },
+        submenu: [],
       },
     ],
+    style: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "bold",
+      gap: { value: "16", unit: "px" },
+      paddingBottom: { value: "0", unit: "px" },
+      paddingLeft: { value: "0", unit: "px" },
+      paddingRight: { value: "0", unit: "px" },
+      paddingTop: { value: "0", unit: "px" },
+      textTransform: "uppercase",
+    },
+    subMenuStyle: {
+      backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
+      color: { r: 255, g: 255, b: 255, a: 1 },
+      fontSize: { value: "16", unit: "px" },
+      fontWeight: "normal",
+      gap: { value: "16", unit: "px" },
+      textTransform: "capitalize",
+    },
+    userNavbarLogo: "https://ipac.page/images/brand-logo-1.jpg",
+    userNavbarLogoMaxHeight: { value: "40", unit: "px" },
+    userNavbarLogoMaxWidth: { value: "80", unit: "px" },
+    userNavbarLogoIsShow: true,
   },
   VIDEO: {
     controls: "true",

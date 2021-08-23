@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import $ from "jquery";
 import { DeleteableComponent } from "../../../utils/DeletableComponent";
 import { faColumns, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +13,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { SketchPicker } from "react-color";
 
-import $ from "jquery";
+//components
 import ButtonRipple from "../../ButtonRipple";
 
 //css

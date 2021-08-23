@@ -3,9 +3,8 @@ import { AppContext } from "../../../App";
 import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
-import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -84,20 +83,6 @@ const AdminDashboard = () => {
                 const { theme_id, theme_name } = props;
                 return (
                   <div className="theme-container" key={theme_id}>
-                    <div
-                      className="theme-content"
-                      onClick={(e) => {
-                        if (e.target === e.currentTarget) {
-                          handleClickTheme(theme_id);
-                        }
-                      }}
-                    >
-                      <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
-                        alt=""
-                      />
-                      <p>{theme_name}</p>
-                    </div>
                     <div className="theme-options">
                       <FontAwesomeIcon
                         className="theme-options-icon"
@@ -139,24 +124,25 @@ const AdminDashboard = () => {
                         >
                           <FontAwesomeIcon
                             className="theme-option-icon"
-                            icon={faGlobe}
-                          />
-                          publish
-                        </li>
-                        <li
-                          onClick={(e) => {
-                            if (e.target === e.currentTarget) {
-                              console.log("1");
-                            }
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            className="theme-option-icon"
                             icon={faTrashAlt}
                           />
                           delete
                         </li>
                       </ul>
+                    </div>
+                    <div
+                      className="theme-content"
+                      onClick={(e) => {
+                        if (e.target === e.currentTarget) {
+                          handleClickTheme(theme_id);
+                        }
+                      }}
+                    >
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                        alt=""
+                      />
+                      <p>{theme_name}</p>
                     </div>
                   </div>
                 );

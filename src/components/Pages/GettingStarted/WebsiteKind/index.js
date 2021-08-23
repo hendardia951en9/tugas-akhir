@@ -6,14 +6,14 @@ import "./websitekind.css";
 
 const WebsiteKind = ({ handleClickSetWebsiteKind }) => {
   return (
-    <div className="website-kind">
+    <section className="website-kind">
       <h1>what kind of website should this be?</h1>
       <div className="options">
         <div
           className="option"
-          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.LANDING_PAGES)}
+          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.BLOG)}
         >
-          landing pages
+          {WebsiteTypes.BLOG}
         </div>
         <div
           className="option"
@@ -21,16 +21,16 @@ const WebsiteKind = ({ handleClickSetWebsiteKind }) => {
             handleClickSetWebsiteKind(WebsiteTypes.COMPANY_PROFILE)
           }
         >
-          company profile
+          {WebsiteTypes.COMPANY_PROFILE}
         </div>
         <div
           className="option"
-          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.BLOG)}
+          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.LANDING_PAGES)}
         >
-          blog
+          {WebsiteTypes.LANDING_PAGES}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

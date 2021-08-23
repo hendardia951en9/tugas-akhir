@@ -6,7 +6,7 @@ import "./websitetheme.css";
 
 const WebsiteTheme = ({ handleClickSetWebsiteTheme }) => {
   return (
-    <div className="website-theme">
+    <section className="website-theme">
       <h3>choose how you want to create your website</h3>
       <section>
         <div>
@@ -15,7 +15,7 @@ const WebsiteTheme = ({ handleClickSetWebsiteTheme }) => {
             start with a template and make it your own, with easy drag and drop.
           </p>
           <ButtonRipple
-            onClick={() => handleClickSetWebsiteTheme("theme")}
+            onClick={() => handleClickSetWebsiteTheme(true)}
             text="edit a theme"
           />
         </div>
@@ -24,12 +24,12 @@ const WebsiteTheme = ({ handleClickSetWebsiteTheme }) => {
           <h1>create your website with the editor</h1>
           <p>start your website from zero, with easy drag and drop.</p>
           <ButtonRipple
-            onClick={() => handleClickSetWebsiteTheme("zero")}
+            onClick={() => handleClickSetWebsiteTheme(false)}
             text="start now"
           />
         </div>
       </section>
-    </div>
+    </section>
   );
 };
 
