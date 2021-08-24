@@ -108,6 +108,7 @@
 .admin-dashboard .theme-content img {
   display: block;
   height: 100%;
+  object-fit: cover;
   width: 100%;
 }
 
@@ -122,6 +123,163 @@
   position: absolute;
   text-transform: capitalize;
   right: 0;
+}
+
+.admin-upload-image {
+  --upload-image-header-size: 50px;
+  --upload-image-footer-size: 50px;
+
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 80;
+}
+
+.admin-upload-image-blur {
+  background-color: rgba(0, 0, 0, 0.8);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.admin-upload-image-box {
+  background-color: white;
+  border-radius: 5px;
+  bottom: 6%;
+  left: 15%;
+  margin-top: var(--navbar-height);
+  overflow: auto;
+  position: absolute;
+  right: 15%;
+  top: 6%;
+}
+
+.admin-upload-image header {
+  align-items: center;
+  color: white;
+  background-color: black;
+  display: flex;
+  height: var(--upload-image-header-size);
+  justify-content: space-between;
+  left: 0;
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-transform: capitalize;
+  z-index: 10;
+}
+
+.admin-upload-image header button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5em;
+  outline: none;
+}
+
+.admin-upload-image section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: var(--upload-image-header-size);
+  height: calc(
+    100% - var(--upload-image-header-size) - var(--upload-image-footer-size)
+  );
+  overflow: auto;
+  padding: 1rem 2rem;
+}
+
+.gallery-image-container {
+  height: 160px;
+  position: relative;
+  width: 240px;
+}
+
+.gallery-image-container img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.gallery-image-container label {
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.gallery-image-container label::before {
+  border-radius: 100px;
+  content: "";
+  height: 30px;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 30px;
+}
+
+.gallery-image-container input[type="radio"] {
+  display: none;
+}
+
+.gallery-image-container input[type="radio"]:checked + label {
+  border: 3px solid #3799ee;
+}
+
+.gallery-image-container input[type="radio"]:checked + label::before {
+  background-image: url("https://png.pngtree.com/png-vector/20190228/ourmid/pngtree-check-mark-icon-design-template-vector-isolated-png-image_711433.jpg");
+  background-position: center;
+  background-size: cover;
+  border: 1px solid #3799ee;
+}
+
+.admin-upload-image footer {
+  align-items: center;
+  background-color: #f1f4f6;
+  bottom: 0;
+  display: flex;
+  font-size: 0.8em;
+  height: var(--upload-image-footer-size);
+  justify-content: space-between;
+  left: 0;
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
+  z-index: 10;
+}
+
+.admin-upload-image footer input[type="file"]::-webkit-file-upload-button {
+  background-color: mediumblue;
+  border: none;
+  border-radius: 200px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  gap: 0.5em;
+  letter-spacing: 0.1em;
+  outline: none;
+  overflow: hidden;
+  padding: 0.8em 1em;
+  position: relative;
+  text-transform: capitalize;
+}
+
+.admin-upload-image-footer-button {
+  display: inline-block;
+  font-size: 0.9em;
 }
 
 @media screen and (max-width: 400px) {

@@ -1,4 +1,7 @@
 .upload-image {
+  --upload-image-header-size: 50px;
+  --upload-image-footer-size: 50px;
+
   align-items: center;
   bottom: 0;
   display: flex;
@@ -31,16 +34,12 @@
   top: 6%;
 }
 
-.upload-image-content-wrapper {
-  position: relative;
-}
-
 .upload-image-content-header {
   align-items: center;
   color: white;
   background-color: black;
   display: flex;
-  height: 50px;
+  height: var(--upload-image-header-size);
   justify-content: space-between;
   left: 0;
   padding: 0 1rem;
@@ -64,8 +63,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-top: 50px;
-  height: calc(100% - 50px - 50px);
+  margin-top: var(--upload-image-header-size);
+  height: calc(
+    100% - var(--upload-image-header-size) - var(--upload-image-footer-size)
+  );
   overflow: auto;
   padding: 1rem 2rem;
 }
@@ -125,7 +126,7 @@
   bottom: 0;
   display: flex;
   font-size: 0.8em;
-  height: 50px;
+  height: var(--upload-image-footer-size);
   justify-content: space-between;
   left: 0;
   padding: 0 1rem;

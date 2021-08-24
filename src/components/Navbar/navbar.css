@@ -35,6 +35,8 @@ nav > .nav-items > ul > li {
 }
 
 nav > .nav-items > ul > li.logo img {
+  background-color: white;
+  color: white;
   display: block;
   height: 50px;
   width: 50px;
