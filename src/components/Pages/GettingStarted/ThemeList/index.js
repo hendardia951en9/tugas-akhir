@@ -24,9 +24,9 @@ const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
           ? 1
           : websiteKind === WebsiteTypes.COMPANY_PROFILE
           ? 2
-          : websiteKind === WebsiteTypes.LANDING_PAGES
+          : websiteKind === WebsiteTypes.LANDING_PAGE
           ? 3
-          : 0,
+          : -1,
     });
 
     axios
@@ -68,7 +68,8 @@ const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
       <section className="theme-list">
         {themes
           ? themes.map((props) => {
-              const { theme_id, theme_name } = props;
+              const { theme_id, theme_name, theme_thumbnail_image_name } =
+                props;
               return (
                 <div className="theme-container" key={theme_id}>
                   <div className="theme-options">
@@ -101,7 +102,7 @@ const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
                     }}
                   >
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                      src={`${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${theme_thumbnail_image_name}`}
                       alt=""
                     />
                     <p>{theme_name}</p>

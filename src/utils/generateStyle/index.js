@@ -60,7 +60,11 @@ export const generateStyle = (style) => {
 
           result = { ...result, boxShadow: boxShadow };
         } else {
-          if (element.unit === "auto" || element.unit === "normal") {
+          if (
+            element.unit === "auto" ||
+            element.unit === "fit-content" ||
+            element.unit === "normal"
+          ) {
             result = { ...result, [index]: element.unit };
           } else {
             result = { ...result, [index]: element.value + element.unit };

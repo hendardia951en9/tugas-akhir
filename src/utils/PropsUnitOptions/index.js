@@ -125,5 +125,5 @@ export const PropsUnitOptions = {
     "none",
     "uppercase",
   ],
-  width: ["auto", "%", "em", "px", "rem", "vw"],
+  width: ["auto", "%", "fit-content", "em", "px", "rem", "vw"],
 };

@@ -17,7 +17,7 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
       {props.type === ItemTypes.USER_FOOTER_TYPE_1 ? (
         <div className="user-footer-type-1">
           <div
-            className="flex-container"
+            className="user-footer-container"
             onClick={
               isEdit
                 ? (e) => {

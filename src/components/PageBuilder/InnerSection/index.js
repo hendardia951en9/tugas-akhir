@@ -10,7 +10,17 @@ const InnerSection = ({ componentKey, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
-    <>
+    <div
+      className="inner-section-container"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          pageBuilderContext.handleClickPageBuilderComponent(
+            itemTypes,
+            componentKey
+          );
+        }
+      }}
+    >
       <div
         className="inner-section-component"
         onClick={(e) => {
@@ -38,7 +48,7 @@ const InnerSection = ({ componentKey, itemTypes, props }) => {
             })
           : props.text}
       </div>
-    </>
+    </div>
   );
 };
 

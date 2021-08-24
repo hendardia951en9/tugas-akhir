@@ -95,14 +95,14 @@ const GettingStarted = () => {
         itemTypes: ItemTypes.USER_FOOTER,
         props: ComponentDefaultProps.USER_FOOTER_COMPANY_PROFILE,
       });
-    } else if (params === WebsiteTypes.LANDING_PAGES) {
+    } else if (params === WebsiteTypes.LANDING_PAGE) {
       setWebsiteNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGES,
+        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGE,
       });
       setWebsiteFooterJSON({
         itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGES,
+        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGE,
       });
     }
     setGettingStartedIndex(1);

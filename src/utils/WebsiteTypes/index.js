@@ -1,5 +1,5 @@
 export const WebsiteTypes = {
   BLOG: "Blog",
   COMPANY_PROFILE: "Company Profile",
-  LANDING_PAGES: "Landing Pages",
+  LANDING_PAGE: "Landing Page",
 };

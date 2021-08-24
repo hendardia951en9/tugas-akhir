@@ -3,8 +3,9 @@ a {
   text-decoration: inherit;
 }
 
-.flex-container {
+.user-footer-container {
   display: flex;
+  flex-wrap: wrap;
   overflow: hidden;
 }
 
@@ -28,4 +29,10 @@ a {
 .footer-watermark {
   padding: 0.5rem;
   text-align: center;
+}
+
+@media screen and (max-width: 300px) {
+  .user-footer-container {
+    justify-content: flex-start !important;
+  }
 }

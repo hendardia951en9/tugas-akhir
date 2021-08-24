@@ -25,9 +25,9 @@ const WebsiteKind = ({ handleClickSetWebsiteKind }) => {
         </div>
         <div
           className="option"
-          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.LANDING_PAGES)}
+          onClick={() => handleClickSetWebsiteKind(WebsiteTypes.LANDING_PAGE)}
         >
-          {WebsiteTypes.LANDING_PAGES}
+          {WebsiteTypes.LANDING_PAGE}
         </div>
       </div>
     </section>

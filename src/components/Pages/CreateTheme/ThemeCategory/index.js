@@ -25,11 +25,9 @@ const ThemeCategory = ({ handleClickSetThemeCategory }) => {
         </div>
         <div
           className="option"
-          onClick={() =>
-            handleClickSetThemeCategory(WebsiteTypes.LANDING_PAGES)
-          }
+          onClick={() => handleClickSetThemeCategory(WebsiteTypes.LANDING_PAGE)}
         >
-          {WebsiteTypes.LANDING_PAGES}
+          {WebsiteTypes.LANDING_PAGE}
         </div>
       </div>
     </section>

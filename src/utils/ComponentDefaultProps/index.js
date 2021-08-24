@@ -53,6 +53,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
+      width: { value: "0", unit: "auto" },
     },
     dividerTextContainerStyle: {
       alignItems: "center",
@@ -84,6 +85,7 @@ export const ComponentDefaultProps = {
       textAlign: "left",
       textDecoration: "none",
       textTransform: "capitalize",
+      width: { value: "0", unit: "auto" },
       zIndex: "auto",
     },
     text: "this is heading",
@@ -222,6 +224,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
+      width: { value: "0", unit: "auto" },
       zIndex: "auto",
     },
     text: "this is inner section layout",
@@ -249,6 +252,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
+      width: { value: "0", unit: "auto" },
     },
     text: "this is spacer",
   },
@@ -285,6 +289,7 @@ export const ComponentDefaultProps = {
       paddingLeft: { value: "0", unit: "px" },
       paddingRight: { value: "0", unit: "px" },
       paddingTop: { value: "0", unit: "px" },
+      width: { value: "0", unit: "auto" },
       zIndex: "auto",
     },
     text: "this is text editor",
@@ -618,7 +623,7 @@ export const ComponentDefaultProps = {
     userNavbarLogoMaxWidth: { value: "80", unit: "px" },
     userNavbarLogoIsShow: true,
   },
-  USER_FOOTER_LANDING_PAGES: {
+  USER_FOOTER_LANDING_PAGE: {
     menu: [
       {
         itemTypes: ItemTypes.USER_FOOTER_MENU,
@@ -734,7 +739,7 @@ export const ComponentDefaultProps = {
     },
     userFooterWatermarkText: "watermark",
   },
-  USER_NAVBAR_LANDING_PAGES: {
+  USER_NAVBAR_LANDING_PAGE: {
     menu: [
       {
         itemTypes: ItemTypes.USER_NAVBAR_MENU,

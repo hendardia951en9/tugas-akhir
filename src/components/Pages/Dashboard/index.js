@@ -91,7 +91,8 @@ const Dashboard = () => {
           <section className="user-sites">
             {userSites
               ? userSites.map((props) => {
-                  const { site_id, site_name } = props;
+                  const { site_id, site_name, site_category_id } = props;
+
                   return (
                     <div className="user-site-container" key={site_id}>
                       <div className="user-site-options">
@@ -163,7 +164,15 @@ const Dashboard = () => {
                         }}
                       >
                         <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                          src={
+                            site_category_id === "1"
+                              ? `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/blog_default_thumbnail.jpg`
+                              : site_category_id === "2"
+                              ? `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/company_profile_default_thumbnail.jpg`
+                              : site_category_id === "3"
+                              ? `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/landing_page_default_thumbnail.jpg`
+                              : ""
+                          }
                           alt=""
                         />
                         <p>{site_name}</p>

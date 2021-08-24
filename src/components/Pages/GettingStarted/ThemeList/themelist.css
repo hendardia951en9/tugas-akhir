@@ -1,5 +1,5 @@
 .theme-list-page {
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: 70vh;
 }
 
 .theme-list-page header {

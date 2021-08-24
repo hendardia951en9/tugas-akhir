@@ -86,15 +86,15 @@ const CreateTheme = () => {
         itemTypes: ItemTypes.USER_FOOTER,
         props: ComponentDefaultProps.USER_FOOTER_COMPANY_PROFILE,
       });
-    } else if (params === WebsiteTypes.LANDING_PAGES) {
+    } else if (params === WebsiteTypes.LANDING_PAGE) {
       setThemeCategory(3);
       setThemeNavbarJSON({
         itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGES,
+        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGE,
       });
       setThemeFooterJSON({
         itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGES,
+        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGE,
       });
     }
     setCreateThemeIndex(1);

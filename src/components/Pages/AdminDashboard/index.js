@@ -80,7 +80,8 @@ const AdminDashboard = () => {
         <section className="theme-list">
           {themes
             ? themes.map((props) => {
-                const { theme_id, theme_name } = props;
+                const { theme_id, theme_name, theme_thumbnail_image_name } =
+                  props;
                 return (
                   <div className="theme-container" key={theme_id}>
                     <div className="theme-options">
@@ -139,7 +140,7 @@ const AdminDashboard = () => {
                       }}
                     >
                       <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGyGOY_cAPZH8_JqgUXWXTrSN_ECPjRJBiQ&usqp=CAU"
+                        src={`${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${theme_thumbnail_image_name}`}
                         alt=""
                       />
                       <p>{theme_name}</p>
