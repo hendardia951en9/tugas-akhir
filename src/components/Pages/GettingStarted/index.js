@@ -12,7 +12,7 @@ import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
-import ThemeList from "./ThemeList";
+import ThemeListByCategory from "./ThemeListByCategory";
 import WebstiteKind from "./WebsiteKind";
 import WebsiteName from "./WebsiteName";
 import WebsiteTheme from "./WebsiteTheme";
@@ -202,7 +202,7 @@ const GettingStarted = () => {
           </>
         ) : (
           <>
-            <ThemeList
+            <ThemeListByCategory
               handleClickSetWebsiteThemeID={handleClickSetWebsiteThemeID}
               websiteKind={websiteKind}
             />

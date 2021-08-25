@@ -12,6 +12,7 @@
   height: var(--header-height);
   justify-content: space-between;
   padding: 0 1.2em;
+  text-transform: capitalize;
 }
 
 .theme-list-page .theme-list {

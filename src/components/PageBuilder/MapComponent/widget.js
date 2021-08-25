@@ -12,7 +12,7 @@ const Widget = () => {
 
   return (
     <div className={"widget " + (isDragging && "widget-dragged")} ref={drag}>
-      {ItemTypes.MAP_COMPONENT}
+      <img src="/assets/images/page_builder/mapcomponent_widget.png" alt="" />
     </div>
   );
 };

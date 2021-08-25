@@ -12,7 +12,7 @@ const Widget = () => {
 
   return (
     <div className={"widget " + (isDragging && "widget-dragged")} ref={drag}>
-      {ItemTypes.INNERSECTION}
+      <img src="/assets/images/page_builder/innersection_widget.png" alt="" />
     </div>
   );
 };

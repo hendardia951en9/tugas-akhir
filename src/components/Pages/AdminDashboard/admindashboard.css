@@ -12,6 +12,7 @@
   height: var(--header-height);
   justify-content: space-between;
   padding: 0 1.2em;
+  text-transform: capitalize;
 }
 
 .admin-dashboard .theme-list {
@@ -248,7 +249,7 @@
   border: 1px solid #3799ee;
 }
 
-.admin-upload-image footer {
+.admin-upload-image-footer {
   align-items: center;
   background-color: #f1f4f6;
   bottom: 0;
@@ -263,7 +264,7 @@
   z-index: 10;
 }
 
-.admin-upload-image footer input[type="file"]::-webkit-file-upload-button {
+.admin-upload-image-footer input[type="file"]::-webkit-file-upload-button {
   background-color: mediumblue;
   border: none;
   border-radius: 200px;

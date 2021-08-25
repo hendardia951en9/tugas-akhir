@@ -55,14 +55,14 @@ const Navbar = () => {
           {!encryptStorage.getItem("admin_logged_in") && (
             <li>
               <NavLink exact to="/" activeClassName="navbar-active">
-                Home
+                home
               </NavLink>
             </li>
           )}
           {encryptStorage.getItem("user_logged_in") ? (
             <li>
               <NavLink exact to="/dashboard" activeClassName="navbar-active">
-                Dashboard
+                dashboard
               </NavLink>
             </li>
           ) : (
@@ -73,14 +73,21 @@ const Navbar = () => {
                   to="/admindashboard"
                   activeClassName="navbar-active"
                 >
-                  Dashboard
+                  dashboard
                 </NavLink>
               </li>
             )
           )}
+          {!encryptStorage.getItem("admin_logged_in") && (
+            <li>
+              <NavLink exact to="/themelist" activeClassName="navbar-active">
+                templates
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink exact to="/pricing" activeClassName="navbar-active">
-              Pricing
+              pricing
             </NavLink>
           </li>
         </ul>
@@ -89,7 +96,7 @@ const Navbar = () => {
           <ul className="navbar-user-control">
             <li>
               <span>
-                Hello, {encryptStorage.getItem("user_logged_in").user_name}
+                hello, {encryptStorage.getItem("user_logged_in").user_name}
               </span>
               <ul>
                 <li>
@@ -141,7 +148,7 @@ const Navbar = () => {
           <ul className="navbar-item-right">
             <li>
               <NavLink exact to="/signin" activeClassName="navbar-active">
-                Sign In
+                sign in
               </NavLink>
             </li>
             <li>
@@ -151,7 +158,7 @@ const Navbar = () => {
                 activeClassName="navbar-active"
                 className="navbar-button"
               >
-                Sign Up
+                sign up
               </NavLink>
             </li>
           </ul>

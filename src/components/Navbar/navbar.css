@@ -31,6 +31,7 @@ nav > .nav-items > ul {
 
 nav > .nav-items > ul > li {
   display: inline-block;
+  text-transform: capitalize;
   position: relative;
 }
 
@@ -142,6 +143,5 @@ nav > .nav-items > ul > li > ul > li > a {
   display: block;
   padding: 0.5rem;
   text-decoration: none;
-  text-transform: capitalize;
   width: 100%;
 }

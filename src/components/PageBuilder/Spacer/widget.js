@@ -12,7 +12,7 @@ const Widget = () => {
 
   return (
     <div className={"widget " + (isDragging && "widget-dragged")} ref={drag}>
-      {ItemTypes.SPACER}
+      <img src="/assets/images/page_builder/spacer_widget.png" alt="" />
     </div>
   );
 };

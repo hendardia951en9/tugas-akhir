@@ -9,14 +9,14 @@ import { openInNewTab } from "../../../../utils/openInNewTab";
 import { WebsiteTypes } from "../../../../utils/WebsiteTypes";
 
 //css
-import "./themelist.css";
+import "./themelistbycategory.css";
 
-const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
+const ThemeListByCategory = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
   const appContext = useContext(AppContext);
 
   const [themes, setThemes] = useState([]);
 
-  const fetchThemes = () => {
+  const fetchThemesByCategory = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
@@ -57,14 +57,14 @@ const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
   };
 
   useEffect(() => {
-    fetchThemes();
+    fetchThemesByCategory();
     // eslint-disable-next-line
   }, []);
 
   return (
     <section className="theme-list-page">
       <header>
-        <h2>Theme List</h2>
+        <h2>theme list</h2>
       </header>
       <section className="theme-list">
         {themes
@@ -119,4 +119,4 @@ const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
   );
 };
 
-export default ThemeList;
+export default ThemeListByCategory;

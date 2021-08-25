@@ -12,7 +12,7 @@ const Widget = () => {
 
   return (
     <div className={"widget " + (isDragging && "widget-dragged")} ref={drag}>
-      {ItemTypes.VIDEO}
+      <img src="/assets/images/page_builder/video_widget.png" alt="" />
     </div>
   );
 };

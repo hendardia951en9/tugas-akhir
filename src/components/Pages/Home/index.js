@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AppContext } from "../../../App";
+import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { openInNewTab } from "../../../utils/openInNewTab";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFade, EffectCoverflow, Autoplay } from "swiper";
 import { useHistory } from "react-router-dom";
@@ -15,10 +18,38 @@ import "swiper/swiper-bundle.min.css";
 SwiperCore.use([EffectFade, EffectCoverflow, Autoplay]);
 
 const Home = () => {
+  const appContext = useContext(AppContext);
+
   const encryptStorage = EncryptStorage(
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
   const history = useHistory();
+  const [themes, setThemes] = useState([]);
+
+  const fetchThemes = () => {
+    appContext.setIsLoading(true);
+
+    axios
+      .get(`${process.env.REACT_APP_SITE_API_URL}/getthemes`, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+        setThemes(res.data.result);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
 
   const handleClickGettingStarted = () => {
     if (encryptStorage.getItem("user_logged_in")) {
@@ -30,6 +61,8 @@ const Home = () => {
 
   useEffect(() => {
     document.title = "Home";
+    fetchThemes();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -147,28 +180,41 @@ const Home = () => {
           Choose from 500+ customizable website templates
           <span>that are built to meet your business needs</span>
         </p>
-        <ButtonRipple text="see all templates" />
+        <ButtonRipple
+          onClick={() => {
+            history.push("/themelist");
+          }}
+          text="see all templates"
+        />
         <div
           className="grid-container"
           style={{
-            backgroundImage: "url('/assets/images/home/swiper_fade_1.jpg')",
+            backgroundImage: "url('/assets/images/home/themes_background.jpg')",
           }}
         >
-          <div className="grid-item">
-            <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
-          </div>
-          <div className="grid-item">
-            <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
-          </div>
-          <div className="grid-item">
-            <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
-          </div>
-          <div className="grid-item">
-            <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
-          </div>
-          <div className="grid-item">
-            <img src="/assets/images/home/swiper_fade_1.jpg" alt="" />
-          </div>
+          {themes
+            ? themes.map((props) => {
+                const { theme_id, theme_thumbnail_image_name } = props;
+
+                return (
+                  <div
+                    className="grid-item"
+                    key={theme_id}
+                    onClick={(e) => {
+                      openInNewTab(
+                        `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/home`
+                      );
+                    }}
+                  >
+                    <img
+                      src={`${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${theme_thumbnail_image_name}`}
+                      alt=""
+                    />
+                    {/* <div className="grid-item-text">{theme_name}</div> */}
+                  </div>
+                );
+              })
+            : "no themes"}
         </div>
       </section>
     </div>

@@ -134,7 +134,7 @@ const Dashboard = () => {
       <div className="navbar-margin">
         <div className="dashboard">
           <header>
-            <h2>My Sites</h2>
+            <h2>my sites</h2>
             <ButtonRipple
               fa={<FontAwesomeIcon icon={faPlus} />}
               iconIsLeft={true}

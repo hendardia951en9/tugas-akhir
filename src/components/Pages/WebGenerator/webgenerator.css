@@ -138,10 +138,18 @@
 }
 
 .widget {
-  background-color: cornflowerblue;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   height: 100px;
+  overflow: hidden;
   width: 100px;
+}
+
+.widget img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .widget:hover {
@@ -149,5 +157,6 @@
 }
 
 .widget.widget-dragged {
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 1);
   opacity: 0.5;
 }

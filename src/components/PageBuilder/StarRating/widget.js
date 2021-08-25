@@ -12,7 +12,7 @@ const Widget = () => {
 
   return (
     <div className={"widget " + (isDragging && "widget-dragged")} ref={drag}>
-      {ItemTypes.STAR_RATING}
+      <img src="/assets/images/page_builder/starrating_widget.png" alt="" />
     </div>
   );
 };

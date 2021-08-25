@@ -11,6 +11,7 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
+import { openInNewTab } from "../../../utils/openInNewTab";
 import { useHistory } from "react-router-dom";
 
 //components
@@ -18,7 +19,6 @@ import ButtonRipple from "../../ButtonRipple";
 
 //css
 import "./admindashboard.css";
-import { openInNewTab } from "../../../utils/openInNewTab";
 
 const AdminDashboard = () => {
   const appContext = useContext(AppContext);
@@ -259,7 +259,7 @@ const AdminDashboard = () => {
                   })
                 : "no image"}
             </section>
-            <footer>
+            <div className="admin-upload-image-footer">
               <div className="footer-left">
                 <input
                   id="upload"
@@ -282,7 +282,7 @@ const AdminDashboard = () => {
                   text="confirm"
                 />
               </div>
-            </footer>
+            </div>
           </div>
         </div>
       )}
@@ -290,7 +290,7 @@ const AdminDashboard = () => {
       <div className="navbar-margin">
         <div className="admin-dashboard">
           <header>
-            <h2>Theme List</h2>
+            <h2>theme list</h2>
             <ButtonRipple
               fa={<FontAwesomeIcon icon={faPlus} />}
               iconIsLeft={true}

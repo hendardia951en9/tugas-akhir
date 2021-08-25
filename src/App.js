@@ -48,6 +48,7 @@ import Home from "./components/Pages/Home";
 import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
+import ThemeList from "./components/Pages/ThemeList";
 import ThemePreview from "./components/Pages/ThemePreview";
 import UserWebsite from "./components/Pages/UserWebsite";
 import WebGenerator from "./components/Pages/WebGenerator";
@@ -98,12 +99,6 @@ const App = () => {
             <Route exact path="/logout">
               <Redirect to="/" />
             </Route>
-            <Route exact path="/webgenerator">
-              <Navbar />
-              <DndProvider backend={HTML5Backend}>
-                <WebGenerator />
-              </DndProvider>
-            </Route>
             <Route exact path="/pricing">
               <Navbar />
               <Pricing />
@@ -119,11 +114,22 @@ const App = () => {
               <SignUp />
               <Footer />
             </Route>
+            <Route exact path="/themelist">
+              <Navbar />
+              <ThemeList />
+              <Footer />
+            </Route>
             <Route exact path="/theme/:themeID/:themePage">
               <ThemePreview />
             </Route>
             <Route exact path="/website/:userEmail/:websiteName/:websitePage">
               <UserWebsite />
+            </Route>
+            <Route exact path="/webgenerator">
+              <Navbar />
+              <DndProvider backend={HTML5Backend}>
+                <WebGenerator />
+              </DndProvider>
             </Route>
             <Route path="*">
               <h1>404 - Not Found</h1>

@@ -12,7 +12,7 @@ const Widget = () => {
 
   return (
     <div className={"widget " + (isDragging && "widget-dragged")} ref={drag}>
-      {ItemTypes.HEADING}
+      <img src="/assets/images/page_builder/heading_widget.png" alt="" />
     </div>
   );
 };
