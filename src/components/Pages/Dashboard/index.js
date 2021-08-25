@@ -10,6 +10,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
+import { openInNewTab } from "../../../utils/openInNewTab";
 import { useHistory } from "react-router-dom";
 
 //components
@@ -56,12 +57,65 @@ const Dashboard = () => {
       });
   };
 
+  const handleClickDeleteSite = (site_id) => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      siteID: site_id,
+    });
+
+    axios
+      .post(`${process.env.REACT_APP_SITE_API_URL}/deletesite`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+        fetchUserSites();
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
   const handleClickGettingStarted = () => {
-    if (encryptStorage.getItem("user_logged_in")) {
-      history.push("/gettingstarted");
-    } else {
-      history.push("/signin");
-    }
+    history.push("/gettingstarted");
+  };
+
+  const handleClickPublishSite = (site_id) => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      siteID: site_id,
+    });
+
+    axios
+      .post(`${process.env.REACT_APP_SITE_API_URL}/publishsite`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
   };
 
   const handleClickSite = (site_id) => {
@@ -117,7 +171,12 @@ const Dashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                console.log("1");
+                                openInNewTab(
+                                  `${process.env.REACT_APP_BASE_URL}/website/${
+                                    encryptStorage.getItem("user_logged_in")
+                                      .user_email
+                                  }/${site_name}/home`
+                                );
                               }
                             }}
                           >
@@ -130,7 +189,7 @@ const Dashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                console.log("1");
+                                handleClickPublishSite(site_id);
                               }
                             }}
                           >
@@ -143,7 +202,7 @@ const Dashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                console.log("1");
+                                handleClickDeleteSite(site_id);
                               }
                             }}
                           >

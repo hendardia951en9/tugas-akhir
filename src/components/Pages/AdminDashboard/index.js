@@ -18,6 +18,7 @@ import ButtonRipple from "../../ButtonRipple";
 
 //css
 import "./admindashboard.css";
+import { openInNewTab } from "../../../utils/openInNewTab";
 
 const AdminDashboard = () => {
   const appContext = useContext(AppContext);
@@ -95,6 +96,35 @@ const AdminDashboard = () => {
 
   const handleClickCreateTheme = () => {
     history.push("/createtheme");
+  };
+
+  const handleClickDeleteTheme = (theme_id) => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      themeID: theme_id,
+    });
+
+    axios
+      .post(`${process.env.REACT_APP_SITE_API_URL}/deletetheme`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+        fetchThemes();
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
   };
 
   const handleClickGalleryImage = (name) => {
@@ -297,7 +327,9 @@ const AdminDashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                console.log("1");
+                                openInNewTab(
+                                  `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/home`
+                                );
                               }
                             }}
                           >
@@ -323,7 +355,7 @@ const AdminDashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                console.log("1");
+                                handleClickDeleteTheme(theme_id);
                               }
                             }}
                           >

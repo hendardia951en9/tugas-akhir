@@ -5,10 +5,11 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../../utils/generateFormData";
+import { openInNewTab } from "../../../../utils/openInNewTab";
+import { WebsiteTypes } from "../../../../utils/WebsiteTypes";
 
 //css
 import "./themelist.css";
-import { WebsiteTypes } from "../../../../utils/WebsiteTypes";
 
 const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
   const appContext = useContext(AppContext);
@@ -81,7 +82,9 @@ const ThemeList = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
                       <li
                         onClick={(e) => {
                           if (e.target === e.currentTarget) {
-                            console.log("1");
+                            openInNewTab(
+                              `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/home`
+                            );
                           }
                         }}
                       >

@@ -3,7 +3,6 @@ import { AppContext } from "../../../App";
 import axios from "axios";
 import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
-import { useHistory } from "react-router";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
@@ -24,43 +23,35 @@ import UserNavbar from "../../PageBuilder/UserNavbar";
 import Video from "../../PageBuilder/Video";
 
 //css
-import "./userwebsite.css";
+import "./themepreview.css";
 
-const UserWebsite = () => {
+const ThemePreview = () => {
   const appContext = useContext(AppContext);
-  const history = useHistory();
   const location = useLocation();
-  const [siteFooterComponents, setSiteFooterComponents] = useState();
-  const [siteNavbarComponents, setSiteNavbarComponents] = useState();
-  const [sitePageComponents, setSitePageComponents] = useState();
-  const { userEmail } = useParams();
-  const { websiteName } = useParams();
-  const { websitePage } = useParams();
+  const [themeFooterComponents, setThemeFooterComponents] = useState();
+  const [themeNavbarComponents, setThemeNavbarComponents] = useState();
+  const [themePageComponents, setThemePageComponents] = useState();
+  const { themeID } = useParams();
+  const { themePage } = useParams();
 
-  const fetchUserWebsite = async () => {
+  const fetchThemePreview = async () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      userEmail: userEmail,
-      websiteName: websiteName,
-      websitePage: websitePage,
+      themeID: themeID,
+      themePage: themePage,
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/getuserwebsite`, formData, {
+      .post(`${process.env.REACT_APP_SITE_API_URL}/getthemepreview`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-
-        if (res.data.status === 200) {
-          setSiteFooterComponents(JSON.parse(res.data.result.site_footer_json));
-          setSiteNavbarComponents(JSON.parse(res.data.result.site_navbar_json));
-          setSitePageComponents(JSON.parse(res.data.result.site_page_json));
-        } else {
-          history.push("/error");
-        }
+        setThemeFooterComponents(JSON.parse(res.data.result.theme_footer_json));
+        setThemeNavbarComponents(JSON.parse(res.data.result.theme_navbar_json));
+        setThemePageComponents(JSON.parse(res.data.result.theme_page_json));
       })
       .catch((err) => {
         //error
@@ -192,28 +183,28 @@ const UserWebsite = () => {
   };
 
   useEffect(() => {
-    fetchUserWebsite();
+    fetchThemePreview();
     // eslint-disable-next-line
   }, [location]);
 
   return (
     <>
-      {siteNavbarComponents && (
-        <UserNavbar isEdit={false} props={siteNavbarComponents.props} />
+      {themeNavbarComponents && (
+        <UserNavbar isEdit={false} props={themeNavbarComponents.props} />
       )}
 
-      <div className="site-page-container">
-        {sitePageComponents &&
-          sitePageComponents.map((component) => {
+      <div className="theme-page-container">
+        {themePageComponents &&
+          themePageComponents.map((component) => {
             return renderComponent(component);
           })}
       </div>
 
-      {siteFooterComponents && (
-        <UserFooter isEdit={false} props={siteFooterComponents.props} />
+      {themeFooterComponents && (
+        <UserFooter isEdit={false} props={themeFooterComponents.props} />
       )}
     </>
   );
 };
 
-export default UserWebsite;
+export default ThemePreview;

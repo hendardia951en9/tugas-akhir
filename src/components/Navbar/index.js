@@ -44,7 +44,13 @@ const Navbar = () => {
       <div className="nav-items">
         <ul className="navbar-item-left">
           <li className="logo">
-            <img src="/assets/images/logo.svg" alt="logo" />
+            {encryptStorage.getItem("admin_logged_in") ? (
+              <img src="/assets/images/logo.svg" alt="logo" />
+            ) : (
+              <NavLink exact to="/">
+                <img src="/assets/images/logo.svg" alt="logo" />
+              </NavLink>
+            )}
           </li>
           {!encryptStorage.getItem("admin_logged_in") && (
             <li>
