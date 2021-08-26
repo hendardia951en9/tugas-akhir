@@ -8,12 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { useHistory } from "react-router-dom";
-import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
 import ThemeListByCategory from "./ThemeListByCategory";
-import WebstiteKind from "./WebsiteKind";
+import WebstiteCategory from "./WebsiteCategory";
 import WebsiteName from "./WebsiteName";
 import WebsiteTheme from "./WebsiteTheme";
 
@@ -51,11 +50,9 @@ const GettingStarted = () => {
     messageModalContent: "hello world",
     messageModalStatusCode: 200,
   });
-  const [websiteKind, setWebsiteKind] = useState(null);
-  const [websiteTheme, setWebsiteTheme] = useState(null);
+  const [websiteCategoryID, setWebsiteCategoryID] = useState(-1);
+  const [websiteTheme, setWebsiteTheme] = useState(-1);
   const [websiteThemeID, setWebsiteThemeID] = useState(-1);
-  // eslint-disable-next-line
-  const [websiteName, setWebsiteName] = useState(null);
   const [websiteNavbarJSON, setWebsiteNavbarJSON] = useState(null);
   const [websiteFooterJSON, setWebsiteFooterJSON] = useState(null);
 
@@ -75,36 +72,16 @@ const GettingStarted = () => {
     }
   };
 
-  const handleClickSetWebsiteKind = (params) => {
-    setWebsiteKind(params);
-    if (params === WebsiteTypes.BLOG) {
-      setWebsiteNavbarJSON({
-        itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_BLOG,
-      });
-      setWebsiteFooterJSON({
-        itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_BLOG,
-      });
-    } else if (params === WebsiteTypes.COMPANY_PROFILE) {
-      setWebsiteNavbarJSON({
-        itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_COMPANY_PROFILE,
-      });
-      setWebsiteFooterJSON({
-        itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_COMPANY_PROFILE,
-      });
-    } else if (params === WebsiteTypes.LANDING_PAGE) {
-      setWebsiteNavbarJSON({
-        itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGE,
-      });
-      setWebsiteFooterJSON({
-        itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGE,
-      });
-    }
+  const handleClickSetWebsiteCategoryID = (params) => {
+    setWebsiteCategoryID(params);
+    setWebsiteNavbarJSON({
+      itemTypes: ItemTypes.USER_NAVBAR,
+      props: ComponentDefaultProps.USER_NAVBAR,
+    });
+    setWebsiteFooterJSON({
+      itemTypes: ItemTypes.USER_FOOTER,
+      props: ComponentDefaultProps.USER_FOOTER,
+    });
     setGettingStartedIndex(1);
   };
 
@@ -123,12 +100,11 @@ const GettingStarted = () => {
   };
 
   const handleClickSetWebsiteName = async (params) => {
-    setWebsiteName(params);
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
       userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
-      websiteKind: websiteKind,
+      websiteCategoryID: websiteCategoryID,
       websiteThemeID: websiteThemeID,
       websiteName: params,
       websiteNavbarJSON: JSON.stringify(websiteNavbarJSON),
@@ -141,6 +117,7 @@ const GettingStarted = () => {
       })
       .then((res) => {
         //success
+        console.log(res.data);
         appContext.setIsLoading(false);
         if (res.data.status === 200) {
           encryptStorage.setItem("site_id", res.data.result.site_id);
@@ -171,7 +148,9 @@ const GettingStarted = () => {
     <div className="navbar-margin">
       <div className="getting-started">
         {gettingStartedIndex === 0 ? (
-          <WebstiteKind handleClickSetWebsiteKind={handleClickSetWebsiteKind} />
+          <WebstiteCategory
+            handleClickSetWebsiteCategoryID={handleClickSetWebsiteCategoryID}
+          />
         ) : gettingStartedIndex === 1 ? (
           <>
             <WebsiteTheme
@@ -204,7 +183,7 @@ const GettingStarted = () => {
           <>
             <ThemeListByCategory
               handleClickSetWebsiteThemeID={handleClickSetWebsiteThemeID}
-              websiteKind={websiteKind}
+              websiteCategoryID={websiteCategoryID}
             />
             <ButtonRipple
               className="button-back"

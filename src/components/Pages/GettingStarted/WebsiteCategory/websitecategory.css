@@ -1,4 +1,4 @@
-.theme-category {
+.website-category {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -7,12 +7,12 @@
   padding: 0 0.5em;
 }
 
-.theme-category h1 {
+.website-category h1 {
   text-align: center;
   text-transform: capitalize;
 }
 
-.theme-category .theme-category-list {
+.website-category .website-category-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
@@ -21,7 +21,7 @@
   width: 100%;
 }
 
-.theme-category .category {
+.website-category .category {
   border: 2px solid black;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
@@ -36,7 +36,7 @@
   transition: all 150ms ease-in-out;
 }
 
-.theme-category .category:hover {
+.website-category .category:hover {
   box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
   transform: translateY(-3px);
 }

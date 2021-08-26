@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import ButtonRipple from "../../../ButtonRipple";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 
 //components
+import ButtonRipple from "../../../ButtonRipple";
 import MessageModal from "../../../MessageModal";
 
 //css

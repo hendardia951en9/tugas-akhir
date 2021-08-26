@@ -6,12 +6,14 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../../utils/generateFormData";
 import { openInNewTab } from "../../../../utils/openInNewTab";
-import { WebsiteTypes } from "../../../../utils/WebsiteTypes";
 
 //css
 import "./themelistbycategory.css";
 
-const ThemeListByCategory = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
+const ThemeListByCategory = ({
+  handleClickSetWebsiteThemeID,
+  websiteCategoryID,
+}) => {
   const appContext = useContext(AppContext);
 
   const [themes, setThemes] = useState([]);
@@ -20,14 +22,7 @@ const ThemeListByCategory = ({ handleClickSetWebsiteThemeID, websiteKind }) => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      categoryID:
-        websiteKind === WebsiteTypes.BLOG
-          ? 1
-          : websiteKind === WebsiteTypes.COMPANY_PROFILE
-          ? 2
-          : websiteKind === WebsiteTypes.LANDING_PAGE
-          ? 3
-          : -1,
+      categoryID: websiteCategoryID,
     });
 
     axios

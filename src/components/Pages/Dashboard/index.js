@@ -145,7 +145,12 @@ const Dashboard = () => {
           <section className="user-sites">
             {userSites
               ? userSites.map((props) => {
-                  const { site_id, site_name, site_category_id } = props;
+                  const {
+                    site_id,
+                    site_name,
+                    site_category_id,
+                    site_first_page_name,
+                  } = props;
 
                   return (
                     <div className="user-site-container" key={site_id}>
@@ -175,7 +180,7 @@ const Dashboard = () => {
                                   `${process.env.REACT_APP_BASE_URL}/website/${
                                     encryptStorage.getItem("user_logged_in")
                                       .user_email
-                                  }/${site_name}/home`
+                                  }/${site_name}/${site_first_page_name}`
                                 );
                               }
                             }}

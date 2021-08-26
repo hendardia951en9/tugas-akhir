@@ -41,6 +41,7 @@ import Footer from "./components/Footer";
 
 //pages
 import AdminDashboard from "./components/Pages/AdminDashboard";
+import CreateCategory from "./components/Pages/CreateCategory";
 import CreateTheme from "./components/Pages/CreateTheme";
 import Dashboard from "./components/Pages/Dashboard";
 import GettingStarted from "./components/Pages/GettingStarted";
@@ -76,6 +77,11 @@ const App = () => {
             <Route exact path="/admindashboard">
               <Navbar />
               <AdminDashboard />
+              <Footer />
+            </Route>
+            <Route exact path="/createcategory">
+              <Navbar />
+              <CreateCategory />
               <Footer />
             </Route>
             <Route exact path="/createtheme">
@@ -115,6 +121,11 @@ const App = () => {
               <Footer />
             </Route>
             <Route exact path="/themelist">
+              <Navbar />
+              <ThemeList />
+              <Footer />
+            </Route>
+            <Route exact path="/themelist/:categoryID">
               <Navbar />
               <ThemeList />
               <Footer />

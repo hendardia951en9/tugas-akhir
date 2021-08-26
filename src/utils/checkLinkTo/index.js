@@ -1,7 +1,7 @@
 export const checkLinkTo = (linkTo) => {
-  if (linkTo === "home" || linkTo === "about" || linkTo === "contact") {
-    return true;
-  } else {
+  if (linkTo.includes("http")) {
     return false;
+  } else {
+    return true;
   }
 };

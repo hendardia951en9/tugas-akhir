@@ -1,0 +1,45 @@
+.create-category {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 1em;
+}
+
+.create-category h2 {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.create-category form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3em;
+  justify-content: space-evenly;
+  padding: 2em 0;
+}
+
+.create-category form section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+.create-category section.category-pages {
+  max-height: calc(100vh - var(--navbar-height) - 100px);
+  overflow: auto;
+}
+
+.create-category .category-page {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin: 0.5rem;
+}
+
+.create-category form section .button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
+  margin-top: 1rem;
+}

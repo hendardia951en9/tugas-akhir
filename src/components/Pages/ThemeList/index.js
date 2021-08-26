@@ -1,24 +1,34 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { generateFormData } from "../../../utils/generateFormData";
 import { openInNewTab } from "../../../utils/openInNewTab";
+import { useParams } from "react-router";
 
 const ThemeList = () => {
   const appContext = useContext(AppContext);
 
+  const { categoryID } = useParams();
+  const categoryDropDown = useRef(null);
+  const [categories, setCategories] = useState([]);
   const [themes, setThemes] = useState([]);
 
-  const fetchThemes = () => {
+  const fetchCategories = async () => {
     appContext.setIsLoading(true);
 
     axios
-      .get(`${process.env.REACT_APP_SITE_API_URL}/getthemes`, {
+      .get(`${process.env.REACT_APP_SITE_API_URL}/getcategories`, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        setThemes(res.data.result);
+        setCategories(res.data.result);
+        if (categoryID) {
+          fetchThemesByCategory(categoryID);
+        } else {
+          fetchThemesByCategory();
+        }
       })
       .catch((err) => {
         //error
@@ -33,8 +43,69 @@ const ThemeList = () => {
       });
   };
 
+  const fetchThemesByCategory = async (params) => {
+    appContext.setIsLoading(true);
+
+    if (params && params !== "*") {
+      const formData = generateFormData({
+        categoryID: params,
+      });
+
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getthemesbycategory`,
+          formData,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          categoryDropDown.current.value = params;
+          setThemes(res.data.result);
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      axios
+        .get(`${process.env.REACT_APP_SITE_API_URL}/getthemes`, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          setThemes(res.data.result);
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
+  };
+
+  const handleOnChangeCategory = (params) => {
+    fetchThemesByCategory(params);
+  };
+
   useEffect(() => {
-    fetchThemes();
+    fetchCategories();
     // eslint-disable-next-line
   }, []);
 
@@ -44,11 +115,39 @@ const ThemeList = () => {
         <header>
           <h2>theme list</h2>
         </header>
+        <div className="theme-list-category">
+          <span>choose category</span>
+          <select
+            id="category"
+            name="category"
+            onChange={(e) => handleOnChangeCategory(e.target.value)}
+            ref={categoryDropDown}
+          >
+            <option key="*" value="*">
+              all
+            </option>
+            {categories
+              ? categories.map((props) => {
+                  const { category_id, category_name } = props;
+
+                  return (
+                    <option key={category_id} value={category_id}>
+                      {category_name}
+                    </option>
+                  );
+                })
+              : ""}
+          </select>
+        </div>
         <section className="theme-list">
           {themes
             ? themes.map((props) => {
-                const { theme_id, theme_name, theme_thumbnail_image_name } =
-                  props;
+                const {
+                  theme_id,
+                  theme_name,
+                  theme_thumbnail_image_name,
+                  theme_first_page_name,
+                } = props;
                 return (
                   <div className="theme-container" key={theme_id}>
                     <div
@@ -56,7 +155,7 @@ const ThemeList = () => {
                       onClick={(e) => {
                         if (e.target === e.currentTarget) {
                           openInNewTab(
-                            `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/home`
+                            `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/${theme_first_page_name}`
                           );
                         }
                       }}

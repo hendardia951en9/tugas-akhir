@@ -53,7 +53,7 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="image-component"
+      className="image-component-container"
       onClick={
         isEdit
           ? (e) => {
@@ -66,31 +66,47 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
             }
           : undefined
       }
-      style={generateStyle(editStyle(props.style, props.imageAlignment))}
     >
-      {isEdit ? (
-        <img
-          src={getBackgroundImageUrl(props.style.backgroundImage)}
-          style={{ visibility: "hidden" }}
-          alt=""
-        />
-      ) : checkLinkTo(props.linkTo) === true ? (
-        <NavLink exact to={props.linkTo}>
+      <div
+        className="image-component"
+        onClick={
+          isEdit
+            ? (e) => {
+                if (e.target === e.currentTarget) {
+                  pageBuilderContext.handleClickPageBuilderComponent(
+                    itemTypes,
+                    componentKey
+                  );
+                }
+              }
+            : undefined
+        }
+        style={generateStyle(editStyle(props.style, props.imageAlignment))}
+      >
+        {isEdit ? (
           <img
             src={getBackgroundImageUrl(props.style.backgroundImage)}
             style={{ visibility: "hidden" }}
             alt=""
           />
-        </NavLink>
-      ) : (
-        <a href={props.linkTo}>
-          <img
-            src={getBackgroundImageUrl(props.style.backgroundImage)}
-            style={{ visibility: "hidden" }}
-            alt=""
-          />
-        </a>
-      )}
+        ) : checkLinkTo(props.linkTo) === true ? (
+          <NavLink exact to={props.linkTo}>
+            <img
+              src={getBackgroundImageUrl(props.style.backgroundImage)}
+              style={{ visibility: "hidden" }}
+              alt=""
+            />
+          </NavLink>
+        ) : (
+          <a href={props.linkTo}>
+            <img
+              src={getBackgroundImageUrl(props.style.backgroundImage)}
+              style={{ visibility: "hidden" }}
+              alt=""
+            />
+          </a>
+        )}
+      </div>
     </div>
   );
 };

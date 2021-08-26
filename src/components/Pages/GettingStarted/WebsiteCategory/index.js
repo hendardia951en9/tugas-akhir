@@ -3,9 +3,9 @@ import { AppContext } from "../../../../App";
 import axios from "axios";
 
 //css
-import "./themecategory.css";
+import "./websitecategory.css";
 
-const ThemeCategory = ({ handleClickSetThemeCategoryID }) => {
+const WebsiteCategory = ({ handleClickSetWebsiteCategoryID }) => {
   const appContext = useContext(AppContext);
 
   const [categories, setCategories] = useState([]);
@@ -41,9 +41,9 @@ const ThemeCategory = ({ handleClickSetThemeCategoryID }) => {
   }, []);
 
   return (
-    <section className="theme-category">
-      <h1>what category of website should this be?</h1>
-      <div className="theme-category-list">
+    <section className="website-category">
+      <h1>what kind of website should this be?</h1>
+      <div className="website-category-list">
         {categories
           ? categories.map((props) => {
               const { category_id, category_name } = props;
@@ -53,7 +53,7 @@ const ThemeCategory = ({ handleClickSetThemeCategoryID }) => {
                   className="category"
                   key={category_id}
                   onClick={() => {
-                    handleClickSetThemeCategoryID(category_id);
+                    handleClickSetWebsiteCategoryID(category_id);
                   }}
                 >
                   <div className="category-text">{category_name}</div>
@@ -66,4 +66,4 @@ const ThemeCategory = ({ handleClickSetThemeCategoryID }) => {
   );
 };
 
-export default ThemeCategory;
+export default WebsiteCategory;

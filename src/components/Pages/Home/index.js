@@ -4,7 +4,6 @@ import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { openInNewTab } from "../../../utils/openInNewTab";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFade, EffectCoverflow, Autoplay } from "swiper";
 import { useHistory } from "react-router-dom";
@@ -24,19 +23,19 @@ const Home = () => {
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
   const history = useHistory();
-  const [themes, setThemes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  const fetchThemes = () => {
+  const fetchCategories = () => {
     appContext.setIsLoading(true);
 
     axios
-      .get(`${process.env.REACT_APP_SITE_API_URL}/getthemes`, {
+      .get(`${process.env.REACT_APP_SITE_API_URL}/getcategories`, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        setThemes(res.data.result);
+        setCategories(res.data.result);
       })
       .catch((err) => {
         //error
@@ -51,6 +50,10 @@ const Home = () => {
       });
   };
 
+  const handleClickCategory = (category_id) => {
+    history.push("/themelist/" + category_id);
+  };
+
   const handleClickGettingStarted = () => {
     if (encryptStorage.getItem("user_logged_in")) {
       history.push("/gettingstarted");
@@ -61,7 +64,7 @@ const Home = () => {
 
   useEffect(() => {
     document.title = "Home";
-    fetchThemes();
+    fetchCategories();
     // eslint-disable-next-line
   }, []);
 
@@ -189,32 +192,26 @@ const Home = () => {
         <div
           className="grid-container"
           style={{
-            backgroundImage: "url('/assets/images/home/themes_background.jpg')",
+            backgroundImage: "url('/assets/images/home/grid_background.jpg')",
           }}
         >
-          {themes
-            ? themes.map((props) => {
-                const { theme_id, theme_thumbnail_image_name } = props;
+          {categories
+            ? categories.map((props) => {
+                const { category_id, category_name } = props;
 
                 return (
                   <div
                     className="grid-item"
-                    key={theme_id}
-                    onClick={(e) => {
-                      openInNewTab(
-                        `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/home`
-                      );
+                    key={category_id}
+                    onClick={() => {
+                      handleClickCategory(category_id);
                     }}
                   >
-                    <img
-                      src={`${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${theme_thumbnail_image_name}`}
-                      alt=""
-                    />
-                    {/* <div className="grid-item-text">{theme_name}</div> */}
+                    <div className="grid-item-text">{category_name}</div>
                   </div>
                 );
               })
-            : "no themes"}
+            : "no category"}
         </div>
       </section>
     </div>

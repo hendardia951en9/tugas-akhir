@@ -1,4 +1,4 @@
-import React, { useContext, useState, useReducer } from "react";
+import React, { useContext, useEffect, useState, useReducer } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { useHistory } from "react-router-dom";
-import { WebsiteTypes } from "../../../utils/WebsiteTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
@@ -49,11 +48,7 @@ const CreateTheme = () => {
     messageModalContent: "hello world",
     messageModalStatusCode: 200,
   });
-  const [themeCategory, setThemeCategory] = useState(null);
-  // eslint-disable-next-line
-  const [themeName, setThemeName] = useState(null);
-  const [themeNavbarJSON, setThemeNavbarJSON] = useState(null);
-  const [themeFooterJSON, setThemeFooterJSON] = useState(null);
+  const [themeCategoryID, setThemeCategoryID] = useState(null);
 
   const closeModal = () => {
     modalDispatch({ type: "CLOSE_MODAL" });
@@ -65,68 +60,98 @@ const CreateTheme = () => {
     });
   };
 
-  const handleClickSetThemeCategory = (params) => {
-    if (params === WebsiteTypes.BLOG) {
-      setThemeCategory(1);
-      setThemeNavbarJSON({
-        itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_BLOG,
-      });
-      setThemeFooterJSON({
-        itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_BLOG,
-      });
-    } else if (params === WebsiteTypes.COMPANY_PROFILE) {
-      setThemeCategory(2);
-      setThemeNavbarJSON({
-        itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_COMPANY_PROFILE,
-      });
-      setThemeFooterJSON({
-        itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_COMPANY_PROFILE,
-      });
-    } else if (params === WebsiteTypes.LANDING_PAGE) {
-      setThemeCategory(3);
-      setThemeNavbarJSON({
-        itemTypes: ItemTypes.USER_NAVBAR,
-        props: ComponentDefaultProps.USER_NAVBAR_LANDING_PAGE,
-      });
-      setThemeFooterJSON({
-        itemTypes: ItemTypes.USER_FOOTER,
-        props: ComponentDefaultProps.USER_FOOTER_LANDING_PAGE,
-      });
-    }
+  const handleClickSetThemeCategoryID = (params) => {
+    setThemeCategoryID(params);
     setCreateThemeIndex(1);
   };
 
   const handleClickSetThemeName = async (params) => {
-    setThemeName(params);
     appContext.setIsLoading(true);
 
-    const formData = generateFormData({
-      themeCategoryID: themeCategory,
-      themeName: params,
-      themeNavbarJSON: JSON.stringify(themeNavbarJSON),
-      themeFooterJSON: JSON.stringify(themeFooterJSON),
+    let formData = generateFormData({
+      categoryID: themeCategoryID,
     });
 
     axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/createtheme`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/getcategorypages`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
       .then((res) => {
         //success
         appContext.setIsLoading(false);
+
         if (res.data.status === 200) {
-          encryptStorage.setItem("theme_id", res.data.result.theme_id);
-          history.push("/webgenerator");
-        } else {
-          modalDispatch({
-            type: "SHOW_MODAL",
-            payload: res.data.message,
-            statusCode: res.data.status,
+          const themeNavbarJSON = {
+            itemTypes: ItemTypes.USER_NAVBAR,
+            props: { ...ComponentDefaultProps.USER_NAVBAR },
+          };
+          const themeFooterJSON = {
+            itemTypes: ItemTypes.USER_NAVBAR,
+            props: ComponentDefaultProps.USER_FOOTER,
+          };
+
+          res.data.result.forEach((props) => {
+            const { category_page_name } = props;
+
+            themeNavbarJSON.props.menu = [
+              ...themeNavbarJSON.props.menu,
+              {
+                itemTypes: ItemTypes.USER_NAVBAR_MENU,
+                props: {
+                  linkTo: category_page_name,
+                  text: category_page_name,
+                },
+                submenu: [],
+              },
+            ];
           });
+
+          formData = generateFormData({
+            themeCategoryID: themeCategoryID,
+            themeName: params,
+            themeNavbarJSON: JSON.stringify(themeNavbarJSON),
+            themeFooterJSON: JSON.stringify(themeFooterJSON),
+          });
+
+          axios
+            .post(
+              `${process.env.REACT_APP_SITE_API_URL}/createtheme`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+            )
+            .then((res) => {
+              //success
+              appContext.setIsLoading(false);
+              if (res.data.status === 200) {
+                encryptStorage.setItem("theme_id", res.data.result.theme_id);
+                history.push("/webgenerator");
+              } else {
+                modalDispatch({
+                  type: "SHOW_MODAL",
+                  payload: res.data.message,
+                  statusCode: res.data.status,
+                });
+              }
+            })
+            .catch((err) => {
+              //error
+              if (err.response) {
+                console.log("res error", err.response.data);
+              } else if (err.request) {
+                console.log("req error", err.request.data);
+              } else {
+                console.log("Error", err.message);
+              }
+              appContext.setIsLoading(false);
+            });
         }
       })
       .catch((err) => {
@@ -142,12 +167,16 @@ const CreateTheme = () => {
       });
   };
 
+  useEffect(() => {
+    document.title = "Create Theme";
+  }, []);
+
   return (
     <div className="navbar-margin">
       <div className="create-theme">
         {createThemeIndex === 0 ? (
           <ThemeCategory
-            handleClickSetThemeCategory={handleClickSetThemeCategory}
+            handleClickSetThemeCategoryID={handleClickSetThemeCategoryID}
           />
         ) : createThemeIndex === 1 ? (
           <>
