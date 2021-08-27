@@ -48,3 +48,8 @@ a {
 .user-navbar > ul > li > ul > li {
   width: 100%;
 }
+
+.user-navbar > ul > li > ul > li > a {
+  display: block;
+  width: 100%;
+}

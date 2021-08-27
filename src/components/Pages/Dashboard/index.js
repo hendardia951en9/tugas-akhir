@@ -144,13 +144,8 @@ const Dashboard = () => {
           </header>
           <section className="user-sites">
             {userSites
-              ? userSites.map((props) => {
-                  const {
-                    site_id,
-                    site_name,
-                    site_category_id,
-                    site_first_page_name,
-                  } = props;
+              ? userSites.map((props, index) => {
+                  const { site_id, site_name, site_first_page_name } = props;
 
                   return (
                     <div className="user-site-container" key={site_id}>
@@ -228,15 +223,11 @@ const Dashboard = () => {
                         }}
                       >
                         <img
-                          src={
-                            site_category_id === "1"
-                              ? `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/blog_default_thumbnail.jpg`
-                              : site_category_id === "2"
-                              ? `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/company_profile_default_thumbnail.jpg`
-                              : site_category_id === "3"
-                              ? `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/landing_page_default_thumbnail.jpg`
-                              : ""
-                          }
+                          src={`${
+                            process.env.REACT_APP_BASE_API_URL
+                          }/public/admin/images/user_website_thumbnail_${
+                            index % 4
+                          }.jpg`}
                           alt=""
                         />
                         <p>{site_name}</p>

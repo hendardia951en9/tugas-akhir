@@ -5,6 +5,9 @@ import { generateFormData } from "../../../utils/generateFormData";
 import { openInNewTab } from "../../../utils/openInNewTab";
 import { useParams } from "react-router";
 
+//css
+//user themelistbycategory.css
+
 const ThemeList = () => {
   const appContext = useContext(AppContext);
 
@@ -105,6 +108,7 @@ const ThemeList = () => {
   };
 
   useEffect(() => {
+    document.title = "Templates";
     fetchCategories();
     // eslint-disable-next-line
   }, []);

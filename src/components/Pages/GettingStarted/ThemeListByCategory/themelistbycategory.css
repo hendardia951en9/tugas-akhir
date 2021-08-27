@@ -22,6 +22,27 @@
   gap: 2rem;
 }
 
+.theme-list-page .theme-list-category {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.2em;
+  font-weight: bold;
+  gap: 1em;
+  padding: 1em 1.5em;
+  text-transform: capitalize;
+}
+
+.theme-list-page .theme-list-category select {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  outline: none;
+  padding: 0.7rem 0;
+  text-transform: capitalize;
+}
+
 .theme-list-page .theme-container {
   cursor: pointer;
   position: relative;

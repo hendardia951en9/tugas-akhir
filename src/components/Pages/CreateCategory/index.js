@@ -69,6 +69,7 @@ const CreateCategory = () => {
       categoryPages: JSON.stringify(categoryPages),
     });
 
+    //check category name first
     axios
       .post(
         `${process.env.REACT_APP_SITE_API_URL}/checkcategoryname`,
@@ -242,29 +243,31 @@ const CreateCategory = () => {
             </div>
           </section>
           <section className="category-pages">
-            {categoryPages &&
-              categoryPages.map((props, index) => {
-                return (
-                  <div className="category-page" key={index}>
-                    <div className="form-input">
-                      <input
-                        id="categoryPageNameFrom"
-                        type="text"
-                        onChange={(e) => handleOnChangePageName(e, index)}
-                        value={props.pageName}
-                      />
-                      <label htmlFor="categoryPageNameFrom">
-                        <span>enter page {index + 1} name:</span>
-                      </label>
-                      <ButtonRipple
-                        fa={<FontAwesomeIcon icon={faTrash} />}
-                        onClick={() => handleClickDeleteCategoryPage(index)}
-                        type="button"
-                      />
+            <h2>pages list</h2>
+            {categoryPages.length > 0
+              ? categoryPages.map((props, index) => {
+                  return (
+                    <div className="category-page" key={index}>
+                      <div className="form-input">
+                        <input
+                          id="categoryPageNameFrom"
+                          type="text"
+                          onChange={(e) => handleOnChangePageName(e, index)}
+                          value={props.pageName}
+                        />
+                        <label htmlFor="categoryPageNameFrom">
+                          <span>enter page {index + 1} name:</span>
+                        </label>
+                        <ButtonRipple
+                          fa={<FontAwesomeIcon icon={faTrash} />}
+                          onClick={() => handleClickDeleteCategoryPage(index)}
+                          type="button"
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              : "no pages"}
           </section>
         </form>
       </div>

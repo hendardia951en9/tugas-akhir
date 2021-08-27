@@ -11,8 +11,8 @@
 .create-category form {
   display: flex;
   flex-wrap: wrap;
-  gap: 3em;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 5em;
   padding: 2em 0;
 }
 
@@ -42,4 +42,10 @@
   gap: 1em;
   justify-content: center;
   margin-top: 1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .create-category form {
+    gap: 1em;
+  }
 }

@@ -51,19 +51,164 @@ const GettingStarted = () => {
     messageModalStatusCode: 200,
   });
   const [websiteCategoryID, setWebsiteCategoryID] = useState(-1);
-  const [websiteTheme, setWebsiteTheme] = useState(-1);
+  const [isWebsiteTheme, setIsWebsiteTheme] = useState(false);
   const [websiteThemeID, setWebsiteThemeID] = useState(-1);
-  const [websiteNavbarJSON, setWebsiteNavbarJSON] = useState(null);
-  const [websiteFooterJSON, setWebsiteFooterJSON] = useState(null);
 
   const closeModal = () => {
     modalDispatch({ type: "CLOSE_MODAL" });
   };
 
+  const createSite = async (params) => {
+    appContext.setIsLoading(true);
+
+    if (isWebsiteTheme) {
+      const formData = generateFormData({
+        userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
+        websiteCategoryID: -1,
+        websiteThemeID: websiteThemeID,
+        websiteName: params,
+        websiteNavbarJSON: [],
+        websiteFooterJSON: [],
+      });
+
+      axios
+        .post(`${process.env.REACT_APP_SITE_API_URL}/createsite`, formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+
+          if (res.data.status === 200) {
+            encryptStorage.setItem("site_id", res.data.result.site_id);
+            history.push("/webgenerator");
+          } else {
+            modalDispatch({
+              type: "SHOW_MODAL",
+              payload: res.data.message,
+              statusCode: res.data.status,
+            });
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    } else {
+      let formData = generateFormData({
+        categoryID: websiteCategoryID,
+      });
+
+      //get category pages first
+      axios
+        .post(
+          `${process.env.REACT_APP_SITE_API_URL}/getcategorypages`,
+          formData,
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((res) => {
+          //success
+          if (res.data.status === 200) {
+            const websiteNavbarJSON = {
+              itemTypes: ItemTypes.USER_NAVBAR,
+              props: { ...ComponentDefaultProps.USER_NAVBAR },
+            };
+            const websiteFooterJSON = {
+              itemTypes: ItemTypes.USER_NAVBAR,
+              props: ComponentDefaultProps.USER_FOOTER,
+            };
+
+            res.data.result.forEach((props) => {
+              const { category_page_name } = props;
+
+              websiteNavbarJSON.props.menu = [
+                ...websiteNavbarJSON.props.menu,
+                {
+                  itemTypes: ItemTypes.USER_NAVBAR_MENU,
+                  props: {
+                    linkTo: category_page_name,
+                    text: category_page_name,
+                  },
+                  submenu: [],
+                },
+              ];
+            });
+
+            formData = generateFormData({
+              userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
+              websiteCategoryID: websiteCategoryID,
+              websiteThemeID: -1,
+              websiteName: params,
+              websiteNavbarJSON: JSON.stringify(websiteNavbarJSON),
+              websiteFooterJSON: JSON.stringify(websiteFooterJSON),
+            });
+
+            //createsite
+            axios
+              .post(
+                `${process.env.REACT_APP_SITE_API_URL}/createsite`,
+                formData,
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                }
+              )
+              .then((res) => {
+                //success
+                appContext.setIsLoading(false);
+
+                if (res.data.status === 200) {
+                  encryptStorage.setItem("site_id", res.data.result.site_id);
+                  history.push("/webgenerator");
+                } else {
+                  modalDispatch({
+                    type: "SHOW_MODAL",
+                    payload: res.data.message,
+                    statusCode: res.data.status,
+                  });
+                }
+              })
+              .catch((err) => {
+                //error
+                if (err.response) {
+                  console.log("res error", err.response.data);
+                } else if (err.request) {
+                  console.log("req error", err.request.data);
+                } else {
+                  console.log("Error", err.message);
+                }
+                appContext.setIsLoading(false);
+              });
+          }
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
+        });
+    }
+  };
+
   const handleClickButtonBack = () => {
-    if (websiteTheme) {
+    if (isWebsiteTheme) {
       setGettingStartedIndex(1);
-      setWebsiteTheme(false);
+      setIsWebsiteTheme(false);
       setWebsiteThemeID(-1);
     } else {
       setGettingStartedIndex((prevState) => {
@@ -74,19 +219,11 @@ const GettingStarted = () => {
 
   const handleClickSetWebsiteCategoryID = (params) => {
     setWebsiteCategoryID(params);
-    setWebsiteNavbarJSON({
-      itemTypes: ItemTypes.USER_NAVBAR,
-      props: ComponentDefaultProps.USER_NAVBAR,
-    });
-    setWebsiteFooterJSON({
-      itemTypes: ItemTypes.USER_FOOTER,
-      props: ComponentDefaultProps.USER_FOOTER,
-    });
     setGettingStartedIndex(1);
   };
 
-  const handleClickSetWebsiteTheme = (params) => {
-    setWebsiteTheme(params);
+  const handleClickSetIsWebsiteTheme = (params) => {
+    setIsWebsiteTheme(params);
     if (params === true) {
       setGettingStartedIndex(3);
     } else {
@@ -100,48 +237,7 @@ const GettingStarted = () => {
   };
 
   const handleClickSetWebsiteName = async (params) => {
-    appContext.setIsLoading(true);
-
-    const formData = generateFormData({
-      userLoggedInID: encryptStorage.getItem("user_logged_in").user_id,
-      websiteCategoryID: websiteCategoryID,
-      websiteThemeID: websiteThemeID,
-      websiteName: params,
-      websiteNavbarJSON: JSON.stringify(websiteNavbarJSON),
-      websiteFooterJSON: JSON.stringify(websiteFooterJSON),
-    });
-
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/createsite`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        console.log(res.data);
-        appContext.setIsLoading(false);
-        if (res.data.status === 200) {
-          encryptStorage.setItem("site_id", res.data.result.site_id);
-          history.push("/webgenerator");
-        } else {
-          console.log(res.data);
-          modalDispatch({
-            type: "SHOW_MODAL",
-            payload: res.data.message,
-            statusCode: res.data.status,
-          });
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
-      });
+    createSite(params);
   };
 
   return (
@@ -154,7 +250,7 @@ const GettingStarted = () => {
         ) : gettingStartedIndex === 1 ? (
           <>
             <WebsiteTheme
-              handleClickSetWebsiteTheme={handleClickSetWebsiteTheme}
+              handleClickSetIsWebsiteTheme={handleClickSetIsWebsiteTheme}
             />
             <ButtonRipple
               className="button-back"

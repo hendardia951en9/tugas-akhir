@@ -72,6 +72,7 @@ const CreateTheme = () => {
       categoryID: themeCategoryID,
     });
 
+    //get category pages first
     axios
       .post(
         `${process.env.REACT_APP_SITE_API_URL}/getcategorypages`,

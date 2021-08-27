@@ -4,7 +4,7 @@ import ButtonRipple from "../../../ButtonRipple";
 //css
 import "./websitetheme.css";
 
-const WebsiteTheme = ({ handleClickSetWebsiteTheme }) => {
+const WebsiteTheme = ({ handleClickSetIsWebsiteTheme }) => {
   return (
     <section className="website-theme">
       <h3>choose how you want to create your website</h3>
@@ -15,7 +15,7 @@ const WebsiteTheme = ({ handleClickSetWebsiteTheme }) => {
             start with a template and make it your own, with easy drag and drop.
           </p>
           <ButtonRipple
-            onClick={() => handleClickSetWebsiteTheme(true)}
+            onClick={() => handleClickSetIsWebsiteTheme(true)}
             text="edit a theme"
           />
         </div>
@@ -24,7 +24,7 @@ const WebsiteTheme = ({ handleClickSetWebsiteTheme }) => {
           <h1>create your website with the editor</h1>
           <p>start your website from zero, with easy drag and drop.</p>
           <ButtonRipple
-            onClick={() => handleClickSetWebsiteTheme(false)}
+            onClick={() => handleClickSetIsWebsiteTheme(false)}
             text="start now"
           />
         </div>

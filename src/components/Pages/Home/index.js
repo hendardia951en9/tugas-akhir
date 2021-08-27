@@ -64,7 +64,11 @@ const Home = () => {
 
   useEffect(() => {
     document.title = "Home";
-    fetchCategories();
+    if (encryptStorage.getItem("admin_logged_in")) {
+      history.push("/admindashboard");
+    } else {
+      fetchCategories();
+    }
     // eslint-disable-next-line
   }, []);
 
