@@ -4,8 +4,12 @@ import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
 import { ComponentEditableProps } from "../../../utils/ComponentEditableProps";
 import { EncryptStorage } from "encrypt-storage";
-import { faThList } from "@fortawesome/free-solid-svg-icons";
+import { faDesktop } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import { faProjectDiagram } from "@fortawesome/free-solid-svg-icons";
+import { faSave } from "@fortawesome/free-regular-svg-icons";
+import { faThList } from "@fortawesome/free-solid-svg-icons";
 import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
@@ -13,6 +17,7 @@ import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
 //components
+import ButtonRipple from "../../ButtonRipple";
 import DOMTree from "../../DOMTree";
 import UploadImage from "../../PageBuilder/UploadImage";
 
@@ -72,15 +77,16 @@ const WebGenerator = () => {
   const encryptStorage = EncryptStorage(
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
+  const [isMobilePreview, setIsMobilePreview] = useState(false);
   const [isRerenderPage, setIsRerenderPage] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
-  const [uploadImageLocation, setUploadImageLocation] = useState("");
   const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
   const [mapState, setMapState] = useState({
     latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
     longitude: ComponentDefaultProps.MAP_COMPONENT.location.longitude,
   });
   const [sitePages, setSitePages] = useState([]);
+  const [uploadImageLocation, setUploadImageLocation] = useState("");
 
   const addComponentToBoard = (itemTypes) => {
     boardState.boardComponentsKey += 1;
@@ -2460,6 +2466,38 @@ const WebGenerator = () => {
     setUploadImageLocation(propsTypes);
   };
 
+  const togglePreviewSite = () => {
+    setIsMobilePreview(!isMobilePreview);
+  };
+
+  const publishSite = () => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      siteID: encryptStorage.getItem("site_id"),
+    });
+
+    axios
+      .post(`${process.env.REACT_APP_SITE_API_URL}/publishsite`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
   const renderComponent = (component) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
       return (
@@ -3246,18 +3284,45 @@ const WebGenerator = () => {
                 )}
               </div>
               <div className="sidebar-footer">
-                <button onClick={saveSite}>Save</button>
-                <button onClick={fetchUserSiteData}>Load</button>
+                {/* <button onClick={fetchUserSiteData}>Load</button> */}
+                <ButtonRipple
+                  fa={<FontAwesomeIcon icon={faSave} />}
+                  onClick={saveSite}
+                  text="save"
+                />
+                {encryptStorage.getItem("user_logged_in") && (
+                  <ButtonRipple
+                    fa={<FontAwesomeIcon icon={faGlobe} />}
+                    onClick={publishSite}
+                    text="publish"
+                  />
+                )}
+                <ButtonRipple
+                  fa={
+                    isMobilePreview ? (
+                      <FontAwesomeIcon icon={faDesktop} />
+                    ) : (
+                      <FontAwesomeIcon icon={faMobileAlt} />
+                    )
+                  }
+                  onClick={togglePreviewSite}
+                />
               </div>
             </div>
             <div className="board-container">
-              <Board
-                boardComponents={
-                  boardState.boardComponents[boardState.selectedSitePageID]
-                }
-                boardFooter={boardState.boardFooter}
-                boardNavbar={boardState.boardNavbar}
-              />
+              <div
+                className={`board-content ${
+                  isMobilePreview ? "mobile" : "desktop"
+                }`}
+              >
+                <Board
+                  boardComponents={
+                    boardState.boardComponents[boardState.selectedSitePageID]
+                  }
+                  boardFooter={boardState.boardFooter}
+                  boardNavbar={boardState.boardNavbar}
+                />
+              </div>
             </div>
           </div>
         </div>

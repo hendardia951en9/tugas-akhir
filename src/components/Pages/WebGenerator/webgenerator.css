@@ -1,9 +1,24 @@
 .board-container {
+  background-color: #cfcfcf;
   min-height: calc(100vh - var(--navbar-height)); /* 100vh - height navbar */
   margin-left: var(--sidebar-width); /* sesuai width sidebar */
   overflow-y: auto;
   position: relative;
   width: calc(100% - var(--sidebar-width)); /* 100% - width sidebar */
+}
+
+.board-content {
+  min-height: inherit;
+  transition: width 150ms ease-in-out;
+}
+
+.board-content.desktop {
+  width: 100%;
+}
+
+.board-content.mobile {
+  margin: 0 auto;
+  width: 280px;
 }
 
 .component-wrapper {
@@ -35,7 +50,7 @@
 
 .page-builder-container {
   --sidebar-header: 110px;
-  --sidebar-footer: 40px;
+  --sidebar-footer: 50px;
 
   height: 100%;
   width: 100%;
@@ -121,14 +136,23 @@
 }
 
 .sidebar-footer {
+  align-items: center;
   background-color: #f1f4f6;
   box-shadow: 0px -2px 12px rgba(0, 0, 0, 0.2);
   bottom: 0;
+  display: flex;
+  gap: 1em;
+  height: var(--sidebar-footer);
+  justify-content: center;
   left: 0;
   padding: 0.5rem;
   position: absolute;
   right: 0;
   z-index: 99;
+}
+
+.sidebar-footer button {
+  font-size: 0.7em;
 }
 
 .widgets {

@@ -123,7 +123,7 @@ const GettingStarted = () => {
               props: { ...ComponentDefaultProps.USER_NAVBAR },
             };
             const websiteFooterJSON = {
-              itemTypes: ItemTypes.USER_NAVBAR,
+              itemTypes: ItemTypes.USER_FOOTER,
               props: ComponentDefaultProps.USER_FOOTER,
             };
 

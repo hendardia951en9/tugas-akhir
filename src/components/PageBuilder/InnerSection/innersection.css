@@ -11,7 +11,7 @@
   flex: 1 1 auto;
   flex-direction: column;
   flex-wrap: wrap;
-  min-width: 300px;
+  min-width: 280px;
   padding: 1rem;
   position: relative;
 }
