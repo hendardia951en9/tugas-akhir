@@ -100,11 +100,6 @@ const Navbar = () => {
               </span>
               <ul>
                 <li>
-                  <NavLink exact to="/gallery" activeClassName="navbar-active">
-                    my gallery
-                  </NavLink>
-                </li>
-                <li>
                   <NavLink
                     exact
                     to="/subscribtion"
