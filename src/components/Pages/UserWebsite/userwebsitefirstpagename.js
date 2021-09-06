@@ -1,0 +1,64 @@
+import React, { useContext, useEffect } from "react";
+import { AppContext } from "../../../App";
+import axios from "axios";
+import { generateFormData } from "../../../utils/generateFormData";
+import { useHistory } from "react-router";
+import { useParams } from "react-router-dom";
+
+const UserWebsiteFirstPageName = () => {
+  const appContext = useContext(AppContext);
+
+  const history = useHistory();
+  const { userEmail } = useParams();
+  const { websiteName } = useParams();
+
+  const fetchUserWebsiteFirstPageName = () => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      userEmail: userEmail,
+      websiteName: websiteName,
+    });
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/getuserwebsitefirstpagename`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+
+        if (res.data.status === 200) {
+          history.push(
+            `/website/${userEmail}/${websiteName}/${res.data.result}`
+          );
+        } else {
+          history.push("/error");
+        }
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchUserWebsiteFirstPageName();
+    // eslint-disable-next-line
+  }, []);
+
+  return <div></div>;
+};
+
+export default UserWebsiteFirstPageName;

@@ -50,8 +50,10 @@ import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
 import ThemeList from "./components/Pages/ThemeList";
+import ThemeFirstSitePageName from "./components/Pages/ThemePreview/themefirstsitepagename";
 import ThemePreview from "./components/Pages/ThemePreview";
 import UserWebsite from "./components/Pages/UserWebsite";
+import UserWebsiteFirstPageName from "./components/Pages/UserWebsite/userwebsitefirstpagename";
 import WebGenerator from "./components/Pages/WebGenerator";
 
 //css
@@ -130,8 +132,14 @@ const App = () => {
               <ThemeList />
               <Footer />
             </Route>
+            <Route exact path="/theme/:themeID">
+              <ThemeFirstSitePageName />
+            </Route>
             <Route exact path="/theme/:themeID/:themePage">
               <ThemePreview />
+            </Route>
+            <Route exact path="/website/:userEmail/:websiteName">
+              <UserWebsiteFirstPageName />
             </Route>
             <Route exact path="/website/:userEmail/:websiteName/:websitePage">
               <UserWebsite />

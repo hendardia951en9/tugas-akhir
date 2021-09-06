@@ -146,12 +146,8 @@ const ThemeList = () => {
         <section className="theme-list">
           {themes
             ? themes.map((props) => {
-                const {
-                  theme_id,
-                  theme_name,
-                  theme_thumbnail_image_name,
-                  theme_first_page_name,
-                } = props;
+                const { theme_id, theme_name, theme_thumbnail_image_name } =
+                  props;
                 return (
                   <div className="theme-container" key={theme_id}>
                     <div
@@ -159,7 +155,7 @@ const ThemeList = () => {
                       onClick={(e) => {
                         if (e.target === e.currentTarget) {
                           openInNewTab(
-                            `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}/${theme_first_page_name}`
+                            `${process.env.REACT_APP_BASE_URL}/theme/${theme_id}`
                           );
                         }
                       }}
