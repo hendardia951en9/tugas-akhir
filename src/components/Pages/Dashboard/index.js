@@ -8,6 +8,7 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { openInNewTab } from "../../../utils/openInNewTab";
@@ -185,6 +186,19 @@ const Dashboard = () => {
                               icon={faEye}
                             />
                             preview
+                          </li>
+                          <li
+                            onClick={(e) => {
+                              if (e.target === e.currentTarget) {
+                                history.push(`/manageuserpages/${site_id}`);
+                              }
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="user-site-option-icon"
+                              icon={faWindowRestore}
+                            />
+                            pages
                           </li>
                           <li
                             onClick={(e) => {

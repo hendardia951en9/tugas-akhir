@@ -1,0 +1,57 @@
+.manage-user-pages {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height) - 86px);
+  padding: 0 0.5em;
+}
+
+.manage-user-pages h1 {
+  font-size: 2em;
+  margin: 3em 0 1em 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.manage-user-pages form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.manage-user-pages .form-input {
+  margin: 1rem 0;
+}
+
+.manage-user-pages .page-list {
+  height: 300px;
+  margin: 1.5rem 0;
+  overflow: auto;
+  width: 250px;
+}
+
+.manage-user-pages h2 {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.manage-user-pages .page-list-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.manage-user-pages .page-list-container span {
+  font-size: 1em;
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 800px) {
+  .manage-user-pages form {
+    width: 70%;
+  }
+}

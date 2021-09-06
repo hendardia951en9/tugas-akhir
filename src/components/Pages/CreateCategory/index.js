@@ -243,7 +243,7 @@ const CreateCategory = () => {
             </div>
           </section>
           <section className="category-pages">
-            <h2>pages list</h2>
+            <h2>page list</h2>
             {categoryPages.length > 0
               ? categoryPages.map((props, index) => {
                   return (
