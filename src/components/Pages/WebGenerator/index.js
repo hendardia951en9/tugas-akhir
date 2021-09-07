@@ -301,6 +301,17 @@ const WebGenerator = () => {
           },
         };
       }
+    } else if (propsTypes === PropsTypes.BACKGROUND_ATTACHMENT) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          style: {
+            ...component.props.style,
+            backgroundAttachment: value,
+          },
+        },
+      };
     } else if (propsTypes === PropsTypes.BACKGROUND_COLOR) {
       if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
         component = {

@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   );
   const [gallery, setGallery] = useState([]);
   const history = useHistory();
-  const [isCategoryList, setIsCategoryList] = useState(true);
+  const [isCategoryList, setIsCategoryList] = useState(false);
   const [isImageSelected, setIsImageSelected] = useState(false);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [isOpenUploadImage, setIsOpenUploadImage] = useState(false);
@@ -161,34 +161,34 @@ const AdminDashboard = () => {
     history.push("/createtheme");
   };
 
-  // const handleClickDeleteCategory = (category_id) => {
-  //   appContext.setIsLoading(true);
+  const handleClickDeleteCategory = (category_id) => {
+    appContext.setIsLoading(true);
 
-  //   const formData = generateFormData({
-  //     categoryID: category_id,
-  //   });
+    const formData = generateFormData({
+      categoryID: category_id,
+    });
 
-  //   axios
-  //     .post(`${process.env.REACT_APP_SITE_API_URL}/deletecategory`, formData, {
-  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //     })
-  //     .then((res) => {
-  //       //success
-  //       appContext.setIsLoading(false);
-  //       fetchCategories();
-  //     })
-  //     .catch((err) => {
-  //       //error
-  //       if (err.response) {
-  //         console.log("res error", err.response.data);
-  //       } else if (err.request) {
-  //         console.log("req error", err.request.data);
-  //       } else {
-  //         console.log("Error", err.message);
-  //       }
-  //       appContext.setIsLoading(false);
-  //     });
-  // };
+    axios
+      .post(`${process.env.REACT_APP_SITE_API_URL}/deletecategory`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+        fetchCategories();
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
 
   const handleClickDeleteTheme = (theme_id) => {
     appContext.setIsLoading(true);
@@ -413,7 +413,7 @@ const AdminDashboard = () => {
                       const { category_id, category_name } = props;
                       return (
                         <div className="category-container" key={category_id}>
-                          {/* <div className="category-options">
+                          <div className="category-options">
                             <FontAwesomeIcon
                               className="category-options-icon"
                               icon={faEllipsisV}
@@ -433,7 +433,7 @@ const AdminDashboard = () => {
                                 delete
                               </li>
                             </ul>
-                          </div> */}
+                          </div>
                           <div className="category-content">
                             {category_name}
                           </div>

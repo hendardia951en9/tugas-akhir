@@ -3,6 +3,10 @@
   width: fit-content;
 }
 
+.icon-component {
+  overflow: hidden;
+}
+
 .icon-component a {
   display: block;
   width: fit-content;

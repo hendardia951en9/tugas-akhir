@@ -44,12 +44,6 @@ const WebsiteName = ({ closeModal, handleClickSetWebsiteName, modalState }) => {
             className={errors.websiteName && "form-input-error"}
             {...register("websiteName", {
               required: "this field is required",
-              pattern: {
-                value:
-                  // eslint-disable-next-line
-                  /^([A-Za-z]|[0-9]|_)+$/,
-                message: "invalid format",
-              },
             })}
             ref={(e) => {
               ref(e);

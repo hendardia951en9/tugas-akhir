@@ -1,7 +1,6 @@
-import { ItemTypes } from "../ItemTypes";
-
 export const PropsUnitOptions = {
   alignItems: ["center", "flex-end", "flex-start", "stretch"],
+  backgroundAttachment: ["fixed", "scroll"],
   backgroundPosition: [
     "center",
     "center bottom",
@@ -103,7 +102,6 @@ export const PropsUnitOptions = {
     "none",
     "uppercase",
   ],
-  userFooterType: [ItemTypes.USER_FOOTER_TYPE_1, ItemTypes.USER_FOOTER_TYPE_2],
   userFooterWatermarkFontSize: ["%", "em", "px", "rem"],
   userFooterWatermarkFontWeight: ["bold", "normal"],
   userFooterWatermarkIsShow: [false, true],

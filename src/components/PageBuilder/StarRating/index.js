@@ -36,7 +36,7 @@ const StarRating = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="star-rating-container"
+      className="star-rating-component"
       onClick={
         isEdit
           ? (e) => {

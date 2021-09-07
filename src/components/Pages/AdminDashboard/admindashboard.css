@@ -51,6 +51,15 @@
   position: relative;
 }
 
+.admin-dashboard .category-content {
+  transition: all 150ms ease-in-out;
+}
+
+.admin-dashboard .category-container:hover .category-content {
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
+}
+
 .admin-dashboard .category-container:hover .category-options {
   transform: translateY(-3px);
 }
@@ -67,11 +76,6 @@
 }
 
 .admin-dashboard .category-options:hover {
-  transform: translateY(-3px);
-}
-
-.admin-dashboard .category-options:hover + .category-content {
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
   transform: translateY(-3px);
 }
 
@@ -92,6 +96,7 @@
 
 .admin-dashboard .category-options ul li {
   align-items: center;
+  cursor: pointer;
   display: flex;
   font-size: 0.85rem;
   gap: 0.5rem;

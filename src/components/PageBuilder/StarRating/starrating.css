@@ -1,8 +1,8 @@
-.star-rating-container {
+.star-rating-component {
   display: flex;
 }
 
-.star-rating-container > * {
+.star-rating-component > * {
   pointer-events: none;
 }
 

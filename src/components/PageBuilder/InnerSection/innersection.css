@@ -1,3 +1,7 @@
+.inner-section-component-container {
+  position: relative;
+}
+
 .inner-section-component {
   align-items: center;
   display: flex;
@@ -7,6 +11,7 @@
 }
 
 .inner-section-component-layout {
+  cursor: default;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -16,12 +21,9 @@
   position: relative;
 }
 
-.inner-section-component-layout .component-wrapper {
-  width: fit-content;
-}
-
 .inner-section-component-layout.isEdit:hover::before {
   content: "";
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -29,6 +31,7 @@
   right: 0;
   border: 2px solid #3799ee;
   background-color: rgba(69, 159, 237, 0.3);
+  z-index: 10;
 }
 
 .inner-section-component-layout-canDrop {

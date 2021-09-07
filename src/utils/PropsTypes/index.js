@@ -1,6 +1,7 @@
 export const PropsTypes = {
   ALIGN_ITEMS: "Align Items",
   COLOR: "Color",
+  BACKGROUND_ATTACHMENT: "Background Attachment",
   BACKGROUND_COLOR: "Background Color",
   BACKGROUND_IMAGE: "Background Image",
   BACKGROUND_POSITION: "Background Position",

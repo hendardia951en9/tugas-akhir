@@ -11,7 +11,7 @@ const InnerSection = ({ componentKey, itemTypes, props }) => {
 
   return (
     <div
-      className="inner-section-container"
+      className="inner-section-component-container"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           pageBuilderContext.handleClickPageBuilderComponent(

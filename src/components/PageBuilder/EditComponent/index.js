@@ -59,6 +59,7 @@ const EditComponent = ({ props }) => {
   ] = useState(false);
 
   const [alignItems, setAlignItems] = useState("stretch");
+  const [backgroundAttachment, setBackgroundAttachment] = useState("scroll");
   const [backgroundColor, setBackgroundColor] = useState({
     r: 0,
     g: 0,
@@ -448,6 +449,11 @@ const EditComponent = ({ props }) => {
         } else {
           setBackgroundColor(props.componentProps.style.backgroundColor);
         }
+      }
+      if (props.componentEditableProps.backgroundAttachment) {
+        setBackgroundAttachment(
+          props.componentProps.style.backgroundAttachment
+        );
       }
       if (props.componentEditableProps.backgroundImage) {
         setBackgroundImage(
@@ -1050,6 +1056,37 @@ const EditComponent = ({ props }) => {
             </select>
             <label htmlFor="alignItems">
               <span>{PropsTypes.ALIGN_ITEMS}</span>
+            </label>
+          </div>
+        )}
+        {/* background attachment */}
+        {props.componentEditableProps.backgroundAttachment && (
+          <div className="form-input">
+            <select
+              id="backgroundAttachment"
+              name="backgroundAttachment"
+              onChange={(e) => {
+                setBackgroundAttachment(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.BACKGROUND_ATTACHMENT,
+                  "",
+                  e.target.value
+                );
+              }}
+              value={backgroundAttachment}
+            >
+              {props.componentEditableProps.backgroundAttachment.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="backgroundAttachment">
+              <span>{PropsTypes.BACKGROUND_ATTACHMENT}</span>
             </label>
           </div>
         )}
