@@ -56,7 +56,7 @@ const Layout = ({ id, componentKey, itemTypes, props }) => {
     >
       {props.children.length > 0
         ? props.children.map((child) => {
-            return pageBuilderContext.renderComponent(child);
+            return pageBuilderContext.renderComponent(child, true);
           })
         : props.text}
     </div>

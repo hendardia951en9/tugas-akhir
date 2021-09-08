@@ -2509,10 +2509,41 @@ const WebGenerator = () => {
       });
   };
 
-  const renderComponent = (component) => {
+  const processButtonALignment = (buttonAlignment) => {
+    if (buttonAlignment === "center") {
+      return { marginLeft: "auto", marginRight: "auto" };
+    } else if (buttonAlignment === "left") {
+      return { marginRight: "auto" };
+    } else if (buttonAlignment === "right") {
+      return { marginLeft: "auto" };
+    }
+
+    return false;
+  };
+
+  const renderComponent = (component, isInsideInnerSectionLayout) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper ${
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? "full"
+              : ""
+          }`}
+          key={component.key}
+          style={Object.assign(
+            processButtonALignment(component.props.buttonAlignment),
+            isInsideInnerSectionLayout &&
+              component.props.style.width.unit === "%"
+              ? {
+                  width:
+                    component.props.style.width.value +
+                    component.props.style.width.unit,
+                }
+              : {}
+          )}
+        >
           <Button
             key={component.key}
             componentKey={component.key}
@@ -2548,7 +2579,25 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.ICON) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper ${
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? "full"
+              : ""
+          }`}
+          key={component.key}
+          style={
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? {
+                  width:
+                    component.props.style.width.value +
+                    component.props.style.width.unit,
+                }
+              : {}
+          }
+        >
           <Icon
             key={component.key}
             componentKey={component.key}
@@ -2571,7 +2620,25 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.IMAGE) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper ${
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? "full"
+              : ""
+          }`}
+          key={component.key}
+          style={
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? {
+                  width:
+                    component.props.style.width.value +
+                    component.props.style.width.unit,
+                }
+              : {}
+          }
+        >
           <Image
             key={component.key}
             componentKey={component.key}
@@ -2583,15 +2650,13 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.IMAGE_GALLERY) {
       return (
-        <div className="component-wrapper" key={component.key}>
-          <ImageGallery
-            key={component.key}
-            componentKey={component.key}
-            isEdit={true}
-            itemTypes={component.itemTypes}
-            props={component.props}
-          />
-        </div>
+        <ImageGallery
+          key={component.key}
+          componentKey={component.key}
+          isEdit={true}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
       );
     } else if (component.itemTypes === ItemTypes.MAP_COMPONENT) {
       return (
@@ -2605,7 +2670,7 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.SPACER) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div className="component-wrapper spacer" key={component.key}>
           <Spacer
             key={component.key}
             componentKey={component.key}
@@ -2617,7 +2682,25 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.STAR_RATING) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper ${
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? "full"
+              : ""
+          }`}
+          key={component.key}
+          style={
+            isInsideInnerSectionLayout &&
+            component.props.style.width.unit === "%"
+              ? {
+                  width:
+                    component.props.style.width.value +
+                    component.props.style.width.unit,
+                }
+              : {}
+          }
+        >
           <StarRating
             key={component.key}
             componentKey={component.key}
@@ -2641,15 +2724,13 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.VIDEO) {
       return (
-        <div className="component-wrapper" key={component.key}>
-          <Video
-            key={component.key}
-            componentKey={component.key}
-            isEdit={true}
-            itemTypes={component.itemTypes}
-            props={component.props}
-          />
-        </div>
+        <Video
+          key={component.key}
+          componentKey={component.key}
+          isEdit={true}
+          itemTypes={component.itemTypes}
+          props={component.props}
+        />
       );
     }
   };

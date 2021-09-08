@@ -40,7 +40,8 @@
   z-index: 10;
 }
 
-.component-wrapper.divider {
+.component-wrapper.divider,
+.component-wrapper.spacer {
   width: 100% !important;
 }
 

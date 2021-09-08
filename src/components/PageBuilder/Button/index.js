@@ -49,7 +49,7 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="button-component-wrapper"
+      className={`button-component-container ${isEdit && "isEdit"}`}
       onClick={
         isEdit
           ? (e) => {

@@ -13,3 +13,7 @@ a {
 .button-component.isEdit {
   pointer-events: none !important;
 }
+
+.button-component-container:not(.isEdit) {
+  width: 100%;
+}

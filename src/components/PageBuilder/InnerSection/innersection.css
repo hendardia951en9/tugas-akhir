@@ -25,6 +25,10 @@
   width: fit-content;
 }
 
+.inner-section-component-layout .component-wrapper.full > * > * {
+  width: 100% !important;
+}
+
 .inner-section-component-layout.isEdit:hover::before {
   content: "";
   pointer-events: none;

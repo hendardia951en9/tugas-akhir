@@ -1,13 +1,15 @@
 .icon-component.isEdit > * {
   pointer-events: none;
-  width: fit-content;
 }
 
 .icon-component {
   overflow: hidden;
 }
 
+.icon-component:not(.isEdit) > * > * {
+  width: 100% !important;
+}
+
 .icon-component a {
   display: block;
-  width: fit-content;
 }

@@ -109,6 +109,7 @@
 
 .user-gallery-image-container input[type="radio"]:checked + label,
 .user-gallery-image-container input[type="checkbox"]:checked + label {
+  background-color: rgba(0, 0, 0, 0.5);
   border: 3px solid #3799ee;
 }
 

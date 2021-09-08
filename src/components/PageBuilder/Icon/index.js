@@ -26,6 +26,11 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
             }
           : undefined
       }
+      style={
+        isEdit
+          ? {}
+          : { width: props.style.width.value + props.style.width.unit }
+      }
     >
       {isEdit ? (
         <IconPickerItem

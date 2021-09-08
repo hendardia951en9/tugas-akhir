@@ -1,7 +1,11 @@
 .image-component {
-  display: block;
   overflow: hidden;
   position: relative;
+}
+
+.image-component-container {
+  position: relative;
+  max-width: 100%;
 }
 
 .image-component img {

@@ -125,6 +125,7 @@ export const ComponentEditableProps = {
     marginLeft: PropsUnitOptions.marginLeft,
     marginRight: PropsUnitOptions.marginRight,
     marginTop: PropsUnitOptions.marginTop,
+    maxWidth: PropsUnitOptions.maxWidth,
     opacity: true,
     paddingBottom: PropsUnitOptions.paddingBottom,
     paddingLeft: PropsUnitOptions.paddingLeft,
@@ -231,6 +232,7 @@ export const ComponentEditableProps = {
   },
   TEXT_EDITOR: {
     backgroundColor: true,
+    color: true,
     marginBottom: PropsUnitOptions.marginBottom,
     marginLeft: PropsUnitOptions.marginLeft,
     marginRight: PropsUnitOptions.marginRight,
