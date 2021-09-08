@@ -192,6 +192,7 @@ const UserWebsite = () => {
   };
 
   useEffect(() => {
+    document.title = websiteName;
     fetchUserWebsite();
     // eslint-disable-next-line
   }, [location]);

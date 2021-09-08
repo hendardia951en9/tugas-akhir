@@ -12,7 +12,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="user-navbar"
+      className={`user-navbar ${isEdit && "isEdit"}`}
       onClick={
         isEdit
           ? (e) => {

@@ -183,6 +183,7 @@ const ThemePreview = () => {
   };
 
   useEffect(() => {
+    document.title = "Theme Preview";
     fetchThemePreview();
     // eslint-disable-next-line
   }, [location]);

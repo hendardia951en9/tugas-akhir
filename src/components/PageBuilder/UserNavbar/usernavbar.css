@@ -6,6 +6,12 @@ a {
 .user-navbar {
   align-items: center;
   display: flex;
+  z-index: 80;
+}
+
+.user-navbar:not(.isEdit) {
+  position: sticky;
+  top: 0;
 }
 
 .user-navbar > ul {
@@ -36,7 +42,6 @@ a {
   padding: 0.5rem;
   position: absolute;
   top: 100%;
-  z-index: 80;
 }
 
 .user-navbar ul > li:hover > ul {

@@ -667,8 +667,8 @@ const EditComponent = ({ props }) => {
         }
       }
       if (props.componentEditableProps.letterSpacing) {
-        setLineHeightValue(props.componentProps.style.letterSpacing.value);
-        setLineHeightUnit(props.componentProps.style.letterSpacing.unit);
+        setLetterSpacingValue(props.componentProps.style.letterSpacing.value);
+        setLetterSpacingUnit(props.componentProps.style.letterSpacing.unit);
       }
       if (props.componentEditableProps.lineHeight) {
         setLineHeightValue(props.componentProps.style.lineHeight.value);

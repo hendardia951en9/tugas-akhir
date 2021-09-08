@@ -181,6 +181,7 @@ const ManageUserPages = () => {
   };
 
   useEffect(() => {
+    document.title = "Manage Pages";
     fetchUserSitePages();
     // eslint-disable-next-line
   }, []);
