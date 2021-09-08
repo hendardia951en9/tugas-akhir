@@ -1,8 +1,3 @@
-a {
-  text-decoration: inherit;
-  color: inherit;
-}
-
 .button-component {
   cursor: pointer;
   display: block;
@@ -16,4 +11,9 @@ a {
 
 .button-component-container:not(.isEdit) {
   width: 100%;
+}
+
+.button-component a {
+  text-decoration: inherit;
+  color: inherit;
 }

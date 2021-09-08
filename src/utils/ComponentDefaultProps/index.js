@@ -282,6 +282,7 @@ export const ComponentDefaultProps = {
     starRatingCap: "5",
     starRatingValue: "2.5",
     style: {
+      backgroundColor: { r: 255, g: 255, b: 255, a: 0 },
       color: { r: 0, g: 0, b: 0, a: 1 },
       fontSize: { value: "16", unit: "px" },
       gap: { value: "0", unit: "px" },

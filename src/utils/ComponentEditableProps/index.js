@@ -211,6 +211,7 @@ export const ComponentEditableProps = {
     paddingTop: PropsUnitOptions.paddingTop,
   },
   STAR_RATING: {
+    backgroundColor: true,
     color: true,
     fontSize: PropsUnitOptions.fontSize,
     gap: PropsUnitOptions.gap,

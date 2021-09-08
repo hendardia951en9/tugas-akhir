@@ -1,9 +1,9 @@
-.icon-component.isEdit > * {
-  pointer-events: none;
-}
-
 .icon-component {
   overflow: hidden;
+}
+
+.icon-component.isEdit > * {
+  pointer-events: none;
 }
 
 .icon-component:not(.isEdit) > * > * {

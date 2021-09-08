@@ -2528,7 +2528,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "full"
+              ? "isPrecent"
               : ""
           }`}
           key={component.key}
@@ -2583,7 +2583,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "full"
+              ? "isPrecent"
               : ""
           }`}
           key={component.key}
@@ -2624,7 +2624,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "full"
+              ? "isPrecent"
               : ""
           }`}
           key={component.key}
@@ -2683,12 +2683,7 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.STAR_RATING) {
       return (
         <div
-          className={`component-wrapper ${
-            isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
-              ? "full"
-              : ""
-          }`}
+          className="component-wrapper"
           key={component.key}
           style={
             isInsideInnerSectionLayout &&

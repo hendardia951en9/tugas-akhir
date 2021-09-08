@@ -25,7 +25,7 @@
   width: fit-content;
 }
 
-.inner-section-component-layout .component-wrapper.full > * > * {
+.inner-section-component-layout .component-wrapper.isPrecent > * > * {
   width: 100% !important;
 }
 

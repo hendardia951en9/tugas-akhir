@@ -4,8 +4,8 @@
 }
 
 .image-component-container {
-  position: relative;
   max-width: 100%;
+  position: relative;
 }
 
 .image-component img {
