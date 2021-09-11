@@ -18,6 +18,7 @@ a {
   align-items: center;
   display: flex;
   list-style-type: none;
+  z-index: 80;
 }
 
 .user-navbar > ul > li {
