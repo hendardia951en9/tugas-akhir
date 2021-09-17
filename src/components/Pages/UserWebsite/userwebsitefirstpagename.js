@@ -54,6 +54,7 @@ const UserWebsiteFirstPageName = () => {
   };
 
   useEffect(() => {
+    document.title = "User Website";
     fetchUserWebsiteFirstPageName();
     // eslint-disable-next-line
   }, []);

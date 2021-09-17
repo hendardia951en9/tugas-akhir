@@ -50,6 +50,7 @@ const ThemeFirstSitePageName = () => {
   };
 
   useEffect(() => {
+    document.title = "Theme Preview";
     fetchThemeFirstSitePageName();
     // eslint-disable-next-line
   }, []);

@@ -158,7 +158,8 @@ h6,
 }
 
 .form-input input:focus + label > span,
-.form-input input.not-empty + label > span {
+.form-input input.not-empty + label > span,
+.form-input input.form-input-error + label > span {
   font-size: 0.65rem;
   transform: translate(-8px, -21px);
 }
