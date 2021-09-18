@@ -194,7 +194,7 @@ const Pricing = () => {
     setIsCCPayment(false);
   };
 
-  const handleClickDoBCAVAPayment = () => {
+  const handleClickDoBCAVAPayment = async () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
@@ -226,7 +226,7 @@ const Pricing = () => {
       });
   };
 
-  const handleClickDoCCPayment = (data) => {
+  const handleClickDoCCPayment = async (data) => {
     appContext.setIsLoading(true);
 
     const cardData = {
@@ -276,6 +276,39 @@ const Pricing = () => {
     } else {
       history.push("/signin");
     }
+  };
+
+  const handleClickCheckDate = async () => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      userID: encryptStorage.getItem("user_logged_in").user_id,
+    });
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/checksubscriptiondate`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        console.log(res.data);
+        appContext.setIsLoading(false);
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -329,6 +362,7 @@ const Pricing = () => {
   return (
     <div className="navbar-margin">
       <div className="pricing">
+        <button onClick={handleClickCheckDate}>check date</button>
         {isOpenChoosePayment && (
           <div className="payment-list">
             <div
