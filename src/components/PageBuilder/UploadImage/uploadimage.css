@@ -25,13 +25,13 @@
 .upload-image-box {
   background-color: white;
   border-radius: 5px;
-  bottom: 6%;
+  bottom: 10%;
   left: 15%;
   margin-top: var(--navbar-height);
   overflow: auto;
   position: absolute;
   right: 15%;
-  top: 6%;
+  top: 10%;
 }
 
 .upload-image-content-header {
