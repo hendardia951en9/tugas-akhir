@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import $ from "jquery";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import EncryptStorage from "encrypt-storage";
@@ -16,6 +17,7 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
@@ -48,11 +50,10 @@ const Pricing = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-  const nameRef = useRef(null);
-  const { ref } = register("name");
+  const cardNumberRef = useRef(null);
+  const { ref } = register("cardNumber");
   const [modalState, modalDispatch] = useReducer(modalReducer, {
     isShowMessageModal: false,
     messageModalContent: "hello world",
@@ -63,11 +64,16 @@ const Pricing = () => {
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
   const [BCAVAPaymentVA, setBCAVAPaymentVA] = useState(null);
+  const history = useHistory();
   const [isBCAVAPayment, setIsBCAVAPayment] = useState(false);
   const [isCCPayment, setIsCCPayment] = useState(false);
   const [isOpenChoosePayment, setIsOpenChoosePayment] = useState(false);
   const [packageID, setPackageID] = useState(null);
   const [packages, setPackages] = useState([]);
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
 
   const doCCPayment = async (params) => {
     appContext.setIsLoading(true);
@@ -84,10 +90,17 @@ const Pricing = () => {
       })
       .then((res) => {
         //success
-        appContext.setIsLoading(false);
+        console.log(res.data);
         if (res.data.status_code === 200) {
+          handleClickCloseChoosePayment();
         } else {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: res.data.status_message,
+            statusCode: parseInt(res.data.status_code),
+          });
         }
+        appContext.setIsLoading(false);
       })
       .catch((err) => {
         //error
@@ -145,8 +158,6 @@ const Pricing = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        if (res.data.status === 200) {
-        }
       })
       .catch((err) => {
         //error
@@ -177,7 +188,7 @@ const Pricing = () => {
     setIsCCPayment(true);
   };
 
-  const handleCloseChoosePayment = () => {
+  const handleClickCloseChoosePayment = () => {
     setIsOpenChoosePayment(false);
     setIsBCAVAPayment(false);
     setIsCCPayment(false);
@@ -215,14 +226,14 @@ const Pricing = () => {
       });
   };
 
-  const handleClickDoCCPayment = () => {
+  const handleClickDoCCPayment = (data) => {
     appContext.setIsLoading(true);
 
     const cardData = {
-      card_number: "4811111111111114",
-      card_exp_month: "02",
-      card_exp_year: "2025",
-      card_cvv: "123",
+      card_number: data.cardNumber,
+      card_exp_month: data.cardExpMonth,
+      card_exp_year: data.cardExpYear,
+      card_cvv: data.cardCVV,
     };
 
     const options = {
@@ -239,7 +250,15 @@ const Pricing = () => {
       },
       onFailure: function (response) {
         // Fail to get card token_id, implement as you wish here
-        console.log("Fail to get card token_id, response:", response);
+        // console.log("Fail to get card token_id, response:", response);
+
+        appContext.setIsLoading(false);
+
+        modalDispatch({
+          type: "SHOW_MODAL",
+          payload: response.status_message,
+          statusCode: response.status_code,
+        });
 
         // you may want to implement displaying failure message to customer.
         // Also record the error message to your log, so you can review
@@ -251,12 +270,37 @@ const Pricing = () => {
   };
 
   const handleClickSelectPackage = (params) => {
-    setIsOpenChoosePayment(true);
-    setPackageID(params);
+    if (encryptStorage.getItem("user_logged_in")) {
+      setIsOpenChoosePayment(true);
+      setPackageID(params);
+    } else {
+      history.push("/signin");
+    }
   };
 
   useEffect(() => {
+    $("input").each(function () {
+      if ($(this).val().length > 0) {
+        $(this).addClass("not-empty");
+      } else {
+        $(this).removeClass("not-empty");
+      }
+
+      $(this).on("change", function () {
+        if ($(this).val().length > 0) {
+          $(this).addClass("not-empty");
+        } else {
+          $(this).removeClass("not-empty");
+        }
+      });
+    });
+
+    return () => {};
+  }, [isCCPayment]);
+
+  useEffect(() => {
     document.title = "Pricing";
+
     fetchPackages();
     if (encryptStorage.getItem("user_logged_in")) {
       fetchUserTransactionStatus();
@@ -289,12 +333,14 @@ const Pricing = () => {
           <div className="payment-list">
             <div
               className="payment-list-blur"
-              onClick={handleCloseChoosePayment}
+              onClick={handleClickCloseChoosePayment}
             ></div>
             <div className="payment-list-box">
               <div className="payment-list-content-header">
-                <h3>choose your payment gateway</h3>
-                <button onClick={handleCloseChoosePayment}>
+                <h3>
+                  {isCCPayment ? "fill card info" : "choose payment gateway"}
+                </h3>
+                <button onClick={handleClickCloseChoosePayment}>
                   <FontAwesomeIcon icon={faTimesCircle} />
                 </button>
               </div>
@@ -350,8 +396,8 @@ const Pricing = () => {
                   </div>
                 )}
                 {isCCPayment && (
-                  <>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="payment-list-content-confirm-payment-cc">
+                    <form onSubmit={handleSubmit(handleClickDoCCPayment)}>
                       {modalState.isShowMessageModal && (
                         <MessageModal
                           closeModal={closeModal}
@@ -359,143 +405,94 @@ const Pricing = () => {
                           statusCode={modalState.messageModalStatusCode}
                         />
                       )}
+
                       <div className="form-input">
                         <input
-                          id="name"
-                          className={errors.name && "form-input-error"}
-                          {...register("name", {
+                          id="cardNumber"
+                          className={errors.cardNumber && "form-input-error"}
+                          {...register("cardNumber", {
                             required: "this field is required",
-                            pattern: {
-                              // eslint-disable-next-line
-                              value: /^[a-z ,.'-]+$/i,
-                              message: "invalid format",
-                            },
                           })}
                           ref={(e) => {
                             ref(e);
-                            nameRef.current = e; // you can still assign to ref
+                            cardNumberRef.current = e; // you can still assign to ref
                           }}
                         />
-                        <label htmlFor="name">
-                          <span>name</span>
+                        <label htmlFor="cardNumber">
+                          <span>card number</span>
                         </label>
-                        {errors.name && (
+                        {errors.cardNumber && (
                           <span className="error-message">
-                            <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+                            <FontAwesomeIcon icon={faExclamationCircle} />
                             &nbsp;
-                            {errors.name.message}
+                            {errors.cardNumber.message}
                           </span>
                         )}
                       </div>
 
                       <div className="form-input">
                         <input
-                          id="email"
-                          className={errors.email && "form-input-error"}
-                          {...register("email", {
+                          id="cardExpMonth"
+                          className={errors.cardExpMonth && "form-input-error"}
+                          {...register("cardExpMonth", {
                             required: "this field is required",
-                            pattern: {
-                              value:
-                                // eslint-disable-next-line
-                                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                              message: "invalid format",
-                            },
                           })}
                         />
-                        <label htmlFor="email">
-                          <span>email</span>
+                        <label htmlFor="cardExpMonth">
+                          <span>card exp month</span>
                         </label>
-                        {errors.email && (
+                        {errors.cardExpMonth && (
                           <span className="error-message">
-                            <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+                            <FontAwesomeIcon icon={faExclamationCircle} />
                             &nbsp;
-                            {errors.email.message}
+                            {errors.cardExpMonth.message}
                           </span>
                         )}
                       </div>
 
                       <div className="form-input">
                         <input
-                          id="password"
-                          type="password"
-                          className={errors.password && "form-input-error"}
-                          {...register("password", {
+                          id="cardExpYear"
+                          className={errors.cardExpYear && "form-input-error"}
+                          {...register("cardExpYear", {
                             required: "this field is required",
                           })}
                         />
-                        <label htmlFor="password">
-                          <span>password</span>
+                        <label htmlFor="cardExpYear">
+                          <span>card exp year</span>
                         </label>
-                        {errors.password && (
+                        {errors.cardExpYear && (
                           <span className="error-message">
-                            <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+                            <FontAwesomeIcon icon={faExclamationCircle} />
                             &nbsp;
-                            {errors.password.message}
+                            {errors.cardExpYear.message}
                           </span>
                         )}
                       </div>
 
                       <div className="form-input">
                         <input
-                          id="confirmPassword"
-                          type="password"
-                          className={
-                            errors.confirmPassword && "form-input-error"
-                          }
-                          {...register("confirmPassword", {
+                          id="cardCVV"
+                          className={errors.cardCVV && "form-input-error"}
+                          {...register("cardCVV", {
                             required: "this field is required",
-                            validate: (value) => {
-                              if (value !== watch("password")) {
-                                return "password and confirm password do not match";
-                              }
-                            },
                           })}
                         />
-                        <label htmlFor="confirmPassword">
-                          <span>confirm password</span>
+                        <label htmlFor="cardCVV">
+                          <span>card cvv</span>
                         </label>
-                        {errors.confirmPassword && (
+                        {errors.cardCVV && (
                           <span className="error-message">
-                            <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+                            <FontAwesomeIcon icon={faExclamationCircle} />
                             &nbsp;
-                            {errors.confirmPassword.message}
+                            {errors.cardCVV.message}
                           </span>
                         )}
                       </div>
 
-                      <ButtonRipple type="submit" text="sign up" />
+                      <ButtonRipple type="submit" text="submit" />
                     </form>
-
-                    <div className="payment-list-content-confirm-payment-cc">
-                      <input
-                        type="text"
-                        name="card_number"
-                        placeholder="card_number"
-                      />
-                      <input
-                        type="text"
-                        name="card_exp_month"
-                        placeholder="card_exp_month"
-                      />
-                      <input
-                        type="text"
-                        name="card_exp_year"
-                        placeholder="card_exp_year"
-                      />
-                      <input
-                        type="text"
-                        name="card_cvv"
-                        placeholder="card_cvv"
-                      />
-                      <button
-                        onClick={() => {
-                          handleClickDoCCPayment();
-                        }}
-                      >
-                        pay
-                      </button>
-                    </div>
-                  </>
+                  </div>
                 )}
               </div>
               <div className="payment-list-content-footer">
