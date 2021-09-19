@@ -90,6 +90,7 @@ const Pricing = () => {
       })
       .then((res) => {
         //success
+        appContext.setIsLoading(false);
         console.log(res.data);
         if (res.data.status_code === 200) {
           handleClickCloseChoosePayment();
@@ -100,7 +101,6 @@ const Pricing = () => {
             statusCode: parseInt(res.data.status_code),
           });
         }
-        appContext.setIsLoading(false);
       })
       .catch((err) => {
         //error
@@ -195,90 +195,7 @@ const Pricing = () => {
   };
 
   const handleClickDoBCAVAPayment = async () => {
-    appContext.setIsLoading(true);
-
-    const formData = generateFormData({
-      packageID: packageID,
-      userID: encryptStorage.getItem("user_logged_in").user_id,
-    });
-
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/bcavapayment`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        if (res.data.status_code === "201") {
-          setBCAVAPaymentVA(res.data.va_numbers[0].va_number);
-        }
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
-      });
-  };
-
-  const handleClickDoCCPayment = async (data) => {
-    appContext.setIsLoading(true);
-
-    const cardData = {
-      card_number: data.cardNumber,
-      card_exp_month: data.cardExpMonth,
-      card_exp_year: data.cardExpYear,
-      card_cvv: data.cardCVV,
-    };
-
-    const options = {
-      onSuccess: function (response) {
-        // Success to get card token_id, implement as you wish here
-        // console.log("Success to get card token_id, response:", response);
-        const token_id = response.token_id;
-
-        // console.log("This is the card token_id:", token_id);
-        // Implement sending the token_id to backend to proceed to next step
-
-        appContext.setIsLoading(false);
-        doCCPayment(token_id);
-      },
-      onFailure: function (response) {
-        // Fail to get card token_id, implement as you wish here
-        // console.log("Fail to get card token_id, response:", response);
-
-        appContext.setIsLoading(false);
-
-        modalDispatch({
-          type: "SHOW_MODAL",
-          payload: response.status_message,
-          statusCode: response.status_code,
-        });
-
-        // you may want to implement displaying failure message to customer.
-        // Also record the error message to your log, so you can review
-        // what causing failure on this transaction.
-      },
-    };
-
-    window.MidtransNew3ds.getCardToken(cardData, options);
-  };
-
-  const handleClickSelectPackage = (params) => {
-    if (encryptStorage.getItem("user_logged_in")) {
-      setIsOpenChoosePayment(true);
-      setPackageID(params);
-    } else {
-      history.push("/signin");
-    }
-  };
-
-  const handleClickCheckDate = async () => {
+    //check if user already premium
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
@@ -295,8 +212,176 @@ const Pricing = () => {
       )
       .then((res) => {
         //success
-        console.log(res.data);
         appContext.setIsLoading(false);
+
+        if (res.data.status === 200) {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: "user already premium",
+            statusCode: 400,
+          });
+        } else {
+          appContext.setIsLoading(true);
+
+          const formData = generateFormData({
+            packageID: packageID,
+            userID: encryptStorage.getItem("user_logged_in").user_id,
+          });
+
+          axios
+            .post(
+              `${process.env.REACT_APP_SITE_API_URL}/bcavapayment`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+            )
+            .then((res) => {
+              //success
+              appContext.setIsLoading(false);
+              if (res.data.status_code === "201") {
+                setBCAVAPaymentVA(res.data.va_numbers[0].va_number);
+              }
+            })
+            .catch((err) => {
+              //error
+              if (err.response) {
+                console.log("res error", err.response.data);
+              } else if (err.request) {
+                console.log("req error", err.request.data);
+              } else {
+                console.log("Error", err.message);
+              }
+              appContext.setIsLoading(false);
+            });
+        }
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
+  const handleClickDoCCPayment = async (data) => {
+    //check if user already premium
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      userID: encryptStorage.getItem("user_logged_in").user_id,
+    });
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/checksubscriptiondate`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+
+        if (res.data.status === 200) {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: "user already premium",
+            statusCode: 400,
+          });
+        } else {
+          appContext.setIsLoading(true);
+
+          const cardData = {
+            card_number: data.cardNumber,
+            card_exp_month: data.cardExpMonth,
+            card_exp_year: data.cardExpYear,
+            card_cvv: data.cardCVV,
+          };
+
+          const options = {
+            onSuccess: function (response) {
+              // Success to get card token_id, implement as you wish here
+              // console.log("Success to get card token_id, response:", response);
+              const token_id = response.token_id;
+
+              // console.log("This is the card token_id:", token_id);
+              // Implement sending the token_id to backend to proceed to next step
+
+              appContext.setIsLoading(false);
+              doCCPayment(token_id);
+            },
+            onFailure: function (response) {
+              // Fail to get card token_id, implement as you wish here
+              // console.log("Fail to get card token_id, response:", response);
+
+              appContext.setIsLoading(false);
+
+              modalDispatch({
+                type: "SHOW_MODAL",
+                payload: response.status_message,
+                statusCode: response.status_code,
+              });
+
+              // you may want to implement displaying failure message to customer.
+              // Also record the error message to your log, so you can review
+              // what causing failure on this transaction.
+            },
+          };
+
+          window.MidtransNew3ds.getCardToken(cardData, options);
+        }
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
+  const handleClickSelectPackage = (params) => {
+    if (encryptStorage.getItem("user_logged_in")) {
+      setIsOpenChoosePayment(true);
+      setPackageID(params);
+    } else {
+      history.push("/signin");
+    }
+  };
+
+  const handleClickBCAVACallback = async () => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      order_id: "3",
+      status_code: "200",
+    });
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/bcavapaymentcallback`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+        console.log(res.data);
       })
       .catch((err) => {
         //error
@@ -362,7 +447,7 @@ const Pricing = () => {
   return (
     <div className="navbar-margin">
       <div className="pricing">
-        <button onClick={handleClickCheckDate}>check date</button>
+        <button onClick={handleClickBCAVACallback}>bcava callback</button>
         {isOpenChoosePayment && (
           <div className="payment-list">
             <div
@@ -415,6 +500,14 @@ const Pricing = () => {
 
                 {isBCAVAPayment && (
                   <div className="payment-list-content-confirm-payment-bcava">
+                    {modalState.isShowMessageModal && (
+                      <MessageModal
+                        closeModal={closeModal}
+                        content={modalState.messageModalContent}
+                        statusCode={modalState.messageModalStatusCode}
+                      />
+                    )}
+
                     {BCAVAPaymentVA && (
                       <>
                         <h3>please complete your payment using this code</h3>
