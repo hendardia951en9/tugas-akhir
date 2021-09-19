@@ -17,6 +17,7 @@ export const ComponentDefaultProps = {
       borderTopRightRadius: { value: "200", unit: "px" },
       borderTopWidth: { value: "0", unit: "px" },
       color: { r: 255, g: 255, b: 255, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "16", unit: "px" },
       fontWeight: "normal",
       height: { value: "0", unit: "auto" },
@@ -59,7 +60,9 @@ export const ComponentDefaultProps = {
     dividerTextContainerStyle: {
       alignItems: "center",
       color: { r: 0, g: 0, b: 0, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "16", unit: "px" },
+      fontWeight: "normal",
       justifyContent: "center",
     },
     dividerTextStyle: {
@@ -71,6 +74,7 @@ export const ComponentDefaultProps = {
     style: {
       backgroundColor: { r: 255, g: 255, b: 255, a: 0 },
       color: { r: 0, g: 0, b: 0, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "32", unit: "px" },
       fontWeight: "bold",
       letterSpacing: { value: "0", unit: "normal" },
@@ -421,6 +425,7 @@ export const ComponentDefaultProps = {
       alignItems: "flex-start",
       backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
       color: { r: 255, g: 255, b: 255, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "16", unit: "px" },
       fontWeight: "bold",
       gap: { value: "32", unit: "px" },
@@ -434,6 +439,7 @@ export const ComponentDefaultProps = {
     subMenuStyle: {
       backgroundColor: { r: 0, g: 0, b: 0, a: 0 },
       color: { r: 255, g: 255, b: 255, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "16", unit: "px" },
       fontWeight: "normal",
       gap: { value: "16", unit: "px" },
@@ -447,6 +453,7 @@ export const ComponentDefaultProps = {
     watermarkStyle: {
       backgroundColor: { r: 32, g: 34, b: 40, a: 1 },
       color: { r: 255, g: 255, b: 255, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "1", unit: "em" },
       fontWeight: "normal",
       textTransform: "capitalize",
@@ -458,6 +465,7 @@ export const ComponentDefaultProps = {
     style: {
       backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
       color: { r: 255, g: 255, b: 255, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "16", unit: "px" },
       fontWeight: "bold",
       gap: { value: "16", unit: "px" },
@@ -470,6 +478,7 @@ export const ComponentDefaultProps = {
     subMenuStyle: {
       backgroundColor: { r: 0, g: 0, b: 0, a: 1 },
       color: { r: 255, g: 255, b: 255, a: 1 },
+      fontFamily: "inherit",
       fontSize: { value: "16", unit: "px" },
       fontWeight: "normal",
       gap: { value: "16", unit: "px" },

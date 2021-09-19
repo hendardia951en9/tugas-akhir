@@ -14,6 +14,7 @@
 }
 
 .button-component a {
-  text-decoration: inherit;
   color: inherit;
+  font-family: unset;
+  text-decoration: inherit;
 }

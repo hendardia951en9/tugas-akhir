@@ -718,6 +718,30 @@ const WebGenerator = () => {
           },
         },
       };
+    } else if (propsTypes === PropsTypes.FONT_FAMILY) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextContainerStyle: {
+              ...component.props.dividerTextContainerStyle,
+              fontFamily: value,
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              fontFamily: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.FONT_SIZE) {
       if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
         component = {
@@ -749,16 +773,29 @@ const WebGenerator = () => {
         };
       }
     } else if (propsTypes === PropsTypes.FONT_WEIGHT) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            fontWeight: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerTextContainerStyle: {
+              ...component.props.dividerTextContainerStyle,
+              fontWeight: value,
+            },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              fontWeight: value,
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.GAP) {
       component = {
         ...component,
@@ -1417,6 +1454,17 @@ const WebGenerator = () => {
           },
         },
       };
+    } else if (propsTypes === PropsTypes.USER_FOOTER_SUBMENU_FONT_FAMILY) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            fontFamily: value,
+          },
+        },
+      };
     } else if (propsTypes === PropsTypes.USER_FOOTER_SUBMENU_FONT_SIZE) {
       component = {
         ...component,
@@ -1496,6 +1544,17 @@ const WebGenerator = () => {
           watermarkStyle: {
             ...component.props.watermarkStyle,
             color: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          watermarkStyle: {
+            ...component.props.watermarkStyle,
+            fontFamily: value,
           },
         },
       };
@@ -1608,6 +1667,17 @@ const WebGenerator = () => {
           subMenuStyle: {
             ...component.props.subMenuStyle,
             color: value,
+          },
+        },
+      };
+    } else if (propsTypes === PropsTypes.USER_NAVBAR_SUBMENU_FONT_FAMILY) {
+      component = {
+        ...component,
+        props: {
+          ...component.props,
+          subMenuStyle: {
+            ...component.props.subMenuStyle,
+            fontFamily: value,
           },
         },
       };
@@ -3271,7 +3341,7 @@ const WebGenerator = () => {
               <div className="sidebar-header">
                 <div className="sidebar-header-navigation">
                   <button
-                    className="sidebar-header-navigation-button"
+                    className="sidebar-header-navigation-button sidebar-header-navigation-button-choose-page"
                     onClick={() =>
                       handleClickPageBuilderComponent(
                         ItemTypes.CHOOSE_PAGE_BUTTON,
@@ -3282,7 +3352,7 @@ const WebGenerator = () => {
                     <FontAwesomeIcon icon={faWindowRestore} />
                   </button>
                   <button
-                    className="sidebar-header-navigation-button"
+                    className="sidebar-header-navigation-button sidebar-header-navigation-button-dom-tree"
                     onClick={() =>
                       handleClickPageBuilderComponent(
                         ItemTypes.DOM_TREE_BUTTON,
@@ -3293,7 +3363,7 @@ const WebGenerator = () => {
                     <FontAwesomeIcon icon={faProjectDiagram} />
                   </button>
                   <button
-                    className="sidebar-header-navigation-button"
+                    className="sidebar-header-navigation-button sidebar-header-navigation-button-component-list-button"
                     onClick={() =>
                       handleClickPageBuilderComponent(
                         ItemTypes.COMPONENT_LIST_BUTTON,

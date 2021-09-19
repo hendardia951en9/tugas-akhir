@@ -9,6 +9,10 @@ a {
   overflow: hidden;
 }
 
+.user-footer-container * {
+  font-family: unset;
+}
+
 .user-footer-menu.isEdit {
   cursor: pointer;
 }

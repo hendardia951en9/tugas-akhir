@@ -47,7 +47,7 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
               return (
                 <React.Fragment key={innersectionlayout.key}>
                   <div
-                    className="dom-tree-element"
+                    className="dom-tree-element innersection-child"
                     onClick={(e) => {
                       if (e.target === e.currentTarget) {
                         pageBuilderContext.handleClickPageBuilderComponent(
@@ -56,7 +56,6 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                         );
                       }
                     }}
-                    style={{ marginLeft: "1rem" }}
                   >
                     <div className="dom-tree-element-button-container">
                       <ButtonRipple
@@ -86,7 +85,7 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                     ? innersectionlayout.props.children.map((child) => {
                         return (
                           <div
-                            className="dom-tree-element"
+                            className="dom-tree-element innersection-layout-child"
                             key={child.key}
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
@@ -96,7 +95,6 @@ const DOMTreeElement = ({ componentKey, itemTypes, props }) => {
                                 );
                               }
                             }}
-                            style={{ marginLeft: "2rem" }}
                           >
                             <div className="dom-tree-element-button-container">
                               <ButtonRipple

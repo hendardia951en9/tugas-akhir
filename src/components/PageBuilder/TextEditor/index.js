@@ -26,7 +26,7 @@ const TextEditor = ({ componentKey, isEdit, itemTypes, props }) => {
   }, [props.textEditorValue]);
 
   return (
-    <section
+    <div
       className="text-editor-component-container"
       onClick={
         isEdit
@@ -54,7 +54,7 @@ const TextEditor = ({ componentKey, isEdit, itemTypes, props }) => {
       ) : (
         props.text
       )}
-    </section>
+    </div>
   );
 };
 

@@ -9,6 +9,10 @@ a {
   z-index: 80;
 }
 
+.user-navbar * {
+  font-family: unset;
+}
+
 .user-navbar:not(.isEdit) {
   position: sticky;
   top: 0;
@@ -22,8 +26,8 @@ a {
 }
 
 .user-navbar > ul > li {
-  padding: 0.5rem;
   cursor: pointer;
+  padding: 0.5rem;
 }
 
 .user-navbar-menu-logo {

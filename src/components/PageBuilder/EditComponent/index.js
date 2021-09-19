@@ -115,6 +115,7 @@ const EditComponent = ({ props }) => {
   const [controls, setControls] = useState(false);
   const [dividerText, setDividerText] = useState("");
   const [flexDirection, setFlexDirection] = useState("row");
+  const [fontFamily, setFontFamily] = useState("inherit");
   const [fontSizeValue, setFontSizeValue] = useState(0);
   const [fontSizeUnit, setFontSizeUnit] = useState("px");
   const [fontWeight, setFontWeight] = useState("normal");
@@ -167,6 +168,8 @@ const EditComponent = ({ props }) => {
     b: 0,
     a: 1,
   });
+  const [userFooterSubMenuFontFamily, setUserFooterSubMenuFontFamily] =
+    useState("inherit");
   const [userFooterSubMenuFontSizeValue, setUserFooterSubMenuFontSizeValue] =
     useState(0);
   const [userFooterSubMenuFontSizeUnit, setUserFooterSubMenuFontSizeUnit] =
@@ -190,6 +193,8 @@ const EditComponent = ({ props }) => {
     b: 0,
     a: 1,
   });
+  const [userFooterWatermarkFontFamily, setUserFooterWatermarkFontFamily] =
+    useState("inherit");
   const [
     userFooterWatermarkFontSizeValue,
     setUserFooterWatermarkFontSizeValue,
@@ -225,6 +230,8 @@ const EditComponent = ({ props }) => {
     b: 0,
     a: 1,
   });
+  const [userNavbarSubMenuFontFamily, setUserNavbarSubMenuFontFamily] =
+    useState("inherit");
   const [userNavbarSubMenuFontSizeValue, setUserNavbarSubMenuFontSizeValue] =
     useState(0);
   const [userNavbarSubMenuFontSizeUnit, setUserNavbarSubMenuFontSizeUnit] =
@@ -617,6 +624,15 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.flexDirection) {
         setFlexDirection(props.componentProps.style.flexDirection);
       }
+      if (props.componentEditableProps.fontFamily) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setFontFamily(
+            props.componentProps.dividerTextContainerStyle.fontFamily
+          );
+        } else {
+          setFontFamily(props.componentProps.style.fontFamily);
+        }
+      }
       if (props.componentEditableProps.fontSize) {
         if (props.itemTypes === ItemTypes.DIVIDER) {
           setFontSizeValue(
@@ -631,7 +647,13 @@ const EditComponent = ({ props }) => {
         }
       }
       if (props.componentEditableProps.fontWeight) {
-        setFontWeight(props.componentProps.style.fontWeight);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setFontWeight(
+            props.componentProps.dividerTextContainerStyle.fontWeight
+          );
+        } else {
+          setFontWeight(props.componentProps.style.fontWeight);
+        }
       }
       if (props.componentEditableProps.gap) {
         setGapValue(props.componentProps.style.gap.value);
@@ -879,6 +901,11 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.userFooterSubMenuColor) {
         setUserFooterSubMenuColor(props.componentProps.subMenuStyle.color);
       }
+      if (props.componentEditableProps.userFooterSubMenuFontFamily) {
+        setUserFooterSubMenuFontFamily(
+          props.componentProps.subMenuStyle.fontFamily
+        );
+      }
       if (props.componentEditableProps.userFooterSubMenuFontSize) {
         setUserFooterSubMenuFontSizeValue(
           props.componentProps.subMenuStyle.fontSize.value
@@ -915,6 +942,11 @@ const EditComponent = ({ props }) => {
       }
       if (props.componentEditableProps.userFooterWatermarkColor) {
         setUserFooterWatermarkColor(props.componentProps.watermarkStyle.color);
+      }
+      if (props.componentEditableProps.userFooterWatermarkFontFamily) {
+        setUserFooterWatermarkFontFamily(
+          props.componentProps.watermarkStyle.fontFamily
+        );
       }
       if (props.componentEditableProps.userFooterWatermarkFontSize) {
         setUserFooterWatermarkFontSizeValue(
@@ -973,6 +1005,11 @@ const EditComponent = ({ props }) => {
       }
       if (props.componentEditableProps.userNavbarSubMenuColor) {
         setUserNavbarSubMenuColor(props.componentProps.subMenuStyle.color);
+      }
+      if (props.componentEditableProps.userNavbarSubMenuFontFamily) {
+        setUserNavbarSubMenuFontFamily(
+          props.componentProps.subMenuStyle.fontFamily
+        );
       }
       if (props.componentEditableProps.userNavbarSubMenuFontSize) {
         setUserNavbarSubMenuFontSizeValue(
@@ -2118,6 +2155,36 @@ const EditComponent = ({ props }) => {
             </select>
             <label htmlFor="flexDirection">
               <span>{PropsTypes.FLEX_DIRECTION}</span>
+            </label>
+          </div>
+        )}
+        {/* font family */}
+        {props.componentEditableProps.fontFamily && (
+          <div className="form-input">
+            <select
+              id="fontFamily"
+              name="fontFamily"
+              onChange={(e) => {
+                setFontFamily(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.FONT_FAMILY,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={fontFamily}
+            >
+              {props.componentEditableProps.fontFamily.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+            <label htmlFor="fontFamily">
+              <span>{PropsTypes.FONT_FAMILY}</span>
             </label>
           </div>
         )}
@@ -3847,6 +3914,38 @@ const EditComponent = ({ props }) => {
             </div>
           </div>
         )}
+        {/* user footer submenu font family */}
+        {props.componentEditableProps.userFooterSubMenuFontFamily && (
+          <div className="form-input">
+            <select
+              id="userFooterSubMenuFontFamily"
+              name="userFooterSubMenuFontFamily"
+              onChange={(e) => {
+                setUserFooterSubMenuFontFamily(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_SUBMENU_FONT_FAMILY,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterSubMenuFontFamily}
+            >
+              {props.componentEditableProps.userFooterSubMenuFontFamily.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterSubMenuFontFamily">
+              <span>{PropsTypes.USER_FOOTER_SUBMENU_FONT_FAMILY}</span>
+            </label>
+          </div>
+        )}
         {/* user footer submenu font size */}
         {props.componentEditableProps.userFooterSubMenuFontSize && (
           <div className="form-input">
@@ -4115,6 +4214,38 @@ const EditComponent = ({ props }) => {
                 </div>
               )}
             </div>
+          </div>
+        )}
+        {/* user footer watermark font family */}
+        {props.componentEditableProps.userFooterWatermarkFontFamily && (
+          <div className="form-input">
+            <select
+              id="userFooterWatermarkFontFamily"
+              name="userFooterWatermarkFontFamily"
+              onChange={(e) => {
+                setUserFooterWatermarkFontFamily(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userFooterWatermarkFontFamily}
+            >
+              {props.componentEditableProps.userFooterWatermarkFontFamily.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userFooterWatermarkFontFamily">
+              <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY}</span>
+            </label>
           </div>
         )}
         {/* user footer watermark font size */}
@@ -4546,6 +4677,38 @@ const EditComponent = ({ props }) => {
                 </div>
               )}
             </div>
+          </div>
+        )}
+        {/* user navbar submenu font family */}
+        {props.componentEditableProps.userNavbarSubMenuFontFamily && (
+          <div className="form-input">
+            <select
+              id="userNavbarSubMenuFontFamily"
+              name="userNavbarSubMenuFontFamily"
+              onChange={(e) => {
+                setUserNavbarSubMenuFontFamily(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.USER_NAVBAR_SUBMENU_FONT_FAMILY,
+                  "",
+                  e.target.value,
+                  props.location
+                );
+              }}
+              value={userNavbarSubMenuFontFamily}
+            >
+              {props.componentEditableProps.userNavbarSubMenuFontFamily.map(
+                (unit, index) => {
+                  return (
+                    <option key={index} value={unit}>
+                      {unit}
+                    </option>
+                  );
+                }
+              )}
+            </select>
+            <label htmlFor="userNavbarSubMenuFontFamily">
+              <span>{PropsTypes.USER_NAVBAR_SUBMENU_FONT_FAMILY}</span>
+            </label>
           </div>
         )}
         {/* user navbar submenu font size */}

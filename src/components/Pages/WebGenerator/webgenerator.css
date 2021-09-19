@@ -50,7 +50,7 @@
 }
 
 .page-builder-container {
-  --sidebar-header: 110px;
+  --sidebar-header: 90px;
   --sidebar-footer: 50px;
 
   height: 100%;
@@ -97,18 +97,30 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1.5em;
-  padding: 0.5rem 1rem;
+  font-size: 1.4em;
+  padding: 0.3em 0.7em;
   outline: none;
   transition: all 100ms ease-in-out;
 }
+
+/* .sidebar-header-navigation-button-choose-page {
+  color: red;
+}
+
+.sidebar-header-navigation-button-dom-tree {
+  color: green;
+}
+
+.sidebar-header-navigation-button-component-list-button {
+  color: blue;
+} */
 
 .sidebar-header-navigation-button:hover {
   color: #3799ee;
 }
 
 .sidebar-header-title {
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-align: center;
 }
 
