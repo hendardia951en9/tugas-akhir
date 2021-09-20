@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
@@ -239,6 +239,10 @@ const GettingStarted = () => {
   const handleClickSetWebsiteName = async (params) => {
     createSite(params);
   };
+
+  useEffect(() => {
+    document.title = "Getting Started";
+  }, []);
 
   return (
     <div className="navbar-margin">
