@@ -370,12 +370,14 @@
   display: none;
 }
 
-.gallery-image-container input[type="radio"]:checked + label {
+.gallery-image-container input[type="radio"]:checked + label,
+.gallery-image-container input[type="checkbox"]:checked + label {
+  background-color: rgba(0, 0, 0, 0.5);
   border: 3px solid #3799ee;
 }
 
 .gallery-image-container input[type="radio"]:checked + label::before {
-  background-image: url("https://png.pngtree.com/png-vector/20190228/ourmid/pngtree-check-mark-icon-design-template-vector-isolated-png-image_711433.jpg");
+  background-image: url("https://png.pngtree.com/png-vector/20191113/ourmid/pngtree-green-check-mark-icon-flat-style-png-image_1986021.jpg");
   background-position: center;
   background-size: cover;
   border: 1px solid #3799ee;

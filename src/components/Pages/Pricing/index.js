@@ -366,7 +366,7 @@ const Pricing = () => {
     appContext.setIsLoading(true);
 
     const formData = generateFormData({
-      order_id: "3",
+      order_id: "1",
       status_code: "200",
     });
 

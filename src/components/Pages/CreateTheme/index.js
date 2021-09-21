@@ -65,7 +65,7 @@ const CreateTheme = () => {
     setCreateThemeIndex(1);
   };
 
-  const handleClickSetThemeName = async (params) => {
+  const handleClickSetThemeName = async (themeName, themeIsPremium) => {
     appContext.setIsLoading(true);
 
     let formData = generateFormData({
@@ -113,9 +113,10 @@ const CreateTheme = () => {
 
           formData = generateFormData({
             themeCategoryID: themeCategoryID,
-            themeName: params,
+            themeName: themeName,
             themeNavbarJSON: JSON.stringify(themeNavbarJSON),
             themeFooterJSON: JSON.stringify(themeFooterJSON),
+            themePremiumStatus: themeIsPremium === true ? "1" : "0",
           });
 
           axios

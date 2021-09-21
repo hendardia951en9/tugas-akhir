@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ButtonRipple from "../../../ButtonRipple";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
@@ -18,9 +20,14 @@ const ThemeName = ({ closeModal, handleClickSetThemeName, modalState }) => {
   } = useForm();
   const { ref } = register("themeName");
   const themeNameRef = useRef(null);
+  const [themeIsPremium, setThemeIsPremium] = useState(false);
+
+  const handleChangeRadioThemeIsPremium = (params) => {
+    setThemeIsPremium(params);
+  };
 
   const onSubmit = () => {
-    handleClickSetThemeName(themeNameRef.current.value);
+    handleClickSetThemeName(themeNameRef.current.value, themeIsPremium);
   };
 
   useEffect(() => {
@@ -59,6 +66,40 @@ const ThemeName = ({ closeModal, handleClickSetThemeName, modalState }) => {
               {errors.themeName.message}
             </span>
           )}
+        </div>
+        <div className="theme-is-premium">
+          <h3>Premium User Only?</h3>
+          <div className="theme-is-premium-radio">
+            <input
+              id="themeIsPremiumYes"
+              name="themeIsPremium"
+              onChange={() => handleChangeRadioThemeIsPremium(true)}
+              type="radio"
+            />
+            <label
+              className={`theme-is-premium-yes ${
+                themeIsPremium ? "active" : ""
+              }`}
+              htmlFor="themeIsPremiumYes"
+            >
+              <FontAwesomeIcon icon={faCheckCircle} />
+            </label>
+            <input
+              checked={!themeIsPremium}
+              id="themeIsPremiumNo"
+              name="themeIsPremium"
+              onChange={() => handleChangeRadioThemeIsPremium(false)}
+              type="radio"
+            />
+            <label
+              className={`theme-is-premium-no ${
+                themeIsPremium ? "" : "active"
+              }`}
+              htmlFor="themeIsPremiumNo"
+            >
+              <FontAwesomeIcon icon={faTimesCircle} />
+            </label>
+          </div>
         </div>
         <ButtonRipple type="submit" text="confirm" />
       </form>
