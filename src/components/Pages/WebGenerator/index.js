@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
+import $ from "jquery";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
@@ -2614,6 +2615,11 @@ const WebGenerator = () => {
   };
 
   const togglePreviewSite = () => {
+    if ($(".user-navbar").hasClass("media-query")) {
+      $(".user-navbar").removeClass("media-query");
+    } else {
+      $(".user-navbar").addClass("media-query");
+    }
     setIsMobilePreview(!isMobilePreview);
   };
 

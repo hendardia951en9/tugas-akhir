@@ -1,15 +1,54 @@
-nav.user-navbar.isEdit {
-  position: relative;
-  align-items: center;
-  display: flex;
-  z-index: 0;
-}
-
-nav.user-navbar * {
+.user-navbar * {
   font-family: unset;
 }
 
-nav.user-navbar:not(.isEdit) {
+.user-navbar:not(.isEdit) {
   position: sticky !important;
   top: 0;
+  z-index: 80;
+}
+
+.user-navbar .logo-mobile {
+  display: none;
+}
+
+.user-navbar .nav-items > ul,
+.user-navbar .nav-items {
+  pointer-events: none;
+}
+
+.user-navbar ul {
+  align-items: center;
+  display: flex;
+  list-style: none;
+  pointer-events: all;
+}
+
+.user-navbar ul > li {
+  padding: 0.5em;
+  position: relative;
+  pointer-events: all;
+}
+
+.user-navbar .user-navbar-menu,
+.user-navbar .user-navbar-menu a {
+  cursor: pointer;
+}
+
+.user-navbar ul > li > ul {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 90%;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  width: fit-content;
+}
+
+.user-navbar .user-navbar-menu:hover ul {
+  display: flex;
+}
+
+@media screen and (max-width: 900px), screen and (max-height: 450px) {
 }

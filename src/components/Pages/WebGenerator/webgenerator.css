@@ -9,6 +9,7 @@
 
 .board-content {
   min-height: inherit;
+  overflow: hidden;
   transition: width 150ms ease-in-out;
 }
 

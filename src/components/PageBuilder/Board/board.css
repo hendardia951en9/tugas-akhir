@@ -1,7 +1,6 @@
 .board {
   background-color: white;
   min-height: inherit;
-  overflow: hidden;
   position: relative;
   width: 100%;
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
@@ -16,9 +16,28 @@ import { useHistory } from "react-router-dom";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
+import PopUpModal from "../../PopUpModal";
 
 //css
 import "./dashboard.css";
+
+const modalReducer = (modalState, action) => {
+  if (action.type === "SHOW_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: true,
+      popUpModalContent: action.payload,
+      popUpModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: false,
+    };
+  }
+
+  throw new Error("no matching action type");
+};
 
 const Dashboard = () => {
   const appContext = useContext(AppContext);
@@ -27,7 +46,16 @@ const Dashboard = () => {
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
   const history = useHistory();
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowPopUpModal: false,
+    popUpModalContent: "hello world",
+    popUpModalStatusCode: 200,
+  });
   const [userSites, setUserSites] = useState([]);
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
 
   const fetchUserSites = async () => {
     appContext.setIsLoading(true);
@@ -72,6 +100,7 @@ const Dashboard = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
+        closeModal();
         fetchUserSites();
       })
       .catch((err) => {
@@ -171,6 +200,14 @@ const Dashboard = () => {
             alt=""
           />
 
+          {modalState.isShowPopUpModal && (
+            <PopUpModal
+              closeModal={closeModal}
+              content={modalState.popUpModalContent}
+              statusCode={modalState.popUpModalStatusCode}
+            />
+          )}
+
           <header>
             <h2>my sites</h2>
             <ButtonRipple
@@ -269,7 +306,18 @@ const Dashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                handleClickDeleteSite(site_id);
+                                modalDispatch({
+                                  type: "SHOW_MODAL",
+                                  payload: {
+                                    message:
+                                      "are you sure want to delete " +
+                                      site_name +
+                                      "?",
+                                    onClick: () =>
+                                      handleClickDeleteSite(site_id),
+                                  },
+                                  statusCode: 300,
+                                });
                               }
                             }}
                           >

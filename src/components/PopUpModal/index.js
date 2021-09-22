@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -34,15 +35,25 @@ const PopUpModal = ({ closeModal, content, statusCode }) => {
       <div className="popup-modal-blur" onClick={() => closeModal()}></div>
       <div className="popup-modal-box">
         <div className="popup-modal-content-header">
-          {statusCode !== 400 ? <h3>success</h3> : <h3>error</h3>}
+          {statusCode === 200 || statusCode === 201 ? (
+            <h3>success</h3>
+          ) : statusCode === 300 ? (
+            <h3>confirm</h3>
+          ) : (
+            <h3>error</h3>
+          )}
           <button onClick={() => closeModal()}>
             <FontAwesomeIcon icon={faTimesCircle} />
           </button>
         </div>
         <div className="popup-modal-content">
-          {statusCode !== 400 ? (
+          {statusCode === 200 || statusCode === 201 ? (
             <span className="icon-green">
               <FontAwesomeIcon icon={faCheckCircle} />
+            </span>
+          ) : statusCode === 300 ? (
+            <span className="icon-gray">
+              <FontAwesomeIcon icon={faQuestionCircle} />
             </span>
           ) : (
             <span className="icon-red">
@@ -65,12 +76,23 @@ const PopUpModal = ({ closeModal, content, statusCode }) => {
                 </label>
               </form>
             </>
+          ) : statusCode === 300 ? (
+            <>
+              <p>{content.message}</p>
+            </>
           ) : (
             <p>{content}</p>
           )}
         </div>
         <div className="popup-modal-content-footer">
-          <ButtonRipple onClick={closeModal} text="ok" />
+          {statusCode === 300 ? (
+            <div className="button-wrapper">
+              <ButtonRipple text="yes" onClick={content.onClick} />
+              <ButtonRipple text="no" onClick={closeModal} />
+            </div>
+          ) : (
+            <ButtonRipple onClick={closeModal} text="ok" />
+          )}
         </div>
       </div>
     </div>

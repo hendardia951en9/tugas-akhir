@@ -20,11 +20,12 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
   };
 
   return (
-    <nav
+    <div
       className={`user-navbar ${isEdit && "isEdit"}`}
       onClick={
         isEdit
           ? (e) => {
+              console.log(e.target, e.currentTarget);
               if (e.target === e.currentTarget) {
                 pageBuilderContext.handleClickPageBuilderComponent(
                   itemTypes,
@@ -61,10 +62,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
         />
       </div>
       <div className="nav-items">
-        <ul
-          className="navbar-item-left"
-          style={{ gap: props.style.gap.value + props.style.gap.unit }}
-        >
+        <ul style={{ gap: props.style.gap.value + props.style.gap.unit }}>
           <li
             className="logo"
             style={{
@@ -161,10 +159,8 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
               );
             })}
         </ul>
-        <ul className="navbar-item-middle"></ul>
-        <ul className="navbar-item-right"></ul>
       </div>
-    </nav>
+    </div>
   );
 };
 
