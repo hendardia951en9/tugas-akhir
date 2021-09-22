@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
+import { faMedal } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
 import { openInNewTab } from "../../../utils/openInNewTab";
 import { useParams } from "react-router";
@@ -146,10 +148,19 @@ const ThemeList = () => {
         <section className="theme-list">
           {themes
             ? themes.map((props) => {
-                const { theme_id, theme_name, theme_thumbnail_image_name } =
-                  props;
+                const {
+                  theme_id,
+                  theme_name,
+                  theme_thumbnail_image_name,
+                  theme_premium_status,
+                } = props;
                 return (
                   <div className="theme-container" key={theme_id}>
+                    {theme_premium_status === "1" && (
+                      <div className="theme-premium-icon">
+                        <FontAwesomeIcon icon={faMedal} />
+                      </div>
+                    )}
                     <div
                       className="theme-content"
                       onClick={(e) => {

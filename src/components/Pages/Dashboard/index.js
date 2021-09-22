@@ -105,6 +105,7 @@ const Dashboard = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
+        fetchUserSites();
       })
       .catch((err) => {
         //error
@@ -119,9 +120,39 @@ const Dashboard = () => {
       });
   };
 
-  const handleClickSite = (site_id) => {
+  const handleClickSite = (site_id, site_name) => {
     encryptStorage.setItem("site_id", site_id);
+    encryptStorage.setItem("site_name", site_name);
     history.push("/webgenerator");
+  };
+
+  const handleClickUnpublishSite = (site_id) => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      siteID: site_id,
+    });
+
+    axios
+      .post(`${process.env.REACT_APP_SITE_API_URL}/unpublishsite`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+        fetchUserSites();
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -146,7 +177,7 @@ const Dashboard = () => {
           <section className="user-sites">
             {userSites
               ? userSites.map((props, index) => {
-                  const { site_id, site_name } = props;
+                  const { site_id, site_name, site_status } = props;
 
                   return (
                     <div className="user-site-container" key={site_id}>
@@ -159,7 +190,7 @@ const Dashboard = () => {
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                handleClickSite(site_id);
+                                handleClickSite(site_id, site_name);
                               }
                             }}
                           >
@@ -200,19 +231,35 @@ const Dashboard = () => {
                             />
                             pages
                           </li>
-                          <li
-                            onClick={(e) => {
-                              if (e.target === e.currentTarget) {
-                                handleClickPublishSite(site_id);
-                              }
-                            }}
-                          >
-                            <FontAwesomeIcon
-                              className="user-site-option-icon"
-                              icon={faGlobe}
-                            />
-                            publish
-                          </li>
+                          {site_status === "0" ? (
+                            <li
+                              onClick={(e) => {
+                                if (e.target === e.currentTarget) {
+                                  handleClickPublishSite(site_id);
+                                }
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                className="user-site-option-icon"
+                                icon={faGlobe}
+                              />
+                              publish
+                            </li>
+                          ) : (
+                            <li
+                              onClick={(e) => {
+                                if (e.target === e.currentTarget) {
+                                  handleClickUnpublishSite(site_id);
+                                }
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                className="user-site-option-icon"
+                                icon={faGlobe}
+                              />
+                              unpublish
+                            </li>
+                          )}
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
@@ -232,7 +279,7 @@ const Dashboard = () => {
                         className="user-site-content"
                         onClick={(e) => {
                           if (e.target === e.currentTarget) {
-                            handleClickSite(site_id);
+                            handleClickSite(site_id, site_name);
                           }
                         }}
                       >

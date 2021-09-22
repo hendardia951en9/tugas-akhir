@@ -81,6 +81,7 @@ const GettingStarted = () => {
 
           if (res.data.status === 200) {
             encryptStorage.setItem("site_id", res.data.result.site_id);
+            encryptStorage.setItem("site_name", params);
             history.push("/webgenerator");
           } else {
             modalDispatch({
@@ -169,6 +170,7 @@ const GettingStarted = () => {
 
                 if (res.data.status === 200) {
                   encryptStorage.setItem("site_id", res.data.result.site_id);
+                  encryptStorage.setItem("site_name", params);
                   history.push("/webgenerator");
                 } else {
                   modalDispatch({

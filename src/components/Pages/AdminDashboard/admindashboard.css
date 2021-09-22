@@ -159,8 +159,20 @@
   position: relative;
 }
 
+.admin-dashboard .theme-container:hover .theme-premium-icon,
 .admin-dashboard .theme-container:hover .theme-options {
   transform: translateY(-3px);
+}
+
+.admin-dashboard .theme-premium-icon {
+  color: #ffd700;
+  font-size: 1.8em;
+  left: 1rem;
+  pointer-events: none;
+  position: absolute;
+  top: 1rem;
+  transition: all 150ms ease-in-out;
+  z-index: 10;
 }
 
 .admin-dashboard .theme-options {

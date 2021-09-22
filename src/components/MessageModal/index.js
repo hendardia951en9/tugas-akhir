@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+
+//css
 import "./messagemodal.css";
 
 const MessageModal = ({ closeModal, content, statusCode }) => {
@@ -8,14 +10,13 @@ const MessageModal = ({ closeModal, content, statusCode }) => {
     }, 3000);
   });
 
-  let className = "";
-  if (statusCode === 200) {
-    className = "success";
-  } else {
-    className = "error";
-  }
-
-  return <div className={"message-modal " + className}>{content}</div>;
+  return (
+    <div
+      className={`message-modal ${statusCode === 200 ? "success" : "error"}`}
+    >
+      {content}
+    </div>
+  );
 };
 
 export default MessageModal;

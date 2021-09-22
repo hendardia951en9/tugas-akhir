@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
+import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -495,9 +496,15 @@ const AdminDashboard = () => {
                         theme_id,
                         theme_name,
                         theme_thumbnail_image_name,
+                        theme_premium_status,
                       } = props;
                       return (
                         <div className="theme-container" key={theme_id}>
+                          {theme_premium_status === "1" && (
+                            <div className="theme-premium-icon">
+                              <FontAwesomeIcon icon={faMedal} />
+                            </div>
+                          )}
                           <div className="theme-options">
                             <FontAwesomeIcon
                               className="theme-options-icon"

@@ -1,14 +1,37 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { AppContext } from "../../../../App";
 import axios from "axios";
+import EncryptStorage from "encrypt-storage";
+import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../../utils/generateFormData";
 import { openInNewTab } from "../../../../utils/openInNewTab";
 
+//components
+import PopUpModal from "../../../PopUpModal";
+
 //css
 import "./themelistbycategory.css";
+
+const modalReducer = (modalState, action) => {
+  if (action.type === "SHOW_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: true,
+      popUpModalContent: action.payload,
+      popUpModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: false,
+    };
+  }
+
+  throw new Error("no matching action type");
+};
 
 const ThemeListByCategory = ({
   handleClickSetWebsiteThemeID,
@@ -16,7 +39,20 @@ const ThemeListByCategory = ({
 }) => {
   const appContext = useContext(AppContext);
 
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowPopUpModal: false,
+    popUpModalContent: "hello world",
+    popUpModalStatusCode: 200,
+  });
+
   const [themes, setThemes] = useState([]);
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
 
   const fetchThemesByCategory = () => {
     appContext.setIsLoading(true);
@@ -51,6 +87,51 @@ const ThemeListByCategory = ({
       });
   };
 
+  const checkSubscription = async (params) => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      userID: encryptStorage.getItem("user_logged_in").user_id,
+    });
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/checksubscriptiondate`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+
+        if (
+          res.data.status === 200 &&
+          res.data.result.subscription_package_id === "2"
+        ) {
+          handleClickSetWebsiteThemeID(params);
+        } else {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: "vvip user only",
+            statusCode: 400,
+          });
+        }
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
   useEffect(() => {
     fetchThemesByCategory();
     // eslint-disable-next-line
@@ -62,12 +143,29 @@ const ThemeListByCategory = ({
         <h2>theme list</h2>
       </header>
       <section className="theme-list">
+        {modalState.isShowPopUpModal && (
+          <PopUpModal
+            closeModal={closeModal}
+            content={modalState.popUpModalContent}
+            statusCode={modalState.popUpModalStatusCode}
+          />
+        )}
+
         {themes
           ? themes.map((props) => {
-              const { theme_id, theme_name, theme_thumbnail_image_name } =
-                props;
+              const {
+                theme_id,
+                theme_name,
+                theme_thumbnail_image_name,
+                theme_premium_status,
+              } = props;
               return (
                 <div className="theme-container" key={theme_id}>
+                  {theme_premium_status === "1" && (
+                    <div className="theme-premium-icon">
+                      <FontAwesomeIcon icon={faMedal} />
+                    </div>
+                  )}
                   <div className="theme-options">
                     <FontAwesomeIcon
                       className="theme-options-icon"
@@ -95,7 +193,7 @@ const ThemeListByCategory = ({
                     className="theme-content"
                     onClick={(e) => {
                       if (e.target === e.currentTarget) {
-                        handleClickSetWebsiteThemeID(theme_id);
+                        checkSubscription(theme_id);
                       }
                     }}
                   >

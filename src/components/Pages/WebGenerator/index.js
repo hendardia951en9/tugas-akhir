@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { ComponentDefaultProps } from "../../../utils/ComponentDefaultProps";
@@ -19,6 +19,7 @@ import { PropsTypes } from "../../../utils/PropsTypes";
 //components
 import ButtonRipple from "../../ButtonRipple";
 import DOMTree from "../../DOMTree";
+import PopUpModal from "../../PopUpModal";
 import UploadImage from "../../PageBuilder/UploadImage";
 
 //import page builder components
@@ -64,6 +65,24 @@ const boardState = {
   selectedSitePageID: -1,
 };
 
+const modalReducer = (modalState, action) => {
+  if (action.type === "SHOW_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: true,
+      popUpModalContent: action.payload,
+      popUpModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: false,
+    };
+  }
+
+  throw new Error("no matching action type");
+};
+
 const WebGenerator = () => {
   const appContext = useContext(AppContext);
 
@@ -78,12 +97,18 @@ const WebGenerator = () => {
     `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
   );
   const [isMobilePreview, setIsMobilePreview] = useState(false);
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [isRerenderPage, setIsRerenderPage] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
   const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
   const [mapState, setMapState] = useState({
     latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
     longitude: ComponentDefaultProps.MAP_COMPONENT.location.longitude,
+  });
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowPopUpModal: false,
+    popUpModalContent: "hello world",
+    popUpModalStatusCode: 200,
   });
   const [sitePages, setSitePages] = useState([]);
   const [uploadImageLocation, setUploadImageLocation] = useState("");
@@ -1765,6 +1790,46 @@ const WebGenerator = () => {
     setMapState({ latitude: newLatitude, longitude: newLongitude });
   };
 
+  const checkSubscription = async () => {
+    appContext.setIsLoading(true);
+
+    const formData = generateFormData({
+      userID: encryptStorage.getItem("user_logged_in").user_id,
+    });
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SITE_API_URL}/checksubscriptiondate`,
+        formData,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      )
+      .then((res) => {
+        //success
+        appContext.setIsLoading(false);
+
+        if (res.data.status === 200) {
+          setIsPremiumUser(true);
+        }
+      })
+      .catch((err) => {
+        //error
+        if (err.response) {
+          console.log("res error", err.response.data);
+        } else if (err.request) {
+          console.log("req error", err.request.data);
+        } else {
+          console.log("Error", err.message);
+        }
+        appContext.setIsLoading(false);
+      });
+  };
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
+
   const closeUploadImage = () => {
     setIsUploadImage(false);
   };
@@ -2235,6 +2300,7 @@ const WebGenerator = () => {
           appContext.setIsLoading(false);
 
           if (res.data.status === 200) {
+            checkSubscription();
             setSitePages(res.data.result);
             boardState.boardComponents = {};
             boardState.getComponentData = false;
@@ -2565,6 +2631,16 @@ const WebGenerator = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
+        modalDispatch({
+          type: "SHOW_MODAL",
+          payload: {
+            title: "site published in",
+            description: `${process.env.REACT_APP_BASE_URL}/website/${
+              encryptStorage.getItem("user_logged_in").user_email
+            }/${encryptStorage.getItem("site_name")}`,
+          },
+          statusCode: 201,
+        });
       })
       .catch((err) => {
         //error
@@ -2803,6 +2879,7 @@ const WebGenerator = () => {
   const renderEditComponent = (selectedComponentKey) => {
     if (Array.isArray(selectedComponentKey)) {
       if (selectedComponentKey[0] === ItemTypes.USER_FOOTER_MENU) {
+        console.log(isPremiumUser);
         const component =
           boardState.boardFooter.props.menu[selectedComponentKey[1]];
         const location = [selectedComponentKey[0], selectedComponentKey[1]];
@@ -2888,6 +2965,7 @@ const WebGenerator = () => {
             componentProps: component.props,
             itemTypes: component.itemTypes,
             location: location,
+            isPremiumUser: isPremiumUser,
           }}
         />
       );
@@ -3336,6 +3414,13 @@ const WebGenerator = () => {
         )}
 
         <div className="navbar-margin">
+          {modalState.isShowPopUpModal && (
+            <PopUpModal
+              closeModal={closeModal}
+              content={modalState.popUpModalContent}
+              statusCode={modalState.popUpModalStatusCode}
+            />
+          )}
           <div className="page-builder-container">
             <div className="sidebar">
               <div className="sidebar-header">

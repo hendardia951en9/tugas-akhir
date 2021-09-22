@@ -28,7 +28,7 @@
   bottom: 10%;
   left: 15%;
   margin-top: var(--navbar-height);
-  overflow: auto;
+  overflow: hidden;
   position: absolute;
   right: 15%;
   top: 10%;
@@ -63,10 +63,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-top: var(--upload-image-header-size);
   height: calc(
     100% - var(--upload-image-header-size) - var(--upload-image-footer-size)
   );
+  margin-top: var(--upload-image-header-size);
   overflow: auto;
   padding: 1rem 2rem;
 }

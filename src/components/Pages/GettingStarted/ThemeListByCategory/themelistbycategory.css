@@ -48,8 +48,20 @@
   position: relative;
 }
 
+.theme-list-page .theme-container:hover .theme-premium-icon,
 .theme-list-page .theme-container:hover .theme-options {
   transform: translateY(-3px);
+}
+
+.theme-list-page .theme-premium-icon {
+  color: #ffd700;
+  font-size: 1.8em;
+  left: 1rem;
+  pointer-events: none;
+  position: absolute;
+  top: 1rem;
+  transition: all 150ms ease-in-out;
+  z-index: 10;
 }
 
 .theme-list-page .theme-options {

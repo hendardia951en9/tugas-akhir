@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import $ from "jquery";
 import { DeleteableComponent } from "../../../utils/DeletableComponent";
-import { faColumns, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Editor } from "react-draft-wysiwyg";
+import EncryptStorage from "encrypt-storage";
+import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import { faColumns } from "@fortawesome/free-solid-svg-icons";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faSave } from "@fortawesome/free-regular-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconPicker } from "react-fa-icon-picker";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
-import { Editor } from "react-draft-wysiwyg";
-import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { SketchPicker } from "react-color";
 
 //components
@@ -19,10 +23,13 @@ import ButtonRipple from "../../ButtonRipple";
 //css
 import "./editcomponent.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { faSave, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 const EditComponent = ({ props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
+
+  const encryptStorage = EncryptStorage(
+    `${process.env.REACT_APP_LOCAL_STORAGE_SECRET_KEY}`
+  );
 
   const [
     isColorPickerBackgroundColorOpen,
@@ -4138,282 +4145,289 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
-        {/* user footer watermark background color */}
-        {props.componentEditableProps.userFooterWatermarkBackgroundColor && (
-          <div className="color-picker-input">
-            <label htmlFor="">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_BACKGROUND_COLOR}</span>
-            </label>
-            <div className="color-picker-button-wrapper">
-              <button
-                className="color-picker-button"
-                style={{
-                  backgroundColor: `rgba(${userFooterWatermarkBackgroundColor.r}, ${userFooterWatermarkBackgroundColor.g}, ${userFooterWatermarkBackgroundColor.b}, ${userFooterWatermarkBackgroundColor.a})`,
-                }}
-              ></button>
-              <FontAwesomeIcon
-                className="color-picker-icon"
-                icon={faPalette}
-                onClick={
-                  handleClickColorPickerUserFooterWatermarkBackgroundColor
-                }
-              />
-              {isColorPickerUserFooterWatermarkBackgroundColorOpen && (
-                <div className="color-picker-container">
-                  <SketchPicker
-                    style={{ zIndex: "99" }}
-                    color={userFooterWatermarkBackgroundColor}
-                    onChange={(color) => {
-                      setUserFooterWatermarkBackgroundColor(color.rgb);
-                      pageBuilderContext.editComponentProps(
-                        PropsTypes.USER_FOOTER_WATERMARK_BACKGROUND_COLOR,
-                        "",
-                        color.rgb,
-                        props.location
-                      );
+        {(encryptStorage.getItem("admin_logged_in") || props.isPremiumUser) && (
+          <>
+            {/* user footer watermark background color */}
+            {props.componentEditableProps
+              .userFooterWatermarkBackgroundColor && (
+              <div className="color-picker-input">
+                <label htmlFor="">
+                  <span>
+                    {PropsTypes.USER_FOOTER_WATERMARK_BACKGROUND_COLOR}
+                  </span>
+                </label>
+                <div className="color-picker-button-wrapper">
+                  <button
+                    className="color-picker-button"
+                    style={{
+                      backgroundColor: `rgba(${userFooterWatermarkBackgroundColor.r}, ${userFooterWatermarkBackgroundColor.g}, ${userFooterWatermarkBackgroundColor.b}, ${userFooterWatermarkBackgroundColor.a})`,
                     }}
+                  ></button>
+                  <FontAwesomeIcon
+                    className="color-picker-icon"
+                    icon={faPalette}
+                    onClick={
+                      handleClickColorPickerUserFooterWatermarkBackgroundColor
+                    }
                   />
+                  {isColorPickerUserFooterWatermarkBackgroundColorOpen && (
+                    <div className="color-picker-container">
+                      <SketchPicker
+                        style={{ zIndex: "99" }}
+                        color={userFooterWatermarkBackgroundColor}
+                        onChange={(color) => {
+                          setUserFooterWatermarkBackgroundColor(color.rgb);
+                          pageBuilderContext.editComponentProps(
+                            PropsTypes.USER_FOOTER_WATERMARK_BACKGROUND_COLOR,
+                            "",
+                            color.rgb,
+                            props.location
+                          );
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        )}
-        {/* user footer watermark color */}
-        {props.componentEditableProps.userFooterWatermarkColor && (
-          <div className="color-picker-input">
-            <label htmlFor="">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_COLOR}</span>
-            </label>
-            <div className="color-picker-button-wrapper">
-              <button
-                className="color-picker-button"
-                style={{
-                  backgroundColor: `rgba(${userFooterWatermarkColor.r}, ${userFooterWatermarkColor.g}, ${userFooterWatermarkColor.b}, ${userFooterWatermarkColor.a})`,
-                }}
-              ></button>
-              <FontAwesomeIcon
-                className="color-picker-icon"
-                icon={faPalette}
-                onClick={handleClickColorPickerUserFooterWatermarkColor}
-              />
-              {isColorPickerUserFooterWatermarkColorOpen && (
-                <div className="color-picker-container">
-                  <SketchPicker
-                    style={{ zIndex: "99" }}
-                    color={userFooterWatermarkColor}
-                    onChange={(color) => {
-                      setUserFooterWatermarkColor(color.rgb);
-                      pageBuilderContext.editComponentProps(
-                        PropsTypes.USER_FOOTER_WATERMARK_COLOR,
-                        "",
-                        color.rgb,
-                        props.location
-                      );
+              </div>
+            )}
+            {/* user footer watermark color */}
+            {props.componentEditableProps.userFooterWatermarkColor && (
+              <div className="color-picker-input">
+                <label htmlFor="">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_COLOR}</span>
+                </label>
+                <div className="color-picker-button-wrapper">
+                  <button
+                    className="color-picker-button"
+                    style={{
+                      backgroundColor: `rgba(${userFooterWatermarkColor.r}, ${userFooterWatermarkColor.g}, ${userFooterWatermarkColor.b}, ${userFooterWatermarkColor.a})`,
                     }}
+                  ></button>
+                  <FontAwesomeIcon
+                    className="color-picker-icon"
+                    icon={faPalette}
+                    onClick={handleClickColorPickerUserFooterWatermarkColor}
                   />
+                  {isColorPickerUserFooterWatermarkColorOpen && (
+                    <div className="color-picker-container">
+                      <SketchPicker
+                        style={{ zIndex: "99" }}
+                        color={userFooterWatermarkColor}
+                        onChange={(color) => {
+                          setUserFooterWatermarkColor(color.rgb);
+                          pageBuilderContext.editComponentProps(
+                            PropsTypes.USER_FOOTER_WATERMARK_COLOR,
+                            "",
+                            color.rgb,
+                            props.location
+                          );
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        )}
-        {/* user footer watermark font family */}
-        {props.componentEditableProps.userFooterWatermarkFontFamily && (
-          <div className="form-input">
-            <select
-              id="userFooterWatermarkFontFamily"
-              name="userFooterWatermarkFontFamily"
-              onChange={(e) => {
-                setUserFooterWatermarkFontFamily(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY,
-                  "",
-                  e.target.value,
-                  props.location
-                );
-              }}
-              value={userFooterWatermarkFontFamily}
-            >
-              {props.componentEditableProps.userFooterWatermarkFontFamily.map(
-                (unit, index) => {
-                  return (
-                    <option key={index} value={unit}>
-                      {unit}
-                    </option>
-                  );
-                }
-              )}
-            </select>
-            <label htmlFor="userFooterWatermarkFontFamily">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY}</span>
-            </label>
-          </div>
-        )}
-        {/* user footer watermark font size */}
-        {props.componentEditableProps.userFooterWatermarkFontSize && (
-          <div className="form-input">
-            <input
-              id="userFooterWatermarkFontSizeValue"
-              min="0"
-              name="userFooterWatermarkFontSizeValue"
-              onChange={(e) => {
-                setUserFooterWatermarkFontSizeValue(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE,
-                  "value",
-                  e.target.value || 0,
-                  props.location
-                );
-              }}
-              type="number"
-              value={userFooterWatermarkFontSizeValue}
-            />
-            <label htmlFor="userFooterWatermarkFontSizeValue">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE}</span>
-            </label>
-            <select
-              id="userFooterWatermarkFontSizeUnit"
-              name="userFooterWatermarkFontSizeUnit"
-              onChange={(e) => {
-                setUserFooterWatermarkFontSizeUnit(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE,
-                  "unit",
-                  e.target.value,
-                  props.location
-                );
-              }}
-              value={userFooterWatermarkFontSizeUnit}
-            >
-              {props.componentEditableProps.userFooterWatermarkFontSize.map(
-                (unit, index) => {
-                  return (
-                    <option key={index} value={unit}>
-                      {unit}
-                    </option>
-                  );
-                }
-              )}
-            </select>
-          </div>
-        )}
-        {/* user footer watermark font weight */}
-        {props.componentEditableProps.userFooterWatermarkFontWeight && (
-          <div className="form-input">
-            <select
-              id="userFooterWatermarkFontWeight"
-              name="userFooterWatermarkFontWeight"
-              onChange={(e) => {
-                setUserFooterWatermarkFontWeight(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_FONT_WEIGHT,
-                  "",
-                  e.target.value,
-                  props.location
-                );
-              }}
-              value={userFooterWatermarkFontWeight}
-            >
-              {props.componentEditableProps.userFooterWatermarkFontWeight.map(
-                (unit, index) => {
-                  return (
-                    <option key={index} value={unit}>
-                      {unit}
-                    </option>
-                  );
-                }
-              )}
-            </select>
-            <label htmlFor="userFooterWatermarkFontWeight">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_WEIGHT}</span>
-            </label>
-          </div>
-        )}
-        {/* user footer watermark is show */}
-        {props.componentEditableProps.userFooterWatermarkIsShow && (
-          <div className="form-input">
-            <select
-              id="userFooterWatermarkIsShow"
-              name="userFooterWatermarkIsShow"
-              onChange={(e) => {
-                setUserFooterWatermarkIsShow(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_IS_SHOW,
-                  "",
-                  e.target.value,
-                  props.location
-                );
-              }}
-              value={userFooterWatermarkIsShow}
-            >
-              {props.componentEditableProps.userFooterWatermarkIsShow.map(
-                (unit, index) => {
-                  return (
-                    <option key={index} value={unit}>
-                      {unit ? "Enable" : "Disable"}
-                    </option>
-                  );
-                }
-              )}
-            </select>
-            <label htmlFor="userFooterWatermarkIsShow">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_IS_SHOW}</span>
-            </label>
-          </div>
-        )}
-        {/* user footer watermark text */}
-        {props.componentEditableProps.userFooterWatermarkText && (
-          <div className="form-input">
-            <input
-              id="userFooterWatermarkText"
-              name="userFooterWatermarkText"
-              onChange={(e) => {
-                setUserFooterWatermarkText(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_TEXT,
-                  "",
-                  e.target.value || "Type Something",
-                  props.location
-                );
-              }}
-              type="text"
-              value={userFooterWatermarkText}
-            />
-            <label htmlFor="userFooterWatermarkText">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_TEXT}</span>
-            </label>
-          </div>
-        )}
-        {/* user footer watermark text transform */}
-        {props.componentEditableProps.userFooterWatermarkTextTransform && (
-          <div className="form-input">
-            <select
-              id="userFooterWatermarkTextTransform"
-              name="userFooterWatermarkTextTransform"
-              onChange={(e) => {
-                setUserFooterWatermarkTextTransform(e.target.value);
-                pageBuilderContext.editComponentProps(
-                  PropsTypes.USER_FOOTER_WATERMARK_TEXT_TRANSFORM,
-                  "",
-                  e.target.value,
-                  props.location
-                );
-              }}
-              value={userFooterWatermarkTextTransform}
-            >
-              {props.componentEditableProps.userFooterWatermarkTextTransform.map(
-                (unit, index) => {
-                  return (
-                    <option key={index} value={unit}>
-                      {unit}
-                    </option>
-                  );
-                }
-              )}
-            </select>
-            <label htmlFor="userFooterWatermarkTextTransform">
-              <span>{PropsTypes.USER_FOOTER_WATERMARK_TEXT_TRANSFORM}</span>
-            </label>
-          </div>
+              </div>
+            )}
+            {/* user footer watermark font family */}
+            {props.componentEditableProps.userFooterWatermarkFontFamily && (
+              <div className="form-input">
+                <select
+                  id="userFooterWatermarkFontFamily"
+                  name="userFooterWatermarkFontFamily"
+                  onChange={(e) => {
+                    setUserFooterWatermarkFontFamily(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY,
+                      "",
+                      e.target.value,
+                      props.location
+                    );
+                  }}
+                  value={userFooterWatermarkFontFamily}
+                >
+                  {props.componentEditableProps.userFooterWatermarkFontFamily.map(
+                    (unit, index) => {
+                      return (
+                        <option key={index} value={unit}>
+                          {unit}
+                        </option>
+                      );
+                    }
+                  )}
+                </select>
+                <label htmlFor="userFooterWatermarkFontFamily">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_FAMILY}</span>
+                </label>
+              </div>
+            )}
+            {/* user footer watermark font size */}
+            {props.componentEditableProps.userFooterWatermarkFontSize && (
+              <div className="form-input">
+                <input
+                  id="userFooterWatermarkFontSizeValue"
+                  min="0"
+                  name="userFooterWatermarkFontSizeValue"
+                  onChange={(e) => {
+                    setUserFooterWatermarkFontSizeValue(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE,
+                      "value",
+                      e.target.value || 0,
+                      props.location
+                    );
+                  }}
+                  type="number"
+                  value={userFooterWatermarkFontSizeValue}
+                />
+                <label htmlFor="userFooterWatermarkFontSizeValue">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE}</span>
+                </label>
+                <select
+                  id="userFooterWatermarkFontSizeUnit"
+                  name="userFooterWatermarkFontSizeUnit"
+                  onChange={(e) => {
+                    setUserFooterWatermarkFontSizeUnit(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_FONT_SIZE,
+                      "unit",
+                      e.target.value,
+                      props.location
+                    );
+                  }}
+                  value={userFooterWatermarkFontSizeUnit}
+                >
+                  {props.componentEditableProps.userFooterWatermarkFontSize.map(
+                    (unit, index) => {
+                      return (
+                        <option key={index} value={unit}>
+                          {unit}
+                        </option>
+                      );
+                    }
+                  )}
+                </select>
+              </div>
+            )}
+            {/* user footer watermark font weight */}
+            {props.componentEditableProps.userFooterWatermarkFontWeight && (
+              <div className="form-input">
+                <select
+                  id="userFooterWatermarkFontWeight"
+                  name="userFooterWatermarkFontWeight"
+                  onChange={(e) => {
+                    setUserFooterWatermarkFontWeight(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_FONT_WEIGHT,
+                      "",
+                      e.target.value,
+                      props.location
+                    );
+                  }}
+                  value={userFooterWatermarkFontWeight}
+                >
+                  {props.componentEditableProps.userFooterWatermarkFontWeight.map(
+                    (unit, index) => {
+                      return (
+                        <option key={index} value={unit}>
+                          {unit}
+                        </option>
+                      );
+                    }
+                  )}
+                </select>
+                <label htmlFor="userFooterWatermarkFontWeight">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_FONT_WEIGHT}</span>
+                </label>
+              </div>
+            )}
+            {/* user footer watermark is show */}
+            {props.componentEditableProps.userFooterWatermarkIsShow && (
+              <div className="form-input">
+                <select
+                  id="userFooterWatermarkIsShow"
+                  name="userFooterWatermarkIsShow"
+                  onChange={(e) => {
+                    setUserFooterWatermarkIsShow(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_IS_SHOW,
+                      "",
+                      e.target.value,
+                      props.location
+                    );
+                  }}
+                  value={userFooterWatermarkIsShow}
+                >
+                  {props.componentEditableProps.userFooterWatermarkIsShow.map(
+                    (unit, index) => {
+                      return (
+                        <option key={index} value={unit}>
+                          {unit ? "Enable" : "Disable"}
+                        </option>
+                      );
+                    }
+                  )}
+                </select>
+                <label htmlFor="userFooterWatermarkIsShow">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_IS_SHOW}</span>
+                </label>
+              </div>
+            )}
+            {/* user footer watermark text */}
+            {props.componentEditableProps.userFooterWatermarkText && (
+              <div className="form-input">
+                <input
+                  id="userFooterWatermarkText"
+                  name="userFooterWatermarkText"
+                  onChange={(e) => {
+                    setUserFooterWatermarkText(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_TEXT,
+                      "",
+                      e.target.value || "Type Something",
+                      props.location
+                    );
+                  }}
+                  type="text"
+                  value={userFooterWatermarkText}
+                />
+                <label htmlFor="userFooterWatermarkText">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_TEXT}</span>
+                </label>
+              </div>
+            )}
+            {/* user footer watermark text transform */}
+            {props.componentEditableProps.userFooterWatermarkTextTransform && (
+              <div className="form-input">
+                <select
+                  id="userFooterWatermarkTextTransform"
+                  name="userFooterWatermarkTextTransform"
+                  onChange={(e) => {
+                    setUserFooterWatermarkTextTransform(e.target.value);
+                    pageBuilderContext.editComponentProps(
+                      PropsTypes.USER_FOOTER_WATERMARK_TEXT_TRANSFORM,
+                      "",
+                      e.target.value,
+                      props.location
+                    );
+                  }}
+                  value={userFooterWatermarkTextTransform}
+                >
+                  {props.componentEditableProps.userFooterWatermarkTextTransform.map(
+                    (unit, index) => {
+                      return (
+                        <option key={index} value={unit}>
+                          {unit}
+                        </option>
+                      );
+                    }
+                  )}
+                </select>
+                <label htmlFor="userFooterWatermarkTextTransform">
+                  <span>{PropsTypes.USER_FOOTER_WATERMARK_TEXT_TRANSFORM}</span>
+                </label>
+              </div>
+            )}
+          </>
         )}
         {/* user navbar menu */}
         {props.componentEditableProps.userNavbarMenu && (
