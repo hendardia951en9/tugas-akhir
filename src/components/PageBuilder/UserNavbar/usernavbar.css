@@ -1,63 +1,15 @@
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.user-navbar {
+nav.user-navbar.isEdit {
+  position: relative;
   align-items: center;
   display: flex;
-  z-index: 80;
+  z-index: 0;
 }
 
-.user-navbar * {
+nav.user-navbar * {
   font-family: unset;
 }
 
-.user-navbar:not(.isEdit) {
-  position: sticky;
+nav.user-navbar:not(.isEdit) {
+  position: sticky !important;
   top: 0;
-}
-
-.user-navbar > ul {
-  align-items: center;
-  display: flex;
-  list-style-type: none;
-  z-index: 80;
-}
-
-.user-navbar > ul > li {
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.user-navbar-menu-logo {
-  display: block;
-}
-
-.user-navbar > ul > li {
-  position: relative;
-}
-
-.user-navbar > ul > li > ul {
-  display: none;
-  flex-direction: column;
-  left: 0;
-  list-style-type: none;
-  min-width: 100%;
-  padding: 0.5rem;
-  position: absolute;
-  top: 100%;
-}
-
-.user-navbar ul > li:hover > ul {
-  display: flex;
-}
-
-.user-navbar > ul > li > ul > li {
-  width: 100%;
-}
-
-.user-navbar > ul > li > ul > li > a {
-  display: block;
-  width: 100%;
 }

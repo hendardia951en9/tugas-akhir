@@ -21,4 +21,11 @@
 
 p.asterisk {
   font-size: 0.8em;
+  text-align: justify;
+}
+
+@media screen and (max-width: 900px), screen and (max-height: 450px) {
+  .sign-in-box {
+    width: 250px;
+  }
 }

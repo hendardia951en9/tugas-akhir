@@ -172,8 +172,4 @@
   .home div.grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  /* .home .grid-item .grid-item-text {
-    display: none;
-  } */
 }

@@ -363,6 +363,7 @@ const Pricing = () => {
     }
   };
 
+  // eslint-disable-next-line
   const handleClickBCAVACallback = async () => {
     appContext.setIsLoading(true);
 

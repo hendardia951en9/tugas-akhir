@@ -26,6 +26,14 @@ const Navbar = () => {
     }
   };
 
+  const toggleHamburgerMenu = () => {
+    if ($("nav").hasClass("hamburger")) {
+      $("nav").removeClass("hamburger");
+    } else {
+      $("nav").addClass("hamburger");
+    }
+  };
+
   useEffect(() => {
     if (location.pathname === "/") {
       window.addEventListener("scroll", handleScroll);
@@ -41,6 +49,21 @@ const Navbar = () => {
 
   return (
     <nav>
+      <div className="nav-blur" onClick={() => toggleHamburgerMenu()}></div>
+      <div className="hamburger-menu" onClick={() => toggleHamburgerMenu()}>
+        <div className="hamburger-menu-icon">
+          <div className="hamburger-menu-icon-middle"></div>
+        </div>
+      </div>
+      <div className="logo-mobile">
+        {encryptStorage.getItem("admin_logged_in") ? (
+          <img src="/assets/images/logo.svg" alt="logo" />
+        ) : (
+          <NavLink exact to="/">
+            <img src="/assets/images/logo.svg" alt="logo" />
+          </NavLink>
+        )}
+      </div>
       <div className="nav-items">
         <ul className="navbar-item-left">
           <li className="logo">
