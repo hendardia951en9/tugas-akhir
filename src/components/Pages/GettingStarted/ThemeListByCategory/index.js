@@ -139,6 +139,12 @@ const ThemeListByCategory = ({
 
   return (
     <section className="theme-list-page">
+      <img
+        className="background-image"
+        src="/assets/images/home/swiper_fade_1.jpg"
+        alt=""
+      />
+
       <header>
         <h2>theme list</h2>
       </header>

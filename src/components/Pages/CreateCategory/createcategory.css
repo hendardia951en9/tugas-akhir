@@ -1,51 +1,54 @@
 .create-category {
-  min-height: calc(100vh - var(--navbar-height));
-  padding: 1em;
-}
-
-.create-category h2 {
-  margin: 1em 0;
-  text-align: center;
-}
-
-.create-category form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5em;
-  padding: 2em 0;
-}
-
-.create-category form section {
   align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height) - 86px);
+  padding: 0 0.5em;
+}
+
+.create-category .category-name {
+  padding: 1em;
+  text-align: center;
+}
+
+.create-category h2 {
+  margin: 1.2rem 0;
+  text-align: center;
   text-transform: capitalize;
 }
 
-.create-category section.category-pages {
-  max-height: calc(100vh - var(--navbar-height) - 100px);
-  overflow: auto;
-}
-
-.create-category .category-page {
+.create-category .category-name .button-container {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 1em;
-  margin: 0.5rem;
-}
-
-.create-category form section .button-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
+  gap: 2rem;
   justify-content: center;
-  margin-top: 1rem;
 }
 
-@media screen and (max-width: 900px) {
-  .create-category form {
-    gap: 1em;
+.create-category .page-list {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.page-list-container {
+  width: 70%;
+}
+
+.page-list-container .form-input {
+  gap: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+  .create-category .category-name .button-container {
+    gap: 1rem;
+  }
+
+  .page-list-container {
+    width: 80%;
   }
 }

@@ -387,6 +387,12 @@ const AdminDashboard = () => {
 
       <div className="navbar-margin">
         <div className="admin-dashboard">
+          <img
+            className="background-image"
+            src="/assets/images/home/swiper_fade_1.jpg"
+            alt=""
+          />
+
           {isCategoryList ? (
             <>
               <header>

@@ -165,6 +165,12 @@ const Dashboard = () => {
     <>
       <div className="navbar-margin">
         <div className="dashboard">
+          <img
+            className="background-image"
+            src="/assets/images/home/swiper_fade_1.jpg"
+            alt=""
+          />
+
           <header>
             <h2>my sites</h2>
             <ButtonRipple

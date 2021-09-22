@@ -242,20 +242,20 @@ const CreateCategory = () => {
               />
             </div>
           </section>
-          <section className="category-pages">
+          <section className="page-list">
             <h2>page list</h2>
             {categoryPages.length > 0
               ? categoryPages.map((props, index) => {
                   return (
-                    <div className="category-page" key={index}>
+                    <div className="page-list-container" key={index}>
                       <div className="form-input">
                         <input
-                          id="categoryPageNameFrom"
+                          id="categoryPageNameForm"
                           type="text"
                           onChange={(e) => handleOnChangePageName(e, index)}
                           value={props.pageName}
                         />
-                        <label htmlFor="categoryPageNameFrom">
+                        <label htmlFor="categoryPageNameForm">
                           <span>enter page {index + 1} name:</span>
                         </label>
                         <ButtonRipple

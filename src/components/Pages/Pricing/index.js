@@ -10,6 +10,7 @@ import { AppContext } from "../../../App";
 import axios from "axios";
 import EncryptStorage from "encrypt-storage";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
@@ -447,7 +448,7 @@ const Pricing = () => {
   return (
     <div className="navbar-margin">
       <div className="pricing">
-        <button onClick={handleClickBCAVACallback}>bcava callback</button>
+        {/* <button onClick={handleClickBCAVACallback}>bcava callback</button> */}
         {isOpenChoosePayment && (
           <div className="payment-list">
             <div
@@ -637,19 +638,62 @@ const Pricing = () => {
           </div>
         )}
 
+        <img
+          className="background-image"
+          src="/assets/images/home/swiper_fade_1.jpg"
+          alt=""
+        />
+        <h3>no hidden fees. cancel at any time</h3>
         <div className="package-list">
           {packages
             ? packages.map((props) => {
                 const { package_id, package_price, package_name } = props;
                 return (
-                  <div className="package" key={package_id}>
-                    <div>{package_name}</div>
-                    <div>{package_price}</div>
-                    <button
-                      onClick={() => handleClickSelectPackage(package_id)}
-                    >
-                      select
-                    </button>
+                  <div className="package-container" key={package_id}>
+                    <div className="package-header">
+                      <h1>{package_name}</h1>
+                      <p>
+                        IDR {package_price}
+                        <span>/month</span>
+                      </p>
+                      <hr />
+                    </div>
+                    <div className="package-content">
+                      {package_id === "1" ? (
+                        <>
+                          <div>
+                            <FontAwesomeIcon
+                              className="package-content-icon"
+                              icon={faCheck}
+                            />
+                            edit watermark
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <FontAwesomeIcon
+                              className="package-content-icon"
+                              icon={faCheck}
+                            />
+                            edit watermark
+                          </div>
+                          <div>
+                            <FontAwesomeIcon
+                              className="package-content-icon"
+                              icon={faCheck}
+                            />
+                            exclusive theme
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className="package-footer">
+                      <ButtonRipple
+                        onClick={() => handleClickSelectPackage(package_id)}
+                        text="select"
+                      />
+                    </div>
                   </div>
                 );
               })

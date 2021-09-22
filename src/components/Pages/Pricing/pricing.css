@@ -1,17 +1,91 @@
 .pricing {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 5rem 1rem;
   min-height: calc(100vh - var(--navbar-height));
   position: relative;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.pricing img.background-image {
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  opacity: 0.07;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 .package-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10em;
+  gap: 10rem;
   justify-content: center;
 }
 
-.package {
-  background-color: violet;
+.package-container {
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  height: 330px;
+  padding: 1em;
+  position: relative;
+  width: 280px;
+}
+
+.package-container:nth-child(2n) {
+  background-color: #3799ee;
+}
+
+.package-container .package-header h1 {
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.package-container .package-header p {
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.package-container .package-header span {
+  font-size: 0.6em;
+  font-weight: normal;
+  text-transform: lowercase;
+}
+
+.package-container .package-content {
+  font-size: 1.1em;
+  padding: 1em 2em;
+  width: 100%;
+}
+
+.package-container .package-content > div {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: bold;
+  gap: 1.1em;
+  margin: 0.7em 0;
+}
+
+.package-content-icon {
+  color: lightgreen;
+}
+
+.package-container .package-footer {
+  bottom: 1em;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.package-container .package-footer button {
+  margin: 0 auto;
 }
 
 .payment-list {
@@ -161,4 +235,18 @@
   position: absolute;
   right: 0;
   z-index: 10;
+}
+
+@media screen and (max-width: 900px), screen and (max-height: 450px) {
+  .package-list {
+    gap: 3rem;
+  }
+
+  .package-container {
+    width: 240px;
+  }
+
+  .package-container .package-content {
+    font-size: 0.9em;
+  }
 }
