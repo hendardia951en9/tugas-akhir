@@ -170,7 +170,6 @@ nav > .nav-items > ul > li > ul > li > a {
 @media screen and (max-width: 900px), screen and (max-height: 450px) {
   nav {
     align-items: center;
-    background-color: black;
     display: flex;
     justify-content: space-between;
   }
@@ -244,10 +243,6 @@ nav > .nav-items > ul > li > ul > li > a {
     padding: 0.5em 1em;
   }
 
-  nav.hamburger .nav-blur {
-    display: block;
-  }
-
   nav .logo-mobile {
     display: block;
   }
@@ -308,6 +303,14 @@ nav > .nav-items > ul > li > ul > li > a {
     height: 50px;
     margin: 0 1rem;
     width: 50px;
+  }
+
+  nav.hamburger {
+    background-color: black;
+  }
+
+  nav.hamburger .nav-blur {
+    display: block;
   }
 
   nav.hamburger .hamburger-menu-icon .hamburger-menu-icon-middle {
