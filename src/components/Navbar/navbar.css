@@ -273,7 +273,7 @@ nav > .nav-items > ul > li > ul > li > a {
     position: absolute;
     top: 0;
     left: 0;
-    transition: transform 250ms ease-in-out;
+    transition: transform 200ms ease-in-out, opacity 250ms ease-in-out;
     right: 0;
     bottom: 0;
   }
@@ -312,7 +312,7 @@ nav > .nav-items > ul > li > ul > li > a {
 
   nav.hamburger .hamburger-menu-icon .hamburger-menu-icon-middle {
     opacity: 0;
-    transform: translateX(-50%);
+    transform: translateX(-30%);
   }
 
   nav.hamburger .hamburger-menu-icon::before {
