@@ -46,6 +46,7 @@
 
 @media screen and (max-width: 900px), screen and (max-height: 450px) {
   .website-category .website-category-list {
+    font-size: 0.7em;
     grid-template-columns: repeat(2, 1fr);
   }
 }

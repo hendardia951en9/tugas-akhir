@@ -169,9 +169,10 @@ nav > .nav-items > ul > li > ul > li > a {
 
 @media screen and (max-width: 900px), screen and (max-height: 450px) {
   nav {
+    align-items: center;
     background-color: black;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   nav > .nav-items {
@@ -179,14 +180,14 @@ nav > .nav-items > ul > li > ul > li > a {
     background-color: white;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 50px);
+    height: calc(100vh - var(--navbar-height));
     justify-content: flex-start;
     left: 0;
     position: absolute;
     top: 100%;
-    transition: all 100ms ease-in-out;
+    transition: transform 100ms ease-in-out;
     transform: translateX(-100%);
-    width: 200px;
+    width: 180px;
   }
 
   nav > .nav-items > ul > li {
@@ -199,6 +200,7 @@ nav > .nav-items > ul > li > ul > li > a {
   }
 
   nav > .nav-items > ul > li:not(.logo) > a.navbar-active {
+    background-color: darkgray;
     font-weight: bold;
   }
 
@@ -254,10 +256,7 @@ nav > .nav-items > ul > li > ul > li > a {
     align-items: center;
     display: flex;
     height: 50px;
-    left: 0;
     padding: 0.7rem;
-    position: absolute;
-    top: 0;
     width: 50px;
   }
 
@@ -274,7 +273,7 @@ nav > .nav-items > ul > li > ul > li > a {
     position: absolute;
     top: 0;
     left: 0;
-    transition: all 250ms ease-in-out;
+    transition: transform 250ms ease-in-out;
     right: 0;
     bottom: 0;
   }
@@ -287,7 +286,7 @@ nav > .nav-items > ul > li > ul > li > a {
     position: absolute;
     right: 0;
     top: 0;
-    transition: all 100ms ease-in-out;
+    transition: transform 100ms ease-in-out;
     transform: translateY(-10px);
   }
 
@@ -299,7 +298,7 @@ nav > .nav-items > ul > li > ul > li > a {
     position: absolute;
     right: 0;
     top: 0;
-    transition: all 100ms ease-in-out;
+    transition: transform 100ms ease-in-out;
     transform: translateY(10px);
   }
 
@@ -344,5 +343,11 @@ nav > .nav-items > ul > li > ul > li > a {
 
   nav.hamburger > .nav-items > ul > li:not(.logo):hover {
     background-color: lightgray;
+  }
+
+  .navbar-slider {
+    /* samakan ukuran dengan hamburger */
+    height: 50px;
+    width: 50px;
   }
 }
