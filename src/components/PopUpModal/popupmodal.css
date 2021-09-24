@@ -36,7 +36,7 @@
 .popup-modal-content-header {
   align-items: center;
   color: white;
-  background-color: black;
+  background-color: white;
   display: flex;
   height: var(--popup-modal-header-size);
   justify-content: space-between;
@@ -51,7 +51,7 @@
 .popup-modal-content-header button {
   background-color: transparent;
   border: none;
-  color: white;
+  color: black;
   cursor: pointer;
   font-size: 1.5em;
   outline: none;
@@ -103,7 +103,7 @@
 
 .popup-modal-content-footer {
   align-items: center;
-  background-color: #f1f4f6;
+  background-color: white;
   bottom: 0;
   display: flex;
   height: var(--popup-modal-header-size);

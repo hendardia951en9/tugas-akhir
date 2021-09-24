@@ -103,7 +103,8 @@
   width: 30px;
 }
 
-.user-gallery-image-container input[type="radio"] {
+.user-gallery-image-container input[type="radio"],
+.user-gallery-image-container input[type="checkbox"] {
   display: none;
 }
 

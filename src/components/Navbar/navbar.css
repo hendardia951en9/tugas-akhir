@@ -9,7 +9,7 @@ nav {
   font-size: 0.85rem;
   position: fixed;
   top: 0;
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out; */
   width: 100%;
   z-index: 90;
 }
@@ -42,6 +42,7 @@ nav > .nav-items {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  z-index: 99;
 }
 
 nav > .nav-items > ul {

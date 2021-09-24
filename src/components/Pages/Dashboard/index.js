@@ -100,7 +100,6 @@ const Dashboard = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        closeModal();
         fetchUserSites();
       })
       .catch((err) => {

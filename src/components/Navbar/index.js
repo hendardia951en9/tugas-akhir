@@ -102,17 +102,19 @@ const Navbar = () => {
             )
           )}
           {!encryptStorage.getItem("admin_logged_in") && (
-            <li>
-              <NavLink exact to="/themelist" activeClassName="navbar-active">
-                templates
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink exact to="/themelist" activeClassName="navbar-active">
+                  templates
+                </NavLink>
+              </li>
+              <li>
+                <NavLink exact to="/pricing" activeClassName="navbar-active">
+                  pricing
+                </NavLink>
+              </li>
+            </>
           )}
-          <li>
-            <NavLink exact to="/pricing" activeClassName="navbar-active">
-              pricing
-            </NavLink>
-          </li>
         </ul>
         <ul className="navbar-item-middle"></ul>
         {encryptStorage.getItem("user_logged_in") ? (

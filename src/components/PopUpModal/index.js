@@ -87,7 +87,13 @@ const PopUpModal = ({ closeModal, content, statusCode }) => {
         <div className="popup-modal-content-footer">
           {statusCode === 300 ? (
             <div className="button-wrapper">
-              <ButtonRipple text="yes" onClick={content.onClick} />
+              <ButtonRipple
+                text="yes"
+                onClick={() => {
+                  content.onClick();
+                  closeModal();
+                }}
+              />
               <ButtonRipple text="no" onClick={closeModal} />
             </div>
           ) : (

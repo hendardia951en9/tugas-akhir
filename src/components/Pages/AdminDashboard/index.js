@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
@@ -17,9 +23,28 @@ import { useHistory } from "react-router-dom";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
+import PopUpModal from "../../PopUpModal";
 
 //css
 import "./admindashboard.css";
+
+const modalReducer = (modalState, action) => {
+  if (action.type === "SHOW_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: true,
+      popUpModalContent: action.payload,
+      popUpModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowPopUpModal: false,
+    };
+  }
+
+  throw new Error("no matching action type");
+};
 
 const AdminDashboard = () => {
   const appContext = useContext(AppContext);
@@ -35,10 +60,19 @@ const AdminDashboard = () => {
   const [isImageSelected, setIsImageSelected] = useState(false);
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [isOpenUploadImage, setIsOpenUploadImage] = useState(false);
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowPopUpModal: false,
+    popUpModalContent: "hello world",
+    popUpModalStatusCode: 200,
+  });
   const [selectedImageName, setSelectedImageName] = useState(null);
   const [selectedThemeID, setSelectedThemeID] = useState(0);
   const [themes, setThemes] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(null);
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
 
   const closeUploadImage = () => {
     //reset variables
@@ -393,6 +427,14 @@ const AdminDashboard = () => {
             alt=""
           />
 
+          {modalState.isShowPopUpModal && (
+            <PopUpModal
+              closeModal={closeModal}
+              content={modalState.popUpModalContent}
+              statusCode={modalState.popUpModalStatusCode}
+            />
+          )}
+
           {isCategoryList ? (
             <>
               <header>
@@ -429,7 +471,20 @@ const AdminDashboard = () => {
                               <li
                                 onClick={(e) => {
                                   if (e.target === e.currentTarget) {
-                                    handleClickDeleteCategory(category_id);
+                                    modalDispatch({
+                                      type: "SHOW_MODAL",
+                                      payload: {
+                                        message:
+                                          "are you sure want to delete " +
+                                          category_name +
+                                          "?",
+                                        onClick: () =>
+                                          handleClickDeleteCategory(
+                                            category_id
+                                          ),
+                                      },
+                                      statusCode: 300,
+                                    });
                                   }
                                 }}
                               >
@@ -561,7 +616,18 @@ const AdminDashboard = () => {
                               <li
                                 onClick={(e) => {
                                   if (e.target === e.currentTarget) {
-                                    handleClickDeleteTheme(theme_id);
+                                    modalDispatch({
+                                      type: "SHOW_MODAL",
+                                      payload: {
+                                        message:
+                                          "are you sure want to delete " +
+                                          theme_name +
+                                          "?",
+                                        onClick: () =>
+                                          handleClickDeleteTheme(theme_id),
+                                      },
+                                      statusCode: 300,
+                                    });
                                   }
                                 }}
                               >

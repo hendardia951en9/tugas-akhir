@@ -126,6 +126,7 @@
 }
 
 .sidebar-container {
+  background-color: white;
   bottom: var(--sidebar-footer); /* sesuai height sidebar-footer */
   top: var(--sidebar-header); /* sesuai height sidebar-header */
   left: 0;

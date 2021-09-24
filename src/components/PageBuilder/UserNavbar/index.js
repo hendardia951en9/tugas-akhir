@@ -12,10 +12,10 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   const toggleHamburgerMenu = () => {
-    if ($("nav").hasClass("hamburger")) {
-      $("nav").removeClass("hamburger");
+    if ($(".user-navbar").hasClass("hamburger")) {
+      $(".user-navbar").removeClass("hamburger");
     } else {
-      $("nav").addClass("hamburger");
+      $(".user-navbar").addClass("hamburger");
     }
   };
 
@@ -25,7 +25,6 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
       onClick={
         isEdit
           ? (e) => {
-              console.log(e.target, e.currentTarget);
               if (e.target === e.currentTarget) {
                 pageBuilderContext.handleClickPageBuilderComponent(
                   itemTypes,
@@ -50,6 +49,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
         <img
           alt=""
           className="user-navbar-menu-logo"
+          onClick={isEdit ? undefined : toggleHamburgerMenu}
           src={props.userNavbarLogo}
           style={{
             maxHeight:
@@ -160,6 +160,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
             })}
         </ul>
       </div>
+      <div className="navbar-slider"></div>
     </div>
   );
 };
