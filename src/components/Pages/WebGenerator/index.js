@@ -3477,7 +3477,7 @@ const WebGenerator = () => {
                     : ""}
                 </div>
               </div>
-              <div className="sidebar-container">
+              <div className="sidebar-content">
                 {editComponent.isChoosePage ? (
                   sitePages.map((props) => {
                     if (encryptStorage.getItem("admin_logged_in")) {

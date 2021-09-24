@@ -36,11 +36,8 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
       }
       style={generateStyle(props.style)}
     >
-      <div className="nav-blur" onClick={() => toggleHamburgerMenu()}></div>
-      <div
-        className="hamburger-menu"
-        onClick={isEdit ? undefined : toggleHamburgerMenu}
-      >
+      <div className="nav-blur" onClick={toggleHamburgerMenu}></div>
+      <div className="hamburger-menu" onClick={toggleHamburgerMenu}>
         <div className="hamburger-menu-icon">
           <div className="hamburger-menu-icon-middle"></div>
         </div>

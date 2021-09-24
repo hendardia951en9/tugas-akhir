@@ -66,7 +66,7 @@
   position: fixed;
   top: var(--navbar-height); /* sesuai height navbar */
   width: var(--sidebar-width);
-  z-index: 10;
+  z-index: 90;
 }
 
 .sidebar-header {
@@ -125,7 +125,7 @@
   text-align: center;
 }
 
-.sidebar-container {
+.sidebar-content {
   background-color: white;
   bottom: var(--sidebar-footer); /* sesuai height sidebar-footer */
   top: var(--sidebar-header); /* sesuai height sidebar-header */
@@ -134,6 +134,7 @@
   padding: 0.5rem 0.8rem;
   position: absolute;
   right: 0;
+  z-index: 99;
 }
 
 .sidebar-site-page {
