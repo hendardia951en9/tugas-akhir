@@ -423,7 +423,7 @@ const AdminDashboard = () => {
         <div className="admin-dashboard">
           <img
             className="background-image"
-            src="/assets/images/home/swiper_fade_1.jpg"
+            src="/assets/images/global/admin_dashboard_background.jpg"
             alt=""
           />
 

@@ -120,7 +120,7 @@ const ThemeList = () => {
       <section className="theme-list-page">
         <img
           className="background-image"
-          src="/assets/images/home/swiper_fade_1.jpg"
+          src="/assets/images/global/templates_background.jpg"
           alt=""
         />
 

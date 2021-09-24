@@ -641,7 +641,7 @@ const Pricing = () => {
 
         <img
           className="background-image"
-          src="/assets/images/home/swiper_fade_1.jpg"
+          src="/assets/images/global/pricing_background.jpg"
           alt=""
         />
         <h3>no hidden fees. cancel at any time</h3>
