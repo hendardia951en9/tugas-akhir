@@ -130,7 +130,6 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                                   }
                                 : undefined
                             }
-                            style={generateStyle(props.subMenuStyle)}
                           >
                             {isEdit ? (
                               submenu.props.text

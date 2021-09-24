@@ -266,96 +266,33 @@ const UploadImage = ({ isMultiple, location }) => {
   }, []);
 
   return (
-    <>
-      <div className="upload-image">
-        <div
-          className="upload-image-blur"
-          onClick={pageBuilderContext.closeUploadImage}
-        ></div>
-        <div className="upload-image-box">
-          <div className="upload-image-content-header">
-            <h3>choose image</h3>
-            <button onClick={pageBuilderContext.closeUploadImage}>
-              <FontAwesomeIcon icon={faTimesCircle} />
-            </button>
-          </div>
-          <div className="upload-image-content">
-            {userGallery
-              ? encryptStorage.getItem("admin_logged_in")
-                ? isMultiple === false
-                  ? userGallery.map((image, index) => {
-                      const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${image}`;
-
-                      return (
-                        <div
-                          className="user-gallery-image-container"
-                          key={index}
-                        >
-                          <input
-                            id={image}
-                            name="user-gallery-radio"
-                            type="radio"
-                          />
-                          <label htmlFor={image}>
-                            <img
-                              alt=""
-                              className="user-gallery-image"
-                              onClick={() => {
-                                handleClickUserGalleryImage(url);
-                              }}
-                              src={url}
-                            />
-                          </label>
-                        </div>
-                      );
-                    })
-                  : userGallery.map((image, index) => {
-                      const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${image}`;
-
-                      return (
-                        <div
-                          className="user-gallery-image-container"
-                          key={index}
-                        >
-                          <input
-                            id={image}
-                            name="user-gallery-checkbox"
-                            onChange={(e) => {
-                              onChangeCheckboxImageGallery(e, url);
-                            }}
-                            type="checkbox"
-                          />
-                          <label htmlFor={image}>
-                            <img
-                              alt=""
-                              className="user-gallery-image"
-                              src={url}
-                            />
-                          </label>
-                        </div>
-                      );
-                    })
-                : isMultiple === false
-                ? userGallery.map((gallery) => {
-                    const { user_gallery_id, user_gallery_image_name } =
-                      gallery;
-                    const url = `${
-                      process.env.REACT_APP_BASE_API_URL
-                    }/public/uploads/${
-                      encryptStorage.getItem("user_logged_in").user_id
-                    }/${user_gallery_image_name}`;
+    <div className="upload-image">
+      <div
+        className="upload-image-blur"
+        onClick={pageBuilderContext.closeUploadImage}
+      ></div>
+      <div className="upload-image-box">
+        <div className="upload-image-content-header">
+          <h3>choose image</h3>
+          <button onClick={pageBuilderContext.closeUploadImage}>
+            <FontAwesomeIcon icon={faTimesCircle} />
+          </button>
+        </div>
+        <div className="upload-image-content">
+          {userGallery
+            ? encryptStorage.getItem("admin_logged_in")
+              ? isMultiple === false
+                ? userGallery.map((image, index) => {
+                    const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${image}`;
 
                     return (
-                      <div
-                        className="user-gallery-image-container"
-                        key={user_gallery_id}
-                      >
+                      <div className="user-gallery-image-container" key={index}>
                         <input
-                          id={user_gallery_image_name}
+                          id={image}
                           name="user-gallery-radio"
                           type="radio"
                         />
-                        <label htmlFor={user_gallery_image_name}>
+                        <label htmlFor={image}>
                           <img
                             alt=""
                             className="user-gallery-image"
@@ -368,29 +305,20 @@ const UploadImage = ({ isMultiple, location }) => {
                       </div>
                     );
                   })
-                : userGallery.map((gallery) => {
-                    const { user_gallery_id, user_gallery_image_name } =
-                      gallery;
-                    const url = `${
-                      process.env.REACT_APP_BASE_API_URL
-                    }/public/uploads/${
-                      encryptStorage.getItem("user_logged_in").user_id
-                    }/${user_gallery_image_name}`;
+                : userGallery.map((image, index) => {
+                    const url = `${process.env.REACT_APP_BASE_API_URL}/public/admin/images/${image}`;
 
                     return (
-                      <div
-                        className="user-gallery-image-container"
-                        key={user_gallery_id}
-                      >
+                      <div className="user-gallery-image-container" key={index}>
                         <input
-                          id={user_gallery_image_name}
+                          id={image}
                           name="user-gallery-checkbox"
                           onChange={(e) => {
                             onChangeCheckboxImageGallery(e, url);
                           }}
                           type="checkbox"
                         />
-                        <label htmlFor={user_gallery_image_name}>
+                        <label htmlFor={image}>
                           <img
                             alt=""
                             className="user-gallery-image"
@@ -400,33 +328,91 @@ const UploadImage = ({ isMultiple, location }) => {
                       </div>
                     );
                   })
-              : "no image"}
-          </div>
-          <div className="upload-image-content-footer">
-            <div className="upload-image-content-footer-left">
-              <input
-                id="upload"
-                name="upload"
-                onChange={(e) => onUploadFile(e)}
-                type="file"
-              />
-              <ButtonRipple
-                className="upload-image-content-footer-button"
-                disabled={!isUploaded}
-                onClick={() => handleClickUpload()}
-                text="submit"
-              />
-            </div>
+              : isMultiple === false
+              ? userGallery.map((gallery) => {
+                  const { user_gallery_id, user_gallery_image_name } = gallery;
+                  const url = `${
+                    process.env.REACT_APP_BASE_API_URL
+                  }/public/uploads/${
+                    encryptStorage.getItem("user_logged_in").user_id
+                  }/${user_gallery_image_name}`;
+
+                  return (
+                    <div
+                      className="user-gallery-image-container"
+                      key={user_gallery_id}
+                    >
+                      <input
+                        id={user_gallery_image_name}
+                        name="user-gallery-radio"
+                        type="radio"
+                      />
+                      <label htmlFor={user_gallery_image_name}>
+                        <img
+                          alt=""
+                          className="user-gallery-image"
+                          onClick={() => {
+                            handleClickUserGalleryImage(url);
+                          }}
+                          src={url}
+                        />
+                      </label>
+                    </div>
+                  );
+                })
+              : userGallery.map((gallery) => {
+                  const { user_gallery_id, user_gallery_image_name } = gallery;
+                  const url = `${
+                    process.env.REACT_APP_BASE_API_URL
+                  }/public/uploads/${
+                    encryptStorage.getItem("user_logged_in").user_id
+                  }/${user_gallery_image_name}`;
+
+                  return (
+                    <div
+                      className="user-gallery-image-container"
+                      key={user_gallery_id}
+                    >
+                      <input
+                        id={user_gallery_image_name}
+                        name="user-gallery-checkbox"
+                        onChange={(e) => {
+                          onChangeCheckboxImageGallery(e, url);
+                        }}
+                        type="checkbox"
+                      />
+                      <label htmlFor={user_gallery_image_name}>
+                        <img alt="" className="user-gallery-image" src={url} />
+                      </label>
+                    </div>
+                  );
+                })
+            : "no image"}
+        </div>
+        <div className="upload-image-content-footer">
+          <div className="upload-image-content-footer-left">
+            <input
+              id="upload"
+              name="upload"
+              onChange={(e) => onUploadFile(e)}
+              type="file"
+            />
             <ButtonRipple
               className="upload-image-content-footer-button"
-              disabled={!isSelected}
-              onClick={() => onConfirmSelectFile()}
-              text="confirm"
+              disabled={!isUploaded}
+              onClick={() => handleClickUpload()}
+              text="submit"
             />
           </div>
+          <ButtonRipple
+            className="upload-image-content-footer-button"
+            disabled={!isSelected}
+            onClick={() => onConfirmSelectFile()}
+            text="confirm"
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

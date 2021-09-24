@@ -3392,190 +3392,188 @@ const WebGenerator = () => {
   }, []);
 
   return (
-    <>
-      <PageBuilderContext.Provider
-        value={{
-          boardState,
-          addComponentToBoard,
-          addComponentToInnerSectionLayout,
-          addFooterMenu,
-          addFooterSubMenu,
-          addNavbarMenu,
-          addNavbarSubMenu,
-          changeMapState,
-          closeUploadImage,
-          deleteComponent,
-          editComponentProps,
-          handleClickPageBuilderComponent,
-          handleClickUploadImage,
-          renderComponent,
-          reorderComponent,
-        }}
-      >
-        {isUploadImage && (
-          <UploadImage
-            isMultiple={isUploadImageMultiple}
-            location={uploadImageLocation}
+    <PageBuilderContext.Provider
+      value={{
+        boardState,
+        addComponentToBoard,
+        addComponentToInnerSectionLayout,
+        addFooterMenu,
+        addFooterSubMenu,
+        addNavbarMenu,
+        addNavbarSubMenu,
+        changeMapState,
+        closeUploadImage,
+        deleteComponent,
+        editComponentProps,
+        handleClickPageBuilderComponent,
+        handleClickUploadImage,
+        renderComponent,
+        reorderComponent,
+      }}
+    >
+      {isUploadImage && (
+        <UploadImage
+          isMultiple={isUploadImageMultiple}
+          location={uploadImageLocation}
+        />
+      )}
+
+      <div className="navbar-margin">
+        {modalState.isShowPopUpModal && (
+          <PopUpModal
+            closeModal={closeModal}
+            content={modalState.popUpModalContent}
+            statusCode={modalState.popUpModalStatusCode}
           />
         )}
-
-        <div className="navbar-margin">
-          {modalState.isShowPopUpModal && (
-            <PopUpModal
-              closeModal={closeModal}
-              content={modalState.popUpModalContent}
-              statusCode={modalState.popUpModalStatusCode}
-            />
-          )}
-          <div className="page-builder-container">
-            <div className="sidebar">
-              <div className="sidebar-header">
-                <div className="sidebar-header-navigation">
-                  <button
-                    className="sidebar-header-navigation-button sidebar-header-navigation-button-choose-page"
-                    onClick={() =>
-                      handleClickPageBuilderComponent(
-                        ItemTypes.CHOOSE_PAGE_BUTTON,
-                        null
-                      )
-                    }
-                  >
-                    <FontAwesomeIcon icon={faWindowRestore} />
-                  </button>
-                  <button
-                    className="sidebar-header-navigation-button sidebar-header-navigation-button-dom-tree"
-                    onClick={() =>
-                      handleClickPageBuilderComponent(
-                        ItemTypes.DOM_TREE_BUTTON,
-                        null
-                      )
-                    }
-                  >
-                    <FontAwesomeIcon icon={faProjectDiagram} />
-                  </button>
-                  <button
-                    className="sidebar-header-navigation-button sidebar-header-navigation-button-component-list-button"
-                    onClick={() =>
-                      handleClickPageBuilderComponent(
-                        ItemTypes.COMPONENT_LIST_BUTTON,
-                        null
-                      )
-                    }
-                  >
-                    <FontAwesomeIcon icon={faThList} />
-                  </button>
-                </div>
-                <div className="sidebar-header-title">
-                  {editComponent.isChoosePage
-                    ? "Choose Page"
-                    : editComponent.isDOMTree
-                    ? "DOM Tree"
-                    : editComponent.isEdit
-                    ? "Edit " + editComponent.selectedComponentItemTypes
-                    : editComponent.isListComponent
-                    ? "Components"
-                    : ""}
-                </div>
-              </div>
-              <div className="sidebar-content">
-                {editComponent.isChoosePage ? (
-                  sitePages.map((props) => {
-                    if (encryptStorage.getItem("admin_logged_in")) {
-                      const { theme_page_id, theme_page_name } = props;
-                      return (
-                        <div
-                          className="sidebar-site-page"
-                          key={theme_page_id}
-                          onClick={() => handleClickSitePage(theme_page_id)}
-                        >
-                          <span>{theme_page_name}</span>
-                        </div>
-                      );
-                    } else {
-                      const { site_page_id, site_page_name } = props;
-                      return (
-                        <div
-                          className="sidebar-site-page"
-                          key={site_page_id}
-                          onClick={() => handleClickSitePage(site_page_id)}
-                        >
-                          <span>{site_page_name}</span>
-                        </div>
-                      );
-                    }
-                  })
-                ) : editComponent.isDOMTree ? (
-                  <DOMTree
-                    components={
-                      boardState.boardComponents[boardState.selectedSitePageID]
-                    }
-                  />
-                ) : editComponent.isEdit ? (
-                  renderEditComponent(boardState.selectedComponentKey)
-                ) : editComponent.isListComponent ? (
-                  <div className="widgets">
-                    <ButtonWidget />
-                    <DividerWidget />
-                    <HeadingWidget />
-                    <IconWidget />
-                    <ImageWidget />
-                    <ImageGalleryWidget />
-                    <InnerSectionWidget />
-                    <MapComponentWidget />
-                    <SpacerWidget />
-                    <StarRatingWidget />
-                    <TextEditorWidget />
-                    <VideoWidget />
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="sidebar-footer">
-                {/* <button onClick={fetchUserSiteData}>Load</button> */}
-                <ButtonRipple
-                  fa={<FontAwesomeIcon icon={faSave} />}
-                  onClick={saveSite}
-                  text="save"
-                />
-                {encryptStorage.getItem("user_logged_in") && (
-                  <ButtonRipple
-                    fa={<FontAwesomeIcon icon={faGlobe} />}
-                    onClick={publishSite}
-                    text="publish"
-                  />
-                )}
-                <ButtonRipple
-                  fa={
-                    isMobilePreview ? (
-                      <FontAwesomeIcon icon={faDesktop} />
-                    ) : (
-                      <FontAwesomeIcon icon={faMobileAlt} />
+        <div className="page-builder-container">
+          <div className="sidebar">
+            <div className="sidebar-header">
+              <div className="sidebar-header-navigation">
+                <button
+                  className="sidebar-header-navigation-button sidebar-header-navigation-button-choose-page"
+                  onClick={() =>
+                    handleClickPageBuilderComponent(
+                      ItemTypes.CHOOSE_PAGE_BUTTON,
+                      null
                     )
                   }
-                  onClick={togglePreviewSite}
-                />
+                >
+                  <FontAwesomeIcon icon={faWindowRestore} />
+                </button>
+                <button
+                  className="sidebar-header-navigation-button sidebar-header-navigation-button-dom-tree"
+                  onClick={() =>
+                    handleClickPageBuilderComponent(
+                      ItemTypes.DOM_TREE_BUTTON,
+                      null
+                    )
+                  }
+                >
+                  <FontAwesomeIcon icon={faProjectDiagram} />
+                </button>
+                <button
+                  className="sidebar-header-navigation-button sidebar-header-navigation-button-component-list-button"
+                  onClick={() =>
+                    handleClickPageBuilderComponent(
+                      ItemTypes.COMPONENT_LIST_BUTTON,
+                      null
+                    )
+                  }
+                >
+                  <FontAwesomeIcon icon={faThList} />
+                </button>
+              </div>
+              <div className="sidebar-header-title">
+                {editComponent.isChoosePage
+                  ? "Choose Page"
+                  : editComponent.isDOMTree
+                  ? "DOM Tree"
+                  : editComponent.isEdit
+                  ? "Edit " + editComponent.selectedComponentItemTypes
+                  : editComponent.isListComponent
+                  ? "Components"
+                  : ""}
               </div>
             </div>
-            <div className="board-container">
-              <div
-                className={`board-content ${
-                  isMobilePreview ? "mobile" : "desktop"
-                }`}
-              >
-                <Board
-                  boardComponents={
+            <div className="sidebar-content">
+              {editComponent.isChoosePage ? (
+                sitePages.map((props) => {
+                  if (encryptStorage.getItem("admin_logged_in")) {
+                    const { theme_page_id, theme_page_name } = props;
+                    return (
+                      <div
+                        className="sidebar-site-page"
+                        key={theme_page_id}
+                        onClick={() => handleClickSitePage(theme_page_id)}
+                      >
+                        <span>{theme_page_name}</span>
+                      </div>
+                    );
+                  } else {
+                    const { site_page_id, site_page_name } = props;
+                    return (
+                      <div
+                        className="sidebar-site-page"
+                        key={site_page_id}
+                        onClick={() => handleClickSitePage(site_page_id)}
+                      >
+                        <span>{site_page_name}</span>
+                      </div>
+                    );
+                  }
+                })
+              ) : editComponent.isDOMTree ? (
+                <DOMTree
+                  components={
                     boardState.boardComponents[boardState.selectedSitePageID]
                   }
-                  boardFooter={boardState.boardFooter}
-                  boardNavbar={boardState.boardNavbar}
                 />
-              </div>
+              ) : editComponent.isEdit ? (
+                renderEditComponent(boardState.selectedComponentKey)
+              ) : editComponent.isListComponent ? (
+                <div className="widgets">
+                  <ButtonWidget />
+                  <DividerWidget />
+                  <HeadingWidget />
+                  <IconWidget />
+                  <ImageWidget />
+                  <ImageGalleryWidget />
+                  <InnerSectionWidget />
+                  <MapComponentWidget />
+                  <SpacerWidget />
+                  <StarRatingWidget />
+                  <TextEditorWidget />
+                  <VideoWidget />
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="sidebar-footer">
+              {/* <button onClick={fetchUserSiteData}>Load</button> */}
+              <ButtonRipple
+                fa={<FontAwesomeIcon icon={faSave} />}
+                onClick={saveSite}
+                text="save"
+              />
+              {encryptStorage.getItem("user_logged_in") && (
+                <ButtonRipple
+                  fa={<FontAwesomeIcon icon={faGlobe} />}
+                  onClick={publishSite}
+                  text="publish"
+                />
+              )}
+              <ButtonRipple
+                fa={
+                  isMobilePreview ? (
+                    <FontAwesomeIcon icon={faDesktop} />
+                  ) : (
+                    <FontAwesomeIcon icon={faMobileAlt} />
+                  )
+                }
+                onClick={togglePreviewSite}
+              />
+            </div>
+          </div>
+          <div className="board-container">
+            <div
+              className={`board-content ${
+                isMobilePreview ? "mobile" : "desktop"
+              }`}
+            >
+              <Board
+                boardComponents={
+                  boardState.boardComponents[boardState.selectedSitePageID]
+                }
+                boardFooter={boardState.boardFooter}
+                boardNavbar={boardState.boardNavbar}
+              />
             </div>
           </div>
         </div>
-      </PageBuilderContext.Provider>
-    </>
+      </div>
+    </PageBuilderContext.Provider>
   );
 };
 

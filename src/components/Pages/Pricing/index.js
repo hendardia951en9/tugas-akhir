@@ -509,14 +509,12 @@ const Pricing = () => {
                         statusCode={modalState.messageModalStatusCode}
                       />
                     )}
-
-                    {BCAVAPaymentVA && (
+                    {BCAVAPaymentVA ? (
                       <>
                         <h3>please complete your payment using this code</h3>
                         <span>{BCAVAPaymentVA}</span>
                       </>
-                    )}
-                    {!BCAVAPaymentVA && (
+                    ) : (
                       <ButtonRipple
                         onClick={handleClickDoBCAVAPayment}
                         text="get code"

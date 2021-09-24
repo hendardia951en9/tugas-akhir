@@ -190,170 +190,167 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <>
-      <div className="navbar-margin">
-        <div className="dashboard">
-          <img
-            className="background-image"
-            src="/assets/images/global/user_dashboard_background.jpg"
-            alt=""
+    <div className="navbar-margin">
+      <div className="dashboard">
+        <img
+          className="background-image"
+          src="/assets/images/global/user_dashboard_background.jpg"
+          alt=""
+        />
+
+        {modalState.isShowPopUpModal && (
+          <PopUpModal
+            closeModal={closeModal}
+            content={modalState.popUpModalContent}
+            statusCode={modalState.popUpModalStatusCode}
           />
+        )}
 
-          {modalState.isShowPopUpModal && (
-            <PopUpModal
-              closeModal={closeModal}
-              content={modalState.popUpModalContent}
-              statusCode={modalState.popUpModalStatusCode}
-            />
-          )}
+        <header>
+          <h2>my sites</h2>
+          <ButtonRipple
+            fa={<FontAwesomeIcon icon={faPlus} />}
+            iconIsLeft={true}
+            onClick={handleClickGettingStarted}
+            text="Create New Site"
+          />
+        </header>
+        <section className="user-sites">
+          {userSites
+            ? userSites.map((props, index) => {
+                const { site_id, site_name, site_status } = props;
 
-          <header>
-            <h2>my sites</h2>
-            <ButtonRipple
-              fa={<FontAwesomeIcon icon={faPlus} />}
-              iconIsLeft={true}
-              onClick={handleClickGettingStarted}
-              text="Create New Site"
-            />
-          </header>
-          <section className="user-sites">
-            {userSites
-              ? userSites.map((props, index) => {
-                  const { site_id, site_name, site_status } = props;
-
-                  return (
-                    <div className="user-site-container" key={site_id}>
-                      <div className="user-site-options">
-                        <FontAwesomeIcon
-                          className="user-site-options-icon"
-                          icon={faEllipsisV}
-                        />
-                        <ul>
+                return (
+                  <div className="user-site-container" key={site_id}>
+                    <div className="user-site-options">
+                      <FontAwesomeIcon
+                        className="user-site-options-icon"
+                        icon={faEllipsisV}
+                      />
+                      <ul>
+                        <li
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              handleClickSite(site_id, site_name);
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faEdit}
+                          />
+                          edit
+                        </li>
+                        <li
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              openInNewTab(
+                                `${process.env.REACT_APP_BASE_URL}/website/${
+                                  encryptStorage.getItem("user_logged_in")
+                                    .user_email
+                                }/${site_name}`
+                              );
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faEye}
+                          />
+                          preview
+                        </li>
+                        <li
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              history.push(`/manageuserpages/${site_id}`);
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faWindowRestore}
+                          />
+                          pages
+                        </li>
+                        {site_status === "0" ? (
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                handleClickSite(site_id, site_name);
+                                handleClickPublishSite(site_id);
                               }
                             }}
                           >
                             <FontAwesomeIcon
                               className="user-site-option-icon"
-                              icon={faEdit}
+                              icon={faGlobe}
                             />
-                            edit
+                            publish
                           </li>
+                        ) : (
                           <li
                             onClick={(e) => {
                               if (e.target === e.currentTarget) {
-                                openInNewTab(
-                                  `${process.env.REACT_APP_BASE_URL}/website/${
-                                    encryptStorage.getItem("user_logged_in")
-                                      .user_email
-                                  }/${site_name}`
-                                );
+                                handleClickUnpublishSite(site_id);
                               }
                             }}
                           >
                             <FontAwesomeIcon
                               className="user-site-option-icon"
-                              icon={faEye}
+                              icon={faGlobe}
                             />
-                            preview
+                            unpublish
                           </li>
-                          <li
-                            onClick={(e) => {
-                              if (e.target === e.currentTarget) {
-                                history.push(`/manageuserpages/${site_id}`);
-                              }
-                            }}
-                          >
-                            <FontAwesomeIcon
-                              className="user-site-option-icon"
-                              icon={faWindowRestore}
-                            />
-                            pages
-                          </li>
-                          {site_status === "0" ? (
-                            <li
-                              onClick={(e) => {
-                                if (e.target === e.currentTarget) {
-                                  handleClickPublishSite(site_id);
-                                }
-                              }}
-                            >
-                              <FontAwesomeIcon
-                                className="user-site-option-icon"
-                                icon={faGlobe}
-                              />
-                              publish
-                            </li>
-                          ) : (
-                            <li
-                              onClick={(e) => {
-                                if (e.target === e.currentTarget) {
-                                  handleClickUnpublishSite(site_id);
-                                }
-                              }}
-                            >
-                              <FontAwesomeIcon
-                                className="user-site-option-icon"
-                                icon={faGlobe}
-                              />
-                              unpublish
-                            </li>
-                          )}
-                          <li
-                            onClick={(e) => {
-                              if (e.target === e.currentTarget) {
-                                modalDispatch({
-                                  type: "SHOW_MODAL",
-                                  payload: {
-                                    message:
-                                      "are you sure want to delete " +
-                                      site_name +
-                                      "?",
-                                    onClick: () =>
-                                      handleClickDeleteSite(site_id),
-                                  },
-                                  statusCode: 300,
-                                });
-                              }
-                            }}
-                          >
-                            <FontAwesomeIcon
-                              className="user-site-option-icon"
-                              icon={faTrashAlt}
-                            />
-                            delete
-                          </li>
-                        </ul>
-                      </div>
-                      <div
-                        className="user-site-content"
-                        onClick={(e) => {
-                          if (e.target === e.currentTarget) {
-                            handleClickSite(site_id, site_name);
-                          }
-                        }}
-                      >
-                        <img
-                          src={`${
-                            process.env.REACT_APP_BASE_API_URL
-                          }/public/admin/images/user_website_thumbnail_${
-                            index % 4
-                          }.jpg`}
-                          alt=""
-                        />
-                        <p>{site_name}</p>
-                      </div>
+                        )}
+                        <li
+                          onClick={(e) => {
+                            if (e.target === e.currentTarget) {
+                              modalDispatch({
+                                type: "SHOW_MODAL",
+                                payload: {
+                                  message:
+                                    "are you sure want to delete " +
+                                    site_name +
+                                    "?",
+                                  onClick: () => handleClickDeleteSite(site_id),
+                                },
+                                statusCode: 300,
+                              });
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            className="user-site-option-icon"
+                            icon={faTrashAlt}
+                          />
+                          delete
+                        </li>
+                      </ul>
                     </div>
-                  );
-                })
-              : "no sites"}
-          </section>
-        </div>
+                    <div
+                      className="user-site-content"
+                      onClick={(e) => {
+                        if (e.target === e.currentTarget) {
+                          handleClickSite(site_id, site_name);
+                        }
+                      }}
+                    >
+                      <img
+                        src={`${
+                          process.env.REACT_APP_BASE_API_URL
+                        }/public/admin/images/user_website_thumbnail_${
+                          index % 4
+                        }.jpg`}
+                        alt=""
+                      />
+                      <p>{site_name}</p>
+                    </div>
+                  </div>
+                );
+              })
+            : "no sites"}
+        </section>
       </div>
-    </>
+    </div>
   );
 };
 
