@@ -75,7 +75,7 @@ const Subscription = () => {
       <section className="subscription-page">
         <img
           className="background-image"
-          src="/assets/images/global/user_dashboard_background.jpg"
+          src="/assets/images/global/user_subscription_background.jpg"
           alt=""
         />
 
@@ -85,11 +85,6 @@ const Subscription = () => {
               your subscription will end {calculateDate() > 0 ? "in" : ""}
             </h1>
             <p>{calculateDate() > 0 ? calculateDate() + " day" : "today"}</p>
-            {/* <ButtonRipple
-              fa={<FontAwesomeIcon icon={faShoppingCart} />}
-              text="extend subscription"
-              onClick={() => history.push("/pricing")}
-            /> */}
           </>
         ) : (
           <>
