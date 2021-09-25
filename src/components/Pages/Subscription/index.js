@@ -85,11 +85,11 @@ const Subscription = () => {
               your subscription will end {calculateDate() > 0 ? "in" : ""}
             </h1>
             <p>{calculateDate() > 0 ? calculateDate() + " day" : "today"}</p>
-            <ButtonRipple
+            {/* <ButtonRipple
               fa={<FontAwesomeIcon icon={faShoppingCart} />}
               text="extend subscription"
               onClick={() => history.push("/pricing")}
-            />
+            /> */}
           </>
         ) : (
           <>
