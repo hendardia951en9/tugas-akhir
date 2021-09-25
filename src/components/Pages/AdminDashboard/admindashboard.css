@@ -22,28 +22,50 @@
   display: flex;
   flex-wrap: wrap;
   height: var(--header-height);
-  justify-content: space-between;
+  justify-content: flex-end;
+  overflow: hidden;
   padding: 0 1.2em;
+  position: relative;
   text-transform: capitalize;
 }
 
 .admin-dashboard header .title {
-  align-items: center;
+  align-items: flex-end;
+  bottom: 0;
   display: flex;
-  gap: 1em;
+  flex-wrap: wrap;
   justify-content: center;
+  left: 0.5rem;
+  position: absolute;
+  top: 0;
 }
 
 .admin-dashboard header .title h2 {
   background-color: white;
   border: 2px solid #202228;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   color: #202228;
   cursor: pointer;
   font-size: 1em;
-  padding: 0.4em;
+  padding: 0.5em;
+  transition: transform 100ms ease-in-out;
 }
 
-.admin-dashboard header .title h2:hover,
+.admin-dashboard header .title h2.active {
+  z-index: 10;
+}
+
+.admin-dashboard header .title h2:not(.active) {
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5);
+  transform: translateY(7px);
+}
+
+.admin-dashboard header .title h2:not(.active):hover {
+  transform: translateY(0px);
+}
+
 .admin-dashboard header .title h2.active {
   background-color: #202228;
   color: white;
@@ -315,7 +337,8 @@
   bottom: 6%;
   left: 15%;
   margin-top: var(--navbar-height);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: absolute;
   right: 15%;
   top: 6%;
@@ -412,6 +435,7 @@
   background-color: #f1f4f6;
   bottom: 0;
   display: flex;
+  flex-wrap: wrap;
   font-size: 0.8em;
   height: var(--upload-image-footer-size);
   justify-content: space-between;
@@ -444,9 +468,15 @@
   font-size: 0.9em;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 600px) {
   .admin-dashboard {
     --header-height: 100px;
+  }
+
+  .admin-dashboard header {
+    align-items: flex-start;
+    padding-top: 1.5rem;
+    justify-content: center;
   }
 
   .admin-dashboard header .title {
@@ -464,5 +494,21 @@
   .admin-dashboard .theme-content {
     height: 120px;
     width: 180px;
+  }
+
+  .admin-upload-image {
+    --upload-image-footer-size: 70px;
+  }
+
+  .admin-upload-image-footer input[type="file"]::-webkit-file-upload-button {
+    font-size: 0.5em;
+  }
+
+  .admin-upload-image-footer {
+    font-size: 0.5em;
+  }
+
+  .admin-upload-image-footer button {
+    margin-top: 0.2rem;
   }
 }

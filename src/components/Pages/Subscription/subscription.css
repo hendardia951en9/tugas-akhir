@@ -1,0 +1,31 @@
+.subscription-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  justify-content: center;
+  text-transform: capitalize;
+  min-height: calc(100vh - var(--navbar-height));
+  position: relative;
+}
+
+.subscription-page img.background-image {
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  opacity: 0.1;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.subscription-page p {
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.subscription-page button {
+  font-size: 1.2em;
+  padding: 1em 3em;
+}

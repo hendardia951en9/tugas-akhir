@@ -273,6 +273,8 @@ const Pricing = () => {
   };
 
   const handleClickDoCCPayment = async (data) => {
+    $(".payment-list-content-confirm-payment-cc").scrollTop();
+
     //check if user already premium
     appContext.setIsLoading(true);
 

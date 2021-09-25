@@ -50,6 +50,7 @@ import ManageUserPages from "./components/Pages/ManageUserPages";
 import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
+import Subscription from "./components/Pages/Subscription";
 import ThemeList from "./components/Pages/ThemeList";
 import ThemeFirstSitePageName from "./components/Pages/ThemePreview/themefirstsitepagename";
 import ThemePreview from "./components/Pages/ThemePreview";
@@ -126,6 +127,11 @@ const App = () => {
             <Route exact path="/signup">
               <Navbar />
               <SignUp />
+              <Footer />
+            </Route>
+            <Route exact path="/subscription">
+              <Navbar />
+              <Subscription />
               <Footer />
             </Route>
             <Route exact path="/themelist">

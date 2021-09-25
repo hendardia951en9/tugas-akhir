@@ -127,7 +127,7 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     exact
-                    to="/subscribtion"
+                    to="/subscription"
                     activeClassName="navbar-active"
                   >
                     subscribtion
