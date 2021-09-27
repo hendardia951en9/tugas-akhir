@@ -2661,7 +2661,7 @@ const WebGenerator = () => {
       });
   };
 
-  const processButtonALignment = (buttonAlignment) => {
+  const processButtonAlignment = (buttonAlignment) => {
     if (buttonAlignment === "center") {
       return { marginLeft: "auto", marginRight: "auto" };
     } else if (buttonAlignment === "left") {
@@ -2685,7 +2685,7 @@ const WebGenerator = () => {
           }`}
           key={component.key}
           style={Object.assign(
-            processButtonALignment(component.props.buttonAlignment),
+            processButtonAlignment(component.props.buttonAlignment),
             isInsideInnerSectionLayout &&
               component.props.style.width.unit === "%"
               ? {
