@@ -139,12 +139,6 @@ const ThemeListByCategory = ({
 
   return (
     <section className="theme-list-page">
-      <img
-        className="background-image"
-        src="/assets/images/home/swiper_fade_1.jpg"
-        alt=""
-      />
-
       <header>
         <h2>theme list</h2>
       </header>
@@ -199,7 +193,11 @@ const ThemeListByCategory = ({
                     className="theme-content"
                     onClick={(e) => {
                       if (e.target === e.currentTarget) {
-                        checkSubscription(theme_id);
+                        if (theme_premium_status === "0") {
+                          handleClickSetWebsiteThemeID(theme_id);
+                        } else {
+                          checkSubscription(theme_id);
+                        }
                       }
                     }}
                   >

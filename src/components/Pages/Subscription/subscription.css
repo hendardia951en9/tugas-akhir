@@ -20,6 +20,10 @@
   z-index: -1;
 }
 
+.subscription-page h1 span {
+  text-transform: uppercase;
+}
+
 .subscription-page p {
   font-weight: bold;
   font-size: 3em;

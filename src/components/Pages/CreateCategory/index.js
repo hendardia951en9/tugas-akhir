@@ -164,7 +164,28 @@ const CreateCategory = () => {
         statusCode: 400,
       });
     } else {
-      createCategory(data.categoryNameForm);
+      let kembar = false;
+      for (let index = 0; index < categoryPages.length; index++) {
+        for (let index2 = index; index2 < categoryPages.length; index2++) {
+          if (index !== index2) {
+            if (
+              categoryPages[index].pageName === categoryPages[index2].pageName
+            ) {
+              kembar = true;
+            }
+          }
+        }
+      }
+
+      if (kembar) {
+        modalDispatch({
+          type: "SHOW_MODAL",
+          payload: "duplicate page name",
+          statusCode: 400,
+        });
+      } else {
+        createCategory(data.categoryNameForm);
+      }
     }
   };
 

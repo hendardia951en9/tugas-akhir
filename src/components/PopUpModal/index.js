@@ -77,9 +77,7 @@ const PopUpModal = ({ closeModal, content, statusCode }) => {
               </form>
             </>
           ) : statusCode === 300 ? (
-            <>
-              <p>{content.message}</p>
-            </>
+            <p>{content.message}</p>
           ) : (
             <p>{content}</p>
           )}

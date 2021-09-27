@@ -204,12 +204,12 @@ const ManageUserPages = () => {
               className={errors.pageName && "form-input-error"}
               {...register("pageName", {
                 required: "this field is required",
-                pattern: {
-                  value:
-                    // eslint-disable-next-line
-                    /^([A-Za-z]|[0-9]|_)+$/,
-                  message: "invalid format",
-                },
+                // pattern: {
+                //   value:
+                //     // eslint-disable-next-line
+                //     /^([A-Za-z]|[0-9]|_)+$/,
+                //   message: "invalid format",
+                // },
               })}
               ref={(e) => {
                 ref(e);

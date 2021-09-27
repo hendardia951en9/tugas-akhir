@@ -3385,6 +3385,7 @@ const WebGenerator = () => {
         encryptStorage.removeItem("theme_id");
       } else if (encryptStorage.getItem("user_logged_in")) {
         encryptStorage.removeItem("site_id");
+        encryptStorage.removeItem("site_name");
       }
     };
     // eslint-disable-next-line

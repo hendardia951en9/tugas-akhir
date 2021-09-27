@@ -141,38 +141,6 @@ const Pricing = () => {
       });
   };
 
-  const fetchUserTransactionStatus = async () => {
-    appContext.setIsLoading(true);
-
-    const formData = generateFormData({
-      userID: encryptStorage.getItem("user_logged_in").user_id,
-    });
-
-    axios
-      .post(
-        `${process.env.REACT_APP_SITE_API_URL}/getusertransactiondata`,
-        formData,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
-      )
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
-      });
-  };
-
   const handleClickBCAVAPayment = () => {
     setIsBCAVAPayment(true);
   };
@@ -273,7 +241,7 @@ const Pricing = () => {
   };
 
   const handleClickDoCCPayment = async (data) => {
-    $(".payment-list-content-confirm-payment-cc").scrollTop();
+    $(".payment-list-content").scrollTop(0);
 
     //check if user already premium
     appContext.setIsLoading(true);
@@ -422,11 +390,7 @@ const Pricing = () => {
 
   useEffect(() => {
     document.title = "Pricing";
-
     fetchPackages();
-    if (encryptStorage.getItem("user_logged_in")) {
-      fetchUserTransactionStatus();
-    }
 
     const midtransScriptUrl =
       "https://api.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js";

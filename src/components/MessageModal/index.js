@@ -12,7 +12,9 @@ const MessageModal = ({ closeModal, content, statusCode }) => {
 
   return (
     <div
-      className={`message-modal ${statusCode === 200 ? "success" : "error"}`}
+      className={`message-modal ${
+        statusCode === 200 || statusCode === 201 ? "success" : "error"
+      }`}
     >
       {content}
     </div>

@@ -82,7 +82,13 @@ const Subscription = () => {
         {subscriptionData ? (
           <>
             <h1>
-              your subscription will end {calculateDate() > 0 ? "in" : ""}
+              your
+              <span>
+                {subscriptionData.subscription_package_id === "1"
+                  ? " vip "
+                  : " vvip "}
+              </span>
+              subscription will end {calculateDate() > 0 ? "in" : ""}
             </h1>
             <p>{calculateDate() > 0 ? calculateDate() + " day" : "today"}</p>
           </>
