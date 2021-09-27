@@ -2608,10 +2608,10 @@ const WebGenerator = () => {
     setIsRerenderPage(!isRerenderPage);
   };
 
-  const handleClickUploadImage = (isMultiple, propsTypes) => {
+  const handleClickUploadImage = (isMultiple, location) => {
     setIsUploadImage(true);
     setIsUploadImageMultiple(isMultiple);
-    setUploadImageLocation(propsTypes);
+    setUploadImageLocation(location);
   };
 
   const togglePreviewSite = () => {
