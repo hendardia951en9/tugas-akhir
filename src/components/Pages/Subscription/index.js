@@ -75,7 +75,7 @@ const Subscription = () => {
       <section className="subscription-page">
         <img
           className="background-image"
-          src="/assets/images/global/user_subscription_background.jpg"
+          src="/assets/images/global/subscription_background.jpg"
           alt=""
         />
 
