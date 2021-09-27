@@ -2885,7 +2885,6 @@ const WebGenerator = () => {
   const renderEditComponent = (selectedComponentKey) => {
     if (Array.isArray(selectedComponentKey)) {
       if (selectedComponentKey[0] === ItemTypes.USER_FOOTER_MENU) {
-        console.log(isPremiumUser);
         const component =
           boardState.boardFooter.props.menu[selectedComponentKey[1]];
         const location = [selectedComponentKey[0], selectedComponentKey[1]];
