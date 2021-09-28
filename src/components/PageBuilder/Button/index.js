@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { checkLinkTo } from "../../../utils/checkLinkTo";
+import { generatePosition } from "../../../utils/generatePosition";
 import { generateStyle } from "../../../utils/generateStyle";
 import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
@@ -49,7 +50,8 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className={`button-component-container ${isEdit && "isEdit"}`}
+      className={`button-component-container ${isEdit && "isEdit"}
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
       onClick={
         isEdit
           ? (e) => {
@@ -61,6 +63,9 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
               }
             }
           : undefined
+      }
+      style={
+        props.style.position === "absolute" ? generatePosition(props.style) : {}
       }
     >
       <button

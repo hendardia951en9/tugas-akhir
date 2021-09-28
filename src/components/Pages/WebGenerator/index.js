@@ -14,6 +14,7 @@ import { faThList } from "@fortawesome/free-solid-svg-icons";
 import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
+import { generatePosition } from "../../../utils/generatePosition";
 import { ItemTypes } from "../../../utils/ItemTypes";
 import { PropsTypes } from "../../../utils/PropsTypes";
 
@@ -22,6 +23,7 @@ import ButtonRipple from "../../ButtonRipple";
 import DOMTree from "../../DOMTree";
 import PopUpModal from "../../PopUpModal";
 import UploadImage from "../../PageBuilder/UploadImage";
+import UploadVideo from "../../PageBuilder/UploadVideo";
 
 //import page builder components
 import Board from "../../PageBuilder/Board";
@@ -102,6 +104,7 @@ const WebGenerator = () => {
   const [isRerenderPage, setIsRerenderPage] = useState(false);
   const [isUploadImage, setIsUploadImage] = useState(false);
   const [isUploadImageMultiple, setIsUploadImageMultiple] = useState(false);
+  const [isUploadVideo, setIsUploadVideo] = useState(false);
   const [mapState, setMapState] = useState({
     latitude: ComponentDefaultProps.MAP_COMPONENT.location.latitude,
     longitude: ComponentDefaultProps.MAP_COMPONENT.location.longitude,
@@ -1291,6 +1294,150 @@ const WebGenerator = () => {
           playing: value,
         },
       };
+    } else if (propsTypes === PropsTypes.POSITION) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              position: value,
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              position: value,
+            },
+          },
+        };
+      }
+    } else if (propsTypes === PropsTypes.TOP) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              top: {
+                ...component.props.dividerStyle.top,
+                [target]: value,
+              },
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              top: {
+                ...component.props.style.top,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
+    } else if (propsTypes === PropsTypes.LEFT) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              left: {
+                ...component.props.dividerStyle.left,
+                [target]: value,
+              },
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              left: {
+                ...component.props.style.left,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
+    } else if (propsTypes === PropsTypes.BOTTOM) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              bottom: {
+                ...component.props.dividerStyle.bottom,
+                [target]: value,
+              },
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              bottom: {
+                ...component.props.style.bottom,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
+    } else if (propsTypes === PropsTypes.RIGHT) {
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              right: {
+                ...component.props.dividerStyle.right,
+                [target]: value,
+              },
+            },
+          },
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              right: {
+                ...component.props.style.right,
+                [target]: value,
+              },
+            },
+          },
+        };
+      }
     } else if (propsTypes === PropsTypes.SHOW_BULLETS) {
       component = {
         ...component,
@@ -1772,16 +1919,29 @@ const WebGenerator = () => {
         },
       };
     } else if (propsTypes === PropsTypes.ZINDEX) {
-      component = {
-        ...component,
-        props: {
-          ...component.props,
-          style: {
-            ...component.props.style,
-            zIndex: value,
+      if (editComponent.selectedComponentItemTypes === ItemTypes.DIVIDER) {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            dividerStyle: {
+              ...component.props.dividerStyle,
+              zIndex: value,
+            },
           },
-        },
-      };
+        };
+      } else {
+        component = {
+          ...component,
+          props: {
+            ...component.props,
+            style: {
+              ...component.props.style,
+              zIndex: value,
+            },
+          },
+        };
+      }
     }
 
     return component;
@@ -1833,6 +1993,10 @@ const WebGenerator = () => {
 
   const closeUploadImage = () => {
     setIsUploadImage(false);
+  };
+
+  const closeUploadVideo = () => {
+    setIsUploadVideo(false);
   };
 
   const deleteComponent = (location) => {
@@ -2614,6 +2778,10 @@ const WebGenerator = () => {
     setUploadImageLocation(location);
   };
 
+  const handleClickUploadVideo = () => {
+    setIsUploadVideo(true);
+  };
+
   const togglePreviewSite = () => {
     if ($(".user-navbar").hasClass("media-query")) {
       $(".user-navbar").removeClass("media-query");
@@ -2682,6 +2850,8 @@ const WebGenerator = () => {
             component.props.style.width.unit === "%"
               ? "isPrecent"
               : ""
+          } ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
           }`}
           key={component.key}
           style={Object.assign(
@@ -2693,6 +2863,9 @@ const WebGenerator = () => {
                     component.props.style.width.value +
                     component.props.style.width.unit,
                 }
+              : {},
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
               : {}
           )}
         >
@@ -2707,7 +2880,19 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.DIVIDER) {
       return (
-        <div className="component-wrapper divider" key={component.key}>
+        <div
+          className={`component-wrapper divider ${
+            component.props.dividerStyle.position === "absolute"
+              ? "isAbsolute"
+              : ""
+          }`}
+          key={component.key}
+          style={
+            component.props.dividerStyle.position === "absolute"
+              ? generatePosition(component.props.dividerStyle)
+              : {}
+          }
+        >
           <Divider
             key={component.key}
             componentKey={component.key}
@@ -2719,7 +2904,17 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.HEADING) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper  ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
+          }`}
+          key={component.key}
+          style={
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
+              : {}
+          }
+        >
           <Heading
             key={component.key}
             componentKey={component.key}
@@ -2737,18 +2932,23 @@ const WebGenerator = () => {
             component.props.style.width.unit === "%"
               ? "isPrecent"
               : ""
+          } ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
           }`}
           key={component.key}
-          style={
+          style={Object.assign(
             isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
+              component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +
                     component.props.style.width.unit,
                 }
+              : {},
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
               : {}
-          }
+          )}
         >
           <Icon
             key={component.key}
@@ -2761,7 +2961,17 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.INNERSECTION) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper inner-section  ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
+          }`}
+          key={component.key}
+          style={
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
+              : {}
+          }
+        >
           <InnerSection
             key={component.key}
             componentKey={component.key}
@@ -2778,18 +2988,23 @@ const WebGenerator = () => {
             component.props.style.width.unit === "%"
               ? "isPrecent"
               : ""
+          } ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
           }`}
           key={component.key}
-          style={
+          style={Object.assign(
             isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
+              component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +
                     component.props.style.width.unit,
                 }
+              : {},
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
               : {}
-          }
+          )}
         >
           <Image
             key={component.key}
@@ -2835,18 +3050,28 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.STAR_RATING) {
       return (
         <div
-          className="component-wrapper"
-          key={component.key}
-          style={
+          className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
+              ? "isPrecent"
+              : ""
+          } ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
+          }`}
+          key={component.key}
+          style={Object.assign(
+            isInsideInnerSectionLayout &&
+              component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +
                     component.props.style.width.unit,
                 }
+              : {},
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
               : {}
-          }
+          )}
         >
           <StarRating
             key={component.key}
@@ -2859,7 +3084,17 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.TEXT_EDITOR) {
       return (
-        <div className="component-wrapper" key={component.key}>
+        <div
+          className={`component-wrapper  ${
+            component.props.style.position === "absolute" ? "isAbsolute" : ""
+          }`}
+          key={component.key}
+          style={
+            component.props.style.position === "absolute"
+              ? generatePosition(component.props.style)
+              : {}
+          }
+        >
           <TextEditor
             key={component.key}
             componentKey={component.key}
@@ -3403,10 +3638,12 @@ const WebGenerator = () => {
         addNavbarSubMenu,
         changeMapState,
         closeUploadImage,
+        closeUploadVideo,
         deleteComponent,
         editComponentProps,
         handleClickPageBuilderComponent,
         handleClickUploadImage,
+        handleClickUploadVideo,
         renderComponent,
         reorderComponent,
       }}
@@ -3417,6 +3654,8 @@ const WebGenerator = () => {
           location={uploadImageLocation}
         />
       )}
+
+      {isUploadVideo && <UploadVideo />}
 
       <div className="navbar-margin">
         {modalState.isShowPopUpModal && (

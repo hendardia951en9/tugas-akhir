@@ -26,7 +26,9 @@ const Divider = ({ componentKey, isEdit, itemTypes, props }) => {
     >
       <div
         className="divider-component-text-container"
-        style={generateStyle(props.dividerTextContainerStyle)}
+        style={Object.assign(generateStyle(props.dividerTextContainerStyle), {
+          zIndex: props.dividerStyle.zIndex + 1,
+        })}
       >
         <span
           className="divider-component-text"

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { generatePosition } from "../../../utils/generatePosition";
 import { generateStyle } from "../../../utils/generateStyle";
 import Layout from "./layout";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
@@ -11,7 +12,8 @@ const InnerSection = ({ componentKey, itemTypes, props }) => {
 
   return (
     <div
-      className="inner-section-component-container"
+      className={`inner-section-component-container 
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           pageBuilderContext.handleClickPageBuilderComponent(
@@ -20,6 +22,9 @@ const InnerSection = ({ componentKey, itemTypes, props }) => {
           );
         }
       }}
+      style={
+        props.style.position === "absolute" ? generatePosition(props.style) : {}
+      }
     >
       <div
         className="inner-section-component"

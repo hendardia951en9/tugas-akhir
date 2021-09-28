@@ -11,23 +11,23 @@ export const generateStyle = (style) => {
         if (index === "backgroundColor") {
           result = {
             ...result,
-            backgroundColor: `rgba(${style[index].r}, ${style[index].g}, ${style[index].b}, ${style[index].a})`,
+            backgroundColor: `rgba(${element.r}, ${element.g}, ${element.b}, ${element.a})`,
           };
         } else if (index === "borderColor") {
           result = {
             ...result,
-            borderColor: `rgba(${style[index].r}, ${style[index].g}, ${style[index].b}, ${style[index].a})`,
+            borderColor: `rgba(${element.r}, ${element.g}, ${element.b}, ${element.a})`,
           };
         } else if (index === "borderProps") {
           let border = "";
 
           border +=
-            style[index].borderWeight.value +
-            style[index].borderWeight.unit +
+            element.borderWeight.value +
+            element.borderWeight.unit +
             " " +
-            style[index].borderStyle +
+            element.borderStyle +
             " " +
-            `rgba(${style[index].borderColor.r}, ${style[index].borderColor.g}, ${style[index].borderColor.b}, ${style[index].borderColor.a})`;
+            `rgba(${element.borderColor.r}, ${element.borderColor.g}, ${element.borderColor.b}, ${element.borderColor.a})`;
 
           result = {
             ...result,
@@ -36,27 +36,21 @@ export const generateStyle = (style) => {
         } else if (index === "color") {
           result = {
             ...result,
-            color: `rgba(${style[index].r}, ${style[index].g}, ${style[index].b}, ${style[index].a})`,
+            color: `rgba(${element.r}, ${element.g}, ${element.b}, ${element.a})`,
           };
         } else if (index === "boxShadowProps") {
           let boxShadow = "";
 
+          boxShadow += " " + element.boxShadowX.value + element.boxShadowX.unit;
+          boxShadow += " " + element.boxShadowY.value + element.boxShadowY.unit;
           boxShadow +=
-            " " + style[index].boxShadowX.value + style[index].boxShadowX.unit;
+            " " + element.boxShadowBlur.value + element.boxShadowBlur.unit;
           boxShadow +=
-            " " + style[index].boxShadowY.value + style[index].boxShadowY.unit;
-          boxShadow +=
-            " " +
-            style[index].boxShadowBlur.value +
-            style[index].boxShadowBlur.unit;
+            " " + element.boxShadowSpread.value + element.boxShadowSpread.unit;
           boxShadow +=
             " " +
-            style[index].boxShadowSpread.value +
-            style[index].boxShadowSpread.unit;
-          boxShadow +=
-            " " +
-            `rgba(${style[index].boxShadowColor.r}, ${style[index].boxShadowColor.g}, ${style[index].boxShadowColor.b}, ${style[index].boxShadowColor.a})`;
-          boxShadow += " " + style[index].boxShadowInset;
+            `rgba(${element.boxShadowColor.r}, ${element.boxShadowColor.g}, ${element.boxShadowColor.b}, ${element.boxShadowColor.a})`;
+          boxShadow += " " + element.boxShadowInset;
 
           result = { ...result, boxShadow: boxShadow };
         } else {

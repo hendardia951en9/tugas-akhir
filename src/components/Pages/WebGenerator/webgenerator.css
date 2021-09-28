@@ -50,6 +50,20 @@
   pointer-events: all;
 }
 
+.isAbsolute:not(.divider):not(.divider-component):not(.inner-section):not(.inner-section-component-container) {
+  width: fit-content !important;
+  height: fit-content !important;
+}
+
+.isAbsolute > *,
+.isAbsolute > * > * {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+}
+
 .page-builder-container {
   --sidebar-header: 90px;
   --sidebar-footer: 50px;

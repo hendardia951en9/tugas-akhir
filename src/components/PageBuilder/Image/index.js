@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { checkLinkTo } from "../../../utils/checkLinkTo";
+import { generatePosition } from "../../../utils/generatePosition";
 import { generateStyle } from "../../../utils/generateStyle";
 import { NavLink } from "react-router-dom";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
@@ -53,7 +54,8 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="image-component-container"
+      className={`image-component-container 
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
       onClick={
         isEdit
           ? (e) => {
@@ -65,6 +67,9 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
               }
             }
           : undefined
+      }
+      style={
+        props.style.position === "absolute" ? generatePosition(props.style) : {}
       }
     >
       <div

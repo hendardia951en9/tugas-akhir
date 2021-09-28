@@ -84,15 +84,19 @@ const AdminDashboard = () => {
     setUploadedImage(null);
   };
 
-  const fetchAdminGallery = () => {
+  const fetchAdminImageGallery = () => {
     axios
-      .get(`${process.env.REACT_APP_SITE_API_URL}/getadmingallery`, {
+      .get(`${process.env.REACT_APP_SITE_API_URL}/getadminimagegallery`, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        setGallery(res.data.result);
+        if (res.data.result && res.data.result.length > 0) {
+          setGallery(res.data.result);
+        } else {
+          setGallery(undefined);
+        }
       })
       .catch((err) => {
         //error
@@ -282,7 +286,7 @@ const AdminDashboard = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        fetchAdminGallery();
+        fetchAdminImageGallery();
       })
       .catch((err) => {
         //error
@@ -300,7 +304,7 @@ const AdminDashboard = () => {
   const handleClickThumbnail = (theme_id) => {
     setIsOpenUploadImage(true);
     setSelectedThemeID(theme_id);
-    fetchAdminGallery();
+    fetchAdminImageGallery();
   };
 
   const handleOnChangeCategory = (params) => {

@@ -1,7 +1,7 @@
 .divider-component {
   border: 2px solid transparent;
   position: relative;
-  width: 100%;
+  width: 100% !important;
 }
 
 .divider-component * {

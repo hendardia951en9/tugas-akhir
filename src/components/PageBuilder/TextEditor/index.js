@@ -27,7 +27,8 @@ const TextEditor = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className="text-editor-component-container"
+      className={`text-editor-component-container 
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
       onClick={
         isEdit
           ? (e) => {

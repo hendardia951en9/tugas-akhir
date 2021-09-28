@@ -30,22 +30,22 @@ const UploadImage = ({ isMultiple, location }) => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [userGallery, setUserGallery] = useState([]);
 
-  const fetchUserGallery = async () => {
+  const fetchImageGallery = async () => {
     appContext.setIsLoading(true);
 
     //jika admin
     if (encryptStorage.getItem("admin_logged_in")) {
       axios
-        .get(`${process.env.REACT_APP_SITE_API_URL}/getadmingallery`, {
+        .get(`${process.env.REACT_APP_SITE_API_URL}/getadminimagegallery`, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          if (res.data.result.length <= 0) {
-            setUserGallery(undefined);
-          } else {
+          if (res.data.result && res.data.result.length > 0) {
             setUserGallery(res.data.result);
+          } else {
+            setUserGallery(undefined);
           }
 
           //set all image selected status with false
@@ -77,7 +77,7 @@ const UploadImage = ({ isMultiple, location }) => {
 
       axios
         .post(
-          `${process.env.REACT_APP_SITE_API_URL}/getusergallery`,
+          `${process.env.REACT_APP_SITE_API_URL}/getuserimagegallery`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -86,19 +86,22 @@ const UploadImage = ({ isMultiple, location }) => {
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          setUserGallery(res.data.result);
+          if (res.data.result && res.data.result.length > 0) {
+            setUserGallery(res.data.result);
+          } else {
+            setUserGallery(undefined);
+          }
 
           //set all image selected status with false
           if (isMultiple && res.data.result) {
             selectedFileMultiple = [];
 
             res.data.result.forEach((result) => {
-              const { user_gallery_image_name } = result;
               const url = `${
                 process.env.REACT_APP_BASE_API_URL
               }/public/uploads/${
                 encryptStorage.getItem("user_logged_in").user_id
-              }/${user_gallery_image_name}`;
+              }/images/${result}`;
               selectedFileMultiple.push({ url: url, checked: false });
             });
           }
@@ -137,7 +140,7 @@ const UploadImage = ({ isMultiple, location }) => {
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          fetchUserGallery();
+          fetchImageGallery();
         })
         .catch((err) => {
           //error
@@ -168,7 +171,7 @@ const UploadImage = ({ isMultiple, location }) => {
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          fetchUserGallery();
+          fetchImageGallery();
         })
         .catch((err) => {
           //error
@@ -261,7 +264,7 @@ const UploadImage = ({ isMultiple, location }) => {
   };
 
   useEffect(() => {
-    fetchUserGallery();
+    fetchImageGallery();
     // eslint-disable-next-line
   }, []);
 
@@ -329,25 +332,21 @@ const UploadImage = ({ isMultiple, location }) => {
                     );
                   })
               : isMultiple === false
-              ? userGallery.map((gallery) => {
-                  const { user_gallery_id, user_gallery_image_name } = gallery;
+              ? userGallery.map((image, index) => {
                   const url = `${
                     process.env.REACT_APP_BASE_API_URL
                   }/public/uploads/${
                     encryptStorage.getItem("user_logged_in").user_id
-                  }/${user_gallery_image_name}`;
+                  }/images/${image}`;
 
                   return (
-                    <div
-                      className="user-gallery-image-container"
-                      key={user_gallery_id}
-                    >
+                    <div className="user-gallery-image-container" key={index}>
                       <input
-                        id={user_gallery_image_name}
+                        id={image}
                         name="user-gallery-radio"
                         type="radio"
                       />
-                      <label htmlFor={user_gallery_image_name}>
+                      <label htmlFor={image}>
                         <img
                           alt=""
                           className="user-gallery-image"
@@ -360,28 +359,24 @@ const UploadImage = ({ isMultiple, location }) => {
                     </div>
                   );
                 })
-              : userGallery.map((gallery) => {
-                  const { user_gallery_id, user_gallery_image_name } = gallery;
+              : userGallery.map((image, index) => {
                   const url = `${
                     process.env.REACT_APP_BASE_API_URL
                   }/public/uploads/${
                     encryptStorage.getItem("user_logged_in").user_id
-                  }/${user_gallery_image_name}`;
+                  }/images/${image}`;
 
                   return (
-                    <div
-                      className="user-gallery-image-container"
-                      key={user_gallery_id}
-                    >
+                    <div className="user-gallery-image-container" key={index}>
                       <input
-                        id={user_gallery_image_name}
+                        id={image}
                         name="user-gallery-checkbox"
                         onChange={(e) => {
                           onChangeCheckboxImageGallery(e, url);
                         }}
                         type="checkbox"
                       />
-                      <label htmlFor={user_gallery_image_name}>
+                      <label htmlFor={image}>
                         <img alt="" className="user-gallery-image" src={url} />
                       </label>
                     </div>

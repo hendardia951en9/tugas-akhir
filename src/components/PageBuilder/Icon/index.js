@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { checkLinkTo } from "../../../utils/checkLinkTo";
+import { generatePosition } from "../../../utils/generatePosition";
 import { generateStyle } from "../../../utils/generateStyle";
 import { IconPickerItem } from "react-fa-icon-picker";
 import { NavLink } from "react-router-dom";
@@ -13,7 +14,9 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className={`icon-component ${isEdit && "isEdit"}`}
+      className={`icon-component ${isEdit && "isEdit"} ${
+        props.style.position === "absolute" ? "isAbsolute" : ""
+      }`}
       onClick={
         isEdit
           ? (e) => {
@@ -26,11 +29,14 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
             }
           : undefined
       }
-      style={
+      style={Object.assign(
+        props.style.position === "absolute"
+          ? generatePosition(props.style)
+          : {},
         isEdit
           ? {}
           : { width: props.style.width.value + props.style.width.unit }
-      }
+      )}
     >
       {isEdit ? (
         <IconPickerItem

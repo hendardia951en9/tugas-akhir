@@ -155,6 +155,15 @@ const EditComponent = ({ props }) => {
   const [minHeightValue, setMinHeightValue] = useState(0);
   const [minHeightUnit, setMinHeightUnit] = useState("auto");
   const [muted, setMuted] = useState(false);
+  const [position, setPosition] = useState("relative");
+  const [topValue, setTopValue] = useState(0);
+  const [topUnit, setTopUnit] = useState("auto");
+  const [leftValue, setLeftValue] = useState(0);
+  const [leftUnit, setLeftUnit] = useState("auto");
+  const [bottomValue, setBottomValue] = useState(0);
+  const [bottomUnit, setBottomUnit] = useState("auto");
+  const [rightValue, setRightValue] = useState(0);
+  const [rightUnit, setRightUnit] = useState("auto");
   const [userFooterLogo, setUserFooterLogo] = useState("");
   const [userFooterLogoIsShow, setUserFooterLogoIsShow] = useState(true);
   const [userFooterLogoMaxHeightValue, setUserFooterLogoMaxHeightValue] =
@@ -825,6 +834,49 @@ const EditComponent = ({ props }) => {
       if (props.componentEditableProps.playing) {
         setPlaying(props.componentProps.playing);
       }
+      if (props.componentEditableProps.position) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setPosition(props.componentProps.dividerStyle.position);
+        } else {
+          setPosition(props.componentProps.style.position);
+        }
+      }
+      if (props.componentEditableProps.top) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setTopValue(props.componentProps.dividerStyle.top.value);
+          setTopUnit(props.componentProps.dividerStyle.top.unit);
+        } else {
+          setTopValue(props.componentProps.style.top.value);
+          setTopUnit(props.componentProps.style.top.unit);
+        }
+      }
+      if (props.componentEditableProps.left) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setLeftValue(props.componentProps.dividerStyle.left.value);
+          setLeftUnit(props.componentProps.dividerStyle.left.unit);
+        } else {
+          setLeftValue(props.componentProps.style.left.value);
+          setLeftUnit(props.componentProps.style.left.unit);
+        }
+      }
+      if (props.componentEditableProps.bottom) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setBottomValue(props.componentProps.dividerStyle.bottom.value);
+          setBottomUnit(props.componentProps.dividerStyle.bottom.unit);
+        } else {
+          setBottomValue(props.componentProps.style.bottom.value);
+          setBottomUnit(props.componentProps.style.bottom.unit);
+        }
+      }
+      if (props.componentEditableProps.right) {
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setRightValue(props.componentProps.dividerStyle.right.value);
+          setRightUnit(props.componentProps.dividerStyle.right.unit);
+        } else {
+          setRightValue(props.componentProps.style.right.value);
+          setRightUnit(props.componentProps.style.right.unit);
+        }
+      }
       if (props.componentEditableProps.showBullets) {
         setShowBullets(props.componentProps.showBullets);
       }
@@ -1047,7 +1099,11 @@ const EditComponent = ({ props }) => {
         setWidthUnit(props.componentProps.style.width.unit);
       }
       if (props.componentEditableProps.zIndex) {
-        setZIndex(props.componentProps.style.zIndex);
+        if (props.itemTypes === ItemTypes.DIVIDER) {
+          setZIndex(props.componentProps.dividerStyle.zIndex);
+        } else {
+          setZIndex(props.componentProps.style.zIndex);
+        }
       }
     }
   }, [pageBuilderContext, props]);
@@ -3250,6 +3306,211 @@ const EditComponent = ({ props }) => {
             </label>
           </div>
         )}
+        {/* position */}
+        {props.componentEditableProps.position && (
+          <div className="form-input">
+            <select
+              id="position"
+              name="position"
+              onChange={(e) => {
+                setPosition(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.POSITION,
+                  "",
+                  e.target.value
+                );
+              }}
+              value={position}
+            >
+              {props.componentEditableProps.position.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+            <label htmlFor="position">
+              <span>{PropsTypes.POSITION}</span>
+            </label>
+          </div>
+        )}
+        {/* top */}
+        {props.componentEditableProps.top && (
+          <div className="form-input">
+            <input
+              id="topValue"
+              min="0"
+              name="topValue"
+              onChange={(e) => {
+                setTopValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.TOP,
+                  "value",
+                  e.target.value || 0
+                );
+              }}
+              type="number"
+              value={topValue}
+            />
+            <label htmlFor="topValue">
+              <span>{PropsTypes.TOP}</span>
+            </label>
+            <select
+              id="topUnit"
+              name="topUnit"
+              onChange={(e) => {
+                setTopUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.TOP,
+                  "unit",
+                  e.target.value
+                );
+              }}
+              value={topUnit}
+            >
+              {props.componentEditableProps.top.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
+        {/* left */}
+        {props.componentEditableProps.left && (
+          <div className="form-input">
+            <input
+              id="leftValue"
+              min="0"
+              name="leftValue"
+              onChange={(e) => {
+                setLeftValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.LEFT,
+                  "value",
+                  e.target.value || 0
+                );
+              }}
+              type="number"
+              value={leftValue}
+            />
+            <label htmlFor="leftValue">
+              <span>{PropsTypes.LEFT}</span>
+            </label>
+            <select
+              id="leftUnit"
+              name="leftUnit"
+              onChange={(e) => {
+                setLeftUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.LEFT,
+                  "unit",
+                  e.target.value
+                );
+              }}
+              value={leftUnit}
+            >
+              {props.componentEditableProps.left.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
+        {/* bottom */}
+        {props.componentEditableProps.bottom && (
+          <div className="form-input">
+            <input
+              id="bottomValue"
+              min="0"
+              name="bottomValue"
+              onChange={(e) => {
+                setBottomValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.BOTTOM,
+                  "value",
+                  e.target.value || 0
+                );
+              }}
+              type="number"
+              value={bottomValue}
+            />
+            <label htmlFor="bottomValue">
+              <span>{PropsTypes.BOTTOM}</span>
+            </label>
+            <select
+              id="bottomUnit"
+              name="bottomUnit"
+              onChange={(e) => {
+                setBottomUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.BOTTOM,
+                  "unit",
+                  e.target.value
+                );
+              }}
+              value={bottomUnit}
+            >
+              {props.componentEditableProps.bottom.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
+        {/* right */}
+        {props.componentEditableProps.right && (
+          <div className="form-input">
+            <input
+              id="rightValue"
+              min="0"
+              name="rightValue"
+              onChange={(e) => {
+                setRightValue(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.RIGHT,
+                  "value",
+                  e.target.value || 0
+                );
+              }}
+              type="number"
+              value={rightValue}
+            />
+            <label htmlFor="rightValue">
+              <span>{PropsTypes.RIGHT}</span>
+            </label>
+            <select
+              id="rightUnit"
+              name="rightUnit"
+              onChange={(e) => {
+                setRightUnit(e.target.value);
+                pageBuilderContext.editComponentProps(
+                  PropsTypes.RIGHT,
+                  "unit",
+                  e.target.value
+                );
+              }}
+              value={rightUnit}
+            >
+              {props.componentEditableProps.right.map((unit, index) => {
+                return (
+                  <option key={index} value={unit}>
+                    {unit}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
         {/* show bullets */}
         {props.componentEditableProps.showBullets && (
           <div className="form-input">
@@ -3445,6 +3706,11 @@ const EditComponent = ({ props }) => {
             <label htmlFor="source">
               <span>{PropsTypes.SOURCE}</span>
             </label>
+            <ButtonRipple
+              className="button"
+              fa={<FontAwesomeIcon icon={faFolderOpen} />}
+              onClick={() => pageBuilderContext.handleClickUploadVideo()}
+            />
           </div>
         )}
         {/* star rating cap */}

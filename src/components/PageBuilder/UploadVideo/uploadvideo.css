@@ -1,6 +1,12 @@
-.upload-image {
-  --upload-image-header-size: 50px;
-  --upload-image-footer-size: 50px;
+.user-gallery-video-container video {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.upload-video {
+  --upload-video-header-size: 50px;
+  --upload-video-footer-size: 50px;
 
   align-items: center;
   bottom: 0;
@@ -13,7 +19,7 @@
   z-index: 99;
 }
 
-.upload-image-blur {
+.upload-video-blur {
   background-color: rgba(0, 0, 0, 0.8);
   bottom: 0;
   left: 0;
@@ -22,7 +28,7 @@
   top: 0;
 }
 
-.upload-image-box {
+.upload-video-box {
   background-color: white;
   border-radius: 5px;
   bottom: 10%;
@@ -34,12 +40,12 @@
   top: 10%;
 }
 
-.upload-image-content-header {
+.upload-video-content-header {
   align-items: center;
   color: white;
   background-color: black;
   display: flex;
-  height: var(--upload-image-header-size);
+  height: var(--upload-video-header-size);
   justify-content: space-between;
   left: 0;
   padding: 0 1rem;
@@ -50,7 +56,7 @@
   z-index: 10;
 }
 
-.upload-image-content-header button {
+.upload-video-content-header button {
   background-color: transparent;
   border: none;
   color: white;
@@ -59,32 +65,32 @@
   outline: none;
 }
 
-.upload-image-content {
+.upload-video-content {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   height: calc(
-    100% - var(--upload-image-header-size) - var(--upload-image-footer-size)
+    100% - var(--upload-video-header-size) - var(--upload-video-footer-size)
   );
-  margin-top: var(--upload-image-header-size);
+  margin-top: var(--upload-video-header-size);
   overflow: auto;
   padding: 1rem 2rem;
 }
 
-.user-gallery-image-container {
+.user-gallery-video-container {
   height: 160px;
   position: relative;
   width: 240px;
 }
 
-.user-gallery-image-container img {
+.user-gallery-video-container img {
   display: block;
   height: 100%;
   object-fit: cover;
   width: 100%;
 }
 
-.user-gallery-image-container label {
+.user-gallery-video-container label {
   background-color: rgba(0, 0, 0, 0.5);
   bottom: 0;
   cursor: pointer;
@@ -94,7 +100,7 @@
   top: 0;
 }
 
-.user-gallery-image-container label::before {
+.user-gallery-video-container label::before {
   border-radius: 100px;
   content: "";
   height: 30px;
@@ -104,31 +110,31 @@
   width: 30px;
 }
 
-.user-gallery-image-container input[type="radio"],
-.user-gallery-image-container input[type="checkbox"] {
+.user-gallery-video-container input[type="radio"],
+.user-gallery-video-container input[type="checkbox"] {
   display: none;
 }
 
-.user-gallery-image-container input[type="radio"]:checked + label,
-.user-gallery-image-container input[type="checkbox"]:checked + label {
+.user-gallery-video-container input[type="radio"]:checked + label,
+.user-gallery-video-container input[type="checkbox"]:checked + label {
   border: 3px solid #3799ee;
 }
 
-.user-gallery-image-container input[type="radio"]:checked + label::before,
-.user-gallery-image-container input[type="checkbox"]:checked + label::before {
+.user-gallery-video-container input[type="radio"]:checked + label::before,
+.user-gallery-video-container input[type="checkbox"]:checked + label::before {
   background-image: url("https://png.pngtree.com/png-vector/20191113/ourmid/pngtree-green-check-mark-icon-flat-style-png-image_1986021.jpg");
   background-position: center;
   background-size: cover;
   border: 1px solid #3799ee;
 }
 
-.upload-image-content-footer {
+.upload-video-content-footer {
   align-items: center;
   background-color: #f1f4f6;
   bottom: 0;
   display: flex;
   font-size: 0.8em;
-  height: var(--upload-image-footer-size);
+  height: var(--upload-video-footer-size);
   justify-content: space-between;
   left: 0;
   padding: 0 1rem;
@@ -137,7 +143,7 @@
   z-index: 10;
 }
 
-.upload-image-content-footer input[type="file"]::-webkit-file-upload-button {
+.upload-video-content-footer input[type="file"]::-webkit-file-upload-button {
   background-color: mediumblue;
   border: none;
   border-radius: 200px;
@@ -154,7 +160,7 @@
   text-transform: capitalize;
 }
 
-.upload-image-content-footer-button {
+.upload-video-content-footer-button {
   display: inline-block;
   font-size: 0.9em;
 }
