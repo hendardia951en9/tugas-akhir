@@ -26,7 +26,16 @@
   width: fit-content;
 }
 
-.inner-section-component-layout .component-wrapper.isPercent > * > * {
+.inner-section-component-layout
+  .component-wrapper.isPercent
+  .star-rating-component.isEdit {
+  width: 100% !important;
+}
+
+.inner-section-component-layout
+  .component-wrapper.isPercent
+  > *:not(.star-rating-component)
+  > * {
   width: 100% !important;
 }
 
