@@ -14,6 +14,10 @@
   width: 100% !important;
 }
 
+.icon-component:not(.isEdit).isAbsolute {
+  width: fit-content !important;
+}
+
 .icon-component a {
   display: block;
 }
