@@ -51,7 +51,7 @@
 }
 
 .isAbsolute:not(.inner-section):not(.inner-section-component-container) {
-  width: fit-content;
+  width: fit-content !important;
   height: fit-content !important;
 }
 

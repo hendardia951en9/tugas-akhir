@@ -10,6 +10,10 @@
   width: 100% !important;
 }
 
+.icon-component.isAbsolute.isPercent > * {
+  width: 100% !important;
+}
+
 .icon-component a {
   display: block;
 }
