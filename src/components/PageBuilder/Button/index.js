@@ -69,7 +69,11 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
         props.style.position === "absolute"
           ? generatePosition(props.style)
           : {},
-        isEdit
+        !isEdit &&
+          props.style.position === "absolute" &&
+          props.style.width.unit !== "%"
+          ? { width: "100%" }
+          : isEdit
           ? {}
           : { width: props.style.width.value + props.style.width.unit }
       )}

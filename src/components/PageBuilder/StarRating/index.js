@@ -37,7 +37,8 @@ const StarRating = ({ componentKey, isEdit, itemTypes, props }) => {
   return (
     <div
       className={`star-rating-component ${isEdit && "isEdit"}
-      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}
+      ${props.style.width.unit === "%" && "isPercent"}`}
       onClick={
         isEdit
           ? (e) => {

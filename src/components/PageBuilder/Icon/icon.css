@@ -14,8 +14,8 @@
   width: 100% !important;
 }
 
-.icon-component.isEdit.isAbsolute.isPercent {
-  width: fit-content !important;
+.icon-component.isEdit.isPercent > * {
+  width: 100% !important;
 }
 
 .icon-component a {

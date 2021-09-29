@@ -1,12 +1,17 @@
-.button-component-container:not(.isEdit):not(.isAbsolute) {
+.button-component-container:not(.isEdit):not(.isAbsolute):not(.isPercent) {
   width: 100% !important;
 }
 
-.button-component-container:not(.isEdit).isAbsolute {
-  width: fit-content !important;
+.button-component-container:not(.isEdit):not(.isAbsolute).isPercent {
+  width: 100% !important;
 }
 
-.button-component-container.isAbsolute.isPercent .button-component {
+.button-component-container:not(.isEdit).isAbsolute.isPercent
+  .button-component {
+  width: 100% !important;
+}
+
+.button-component-container.isEdit.isPercent .button-component {
   width: 100% !important;
 }
 
@@ -25,4 +30,5 @@
   color: inherit;
   font-family: unset;
   text-decoration: inherit;
+  width: 100%;
 }

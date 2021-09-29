@@ -2841,23 +2841,17 @@ const WebGenerator = () => {
     return false;
   };
 
-  const renderComponent = (component, isInsideInnerSectionLayout) => {
+  const renderComponent = (component) => {
     if (component.itemTypes === ItemTypes.BUTTON) {
       return (
         <div
-          className={`component-wrapper ${
-            isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
-              ? "isPercent"
-              : ""
-          } ${
-            component.props.style.position === "absolute" ? "isAbsolute" : ""
-          }`}
+          className={`component-wrapper 
+          ${component.props.style.width.unit === "%" ? "isPercent" : ""} 
+          ${component.props.style.position === "absolute" ? "isAbsolute" : ""}`}
           key={component.key}
           style={Object.assign(
             processButtonAlignment(component.props.buttonAlignment),
-            isInsideInnerSectionLayout &&
-              component.props.style.width.unit === "%"
+            component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +
@@ -2880,19 +2874,7 @@ const WebGenerator = () => {
       );
     } else if (component.itemTypes === ItemTypes.DIVIDER) {
       return (
-        <div
-          className={`component-wrapper divider ${
-            component.props.dividerStyle.position === "absolute"
-              ? "isAbsolute"
-              : ""
-          }`}
-          key={component.key}
-          style={
-            component.props.dividerStyle.position === "absolute"
-              ? generatePosition(component.props.dividerStyle)
-              : {}
-          }
-        >
+        <div className={`component-wrapper divider`} key={component.key}>
           <Divider
             key={component.key}
             componentKey={component.key}
@@ -2905,9 +2887,8 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.HEADING) {
       return (
         <div
-          className={`component-wrapper  ${
-            component.props.style.position === "absolute" ? "isAbsolute" : ""
-          }`}
+          className={`component-wrapper
+          ${component.props.style.position === "absolute" ? "isAbsolute" : ""}`}
           key={component.key}
           style={
             component.props.style.position === "absolute"
@@ -2927,18 +2908,12 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.ICON) {
       return (
         <div
-          className={`component-wrapper ${
-            isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
-              ? "isPercent"
-              : ""
-          } ${
-            component.props.style.position === "absolute" ? "isAbsolute" : ""
-          }`}
+          className={`component-wrapper 
+          ${component.props.style.width.unit === "%" ? "isPercent" : ""} 
+          ${component.props.style.position === "absolute" ? "isAbsolute" : ""}`}
           key={component.key}
           style={Object.assign(
-            isInsideInnerSectionLayout &&
-              component.props.style.width.unit === "%"
+            component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +
@@ -2962,9 +2937,8 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.INNERSECTION) {
       return (
         <div
-          className={`component-wrapper inner-section  ${
-            component.props.style.position === "absolute" ? "isAbsolute" : ""
-          }`}
+          className={`component-wrapper inner-section
+          ${component.props.style.position === "absolute" ? "isAbsolute" : ""}`}
           key={component.key}
           style={
             component.props.style.position === "absolute"
@@ -2983,18 +2957,13 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.IMAGE) {
       return (
         <div
-          className={`component-wrapper ${
-            isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
-              ? "isPercent"
-              : ""
-          } ${
-            component.props.style.position === "absolute" ? "isAbsolute" : ""
-          }`}
+          className={`component-wrapper 
+          ${component.props.style.width.unit === "%" ? "isPercent" : ""} 
+          ${component.props.style.position === "absolute" ? "isAbsolute" : ""}`}
           key={component.key}
           style={Object.assign(
-            isInsideInnerSectionLayout &&
-              component.props.style.width.unit === "%"
+            processButtonAlignment(component.props.buttonAlignment),
+            component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +
@@ -3050,18 +3019,13 @@ const WebGenerator = () => {
     } else if (component.itemTypes === ItemTypes.STAR_RATING) {
       return (
         <div
-          className={`component-wrapper ${
-            isInsideInnerSectionLayout &&
-            component.props.style.width.unit === "%"
-              ? "isPercent"
-              : ""
-          } ${
-            component.props.style.position === "absolute" ? "isAbsolute" : ""
-          }`}
+          className={`component-wrapper 
+          ${component.props.style.width.unit === "%" ? "isPercent" : ""} 
+          ${component.props.style.position === "absolute" ? "isAbsolute" : ""}`}
           key={component.key}
           style={Object.assign(
-            isInsideInnerSectionLayout &&
-              component.props.style.width.unit === "%"
+            processButtonAlignment(component.props.buttonAlignment),
+            component.props.style.width.unit === "%"
               ? {
                   width:
                     component.props.style.width.value +

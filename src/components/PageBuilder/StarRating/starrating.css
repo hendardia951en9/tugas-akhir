@@ -1,3 +1,7 @@
+.star-rating-component.isEdit.isAbsolute.isPercent {
+  width: 100% !important;
+}
+
 .star-rating-component {
   display: flex;
 }

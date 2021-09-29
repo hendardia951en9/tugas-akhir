@@ -27,6 +27,17 @@
 }
 
 .inner-section-component-layout
+  > .button-component-container:not(.isEdit).isAbsolute.isPercent
+  > .button-component {
+  width: 100% !important;
+}
+
+.inner-section-component-layout
+  > .button-component-container:not(.isEdit).isAbsolute:not(.isPercent) {
+  width: fit-content !important;
+}
+
+.inner-section-component-layout
   .component-wrapper.isPercent
   .star-rating-component.isEdit {
   width: 100% !important;

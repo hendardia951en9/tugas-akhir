@@ -50,17 +50,9 @@
   pointer-events: all;
 }
 
-.isAbsolute:not(.inner-section):not(.inner-section-component-container) {
+.isAbsolute:not(.inner-section):not(.inner-section-component-container):not(.button-component-container):not(.icon-component) {
   width: fit-content;
   height: fit-content !important;
-}
-
-.button-component-container.isEdit.isPercent.isAbsolute {
-  width: 100% !important;
-}
-
-.icon-component.isEdit.isPercent.isAbsolute {
-  width: 100% !important;
 }
 
 .isAbsolute > *,
