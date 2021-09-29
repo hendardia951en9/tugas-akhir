@@ -51,7 +51,8 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
   return (
     <div
       className={`button-component-container ${isEdit && "isEdit"}
-      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}
+      ${props.style.width.unit === "%" && "isPercent"}`}
       onClick={
         isEdit
           ? (e) => {
@@ -64,12 +65,17 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
             }
           : undefined
       }
-      style={
-        props.style.position === "absolute" ? generatePosition(props.style) : {}
-      }
+      style={Object.assign(
+        props.style.position === "absolute"
+          ? generatePosition(props.style)
+          : {},
+        isEdit
+          ? {}
+          : { width: props.style.width.value + props.style.width.unit }
+      )}
     >
       <button
-        className={`button-component ${isEdit && "isEdit"}`}
+        className={`button-component ${isEdit && "isEdit"} `}
         style={generateStyle(editStyle(props.style, props.buttonAlignment))}
       >
         {isEdit ? (

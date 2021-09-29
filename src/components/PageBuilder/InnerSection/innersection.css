@@ -8,6 +8,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   position: relative;
+  width: 100% !important;
 }
 
 .inner-section-component-layout {
@@ -25,7 +26,7 @@
   width: fit-content;
 }
 
-.inner-section-component-layout .component-wrapper.isPrecent > * > * {
+.inner-section-component-layout .component-wrapper.isPercent > * > * {
   width: 100% !important;
 }
 

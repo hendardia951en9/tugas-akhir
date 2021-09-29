@@ -14,9 +14,9 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <div
-      className={`icon-component ${isEdit && "isEdit"} ${
-        props.style.position === "absolute" ? "isAbsolute" : ""
-      }`}
+      className={`icon-component ${isEdit && "isEdit"} 
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}
+      ${props.style.width.unit === "%" && "isPercent"}`}
       onClick={
         isEdit
           ? (e) => {

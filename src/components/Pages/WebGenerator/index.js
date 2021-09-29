@@ -2848,7 +2848,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "isPrecent"
+              ? "isPercent"
               : ""
           } ${
             component.props.style.position === "absolute" ? "isAbsolute" : ""
@@ -2930,7 +2930,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "isPrecent"
+              ? "isPercent"
               : ""
           } ${
             component.props.style.position === "absolute" ? "isAbsolute" : ""
@@ -2986,7 +2986,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "isPrecent"
+              ? "isPercent"
               : ""
           } ${
             component.props.style.position === "absolute" ? "isAbsolute" : ""
@@ -3053,7 +3053,7 @@ const WebGenerator = () => {
           className={`component-wrapper ${
             isInsideInnerSectionLayout &&
             component.props.style.width.unit === "%"
-              ? "isPrecent"
+              ? "isPercent"
               : ""
           } ${
             component.props.style.position === "absolute" ? "isAbsolute" : ""

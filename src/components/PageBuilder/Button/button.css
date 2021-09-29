@@ -1,3 +1,16 @@
+.button-component-container:not(.isEdit):not(.isAbsolute) {
+  width: 100% !important;
+}
+
+.button-component-container:not(.isEdit).isAbsolute {
+  width: fit-content !important;
+}
+
+.button-component-container:not(.isEdit).isAbsolute.isPercent
+  .button-component {
+  width: 100% !important;
+}
+
 .button-component {
   cursor: pointer;
   display: block;
@@ -7,10 +20,6 @@
 
 .button-component.isEdit {
   pointer-events: none !important;
-}
-
-.button-component-container:not(.isEdit) {
-  width: 100%;
 }
 
 .button-component a {

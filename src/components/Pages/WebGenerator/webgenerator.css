@@ -55,6 +55,14 @@
   height: fit-content !important;
 }
 
+.button-component-container.isEdit.isPercent.isAbsolute {
+  width: 100% !important;
+}
+
+.icon-component.isEdit.isPercent.isAbsolute {
+  width: 100% !important;
+}
+
 .isAbsolute > *,
 .isAbsolute > * > * {
   position: relative !important;
