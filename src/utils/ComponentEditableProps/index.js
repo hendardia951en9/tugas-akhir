@@ -216,6 +216,8 @@ export const ComponentEditableProps = {
     marginLeft: PropsUnitOptions.marginLeft,
     marginRight: PropsUnitOptions.marginRight,
     marginTop: PropsUnitOptions.marginTop,
+    maxWidth: PropsUnitOptions.maxWidth,
+    minHeight: PropsUnitOptions.minHeight,
     overflow: PropsUnitOptions.overflow,
     paddingBottom: PropsUnitOptions.paddingBottom,
     paddingLeft: PropsUnitOptions.paddingLeft,

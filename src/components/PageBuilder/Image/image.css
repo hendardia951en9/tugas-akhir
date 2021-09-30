@@ -8,6 +8,10 @@
   position: relative;
 }
 
+.image-component-container.isPercent > * {
+  width: 100% !important;
+}
+
 .image-component-container.isAbsolute.isPercent > * {
   width: 100% !important;
 }

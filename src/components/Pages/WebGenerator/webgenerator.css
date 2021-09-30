@@ -50,7 +50,7 @@
   pointer-events: all;
 }
 
-.isAbsolute:not(.inner-section):not(.inner-section-component-container):not(.button-component-container):not(.icon-component) {
+.isAbsolute:not(.inner-section):not(.inner-section-component-container):not(.button-component-container):not(.icon-component):not(.image-component-container) {
   width: fit-content;
   height: fit-content !important;
 }
