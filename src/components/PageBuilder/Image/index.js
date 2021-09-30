@@ -55,7 +55,8 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
   return (
     <div
       className={`image-component-container 
-      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}
+      ${props.style.width.unit === "%" && "isPercent"}`}
       onClick={
         isEdit
           ? (e) => {
@@ -68,9 +69,14 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
             }
           : undefined
       }
-      style={
-        props.style.position === "absolute" ? generatePosition(props.style) : {}
-      }
+      style={Object.assign(
+        props.style.position === "absolute"
+          ? generatePosition(props.style)
+          : {},
+        isEdit
+          ? {}
+          : { width: props.style.width.value + props.style.width.unit }
+      )}
     >
       <div
         className="image-component"
