@@ -85,6 +85,8 @@ const AdminDashboard = () => {
   };
 
   const fetchAdminImageGallery = () => {
+    appContext.setIsLoading(true);
+
     axios
       .get(`${process.env.REACT_APP_SITE_API_URL}/getadminimagegallery`, {
         headers: { "Content-Type": "multipart/form-data" },
