@@ -130,7 +130,7 @@ const Navbar = () => {
                     to="/subscription"
                     activeClassName="navbar-active"
                   >
-                    subscribtion
+                    subscription
                   </NavLink>
                 </li>
                 <li>
