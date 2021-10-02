@@ -23,7 +23,6 @@ const Footer = () => {
           <li className="title">resources</li>
           <li>help</li>
           <li>contact support</li>
-          <li>rift tutorials</li>
           <li>report abuse</li>
         </ul>
         <ul>
