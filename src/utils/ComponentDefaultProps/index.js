@@ -36,7 +36,7 @@ export const ComponentDefaultProps = {
       left: { value: "0", unit: "auto" },
       bottom: { value: "0", unit: "auto" },
       right: { value: "0", unit: "auto" },
-      textAlign: "left",
+      textAlign: "center",
       textDecoration: "none",
       textTransform: "capitalize",
       zIndex: "auto",
