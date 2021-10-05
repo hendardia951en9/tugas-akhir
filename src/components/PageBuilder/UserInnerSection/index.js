@@ -4,7 +4,11 @@ import Layout from "./layout";
 
 const UserInnerSection = ({ props }) => {
   return (
-    <div className="inner-section-component" style={generateStyle(props.style)}>
+    <div
+      className={`inner-section-component 
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
+      style={generateStyle(props.style)}
+    >
       {props.children.length > 0
         ? props.children.map((child) => {
             return (

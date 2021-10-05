@@ -55,8 +55,8 @@
   height: fit-content !important;
 }
 
-.isAbsolute > *,
-.isAbsolute > * > * {
+.isAbsolute:not(.inner-section-component) > *,
+.isAbsolute:not(.inner-section-component) > * > * {
   position: relative !important;
   top: 0 !important;
   left: 0 !important;

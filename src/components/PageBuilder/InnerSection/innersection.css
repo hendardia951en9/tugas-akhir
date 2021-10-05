@@ -2,6 +2,20 @@
   position: relative;
 }
 
+.inner-section-component-container:not(.isAbsolute) > * {
+  bottom: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+}
+
+.inner-section-component:not(.isAbsolute) {
+  bottom: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+}
+
 .inner-section-component {
   align-items: center;
   display: flex;

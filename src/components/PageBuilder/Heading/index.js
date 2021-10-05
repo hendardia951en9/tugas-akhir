@@ -10,7 +10,8 @@ const Heading = ({ componentKey, isEdit, itemTypes, props }) => {
 
   return (
     <h1
-      className="heading-component"
+      className={`heading-component ${isEdit && "isEdit"}
+      ${props.style.position === "absolute" ? "isAbsolute" : ""}`}
       onClick={
         isEdit
           ? (e) => {

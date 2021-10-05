@@ -21,3 +21,11 @@
 .icon-component a {
   display: block;
 }
+
+.icon-component:not(.isAbsolute) > *,
+.icon-component:not(.isAbsolute) > * > * {
+  bottom: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+}

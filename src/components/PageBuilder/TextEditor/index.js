@@ -16,7 +16,7 @@ const TextEditor = ({ componentKey, isEdit, itemTypes, props }) => {
   );
 
   useEffect(() => {
-    if (props.textEditorValue == null) {
+    if (props.textEditorValue === null) {
       setTextEditorValue(null);
     } else {
       setTextEditorValue(
