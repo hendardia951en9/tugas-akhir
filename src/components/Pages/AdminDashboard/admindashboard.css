@@ -1,18 +1,10 @@
 .admin-dashboard {
   --header-height: 60px;
 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: calc(100vh - var(--navbar-height) - var(--header-height));
-}
-
-.admin-dashboard img.background-image {
-  height: 100%;
-  left: 0;
-  object-fit: cover;
-  opacity: 0.1;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
 }
 
 .admin-dashboard header {
@@ -468,6 +460,19 @@
   font-size: 0.9em;
 }
 
+.admin-upload-image-footer .footer-left {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-upload-image .message-modal {
+  height: fit-content;
+  overflow: hidden;
+  max-width: 200px;
+}
+
 @media screen and (max-width: 600px) {
   .admin-dashboard {
     --header-height: 100px;
@@ -497,7 +502,7 @@
   }
 
   .admin-upload-image {
-    --upload-image-footer-size: 70px;
+    --upload-image-footer-size: 90px;
   }
 
   .admin-upload-image-footer input[type="file"]::-webkit-file-upload-button {
@@ -510,5 +515,9 @@
 
   .admin-upload-image-footer button {
     margin-top: 0.2rem;
+  }
+
+  .admin-upload-image .message-modal {
+    max-width: 100px;
   }
 }

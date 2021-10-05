@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import { EncryptStorage } from "encrypt-storage";
@@ -11,9 +11,28 @@ import { PropsTypes } from "../../../utils/PropsTypes";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
+import MessageModal from "../../MessageModal";
 
 //css
 import "./uploadimage.css";
+
+const modalReducer = (modalState, action) => {
+  if (action.type === "SHOW_MODAL") {
+    return {
+      ...modalState,
+      isShowMessageModal: true,
+      messageModalContent: action.payload,
+      messageModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowMessageModal: false,
+    };
+  }
+
+  throw new Error("no matching action type");
+};
 
 let selectedFileMultiple = [];
 
@@ -26,9 +45,18 @@ const UploadImage = ({ isMultiple, location }) => {
   );
   const [isSelected, setIsSelected] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowMessageModal: false,
+    messageModalContent: "hello world",
+    messageModalStatusCode: 200,
+  });
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [userGallery, setUserGallery] = useState([]);
+
+  const closeModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL" });
+  };
 
   const fetchImageGallery = async () => {
     appContext.setIsLoading(true);
@@ -140,7 +168,18 @@ const UploadImage = ({ isMultiple, location }) => {
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          fetchImageGallery();
+          if (res.data.status === 200) {
+            fetchImageGallery();
+          } else {
+            modalDispatch({
+              type: "SHOW_MODAL",
+              payload: res.data.message.error.substring(
+                res.data.message.error.indexOf(">") + 1,
+                res.data.message.error.lastIndexOf("<")
+              ),
+              statusCode: res.data.status,
+            });
+          }
         })
         .catch((err) => {
           //error
@@ -171,7 +210,18 @@ const UploadImage = ({ isMultiple, location }) => {
         .then((res) => {
           //success
           appContext.setIsLoading(false);
-          fetchImageGallery();
+          if (res.data.status === 200) {
+            fetchImageGallery();
+          } else {
+            modalDispatch({
+              type: "SHOW_MODAL",
+              payload: res.data.message.error.substring(
+                res.data.message.error.indexOf(">") + 1,
+                res.data.message.error.lastIndexOf("<")
+              ),
+              statusCode: res.data.status,
+            });
+          }
         })
         .catch((err) => {
           //error
@@ -398,6 +448,13 @@ const UploadImage = ({ isMultiple, location }) => {
               onClick={() => handleClickUpload()}
               text="submit"
             />
+            {modalState.isShowMessageModal && (
+              <MessageModal
+                closeModal={closeModal}
+                content={modalState.messageModalContent}
+                statusCode={modalState.messageModalStatusCode}
+              />
+            )}
           </div>
           <ButtonRipple
             className="upload-image-content-footer-button"

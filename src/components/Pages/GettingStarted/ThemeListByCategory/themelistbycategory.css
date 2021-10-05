@@ -1,18 +1,10 @@
 .theme-list-page {
   --header-height: 60px;
 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: calc(100vh - var(--navbar-height) - var(--header-height));
-}
-
-.theme-list-page img.background-image {
-  height: 100%;
-  left: 0;
-  object-fit: cover;
-  opacity: 0.1;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
 }
 
 .theme-list-page header {

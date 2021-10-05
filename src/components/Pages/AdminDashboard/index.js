@@ -23,6 +23,7 @@ import { useHistory } from "react-router-dom";
 
 //components
 import ButtonRipple from "../../ButtonRipple";
+import MessageModal from "../../MessageModal";
 import PopUpModal from "../../PopUpModal";
 
 //css
@@ -32,11 +33,23 @@ const modalReducer = (modalState, action) => {
   if (action.type === "SHOW_MODAL") {
     return {
       ...modalState,
+      isShowMessageModal: true,
+      messageModalContent: action.payload,
+      messageModalStatusCode: action.statusCode,
+    };
+  } else if (action.type === "CLOSE_MODAL") {
+    return {
+      ...modalState,
+      isShowMessageModal: false,
+    };
+  } else if (action.type === "SHOW_MODAL_POPUP") {
+    return {
+      ...modalState,
       isShowPopUpModal: true,
       popUpModalContent: action.payload,
       popUpModalStatusCode: action.statusCode,
     };
-  } else if (action.type === "CLOSE_MODAL") {
+  } else if (action.type === "CLOSE_MODAL_POPUP") {
     return {
       ...modalState,
       isShowPopUpModal: false,
@@ -61,6 +74,9 @@ const AdminDashboard = () => {
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [isOpenUploadImage, setIsOpenUploadImage] = useState(false);
   const [modalState, modalDispatch] = useReducer(modalReducer, {
+    isShowMessageModal: false,
+    messageModalContent: "hello world",
+    messageModalStatusCode: 200,
     isShowPopUpModal: false,
     popUpModalContent: "hello world",
     popUpModalStatusCode: 200,
@@ -72,6 +88,10 @@ const AdminDashboard = () => {
 
   const closeModal = () => {
     modalDispatch({ type: "CLOSE_MODAL" });
+  };
+
+  const closePopUpModal = () => {
+    modalDispatch({ type: "CLOSE_MODAL_POPUP" });
   };
 
   const closeUploadImage = () => {
@@ -288,7 +308,18 @@ const AdminDashboard = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        fetchAdminImageGallery();
+        if (res.data.status === 200) {
+          fetchAdminImageGallery();
+        } else {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: res.data.message.error.substring(
+              res.data.message.error.indexOf(">") + 1,
+              res.data.message.error.lastIndexOf("<")
+            ),
+            statusCode: res.data.status,
+          });
+        }
       })
       .catch((err) => {
         //error
@@ -411,6 +442,13 @@ const AdminDashboard = () => {
                   onClick={() => handleClickUploadImage()}
                   text="submit"
                 />
+                {modalState.isShowMessageModal && (
+                  <MessageModal
+                    closeModal={closeModal}
+                    content={modalState.messageModalContent}
+                    statusCode={modalState.messageModalStatusCode}
+                  />
+                )}
               </div>
               <div className="footer-right">
                 <ButtonRipple
@@ -426,16 +464,16 @@ const AdminDashboard = () => {
       )}
 
       <div className="navbar-margin">
-        <div className="admin-dashboard">
-          <img
-            className="background-image"
-            src="/assets/images/global/admin_dashboard_background.jpg"
-            alt=""
-          />
-
+        <div
+          className="admin-dashboard"
+          style={{
+            backgroundImage:
+              "url('/assets/images/global/admin_dashboard_background.png')",
+          }}
+        >
           {modalState.isShowPopUpModal && (
             <PopUpModal
-              closeModal={closeModal}
+              closeModal={closePopUpModal}
               content={modalState.popUpModalContent}
               statusCode={modalState.popUpModalStatusCode}
             />
@@ -478,7 +516,7 @@ const AdminDashboard = () => {
                                 onClick={(e) => {
                                   if (e.target === e.currentTarget) {
                                     modalDispatch({
-                                      type: "SHOW_MODAL",
+                                      type: "SHOW_MODAL_POPUP",
                                       payload: {
                                         message:
                                           "are you sure want to delete " +
@@ -623,7 +661,7 @@ const AdminDashboard = () => {
                                 onClick={(e) => {
                                   if (e.target === e.currentTarget) {
                                     modalDispatch({
-                                      type: "SHOW_MODAL",
+                                      type: "SHOW_MODAL_POPUP",
                                       payload: {
                                         message:
                                           "are you sure want to delete " +

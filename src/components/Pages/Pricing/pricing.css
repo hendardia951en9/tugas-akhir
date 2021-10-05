@@ -1,5 +1,8 @@
 .pricing {
   align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -8,17 +11,6 @@
   position: relative;
   text-align: center;
   text-transform: capitalize;
-}
-
-.pricing img.background-image {
-  height: 100%;
-  left: 0;
-  object-fit: cover;
-  opacity: 0.1;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
 }
 
 .package-list {

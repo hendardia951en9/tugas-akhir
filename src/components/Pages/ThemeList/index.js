@@ -117,13 +117,13 @@ const ThemeList = () => {
 
   return (
     <div className="navbar-margin">
-      <section className="theme-list-page">
-        <img
-          className="background-image"
-          src="/assets/images/global/templates_background.jpg"
-          alt=""
-        />
-
+      <section
+        className="theme-list-page"
+        style={{
+          backgroundImage:
+            "url('/assets/images/global/templates_background.png')",
+        }}
+      >
         <header>
           <h2>theme list</h2>
         </header>

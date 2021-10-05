@@ -164,3 +164,8 @@
   display: inline-block;
   font-size: 0.9em;
 }
+
+.upload-video .message-modal {
+  margin-left: 0.5rem;
+  max-width: 200px;
+}

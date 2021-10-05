@@ -1,5 +1,8 @@
 .subscription-page {
   align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -7,17 +10,6 @@
   text-transform: capitalize;
   min-height: calc(100vh - var(--navbar-height));
   position: relative;
-}
-
-.subscription-page img.background-image {
-  height: 100%;
-  left: 0;
-  object-fit: cover;
-  opacity: 0.1;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
 }
 
 .subscription-page h1 span {

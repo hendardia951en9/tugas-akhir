@@ -333,41 +333,6 @@ const Pricing = () => {
     }
   };
 
-  // eslint-disable-next-line
-  const handleClickBCAVACallback = async () => {
-    appContext.setIsLoading(true);
-
-    const formData = generateFormData({
-      order_id: "1",
-      status_code: "200",
-    });
-
-    axios
-      .post(
-        `${process.env.REACT_APP_SITE_API_URL}/bcavapaymentcallback`,
-        formData,
-        {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
-      )
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
-      });
-  };
-
   useEffect(() => {
     $("input").each(function () {
       if ($(this).val().length > 0) {
@@ -414,8 +379,13 @@ const Pricing = () => {
 
   return (
     <div className="navbar-margin">
-      <div className="pricing">
-        {/* <button onClick={handleClickBCAVACallback}>bcava callback</button> */}
+      <div
+        className="pricing"
+        style={{
+          backgroundImage:
+            "url('/assets/images/global/pricing_background.png')",
+        }}
+      >
         {isOpenChoosePayment && (
           <div className="payment-list">
             <div
@@ -603,11 +573,6 @@ const Pricing = () => {
           </div>
         )}
 
-        <img
-          className="background-image"
-          src="/assets/images/global/pricing_background.jpg"
-          alt=""
-        />
         <h3>no hidden fees. cancel at any time</h3>
         <div className="package-list">
           {packages

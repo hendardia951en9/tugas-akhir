@@ -72,13 +72,13 @@ const Subscription = () => {
 
   return (
     <div className="navbar-margin">
-      <section className="subscription-page">
-        <img
-          className="background-image"
-          src="/assets/images/global/subscription_background.jpg"
-          alt=""
-        />
-
+      <section
+        className="subscription-page"
+        style={{
+          backgroundImage:
+            "url('/assets/images/global/subscription_background.png')",
+        }}
+      >
         {subscriptionData ? (
           <>
             <h1>

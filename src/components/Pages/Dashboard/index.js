@@ -191,13 +191,13 @@ const Dashboard = () => {
 
   return (
     <div className="navbar-margin">
-      <div className="dashboard">
-        <img
-          className="background-image"
-          src="/assets/images/global/user_dashboard_background.jpg"
-          alt=""
-        />
-
+      <div
+        className="dashboard"
+        style={{
+          backgroundImage:
+            "url('/assets/images/global/user_dashboard_background.png')",
+        }}
+      >
         {modalState.isShowPopUpModal && (
           <PopUpModal
             closeModal={closeModal}
