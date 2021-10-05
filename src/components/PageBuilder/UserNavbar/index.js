@@ -62,6 +62,16 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
         <ul style={{ gap: props.style.gap.value + props.style.gap.unit }}>
           <li
             className="logo"
+            onClick={
+              isEdit
+                ? (e) => {
+                    pageBuilderContext.handleClickPageBuilderComponent(
+                      itemTypes,
+                      componentKey
+                    );
+                  }
+                : undefined
+            }
             style={{
               display: props.userNavbarLogoIsShow === true ? "block" : "none",
             }}

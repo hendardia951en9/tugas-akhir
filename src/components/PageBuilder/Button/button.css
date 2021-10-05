@@ -6,6 +6,10 @@
   width: 100% !important;
 }
 
+.button-component-container:not(.isEdit).isAbsolute:not(.isPercent) {
+  width: fit-content !important;
+}
+
 .button-component-container:not(.isEdit).isAbsolute.isPercent
   .button-component {
   width: 100% !important;

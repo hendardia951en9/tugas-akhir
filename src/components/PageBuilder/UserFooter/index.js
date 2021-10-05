@@ -31,6 +31,16 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
       >
         <img
           alt=""
+          onClick={
+            isEdit
+              ? (e) => {
+                  pageBuilderContext.handleClickPageBuilderComponent(
+                    itemTypes,
+                    componentKey
+                  );
+                }
+              : undefined
+          }
           src={props.userFooterLogo}
           style={{
             maxHeight:
@@ -160,6 +170,16 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
       {props.userFooterWatermarkIsShow && (
         <div
           className="footer-watermark"
+          onClick={
+            isEdit
+              ? (e) => {
+                  pageBuilderContext.handleClickPageBuilderComponent(
+                    itemTypes,
+                    componentKey
+                  );
+                }
+              : undefined
+          }
           style={generateStyle(props.watermarkStyle)}
         >
           {props.userFooterWatermarkText}
