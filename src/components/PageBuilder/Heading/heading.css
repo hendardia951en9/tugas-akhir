@@ -1,5 +1,6 @@
 .heading-component {
   cursor: default;
+  word-wrap: break-word;
 }
 
 .heading-component:not(.isAbsolute) {

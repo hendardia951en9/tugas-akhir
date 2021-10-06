@@ -47,6 +47,7 @@ import Dashboard from "./components/Pages/Dashboard";
 import GettingStarted from "./components/Pages/GettingStarted";
 import Home from "./components/Pages/Home";
 import ManageUserPages from "./components/Pages/ManageUserPages";
+import NotFound from "./components/Pages/NotFound";
 import Pricing from "./components/Pages/Pricing";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
@@ -163,7 +164,7 @@ const App = () => {
               </DndProvider>
             </Route>
             <Route path="*">
-              <h1>404 - Not Found</h1>
+              <NotFound />
             </Route>
           </Switch>
         </AppContext.Provider>

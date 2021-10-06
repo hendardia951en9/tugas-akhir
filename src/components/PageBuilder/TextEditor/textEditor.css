@@ -6,6 +6,7 @@
 
 .text-editor-component-container span {
   font-family: unset;
+  word-wrap: break-word;
 }
 
 .text-editor-component-container > * {
