@@ -5,6 +5,7 @@ import axios from "axios";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { generateFormData } from "../../../utils/generateFormData";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 
 //components
@@ -41,6 +42,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const nameRef = useRef(null);
+  const ReCAPTCHARef = useRef(null);
   const { ref } = register("name");
   const [modalState, modalDispatch] = useReducer(modalReducer, {
     isShowMessageModal: false,
@@ -53,33 +55,41 @@ const SignUp = () => {
   };
 
   const onSubmit = async (data) => {
-    appContext.setIsLoading(true);
-    const formData = generateFormData(data);
+    if (ReCAPTCHARef.current.getValue()) {
+      appContext.setIsLoading(true);
+      const formData = generateFormData(data);
 
-    axios
-      .post(`${process.env.REACT_APP_SITE_API_URL}/registeruser`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-      .then((res) => {
-        //success
-        appContext.setIsLoading(false);
-        modalDispatch({
-          type: "SHOW_MODAL",
-          payload: res.data.message,
-          statusCode: res.data.status,
+      axios
+        .post(`${process.env.REACT_APP_SITE_API_URL}/registeruser`, formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        .then((res) => {
+          //success
+          appContext.setIsLoading(false);
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: res.data.message,
+            statusCode: res.data.status,
+          });
+        })
+        .catch((err) => {
+          //error
+          if (err.response) {
+            console.log("res error", err.response.data);
+          } else if (err.request) {
+            console.log("req error", err.request.data);
+          } else {
+            console.log("Error", err.message);
+          }
+          appContext.setIsLoading(false);
         });
-      })
-      .catch((err) => {
-        //error
-        if (err.response) {
-          console.log("res error", err.response.data);
-        } else if (err.request) {
-          console.log("req error", err.request.data);
-        } else {
-          console.log("Error", err.message);
-        }
-        appContext.setIsLoading(false);
+    } else {
+      modalDispatch({
+        type: "SHOW_MODAL",
+        payload: "Please verify the ReCaptcha.",
+        statusCode: 400,
       });
+    }
   };
 
   useEffect(() => {
@@ -211,6 +221,11 @@ const SignUp = () => {
               </span>
             )}
           </div>
+          <ReCAPTCHA
+            sitekey={`${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`}
+            ref={ReCAPTCHARef}
+            className="g-recaptcha"
+          />
 
           <ButtonRipple type="submit" text="sign up" />
         </form>
