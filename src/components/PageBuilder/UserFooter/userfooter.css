@@ -34,9 +34,3 @@ a {
   padding: 0.7em;
   text-align: center;
 }
-
-@media screen and (max-width: 300px) {
-  .user-footer-container {
-    justify-content: flex-start !important;
-  }
-}
