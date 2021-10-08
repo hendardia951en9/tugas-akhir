@@ -13,3 +13,7 @@
 .video-component-wrapper > * {
   pointer-events: all;
 }
+
+.video-component-wrapper.isPercent .video-component {
+  width: 100% !important;
+}

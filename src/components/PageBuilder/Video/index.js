@@ -15,7 +15,11 @@ const Video = ({ componentKey, isEdit, itemTypes, props }) => {
   const pageBuilderContext = useContext(PageBuilderContext);
 
   return (
-    <div className="video-component-wrapper" style={generateStyle(props.style)}>
+    <div
+      className={`video-component-wrapper 
+      ${props.style.width.unit === "%" && "isPercent"}`}
+      style={generateStyle(props.style)}
+    >
       {isEdit && (
         <ButtonRipple
           className="video-component-edit-button"
