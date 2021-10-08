@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "https://hendardi.joansantoso.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -33,7 +34,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "swiper": "^6.5.3",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -6,6 +6,7 @@ import { generateStyle } from "../../../utils/generateStyle";
 import Geocoder from "react-map-gl-geocoder";
 import { PageBuilderContext } from "../../Pages/WebGenerator";
 import ReactMapGL, { Marker } from "react-map-gl";
+import mapboxgl from "mapbox-gl";
 
 //component
 import ButtonRipple from "../../ButtonRipple";
@@ -14,6 +15,9 @@ import ButtonRipple from "../../ButtonRipple";
 import "./mapcomponent.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+
+mapboxgl.workerClass =
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default; // eslint-disable-line import/no-webpack-loader-syntax
 
 const MapComponent = ({ componentKey, isEdit, itemTypes, props }) => {
   const MAPBOX_API = `${process.env.REACT_APP_MAPBOX_API}`;
