@@ -169,11 +169,6 @@ const Subscription = () => {
       });
   };
 
-  const extendSubscription = () => {
-    setTransactionKind("extend");
-    setIsOpenChoosePayment(true);
-  };
-
   const handleClickBCAVAPayment = () => {
     setIsBCAVAPayment(true);
   };
@@ -282,7 +277,12 @@ const Subscription = () => {
     window.MidtransNew3ds.getCardToken(cardData, options);
   };
 
-  const upgradeSubscription = () => {
+  const handleClickExtendSubscription = () => {
+    setTransactionKind("extend");
+    setIsOpenChoosePayment(true);
+  };
+
+  const handleClickUpgradeSubscription = () => {
     setTransactionKind("upgrade");
     setIsOpenChoosePayment(true);
   };
@@ -544,7 +544,7 @@ const Subscription = () => {
                 <ButtonRipple
                   fa={<FontAwesomeIcon icon={faShoppingCart} />}
                   text="vvip for 8000"
-                  onClick={() => upgradeSubscription()}
+                  onClick={() => handleClickUpgradeSubscription()}
                 />
               ) : (
                 ""
@@ -552,7 +552,7 @@ const Subscription = () => {
               <ButtonRipple
                 fa={<FontAwesomeIcon icon={faShoppingCart} />}
                 text="extend for 5000"
-                onClick={() => extendSubscription()}
+                onClick={() => handleClickExtendSubscription()}
               />
             </div>
           </>
