@@ -122,71 +122,74 @@ const SignIn = () => {
 
   return (
     <div className="navbar-margin">
-      <div className="sign-in-box">
-        <h2>Sign In</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {modalState.isShowMessageModal && (
-            <MessageModal
-              closeModal={closeModal}
-              content={modalState.messageModalContent}
-              statusCode={modalState.messageModalStatusCode}
-            />
-          )}
-          <div className="form-input">
-            <input
-              id="email"
-              className={errors.email && "form-input-error"}
-              {...register("email", {
-                required: "this field is required",
-                pattern: {
-                  value:
-                    // eslint-disable-next-line
-                    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "invalid format",
-                },
-              })}
-              ref={(e) => {
-                ref(e);
-                emailRef.current = e; // you can still assign to ref
-              }}
-            />
-            <label htmlFor="email">
-              <span>email</span>
-            </label>
-            {errors.email && (
-              <span className="error-message">
-                <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;
-                {errors.email.message}
-              </span>
+      <div className="sign-in">
+        <div className="sign-in-box">
+          <h2>Sign In</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {modalState.isShowMessageModal && (
+              <MessageModal
+                closeModal={closeModal}
+                content={modalState.messageModalContent}
+                statusCode={modalState.messageModalStatusCode}
+              />
             )}
-          </div>
+            <div className="form-input">
+              <input
+                id="email"
+                className={errors.email && "form-input-error"}
+                {...register("email", {
+                  required: "this field is required",
+                  pattern: {
+                    value:
+                      // eslint-disable-next-line
+                      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "invalid format",
+                  },
+                })}
+                ref={(e) => {
+                  ref(e);
+                  emailRef.current = e; // you can still assign to ref
+                }}
+              />
+              <label htmlFor="email">
+                <span>email</span>
+              </label>
+              {errors.email && (
+                <span className="error-message">
+                  <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
 
-          <div className="form-input">
-            <input
-              id="password"
-              type="password"
-              className={errors.password && "form-input-error"}
-              {...register("password", {
-                required: "this field is required",
-              })}
-            />
-            <label htmlFor="password">
-              <span>password</span>
-            </label>
-            {errors.password && (
-              <span className="error-message">
-                <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;
-                {errors.password.message}
-              </span>
-            )}
-          </div>
+            <div className="form-input">
+              <input
+                id="password"
+                type="password"
+                className={errors.password && "form-input-error"}
+                {...register("password", {
+                  required: "this field is required",
+                })}
+              />
+              <label htmlFor="password">
+                <span>password</span>
+              </label>
+              {errors.password && (
+                <span className="error-message">
+                  <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
 
-          <ButtonRipple type="submit" text="sign in" />
-        </form>
-        <p className="asterisk">
-          &#42; By logging in, you agree to our Terms of Use and to receive our
-          emails & updates and acknowledge that you read our Privacy Policy.
-        </p>
+            <ButtonRipple type="submit" text="sign in" />
+          </form>
+          <p className="asterisk">
+            &#42; By logging in, you agree to our Terms of Use and to receive
+            our emails & updates and acknowledge that you read our Privacy
+            Policy.
+          </p>
+        </div>
       </div>
     </div>
   );

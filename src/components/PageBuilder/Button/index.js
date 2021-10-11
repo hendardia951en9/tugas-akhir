@@ -82,7 +82,7 @@ const Button = ({ componentKey, isEdit, itemTypes, props }) => {
         className={`button-component ${isEdit && "isEdit"} `}
         style={generateStyle(editStyle(props.style, props.buttonAlignment))}
       >
-        {isEdit ? (
+        {isEdit || props.linkTo === "" ? (
           props.text
         ) : checkLinkTo(props.linkTo) === true ? (
           <NavLink exact to={props.linkTo}>

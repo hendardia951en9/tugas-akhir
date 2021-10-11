@@ -20,3 +20,7 @@
   top: 0 !important;
   right: 0 !important;
 }
+
+.star-rating-component.isEdit.isPercent {
+  width: 100% !important;
+}

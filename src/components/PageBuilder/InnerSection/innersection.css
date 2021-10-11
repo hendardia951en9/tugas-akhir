@@ -52,6 +52,11 @@
 }
 
 .inner-section-component-layout
+  > .image-component-container:not(.isEdit):not(.isAbsolute):not(.isPercent) {
+  width: fit-content !important;
+}
+
+.inner-section-component-layout
   .component-wrapper.isPercent
   .star-rating-component.isEdit {
   width: 100% !important;

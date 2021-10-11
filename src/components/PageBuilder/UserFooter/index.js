@@ -97,7 +97,7 @@ const UserFooter = ({ componentKey, isEdit, itemTypes, props }) => {
                           : undefined
                       }
                     >
-                      {isEdit ? (
+                      {isEdit || submenu.props.linkTo === "" ? (
                         submenu.props.userFooterSubMenuIsShowIcon === true ? (
                           <>
                             <IconPickerItem

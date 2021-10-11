@@ -1,3 +1,7 @@
+.sign-up {
+  min-height: calc(100vh - var(--navbar-height));
+}
+
 .sign-up-box {
   border: 1px solid lightgray;
   border-radius: 5px;

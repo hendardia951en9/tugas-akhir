@@ -9,7 +9,12 @@
   justify-content: center;
   text-transform: capitalize;
   min-height: calc(100vh - var(--navbar-height));
+  padding-top: 3rem;
   position: relative;
+}
+
+.subscription-page h1 {
+  text-align: center;
 }
 
 .subscription-page h1 span {
@@ -22,6 +27,15 @@
 }
 
 .subscription-page button {
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 1em 3em;
+}
+
+.subscription-options {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+  margin-bottom: 3rem;
 }

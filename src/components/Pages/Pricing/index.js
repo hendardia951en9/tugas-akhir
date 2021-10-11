@@ -83,6 +83,7 @@ const Pricing = () => {
       packageID: packageID,
       tokenID: params,
       userID: encryptStorage.getItem("user_logged_in").user_id,
+      transactionKind: "buy",
     });
 
     axios
@@ -92,9 +93,12 @@ const Pricing = () => {
       .then((res) => {
         //success
         appContext.setIsLoading(false);
-        console.log(res.data);
-        if (res.data.status_code === 200) {
-          handleClickCloseChoosePayment();
+        if (res.data.status_code === "200") {
+          modalDispatch({
+            type: "SHOW_MODAL",
+            payload: res.data.status_message,
+            statusCode: parseInt(res.data.status_code),
+          });
         } else {
           modalDispatch({
             type: "SHOW_MODAL",
@@ -169,6 +173,7 @@ const Pricing = () => {
 
     const formData = generateFormData({
       userID: encryptStorage.getItem("user_logged_in").user_id,
+      transactionKind: "buy",
     });
 
     axios

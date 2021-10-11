@@ -1,3 +1,7 @@
+.sign-in {
+  min-height: calc(100vh - var(--navbar-height));
+}
+
 .sign-in-box {
   border: 1px solid lightgray;
   border-radius: 5px;

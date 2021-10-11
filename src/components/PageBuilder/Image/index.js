@@ -94,7 +94,7 @@ const Image = ({ componentKey, isEdit, itemTypes, props }) => {
         }
         style={generateStyle(editStyle(props.style, props.imageAlignment))}
       >
-        {isEdit ? (
+        {isEdit || props.linkTo === "" ? (
           <img
             src={getBackgroundImageUrl(props.style.backgroundImage)}
             style={{ visibility: "hidden" }}

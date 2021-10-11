@@ -109,7 +109,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                       : undefined
                   }
                 >
-                  {isEdit ? (
+                  {isEdit || menu.props.linkTo === "" ? (
                     <div className="component-wrapper">{menu.props.text}</div>
                   ) : checkLinkTo(menu.props.linkTo) === true ? (
                     <NavLink
@@ -141,7 +141,7 @@ const UserNavbar = ({ componentKey, isEdit, itemTypes, props }) => {
                                 : undefined
                             }
                           >
-                            {isEdit ? (
+                            {isEdit || submenu.props.linkTo === "" ? (
                               submenu.props.text
                             ) : checkLinkTo(submenu.props.linkTo) === true ? (
                               <NavLink

@@ -38,7 +38,7 @@ const Icon = ({ componentKey, isEdit, itemTypes, props }) => {
           : { width: props.style.width.value + props.style.width.unit }
       )}
     >
-      {isEdit ? (
+      {isEdit || props.linkTo === "" ? (
         <IconPickerItem
           containerStyles={Object.assign(generateStyle(props.style), {
             alignItems: "center",
