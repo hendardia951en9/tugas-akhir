@@ -387,6 +387,7 @@
 }
 
 .gallery-image-container label {
+  background-color: rgba(0, 0, 0, 0.5);
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -411,7 +412,6 @@
 
 .gallery-image-container input[type="radio"]:checked + label,
 .gallery-image-container input[type="checkbox"]:checked + label {
-  background-color: rgba(0, 0, 0, 0.5);
   border: 3px solid #3799ee;
 }
 

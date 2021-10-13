@@ -13,3 +13,7 @@
   top: 1rem;
   z-index: 10;
 }
+
+.image-gallery-slide .image-gallery-image {
+  object-fit: cover !important;
+}
