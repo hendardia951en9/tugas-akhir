@@ -6,8 +6,7 @@
   pointer-events: none;
 }
 
-.icon-component:not(.isEdit).isPercent > *,
-.icon-component:not(.isEdit).isPercent > * > * {
+.icon-component:not(.isEdit).isPercent > * {
   width: 100% !important;
 }
 
